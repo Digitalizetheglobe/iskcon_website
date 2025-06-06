@@ -1,103 +1,396 @@
-import Image from "next/image";
+import React from 'react';
+import HeroSection from '@/app/components/HeroSection';
+import Image from 'next/image';
 
-export default function Home() {
+import Link from 'next/link';
+
+const causes = [
+  {
+    title: 'Annadaan',
+    description:
+      'Provide freshly cooked, sanctified meals to those in need. Your kindness fills plates and hearts.',
+    icon: '/icons/donation-icon.svg',
+  },
+  {
+    title: 'Sponsor a Child',
+    description:
+      'Support a child’s education, nutrition, and wellbeing. Change one life forever.',
+    icon: '/icons/donation-icon.svg',
+  },
+  {
+    title: 'Vidya Daan',
+    description:
+      'Help light the lamp of learning. Your support shares sacred teachings and education with young hearts.',
+    icon: '/icons/donation-icon.svg',
+  },
+];
+const cardData = [
+  {
+    id: 1,
+    name: "Lorem ipsum",
+    subtitle: "Lorem ipsum",
+    donation: "Donated ₹1000 in Anadaan",
+    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
+    avatar: "/images/e.png"
+  },
+  {
+    id: 2,
+    name: "Lorem ipsum",
+    subtitle: "Lorem ipsum",
+    donation: "Donated ₹1000 in Anadaan",
+    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
+    avatar: "/images/e.png"
+  },
+  {
+    id: 3,
+    name: "Lorem ipsum",
+    subtitle: "Lorem ipsum",
+    donation: "Donated ₹1000 in Anadaan",
+    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
+    avatar: "/images/e.png"
+  }
+];
+
+  const leftGridImages = [
+    { src: '/gallery/person1.jpg', name: 'S. S. Rajamani' },
+    { src: '/gallery/person2.jpg', name: 'Smt. Sai Pallavi' },
+    { src: '/gallery/person3.jpg', name: 'Smt. P.V Sindhu' },
+    { src: '/gallery/person4.jpg', name: 'Pradeep Machiraju' },
+    { src: '/gallery/person5.jpg', name: 'K. Keshava Rao' },
+    { src: '/gallery/person6.jpg', name: 'Bonthu Rammohan' },
+    { src: '/gallery/person7.jpg', name: 'Smt. K.Kavitha' },
+    { src: '/gallery/person8.jpg', name: 'Smt. Gadwal Vijayalaxmi' }
+  ];
+
+  const rightGridImages = [
+    { src: '/gallery/person9.jpg', name: 'Chandrababu Naidu' },
+    { src: '/gallery/person10.jpg', name: 'K. T. Rama Rao' },
+    { src: '/gallery/person11.jpg', name: 'Chandrashekar Rao' },
+    { src: '/gallery/person12.jpg', name: 'T. Harish Rao' },
+    { src: '/gallery/person13.jpg', name: 'G. Kishan Reddy' },
+    { src: '/gallery/person14.jpg', name: 'S. S. L. Narasimhan' }
+  ];
+
+
+
+
+const HomePage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main className="bg-white text-gray-800">
+      <HeroSection/>
+   
+
+      <section className="py-12 px-4 md:px-10 lg:px-20">
+        {/* <h2 className="text-3xl md:text-4xl font-semibold text-center text-orange-600 mb-4">
+          Give Nourishment, <span className="text-yellow-500">Give Knowledge</span>, Give Hope
+        </h2>
+        <p className="text-center text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-10">
+          Decide the path of your kindness — each one leads to hope and transformation
+        </p> */}
+
+        {/* ---------------------------denation form-------------------  */}
+<section className='max-w-6xl mx-auto px-4 mb-10 lg:mb-20'>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {causes.map((option, idx) => (
+      <div
+        key={idx}
+        style={{
+          borderRadius: '30px',
+          border: '1px solid #CFCFCF',
+          background: 'linear-gradient(135deg, #E1E6E8 100%, #F9FEFF 0%)',
+          boxShadow:
+            '1px 1px 2px 0px rgba(255, 255, 255, 0.30) inset, -1px -1px 2px 0px rgba(209, 213, 215, 0.50) inset, -15px 15px 30px 0px rgba(209, 213, 215, 0.20), 15px -15px 30px 0px rgba(209, 213, 215, 0.20), -15px -15px 30px 0px rgba(255, 255, 255, 0.90), 15px 15px 38px 0px rgba(209, 213, 215, 0.90)',
+          height: '257px',
+          maxWidth: '434px',
+          width: '100%',
+        }}
+        className="p-6 text-left flex flex-col justify-center items-center hover:scale-105 transition duration-300 ease-in-out"
+      >
+        <div className="flex justify-start w-full mb-4">
+          <div className="bg-orange-200 p-4 rounded-full">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/images/pic1.png"
+              alt={option.title}
+              width={32}
+              height={32}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <h3 className="text-lg font-semibold mb-2 text-gray-900 text-left w-full">{option.title}</h3>
+        <p className="text-sm text-gray-600 text-left w-full">{option.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+        {/* ---------------------------phn -------------------  */}
+<section
+  style={{
+    display: 'flex',
+    width: '1100px',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+    margin: '0 auto',
+  }}
+>
+  <Image
+    src="/images/pic2.png"
+    
+    alt="Donation Journey Layout"
+    width={1337}
+    height={768}
+    style={{ borderRadius: '40px', width: '100%', height: 'auto' }}
+  />
+</section>
+{/* ------------------------impact------------------ */}
+
+<section>
+   <div className=" flex items-center justify-center bg-white">
+      <div className="flex flex-col items-center gap-4 w-[523px] text-center text-[--text-dark-charcoal] font-['Urbanist']">
+        <button className="bg-[#F7F7F8] rounded-full px-2 py-1 shadow-[0_4px_24px_rgba(0,0,0,0.15)] text-[18px] font-semibold border-none cursor-pointer">
+          ✦ Testimonials
+        </button>
+        <h1 className="text-[40px] font-extrabold leading-[120%]">
+          Your <span className="text-[#FF9C5A] italic">Impact</span> in Their Words
+        </h1>
+        <p className="text-[20px] text-[#4F4F4F] leading-[1.5]">
+          Real voices. Real change. Hear from those whose lives have <br />
+          been transformed by your kindness.
+        </p>
+      </div>
     </div>
+</section>
+
+
+{/* ------------------------------------------------------- */}
+
+<section className='className=" flex items-center justify-center bg-white max-w-5xl mx-auto'>
+      {/* <div className="inline-flex items-center gap-5 p-4">
+      {cardData.map((card) => (
+        <div
+          key={card.id}
+          className="rounded-[40px] bg-[#E76F51] w-[427px] h-[488px] flex-shrink-0 aspect-[7/8] p-8 flex flex-col justify-between"
+        >
+          <div className="text-[#ECECE2] font-inter text-2xl font-normal leading-[150%]">
+            {card.text}
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+              <Image
+                src={card.avatar}
+                alt={card.name}
+                width={64}
+                height={64}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col">
+              <h3 className="text-[#ECECE2] font-inter text-xl font-semibold">
+                {card.name}
+              </h3>
+              <p className="text-[#ECECE2] font-inter text-sm opacity-80">
+                {card.subtitle}
+              </p>
+              <p className="text-[#ECECE2] font-inter text-sm font-medium">
+                {card.donation}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div> */}
+<div className="inline-flex items-center gap-5 p-4  ">
+  {cardData.map((card) => (
+    <div
+      key={card.id}
+      className="rounded-[40px] bg-[#E76F51] w-[340px] h-[400px] flex-shrink-0 [aspect-ratio:7/8] p-8 flex flex-col justify-between hover:scale-105 transition duration-300 ease-in-out"
+    >
+      <div className="text-[var(--Bg---color,#ECECE2)] font-inter text-[24px] font-normal leading-[150%]">
+        {card.text}
+      </div>
+      <div className="flex items-center gap-4 ">
+        <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+          <Image
+            src={card.avatar}
+            alt={card.name}
+            width={64}
+            height={64}
+            className="w-full h-full object-cover  "
+          />
+        </div>
+        <div className="flex flex-col ">
+          <h3 className="text-[#ECECE2] fontt-inter text-xl font-semibold">
+            {card.name}
+          </h3>
+          <p className="text-[#ECECE2] font-inter text-sm opacity-80">
+            {card.subtitle}
+          </p>
+          <p className="text-[#ECECE2] font-inter text-sm font-medium">
+            {card.donation}
+          </p>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+</section>
+
+{/* -------------------gallery------------------------ */}
+<div>
+<div className="h-[50vh]  flex items-center justify-center">
+  <section className="flex w-[561px] flex-col items-center gap-[10px]">
+    <img
+      src="/images/ik3.png"
+      alt="Descriptive Alt Text"
+      width={400}
+      height={300}
+      className="rounded-xl object-cover"
+    />
+  </section>
+</div>
+
+</div>
+<section className="flex items-center justify-center  bg-white">
+
+
+
+<div className="grid grid-cols-6 grid-rows-5 gap-4">
+    <div className="col-span-2 row-span-2 ">
+      <Image
+        src="/images/image-150.png"
+        alt="Gallery 1"
+        width={520}
+        height={320}
+        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
+      />
+    </div>
+    <div className="col-span-2 row-span-3 col-start-1 row-start-3">
+      <Image
+        src="/images/isk2.png"
+        alt="Gallery 3"
+        width={520}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
+      />
+    </div>
+    <div className="col-span-2 row-span-4 col-start-3 row-start-1">
+       <Image
+        src="/images/image-160.png"
+        alt="Gallery 2"
+        width={250}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
+      />
+    </div>
+    <div className="col-span-2 row-span-2 col-start-5 row-start-1">
+      <Image
+        src="/images/image-170.png"
+        alt="Gallery 3"
+        width={520}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
+      />
+    </div>
+    <div className="col-span-2 row-span-3 col-start-5 row-start-3">
+        <Image
+        src="/images/isk2.png"
+        alt="Gallery 3"
+        width={520}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
+      />
+    </div>
+    <div className="col-span-2 col-start-3 row-start-5 ">
+<Image
+        src="/images/ik.png"
+        alt="Gallery 3"
+        width={400}
+        height={400}
+        className="w- h- object-cover hover:scale-105 transition duration-300 ease-in-out"
+      />
+
+
+    </div>
+</div>
+    
+    
+    
+  {/* <div className="grid grid-cols-4 grid-rows- gap-4 max-w-7xl">
+    <div className="row-span-2">
+      <Image
+        src="/images/image-150.png"
+        alt="Gallery 1"
+        width={520}
+        height={320}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div className="row-span-3">
+      <Image
+        src="/images/image-160.png"
+        alt="Gallery 2"
+        width={250}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div className="row-span-2">
+      <Image
+        src="/images/isk2.png"
+        alt="Gallery 3"
+        width={520}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div className="row-span-3 row-start-3">
+      <Image
+        src="/images/image-170.png"
+        alt="Gallery 5"
+        width={520}
+        height={320}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div className="row-span-3 col-start-3 row-start-3">
+      <Image
+        src="/images/isk1.png"
+        alt="Gallery 6"
+        width={520}
+        height={480}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div className="row-span-2 col-start-2 row-start-4">
+      <p className="text-[#2C2C2C] text-center font-urbanist text-[36px] font-bold leading-[120%]">
+        Real change doesn’t always
+      </p>
+    </div>
+  </div> */}
+</section>
+
+        {/* <div className="mt-16">
+          
+        </div> */}
+        
+      </section>
+      {/* <section className="py-4 px-4 md:px-10 lg:px-20">
+      </section> */}
+      {/* <section className="py-12 px-4 md:px-10 lg:px-20">
+      </section> */}
+      {/* <Footer /> */}
+       {/* <section>
+         <AboutUs />
+       </section> */}
+    </main>
   );
-}
+};
+
+
+
+export default HomePage;
+
