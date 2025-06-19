@@ -39,7 +39,7 @@ export default function Navbar() {
       </nav>
 
       {/* Donate Button */}
-      <Link href="/donate">
+      <Link href="/donation" className={linkClass('/donation')}>
         <button className="bg-white text-blue-900 px-5 py-2 rounded-full hover:bg-blue-900 hover:text-white transition">
           Donate Now
         </button>

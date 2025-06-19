@@ -1,6 +1,8 @@
-import React from 'react';
+"use client"
+
 import HeroSection from '@/app/components/HeroSection';
 import Image from 'next/image';
+import React, { useState } from 'react';
 
 import Link from 'next/link';
 
@@ -75,6 +77,16 @@ const cardData = [
 
 
 const HomePage = () => {
+  const [zoomed, setZoomed] = useState<number | null>(null);
+
+const galleryImages = [
+  { src: '/images/image-150.png', alt: 'Gallery 1', width: 520, height: 320 },
+  { src: '/images/isk2.png', alt: 'Gallery 3', width: 520, height: 480 },
+  { src: '/images/image-160.png', alt: 'Gallery 2', width: 250, height: 480 },
+  { src: '/images/image-170.png', alt: 'Gallery 3', width: 520, height: 480 },
+  { src: '/images/isk2.png', alt: 'Gallery 3', width: 520, height: 480 },
+  { src: '/images/ik.png', alt: 'Gallery 3', width: 400, height: 400 },
+];
   return (
 
     <main className="bg-white text-gray-800">
@@ -254,123 +266,96 @@ const HomePage = () => {
 </div>
 
 </div>
-<section className="flex items-center justify-center  bg-white">
+<section className="flex items-center justify-center  bg-white  max-w-10xl mx-auto">
 
 
 
 <div className="grid grid-cols-6 grid-rows-5 gap-4">
-    <div className="col-span-2 row-span-2 ">
-      <Image
-        src="/images/image-150.png"
-        alt="Gallery 1"
-        width={520}
-        height={320}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-3 col-start-1 row-start-3">
-      <Image
-        src="/images/isk2.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-4 col-start-3 row-start-1">
-       <Image
-        src="/images/image-160.png"
-        alt="Gallery 2"
-        width={250}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-2 col-start-5 row-start-1">
-      <Image
-        src="/images/image-170.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-3 col-start-5 row-start-3">
-        <Image
-        src="/images/isk2.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 col-start-3 row-start-5 ">
-<Image
-        src="/images/ik.png"
-        alt="Gallery 3"
-        width={400}
-        height={400}
-        className="w- h- object-cover hover:scale-105 transition duration-300 ease-in-out"
-      />
-
-
-    </div>
+  <div className="col-span-2 row-span-2 ">
+    <Image
+      src={galleryImages[0].src}
+      alt={galleryImages[0].alt}
+      width={galleryImages[0].width}
+      height={galleryImages[0].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(0)}
+    />
+  </div>
+  <div className="col-span-2 row-span-3 col-start-1 row-start-3">
+    <Image
+      src={galleryImages[1].src}
+      alt={galleryImages[1].alt}
+      width={galleryImages[1].width}
+      height={galleryImages[1].height}
+     className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(1)}
+    />
+  </div>
+  <div className="col-span-2 row-span-4 col-start-3 row-start-1">
+    <Image
+      src={galleryImages[2].src}
+      alt={galleryImages[2].alt}
+      width={galleryImages[2].width}
+      height={galleryImages[2].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(2)}
+    />
+  </div>
+  <div className="col-span-2 row-span-2 col-start-5 row-start-1">
+    <Image
+    src={galleryImages[3].src}
+      alt={galleryImages[3].alt}
+      width={galleryImages[3].width}
+      height={galleryImages[3].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(3)}
+    />
+  </div>
+  <div className="col-span-2 row-span-3 col-start-5 row-start-3">
+    <Image
+      src={galleryImages[4].src}
+      alt={galleryImages[4].alt}
+      width={galleryImages[4].width}
+      height={galleryImages[4].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(4)}
+    />
+  </div>
+  <div className="col-span-2 col-start-3 row-start-5 ">
+    <Image
+      src={galleryImages[5].src}
+      alt={galleryImages[5].alt}
+      width={galleryImages[5].width}
+     height={galleryImages[5].height}
+      className="w-full h-full object-cover hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+      onClick={() => setZoomed(5)}
+    />
+  </div>
 </div>
-    
-    
-    
-  {/* <div className="grid grid-cols-4 grid-rows- gap-4 max-w-7xl">
-    <div className="row-span-2">
-      <Image
-        src="/images/image-150.png"
-        alt="Gallery 1"
-        width={520}
-        height={320}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
-    <div className="row-span-3">
-      <Image
-        src="/images/image-160.png"
-        alt="Gallery 2"
-        width={250}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
-    <div className="row-span-2">
-      <Image
-        src="/images/isk2.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
-    <div className="row-span-3 row-start-3">
-      <Image
-        src="/images/image-170.png"
-        alt="Gallery 5"
-        width={520}
-        height={320}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
-    <div className="row-span-3 col-start-3 row-start-3">
-      <Image
-        src="/images/isk1.png"
-        alt="Gallery 6"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
-    <div className="row-span-2 col-start-2 row-start-4">
-      <p className="text-[#2C2C2C] text-center font-urbanist text-[36px] font-bold leading-[120%]">
-        Real change doesn’t always
-      </p>
-    </div>
-  </div> */}
+
+{/* Zoomed Overlay */}
+{zoomed !== null && (
+  <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center transition-all duration-300">
+    <button
+      className="absolute top-8 right-8 text-white text-4xl bg-black/60 rounded-full p-2 hover:bg-black/80 transition"
+      onClick={() => setZoomed(null)}
+      aria-label="Close"
+    >
+      &times;
+    </button>
+    <Image
+      src={galleryImages[zoomed].src}
+      alt={galleryImages[zoomed].alt}
+      width={galleryImages[zoomed].width}
+      height={galleryImages[zoomed].height}
+  className="rounded-2xl shadow-2xl object-contain max-h-[90vh] max-w-[90vw] transition-transform duration-300 scale-100"
+    />
+  </div>
+  )}
+
+
+
+ 
 </section>
 
         {/* <div className="mt-16">

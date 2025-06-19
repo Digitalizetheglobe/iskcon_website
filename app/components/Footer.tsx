@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 
 import Image from 'next/image';
 import {
@@ -41,10 +42,28 @@ export default function Footer() {
             <ul className="space-y-1 text-sm">
               <li>Our Initiative</li>
               <li>Gallery</li>
-              <li>Terms & Conditions</li>
-              <li>Refund Policy</li>
-              <li>Privacy Policy</li>
-              <li>Certificates</li>
+              <li>
+  <Link href="/blog" className="text-blue-600 hover:underline">  
+ Blog
+  </Link>
+</li>
+<li>Terms & Conditions</li>
+<li>
+  <Link href="/policies" className="text-blue-600 hover:underline">  
+    Privacy Policy
+  </Link>
+</li>
+<li>
+  <Link href="/refund" className="text-blue-600 hover:underline">  
+    Refund Policy
+  </Link>
+</li>
+<li>
+  <Link href="/volunteer" className="text-blue-600 hover:underline">  
+    volunteer
+  </Link>
+</li>
+<li>Certificates</li>
             </ul>
           </div>
 

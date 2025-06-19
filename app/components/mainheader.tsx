@@ -29,7 +29,7 @@ export default function Header() {
           <Link href="/about-us" className={linkClass('/about-us')}>
             About Us
           </Link>
-          <Link href="/initiatives" className={linkClass('/initiatives')}>
+          <Link href="/ourinitiative" className={linkClass('/our initiative')}>
             Our Initiative
           </Link>
           <Link href="/gallery" className={linkClass('/gallery')}>
@@ -41,7 +41,7 @@ export default function Header() {
         </nav>
 
         {/* Donate Button */}
-        <Link href="/donate">
+        <Link href="/donation" className={linkClass('/donation')}>
           <button className="flex items-center justify-center gap-[10px] px-[36px] py-[12px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] transition">
             Donate Now
           </button>

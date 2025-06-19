@@ -62,52 +62,55 @@ const stats = [
       label: "Successful Campaigns"
     }
   ];
+ const [zoomed, setZoomed] = useState<number | null>(null);
 
+const galleryImages = [
+  { src: '/images/ch2.jpg', alt: 'Gallery 1', width: 500, height: 320 },
+  { src: '/images/harinam.jpg', alt: 'Gallery 3', width: 400, height: 400 },
+  { src: '/images/image-160.png', alt: 'Gallery 2', width: 250, height: 480 },
+  { src: '/images/radha.jpg', alt: 'Gallery 3', width: 520, height: 480 },
+  { src: '/images/ch3.jpg', alt: 'Gallery 3', width: 400, height: 400 },
+  { src: '/images/ch.jpg', alt: 'Gallery 3', width: 200, height: 300 },
+];
   return (
     <>
       {/* Fixed slide-in labels */}
 
       {/* Hero Section */}
    <section 
-      className="relative bg-cover bg-center text-white w-full h-[90vh] md:h-[884px] max-w-6xl mx-auto rounded-xl overflow-hidden"
-      style={{ backgroundImage: "url('/images/img1.png')" }}
+  className="relative bg-cover bg-center text-white w-full h-[90vh] md:h-[884px] max-w-6xl mx-auto rounded-xl overflow-hidden  bg-black opacity-70"
+  style={{ backgroundImage: "url('/images/harinam.jpg')" }}
+>
+  {/* Vertical Sticky Side Buttons */}
+  <div className="hidden md:flex flex-col gap-4 absolute top-1/2 right-0 transform -translate-y-1/2 z-50 pr-2">
+    
+    {/* Our Associated Trusts Button */}
+    <Link
+      href="/trust"
+className="bg-[#f0f5f5] text-black text-sm font-medium py-4 px-2 rounded-l-lg shadow-md hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
+      style={{
+        writingMode: 'vertical-rl',
+        textOrientation: 'mixed',
+      }}
     >
-      {/* Optional: Content inside hero section */}
-      
-      {/* Sticky Button - positioned relative to this section only */}
-      <div className='flex flex-col'>
-        <button
-  className="absolute top-1/2 right-0 transform -translate-y-1/2 z-50 hidden md:block"
-  style={{ right: '0px' }}
->
-  <Link
-    href="/"
-    className="bg-[#d84a48] text-white text-base px-2 py-6 hover:bg-black hover:text-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
-    style={{
-      writingMode: 'vertical-rl',
-      animation: 'pulse 1s linear infinite',
-    }}
-  >
-    EMI Calculator
-  </Link>
-</button>
-<button
-  className="absolute top-1/2 right-0 transform -translate-y-1/2 z-50 hidden md:block"
-  style={{ right: '60px' }} // 10px gap + button width (50px) = 60px
->
-  <Link
-    href="/"
-    className="bg-[#d84a48] text-white text-base px-2 py-6 hover:bg-black hover:text-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
-    style={{
-      writingMode: 'vertical-rl',
-      animation: 'pulse 1s linear infinite',
-    }}
-  >
-    EMI Calculator
-  </Link>
-</button>
-      </div>
-    </section>
+      Our Associated Trusts
+    </Link>
+
+    {/* Governance Button */}
+    <Link
+      href="/governance"
+className="bg-[#f0f5f5] text-black text-sm font-medium py-4 px-2 rounded-l-lg shadow-md hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
+      style={{
+        writingMode: 'vertical-rl',
+        textOrientation: 'mixed',
+      }}
+    >
+      Governance
+    </Link>
+
+  </div>
+</section>
+
          <div className=" relative overflow-hidden p-7 items-center justify-center min-h-screen ">
       {/* Vertical Text on Right */}
       {/* <div className="absolute right-4 top-1/2 transform -translate-y-1/2 rotate-90 origin-center z-10">
@@ -450,7 +453,7 @@ const stats = [
 
 {/* ---------------------gallery----------------------- */}
 <div >
-<div className="h-[50vh]  flex items-center justify-center">
+<div className="h-[30vh]  flex items-center justify-center ">
   <section className="flex w-[561px] flex-col items-center gap-[10px]">
     <img
       src="/images/ik3.png"
@@ -463,72 +466,93 @@ const stats = [
 </div>
 
 </div>
-<section className="flex items-center justify-center  bg-white mb-16">
+<section className="flex items-center justify-center max-w-6xl mx-auto mb-10 bg-white">
 
 
 
-<div className="grid grid-cols-6 grid-rows-5 gap-4 max-w-6xl">
-    <div className="col-span-2 row-span-2 ">
-      <Image
-        src="/images/image-150.png"
-        alt="Gallery 1"
-        width={520}
-        height={320}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-3 col-start-1 row-start-3">
-      <Image
-        src="/images/isk2.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-4 col-start-3 row-start-1">
-       <Image
-        src="/images/image-160.png"
-        alt="Gallery 2"
-        width={250}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-2 col-start-5 row-start-1">
-      <Image
-        src="/images/image-170.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 row-span-3 col-start-5 row-start-3">
-        <Image
-        src="/images/isk2.png"
-        alt="Gallery 3"
-        width={520}
-        height={480}
-        className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl"
-      />
-    </div>
-    <div className="col-span-2 col-start-3 row-start-5 ">
-<Image
-        src="/images/ik.png"
-        alt="Gallery 3"
-        width={400}
-        height={400}
-        className="w- h- object-cover hover:scale-105 transition duration-300 ease-in-out"
-      />
-
-
-    </div>
+<div className="grid grid-cols-6 grid-rows-6 gap-4 max-w-5xl mx-auto">
+  <div className="col-span-2 row-span-2 ">
+    <Image
+      src={galleryImages[0].src}
+      alt={galleryImages[0].alt}
+      width={galleryImages[0].width}
+      height={galleryImages[0].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(0)}
+    />
+  </div>
+  <div className="col-span-2 row-span-3 col-start-1 row-start-3">
+    <Image
+      src={galleryImages[1].src}
+      alt={galleryImages[1].alt}
+      width={galleryImages[1].width}
+      height={galleryImages[1].height}
+     className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(1)}
+    />
+  </div>
+  <div className="col-span-2 row-span-4 col-start-3 row-start-1">
+    <Image
+      src={galleryImages[2].src}
+      alt={galleryImages[2].alt}
+      width={galleryImages[2].width}
+      height={galleryImages[2].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(2)}
+    />
+  </div>
+  <div className="col-span-2 row-span-2 col-start-5 row-start-1">
+    <Image
+    src={galleryImages[3].src}
+      alt={galleryImages[3].alt}
+      width={galleryImages[3].width}
+      height={galleryImages[3].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(3)}
+    />
+  </div>
+  <div className="col-span-2 row-span-3 col-start-5 row-start-3">
+    <Image
+      src={galleryImages[4].src}
+      alt={galleryImages[4].alt}
+      width={galleryImages[4].width}
+      height={galleryImages[4].height}
+      className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
+      onClick={() => setZoomed(4)}
+    />
+  </div>
+  <div className="col-span-2 col-start-3 row-start-5 ">
+    <Image
+      src={galleryImages[5].src}
+      alt={galleryImages[5].alt}
+      width={galleryImages[5].width}
+     height={galleryImages[5].height}
+      className="w-95 h- object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+      onClick={() => setZoomed(5)}
+    />
+  </div>
 </div>
-    
-    
-    
- 
+
+{/* Zoomed Overlay */}
+{zoomed !== null && (
+  <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center transition-all duration-300">
+    <button
+      className="absolute top-8 right-8 text-white text-4xl bg-black/60 rounded-full p-2 hover:bg-black/80 transition"
+      onClick={() => setZoomed(null)}
+      aria-label="Close"
+    >
+      &times;
+    </button>
+    <Image
+      src={galleryImages[zoomed].src}
+      alt={galleryImages[zoomed].alt}
+      width={galleryImages[zoomed].width}
+      height={galleryImages[zoomed].height}
+  className="rounded-2xl shadow-2xl object-contain max-h-[90vh] max-w-[90vw] transition-transform duration-300 scale-100"
+    />
+  </div>
+  )}
+  
 </section>
     </>
   );

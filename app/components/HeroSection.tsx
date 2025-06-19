@@ -15,12 +15,12 @@ const donations = [
   {
     name: "Priya",
     city: "Delhi",
-    amount: "₹2,500",
-    children: 100,
+    amount: "₹3,500",
+    children: 70,
     image: "/images/om.png",
   },
   {
-    name: "Rohit",
+    name: "yogesh",
     city: "Mumbai",
     amount: "₹1,000",
     children: 40,
@@ -55,9 +55,9 @@ const donations = [
     image: "/images/om.png",
   },
    {
-    name: "Kritika",
+    name: "krutika",
     city: "Delhi",
-    amount: "₹2,500",
+    amount: "₹2,070",
     children: 100,
     image: "/images/om.png",
   },
