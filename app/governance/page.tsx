@@ -1,6 +1,5 @@
 'use client';
 
-import { div } from 'framer-motion/client';
 import Image from 'next/image';
 
 export default function Page() {
@@ -10,14 +9,15 @@ export default function Page() {
         <h2 className="text-center text-3xl font-semibold text-[#d34736] mb-1">Our Trustees & Leadership</h2>
         <p className="text-center text-lg mb-1 italic">Board of Trustees</p>
 <div style={{ position: 'relative' }}>
-  <img
+  <Image
     src="/images/picc.png"
     alt="Decorative line"
+    width={428}
+    height={2}
     style={{
       position: 'absolute',
       top: '38px',
       left: '38px',
-      width: '428px',
       height: '428px',
       borderRadius: '20px',
     }}
@@ -29,7 +29,7 @@ export default function Page() {
       {/* Image Section */}
       <div className="flex flex-col items-center flex-1  md:mt-0 ">
        <div style={{ position: 'relative' }}>
-  <img
+  <Image
     src="/images/pii.png"
     alt="Decorative line"
     style={{
@@ -52,7 +52,7 @@ export default function Page() {
         {/* <h1 className="text-2xl font-semibold mb-4">HG Chanchalapathi Dasa</h1>
         <h2 className="text-lg font-medium mb-6">Vice-Chairman Akshaya Patra</h2> */}
         <p className="text-base leading-relaxed  top-2">
-          Chanchalapathi Dasa has been working in the field of spiritual education since 1984 and social development since 2000. He pursued his Bachelor's Degree in PSG College of Technology, Coimbatore, where he came in touch with ISKCON and Srila Prabhupada's mission. Later, he joined the Indian Institute of Science, Bengaluru, to pursue his Masters in Electrical Communication Engineering. He has combined the spirit of compassion with his education in technology and applied it to social development. He is currently involved in strategy, planning and governance of Akshaya Patra.
+          Chanchalapathi Dasa has been working in the field of spiritual education since 1984 and social development since 2000. He pursued his Bachelor&apos;s Degree in PSG College of Technology, Coimbatore, where he came in touch with ISKCON and Srila Prabhupada&apos;s mission. Later, he joined the Indian Institute of Science, Bengaluru, to pursue his Masters in Electrical Communication Engineering. He has combined the spirit of compassion with his education in technology and applied it to social development. He is currently involved in strategy, planning and governance of Akshaya Patra.
         </p>
       </div>
     </div>
@@ -70,9 +70,11 @@ Born in 1969 in Namrup, Assam, India, HG completed B. Tech. in Computer Science 
 
       {/* Right Section: Text Content */}
         <div className="flex flex-col items-center flex-1  md:mt-0">
-        <img
-          src="/images/pii.png" // Replace with the actual image path
+        <Image
+          src="/images/pii.png"
           alt="HG Amitasana Dasa"
+          width={300}
+          height={300}
           className="rounded-lg max-w-full h-auto mb-4"
         />
         <h3 className="text-xl md:text-2xl font-bold">HG Amitasana Dasa</h3>
@@ -82,18 +84,23 @@ Born in 1969 in Namrup, Assam, India, HG completed B. Tech. in Computer Science 
     </div>
         {/* Leadership Team */}
         <h3 className="text-xl font-semibold mt-16 text-center text-[#d34736]">Leadership Team</h3>
-<img
-  src="/images/Line 13.png"
-  alt="Decorative line"
-  className="mx-auto my-1"
-  style={{ width: '200px', height: '2px' }}
-/>
+<div className="mx-auto my-1" style={{ width: '200px', height: '2px' }}>
+  <Image
+    src="/images/Line 13.png"
+    alt="Decorative line"
+    width={200}
+    height={2}
+    className="w-full h-full"
+  />
+</div>
       <div className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-6 md:p-12 rounded-lg">
       {/* Left Section: Image and Name */}
       <div className="flex flex-col items-center flex-1 md:pr-8">
-        <img
-          src="/images/pi2.png" // Replace with the actual image path
+        <Image
+          src="/images/pi2.png"
           alt="HG Satya Gaura Chandra Dasa"
+          width={300}
+          height={300}
           className="rounded-lg max-w-full h-auto mb-4"
         />
         <h3 className="text-xl md:text-2xl font-bold text-orange-600">
@@ -110,7 +117,7 @@ Born in 1969 in Namrup, Assam, India, HG completed B. Tech. in Computer Science 
       <div className="flex-1 mt-6 md:mt-0">
         
         <p className="text-top leading-relaxed text-center  ">
-HG Satya Gaura Chandra Dasa is a Gold Medalist in B.Tech Mechanical at Jawaharlal Nehru Technological University – Kakinada. He eventually did his M.Tech from IIT-Chennai and worked in a multinational IT firm in Bengaluru for a couple of years before deciding to dedicate his life to serving humanity. The first Akshaya Patra kitchen in unified Andhra Pradesh (now Telangana) was set up in Hyderabad in 2008 under his leadership. He also oversaw the setting up of the Foundation’s high-tech mega kitchen in Kandi, Telangana, in association with the Infosys Foundation in 2018. Currently, he is serving as the President for Akshaya Patra Andhra Pradesh and Telangana. HG is also serving as the President of AIKYA VIDYA.        </p>
+HG Satya Gaura Chandra Dasa is a Gold Medalist in B.Tech Mechanical at Jawaharlal Nehru Technological University – Kakinada. He eventually did his M.Tech from IIT-Chennai and worked in a multinational IT firm in Bengaluru for a couple of years before deciding to dedicate his life to serving humanity. The first Akshaya Patra kitchen in unified Andhra Pradesh (now Telangana) was set up in Hyderabad in 2008 under his leadership. He also oversaw the setting up of the Foundation&apos;s high-tech mega kitchen in Kandi, Telangana, in association with the Infosys Foundation in 2018. Currently, he is serving as the President for Akshaya Patra Andhra Pradesh and Telangana. HG is also serving as the President of AIKYA VIDYA.        </p>
       </div>
     </div>
 
@@ -119,9 +126,11 @@ HG Satya Gaura Chandra Dasa is a Gold Medalist in B.Tech Mechanical at Jaw
 <div className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-6 md:p-10 rounded-lg  mt-16 max-w-4xl mx-auto">
       {/* Left Section: Image and Name */}
       <div className="flex flex-col items-center flex-1 md:pr-8">
-        <img
-          src="/images/p2.png" // Replace with the actual image path
+        <Image
+          src="/images/p2.png"
           alt="HG Sahadeva Sakha Dasa"
+          width={300}
+          height={300}
           className="rounded-lg max-w-full h-auto mb-4"
         />
         <h3 className="text-xl md:text-2xl font-bold text-orange-600">
@@ -170,9 +179,11 @@ He is also one of the largest social media influencers in India spreading the 
       {/* Profile Image */}
       <div className="flex justify-center mb-16">
         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-orange-100">
-          <img
-            src="images/pr.png" // Replace with the actual image path
+          <Image
+            src="/images/pr.png"
             alt="Raghavendra"
+            width={128}
+            height={128}
             className="w-full h-full object-cover"
           />
         </div>

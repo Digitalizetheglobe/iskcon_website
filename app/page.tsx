@@ -4,8 +4,6 @@ import HeroSection from '@/app/components/HeroSection';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import Link from 'next/link';
-
 const causes = [
   {
     title: 'Annadaan',
@@ -53,31 +51,13 @@ const cardData = [
   }
 ];
 
-  const leftGridImages = [
-    { src: '/gallery/person1.jpg', name: 'S. S. Rajamani' },
-    { src: '/gallery/person2.jpg', name: 'Smt. Sai Pallavi' },
-    { src: '/gallery/person3.jpg', name: 'Smt. P.V Sindhu' },
-    { src: '/gallery/person4.jpg', name: 'Pradeep Machiraju' },
-    { src: '/gallery/person5.jpg', name: 'K. Keshava Rao' },
-    { src: '/gallery/person6.jpg', name: 'Bonthu Rammohan' },
-    { src: '/gallery/person7.jpg', name: 'Smt. K.Kavitha' },
-    { src: '/gallery/person8.jpg', name: 'Smt. Gadwal Vijayalaxmi' }
-  ];
-
-  const rightGridImages = [
-    { src: '/gallery/person9.jpg', name: 'Chandrababu Naidu' },
-    { src: '/gallery/person10.jpg', name: 'K. T. Rama Rao' },
-    { src: '/gallery/person11.jpg', name: 'Chandrashekar Rao' },
-    { src: '/gallery/person12.jpg', name: 'T. Harish Rao' },
-    { src: '/gallery/person13.jpg', name: 'G. Kishan Reddy' },
-    { src: '/gallery/person14.jpg', name: 'S. S. L. Narasimhan' }
-  ];
+  // Image gallery data removed as it's not being used in the component
 
 
 
 
 const HomePage = () => {
-  const [zoomed, setZoomed] = useState<number | null>(null);
+  const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
 
 const galleryImages = [
   { src: '/images/image-150.png', alt: 'Gallery 1', width: 520, height: 320 },

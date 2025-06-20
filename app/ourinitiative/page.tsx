@@ -1,11 +1,7 @@
 import React from 'react'
-import { Play } from 'lucide-react';
 import Image from 'next/image';
-import { FaPrayingHands, FaTheaterMasks, FaHeartbeat, FaTree, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaTheaterMasks, FaHeartbeat, FaTree, FaChalkboardTeacher } from 'react-icons/fa';
 import { GiMeditation } from 'react-icons/gi';
-import { MdOutlineEventNote } from 'react-icons/md';
-import { BsGraphUp } from 'react-icons/bs';
-import { FaDonate } from 'react-icons/fa';
 
 export default function Page() { 
      return (

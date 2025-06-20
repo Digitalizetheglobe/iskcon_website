@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
- import CountUp from 'react-countup';
+import CountUp from 'react-countup';
 import Link from 'next/link';
 
 export default function Page() {
@@ -403,7 +402,7 @@ className="bg-[#f0f5f5] text-black text-sm font-medium py-4 px-2 rounded-l-lg sh
                     and life skills into the curriculum along with school subjects.
                   </p>
                 <p className="font-bold text-[18px] leading-[160%] text-[#656565] font-inter">
-  "AIKYA VIDYA" is designed for students of classes 1st to 10th, especially in rural areas.
+  &quot;AIKYA VIDYA&quot; is designed for students of classes 1st to 10th, especially in rural areas.
 </p>
                 </div>
               </div>
@@ -455,11 +454,11 @@ className="bg-[#f0f5f5] text-black text-sm font-medium py-4 px-2 rounded-l-lg sh
 <div >
 <div className="h-[30vh]  flex items-center justify-center ">
   <section className="flex w-[561px] flex-col items-center gap-[10px]">
-    <img
+    <Image
       src="/images/ik3.png"
       alt="Descriptive Alt Text"
-      width={400}
-      height={300}
+      width={561}
+      height={200}
       className="rounded-xl object-cover"
     />
   </section>

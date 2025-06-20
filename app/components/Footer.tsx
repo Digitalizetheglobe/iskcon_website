@@ -30,7 +30,7 @@ export default function Footer() {
             </div>
             <h2 className="text-[#F4A261] text-xl font-bold mb-2">About Us</h2>
             <p className="text-sm text-[#D1D5DB] leading-relaxed">
-              "Hare Krishna Vidya (AIkYA viDYA)" an initiative of <br />
+              &quot;Hare Krishna Vidya (AIkYA viDYA)&quot; an initiative of <br />
               HARE KRISHNA MOVEMENT INDIA is designed for students of classes <br />
               1st to 10th, especially in rural areas.
             </p>

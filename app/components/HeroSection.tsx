@@ -75,8 +75,6 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  const donation = donations[current];
-
   return (
     <>
      
@@ -86,7 +84,7 @@ export default function HeroSection() {
   style={{ backgroundImage: "url('/images/img1.png')" }}
 >
   {/* Live Update */}
- {donations.map((donation, idx) => (
+ {donations.map((donation) => (
   <motion.div
         key={current}
         initial={{ opacity: 0, y: -20 }}
@@ -131,7 +129,7 @@ export default function HeroSection() {
       <div className="text-center">
         <p className="text-[32px] font-bold leading-[120%] text-[#2C2C2C] m-0">50K</p>
         <p className="text-[16px] font-medium leading-[120%] text-[#2C2C2C] m-0">
-          Children's<br />Educated
+          Children&apos;s<br />Educated
         </p>
       </div>
     </div>
