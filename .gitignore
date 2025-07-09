@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 iskcon.rar 
+node_modules/ 
+.next/ 
+iskcon.rar 
