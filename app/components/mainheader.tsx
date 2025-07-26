@@ -58,7 +58,7 @@ export default function Header() {
           </Link>
 
           <Link href="/donation">
-            <button className="flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] transition">
+            <button className="flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] hover:bg-red-600 hover:text-white transition-all duration-300">
               Donate Now
             </button>
           </Link>
@@ -114,7 +114,7 @@ export default function Header() {
           </Link>
 
           <Link href="/donation" onClick={() => setIsOpen(false)}>
-            <button className="w-full flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] transition">
+            <button className="w-full flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] hover:bg-red-600 hover:text-white transition-all duration-300">
               Donate Now
             </button>
           </Link>

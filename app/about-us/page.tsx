@@ -4,6 +4,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import CountUp from "react-countup";
 import Link from "next/link";
+import harinamImg from "../../public/images/home.png";
+import pImg from "../../public/images/p.png";
+import iImg from "../../public/images/i.png";
+import img9 from "../../public/images/img9.png";
+import ch2 from "../../public/images/ch2.jpg";
+import image160 from "../../public/images/image-160.png";
+import radha from "../../public/images/radha.jpg";
+import ch3 from "../../public/images/ch3.jpg";
+import ch from "../../public/images/ch.jpg";
 
 export default function Page() {
   console.log("About Us Page Rendered");
@@ -81,12 +90,12 @@ export default function Page() {
   const [zoomed, setZoomed] = useState<number | null>(null);
 
   const galleryImages = [
-    { src: "/images/ch2.jpg", alt: "Gallery 1", width: 500, height: 320 },
-    { src: "/images/harinam.jpg", alt: "Gallery 3", width: 400, height: 400 },
-    { src: "/images/image-160.png", alt: "Gallery 2", width: 250, height: 480 },
-    { src: "/images/radha.jpg", alt: "Gallery 3", width: 520, height: 480 },
-    { src: "/images/ch3.jpg", alt: "Gallery 3", width: 400, height: 400 },
-    { src: "/images/ch.jpg", alt: "Gallery 3", width: 200, height: 300 },
+    { src: ch2, alt: "Gallery 1", width: 500, height: 320 },
+    { src: harinamImg, alt: "Gallery 3", width: 400, height: 400 },
+    { src: image160, alt: "Gallery 2", width: 250, height: 480 },
+    { src: radha, alt: "Gallery 3", width: 520, height: 480 },
+    { src: ch3, alt: "Gallery 3", width: 400, height: 400 },
+    { src: ch, alt: "Gallery 3", width: 200, height: 300 },
   ];
   return (
     <>
@@ -97,7 +106,7 @@ export default function Page() {
         <>
           <div className="flex flex-col overflow-hidden ">
             <Image
-              src="/images/harinam.jpg"
+              src={harinamImg}
               alt="Harinam Sankirtan"
               width={400}
               height={300}
@@ -114,7 +123,7 @@ export default function Page() {
                 </p>
               </div>
               <Image
-                src="/images/p.png"
+                src={pImg}
                 alt="Srila Prabhupada"
                 width={500}
                 height={470}
@@ -257,7 +266,7 @@ export default function Page() {
                       <div className="inline-flex items-center bg-white px-4 py-3 rounded-full shadow-sm border mb-8">
                         <span className="text-orange-500 mr-1">
                           <Image
-                            src="/images/img9.png"
+                            src={img9}
                             alt="Icon"
                             width={24}
                             height={24}
@@ -294,7 +303,7 @@ export default function Page() {
                       stroke="#F4A261"
                       strokeWidth="1" // Thinner line
                       strokeLinecap="round"
-                      stroke-dasharray="9 12 " // Smaller dashes
+                      strokeDasharray="9 12" // Smaller dashes
                       fill="none"
                     />
                   </svg>
@@ -487,7 +496,7 @@ export default function Page() {
         <div>
           <section
             className="relative bg-cover bg-center text-white w-full h-[90vh] md:h-[884px] max-w-6xl mx-auto rounded-xl overflow-hidden  bg-black opacity-100"
-            style={{ backgroundImage: "url('/images/harinam.jpg')" }}
+            style={{ backgroundImage: `url(${harinamImg.src})` }}
           >
             {/* Vertical Sticky Side Buttons */}
             <div className="hidden md:flex flex-col gap-4 absolute top-1/2 right-0 transform -translate-y-1/2 z-50 pr-2">
@@ -547,7 +556,7 @@ export default function Page() {
                 {/* This div is ready for your image */}
 
                 <Image
-                  src="/images/p.png"
+                  src={pImg}
                   alt="Srila Prabhupada"
                   width={530}
                   height={470}
@@ -688,7 +697,7 @@ export default function Page() {
               {/* Right Image */}
               <div className="flex-1 relative">
                 <Image
-                  src="/images/i.png"
+                  src={iImg}
                   alt="Children learning in classroom"
                   fill
                   className="object-cover"
@@ -751,7 +760,7 @@ export default function Page() {
                 <div className="inline-flex items-center bg-white px-6 py-3 rounded-full shadow-sm border mb-8">
                   <span className="text-orange-500 mr-1">
                     <Image
-                      src="/images/img9.png"
+                      src={img9}
                       alt="Icon"
                       width={24}
                       height={24}
@@ -788,7 +797,7 @@ export default function Page() {
                       stroke="#F4A261"
                       strokeWidth="1" // Thinner line
                       strokeLinecap="round"
-                      stroke-dasharray="9 12 " // Smaller dashes
+                      strokeDasharray="9 12" // Smaller dashes
                       fill="none"
                     />
                   </svg>

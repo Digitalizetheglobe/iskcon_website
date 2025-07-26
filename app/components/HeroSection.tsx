@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { useState, useEffect } from "react";
 
-// const donations = [
+//const donations = [
 //   {
 //     name: "Rohit",
 //     city: "Mumbai",
@@ -126,7 +126,7 @@ export default function HeroSection() {
                     50K
                   </p>
                   <p className="text-sm md:text-[16px] font-medium leading-[120%] text-[#2C2C2C] m-0">
-                    Children&#39;s <br /> Educated
+                    Children&#39;s  Educated
                   </p>
                 </div>
               </div>

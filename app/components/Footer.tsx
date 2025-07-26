@@ -15,11 +15,11 @@ import logo from "../../public/images/logo.png";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#002A42] text-white w-full px-6 md:px-12 py-10 mt-10 ">
+      <footer className="bg-[#002A42] text-white w-full  px-2 lg:px-4 py-10 mt-10 ">
         {/* Top Grid Section */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 ">
           {/* Left: Logo + About Us */}
-          <div>
+          <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
               <Image
                 src={logo}
@@ -33,8 +33,8 @@ export default function Footer() {
             <p className="text-sm text-white leading-relaxed">
               &quot;Hare Krishna Vidya (AIkYA viDYA)&quot; an initiative of{" "}
               <br />
-              HARE KRISHNA MOVEMENT INDIA is designed for students of classes{" "}
-              <br />
+              HARE KRISHNA MOVEMENT INDIA is br designed <br /> for students of classes{" "}
+              
               1st to 10th, especially in rural areas.
             </p>
 
@@ -89,6 +89,7 @@ export default function Footer() {
           </div>
 
           {/* Right: Contact Us */}
+        
           <div className="flex flex-col gap-2">
             <h2 className="text-[#F4A261] text-xl font-bold mb-2">CONTACT</h2>
             <div className="group flex items-center gap-2 mb-3">
@@ -204,7 +205,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
+          
           {/* <div>
             <h2 className="text-[#F4A261] text-xl font-bold mb-2">
               Follow Us
