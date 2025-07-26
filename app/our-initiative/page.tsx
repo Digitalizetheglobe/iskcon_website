@@ -1,6 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import image from "../../public/images/image.png";
+import mahadanam from "../../public/images/mahadanam.png";
+
+
 import {
   FaTheaterMasks,
   FaHeartbeat,
@@ -37,7 +41,7 @@ export default function Page() {
             </h2>
             <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400 mb-6">
               <Image
-                src="/images/image.png"
+                src={image}
                 alt="AIKYA VIDYA"
                 width={600}
                 height={340}
@@ -186,7 +190,7 @@ export default function Page() {
             {/* Video Thumbnail */}
             <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400">
               <Image
-                src="/images/image.png" // replace with actual image path
+                src={image} // replace with actual image path
                 alt="AIKYA VIDYA"
                 width={600}
                 height={340}
@@ -385,8 +389,8 @@ export default function Page() {
 
           {/* ---------------------------maha------------ */}
           <section
-            className="hidden relative bg-cover bg-center text-white w-[1441px] h-[693px]  max-w-6xl mx-auto rounded-xl overflow-hidden bg-black opacity-70 mb-14"
-            style={{ backgroundImage: "url('/images/ii.png')" }}
+            className="hidden lg:block relative bg-cover bg-center text-white w-[1441px] h-[693px]  max-w-6xl mx-auto rounded-xl overflow-hidden bg-black  mb-14"
+            style={{ backgroundImage: `url(${mahadanam.src})` }}
           ></section>
           <div className="flex justify-center items-center  bg-gray-50 p-4 mb-16">
             <div className="text-center ">

@@ -4,15 +4,17 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import CountUp from "react-countup";
 import Link from "next/link";
-import harinamImg from "../../public/images/home.png";
+import harinamImg from "../../public/images/Harinam.jpg";
 import pImg from "../../public/images/p.png";
 import iImg from "../../public/images/i.png";
 import img9 from "../../public/images/img9.png";
 import ch2 from "../../public/images/ch2.jpg";
 import image160 from "../../public/images/image-160.png";
 import radha from "../../public/images/radha.jpg";
-import ch3 from "../../public/images/ch3.jpg";
+//import ch3 from "../../public/images/ch3.jpg";
 import ch from "../../public/images/ch.jpg";
+//import about01 from "../../public/images/about01.png";
+
 
 export default function Page() {
   console.log("About Us Page Rendered");
@@ -94,7 +96,7 @@ export default function Page() {
     { src: harinamImg, alt: "Gallery 3", width: 400, height: 400 },
     { src: image160, alt: "Gallery 2", width: 250, height: 480 },
     { src: radha, alt: "Gallery 3", width: 520, height: 480 },
-    { src: ch3, alt: "Gallery 3", width: 400, height: 400 },
+    { src: radha, alt: "Gallery 3" , width: 520, height: 480},
     { src: ch, alt: "Gallery 3", width: 200, height: 300 },
   ];
   return (
@@ -499,7 +501,7 @@ export default function Page() {
             style={{ backgroundImage: `url(${harinamImg.src})` }}
           >
             {/* Vertical Sticky Side Buttons */}
-            <div className="hidden md:flex flex-col gap-4 absolute top-1/2 right-0 transform -translate-y-1/2 z-50 pr-2">
+            <div className="hidden  md:flex flex-col gap-4 absolute top-1/2 right-0 transform -translate-y-1/2 z-50 pr-2">
               {/* Our Associated Trusts Button */}
               <Link
                 href="/trust"
@@ -933,7 +935,7 @@ export default function Page() {
                   onClick={() => setZoomed(3)}
                 />
               </div>
-              <div className="col-span-2 row-span-3 col-start-5 row-start-3">
+              <div className="col-span-2 row-span-2 col-start-5 row-start-1">
                 <Image
                   src={galleryImages[4].src}
                   alt={galleryImages[4].alt}

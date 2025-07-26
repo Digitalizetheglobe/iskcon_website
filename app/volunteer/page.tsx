@@ -1,19 +1,27 @@
 'use client';
 import Image from 'next/image';
 
+import tulsi from "../../public/images/tulsi.png";
+import join from "../../public/images/join.png";
+import community from "../../public/images/comuniity.png";
+import wellness from "../../public/images/wellness.png";
+import skill_development from "../../public/images/skill_development.png";
+import network from "../../public/images/network.png";
+
+
+
+
 export default function Home() {
   return (
     <main className="font-sans text-white-800">
       {/* Hero Section */}
-      <section className="relative h-[300px] md:h-[500px]">
-        <Image
-          src="/images/radha2.jpg"
-          alt="Join Our Mission"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-b-2xl md:rounded-b-3xl"
-        />
-        <div className="absolute inset-0 bg-white bg-opacity-40 flex flex-col items-center justify-center text-white text-center px-2 sm:px-4">
+      <section className="relative h-[200px] md:h-[550px]">
+        <section
+          className="relative bg-cover bg-center text-white w-full h-full max-w-6xl mx-auto rounded-xl overflow-hidden bg-black opacity-100"
+          style={{ backgroundImage: `url(${join.src})` }}
+        >
+        </section>
+        {/* <div className="absolute inset-0 bg-white bg-opacity-40 flex flex-col items-center justify-center text-white text-center px-2 sm:px-4">
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-2 md:mb-4">Join Our Mission</h1>
           <p className="max-w-xs sm:max-w-xl text-sm sm:text-lg mb-4 md:mb-6">
             Lorem ipsum dolor sit amet consectetur. Nisi praesent malesuada quam habitant pellentesque massa orci neque.
@@ -21,7 +29,7 @@ export default function Home() {
           <button className="bg-orange-500 hover:bg-orange-600 text-white w-fit sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium">
             Become a Volunteer
           </button>
-        </div>
+        </div> */}
       </section>
 
       {/* Mission Section */}
@@ -35,13 +43,13 @@ export default function Home() {
           Become a Volunteer
         </button>
         <div className="max-w-xs sm:max-w-md mx-auto">
-          <Image src="/images/tulsi.png" alt="Mission" width={400} height={250} className="rounded-lg w-full h-auto" />
+          <Image src={tulsi} alt="Mission" width={400} height={250} className="rounded-lg w-full h-auto" />
         </div>
       </section>
 
       {/* Volunteer Benefits */}
       <section className="bg-gray-100 py-8 md:py-16 px-2 sm:px-6">
-        <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6 sm:mb-8">Volunteer Benefits</h2>
+        <h2 className="text-xl lg:text-4xl sm:text-2xl font-semibold text-center mb-6 sm:mb-8">Volunteer Benefits</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* Benefit 1 */}
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 border rounded-lg">
@@ -50,7 +58,7 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-gray-600 mt-1">Connect with local communities and make a difference.</p>
               <button className="mt-2 text-orange-500 border border-orange-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">Learn More</button>
             </div>
-            <Image src="/images/sun.png" alt="Community" width={80} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
+            <Image src={community} alt="Community" width={120} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
           </div>
 
           {/* Benefit 2 */}
@@ -60,7 +68,7 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-gray-600 mt-1">Enhance your skills with hands-on experience.</p>
               <button className="mt-2 text-orange-500 border border-orange-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">See Workshops</button>
             </div>
-            <Image src="/images/sun1.png" alt="Skills" width={80} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
+            <Image src={skill_development} alt="Skills" width={120} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
           </div>
 
           {/* Benefit 3 */}
@@ -70,7 +78,7 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-gray-600 mt-1">Meet new people and expand your network.</p>
               <button className="mt-2 text-orange-500 border border-orange-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">Join Events</button>
             </div>
-            <Image src="/images/vol3.jpg" alt="Networking" width={80} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
+            <Image src={network} alt="Networking" width={120} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
           </div>
 
           {/* Benefit 4 */}
@@ -80,14 +88,14 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-gray-600 mt-1">Focus on self-care and improve your well-being.</p>
               <button className="mt-2 text-orange-500 border border-orange-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">Explore Tips</button>
             </div>
-            <Image src="/images/vol4.jpg" alt="Wellness" width={80} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
+            <Image src={wellness} alt="Wellness" width={120} height={60} className="rounded-md ml-0 sm:ml-4 mt-2 sm:mt-0" />
           </div>
         </div>
       </section>
 
       {/* Upcoming Opportunities */}
       <section className="px-2 sm:px-0">
-        <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6 sm:mb-10">Upcoming Volunteer Opportunities</h2>
+        <h2 className="text-xl lg:text-4xl sm:text-2xl font-semibold text-center mb-6 lg:mb-0 sm:mb-10 lg:py-15">Upcoming Volunteer Opportunities</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 items-center">
           {/* Card 1 */}
           <div className="border rounded-xl p-3 sm:p-4">
