@@ -1,22 +1,23 @@
-'use client';
+"use client";
 import Link from "next/link";
 
-import Image from 'next/image';
+import Image from "next/image";
 import {
   FaPhoneAlt,
   FaEnvelope,
   FaInstagram,
   FaFacebookF,
   FaYoutube,
-} from 'react-icons/fa';
-import logo from '../../public/images/logo.png';
+  FaMapMarkerAlt,
+} from "react-icons/fa";
+import logo from "../../public/images/logo.png";
 
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#0B3954] text-white w-full px-6 md:px-12 py-10">
+      <footer className="bg-[#002A42] text-white w-full px-6 md:px-12 py-10 mt-10 ">
         {/* Top Grid Section */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Left: Logo + About Us */}
           <div>
             <div className="mb-4">
@@ -28,79 +29,241 @@ export default function Footer() {
                 className="object-contain"
               />
             </div>
-            <h2 className="text-[#F4A261] text-xl font-bold mb-2">About Us</h2>
-            <p className="text-sm text-[#D1D5DB] leading-relaxed">
-              &quot;Hare Krishna Vidya (AIkYA viDYA)&quot; an initiative of <br />
-              HARE KRISHNA MOVEMENT INDIA is designed for students of classes <br />
+
+            <p className="text-sm text-white leading-relaxed">
+              &quot;Hare Krishna Vidya (AIkYA viDYA)&quot; an initiative of{" "}
+              <br />
+              HARE KRISHNA MOVEMENT INDIA is designed for students of classes{" "}
+              <br />
               1st to 10th, especially in rural areas.
             </p>
-          </div>
 
-          {/* Center: Quick Links */}
-          <div>
-            <h2 className="text-[#F4A261] text-xl font-bold mb-2">Quick Links</h2>
-            <ul className="space-y-1 text-sm">
-              <li>Our Initiative</li>
-              <li>Gallery</li>
-              <li>
-  <Link href="/blog" className="text-blue-600 hover:underline">  
- Blog
-  </Link>
-</li>
-<li>Terms & Conditions</li>
-<li>
-  <Link href="/policies" className="text-blue-600 hover:underline">  
-    Privacy Policy
-  </Link>
-</li>
-<li>
-  <Link href="/refund" className="text-blue-600 hover:underline">  
-    Refund Policy
-  </Link>
-</li>
-<li>
-  <Link href="/volunteer" className="text-blue-600 hover:underline">  
-    volunteer
-  </Link>
-</li>
-<li>Certificates</li>
-            </ul>
+            <div className="mt-6">
+              {/* <h3 className="text-white text-lg font-medium mb-3">Follow Us</h3> */}
+              <ul className="flex items-center gap-6">
+                <li>
+                  <a
+                    href="https://www.facebook.com/harekrishnamovementindia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#1877F2] transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF
+                      size={20}
+                      className="text-white transition-colors"
+                    />
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://www.instagram.com/harekrishnamovementindia/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#E4405F] transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram
+                      size={20}
+                      className="text-white transition-colors"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/@harekrishnamovementindia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#FF0000] transition-colors"
+                    aria-label="YouTube"
+                  >
+                    <FaYoutube
+                      size={20}
+                      className="text-white transition-colors"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Right: Contact Us */}
-          <div>
-            <h2 className="text-[#F4A261] text-xl font-bold mb-2">Contact Us</h2>
-            <p className="text-sm mb-4">
-              Hare Krishna Vidya (Aikya Vidya)<br />
-              an initiative of <br />
-              HARE KRISHNA MOVEMENT INDIA.
-            </p>
-            <div className="flex items-center gap-2 text-sm mb-2">
-              <FaPhoneAlt />
-              <span>+91 81217 95663</span>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[#F4A261] text-xl font-bold mb-2">CONTACT</h2>
+            <div className="group flex items-center gap-2 mb-3">
+              <FaMapMarkerAlt size={14} />
+              <a
+                href="https://www.google.com/maps?q=123+Dummy+Street,+Pune,+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group-hover:text-yellow-200 text-base"
+              >
+                123 Dummy Street, Pune, India
+              </a>
             </div>
-            <div className="flex items-center gap-2 text-sm mb-2">
-              <FaPhoneAlt />
-              <span>+91 83283 89862</span>
+
+            <div className="group flex items-center gap-1 mb-2 ">
+              <FaPhoneAlt size={14} />
+              <a
+                href="tel:8019397108"
+                className="group-hover:text-yellow-200 text-base"
+              >
+                +91 8019397108
+              </a>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <FaEnvelope />
-              <span>connect2aikyavidya@gmail.com</span>
+            <div className="group flex items-center gap-1  mb-2">
+              <FaPhoneAlt size={14} />
+              <a
+                href="tel:91 83283 89862 "
+                className="group-hover:text-yellow-200 text-base"
+              >
+                +91 83283 89862
+              </a>
+            </div>
+            <div className="group flex items-center gap-2  mb-3">
+              <FaEnvelope size={14} />
+              <a
+                href="mailto:aikyavidya@hkmhyderabad.org"
+                className="group-hover:text-yellow-200 text-base"
+              >
+                aikyavidya@hkmhyderabad.org
+              </a>
             </div>
           </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[#F4A261] text-xl font-bold mb-2">ABOUT</h2>
+            <ul>
+              <li className=" mb-2">
+                <Link
+                  href="/about-us"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link
+                  href="/contact"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  Contact Us
+                </Link>
+              </li>
+
+              <li className=" mb-2">
+                <Link
+                  href="/our-initiative"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  Our Initiative
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Center: Quick Links */}
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[#F4A261] text-xl font-bold mb-2">
+              QUICK LINKS
+            </h2>
+            <ul className="space-y-2 ">
+              {/* <li>Terms & Conditions</li> */}
+              <li>
+                <Link
+                  href="/policies"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-conditions"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  Terms and Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/refund"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/volunteer"
+                  className="text-white hover:text-yellow-200 text-base"
+                >
+                  volunteer
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* <div>
+            <h2 className="text-[#F4A261] text-xl font-bold mb-2">
+              Follow Us
+            </h2>
+            <ul className="space-y-2 text-sm flex items-center gap-4">
+              <li>
+                <a
+                  href="https://www.facebook.com/harekrishnamovementindia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-gray-300"
+                />
+                  <FaFacebookF
+                size={20}
+                className="cursor-pointer hover:text-[#1877F2]"
+              />
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/harekrishnamovementindia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-gray-300"
+                >
+                  <FaInstagram
+                    size={20}
+                    className="cursor-pointer hover:text-[#E4405F]" 
+                  />
+                </a>
+              </li>
+
+              <li>
+                <a    
+                  href="https://www.youtube.com/@harekrishnamovementindia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  
+                >
+                  <FaYoutube
+                    size={22}
+                    className="cursor-pointer hover:text-[#FF0000]"
+                  />
+                </a>  
+              </li>
+
+
+              </ul>
+
+
+
+          </div> */}
         </div>
       </footer>
 
       {/* Bottom Section */}
-      <div className="bg-[#002A42] pt-4 pb-3 px-2 flex flex-col md:flex-row items-center justify-between text-sm text-white">
-        <p className="mb-2 md:mb-0">
+      <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-2 flex flex-col md:flex-row items-center justify-center text-sm text-white">
+        <p className="mb-2 md:mb-0 pb-3 ">
           Copyright © 2024 Hare Krishna Vidya - Aikya Vidya
         </p>
-        <div className="flex gap-4 text-lg">
-          <FaFacebookF className="cursor-pointer" />
-          <FaInstagram className="cursor-pointer" />
-          <FaYoutube className="cursor-pointer" />
-        </div>
       </div>
     </>
   );

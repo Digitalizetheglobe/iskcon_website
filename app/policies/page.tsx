@@ -2,7 +2,8 @@
 
 export default function Page() {
   return (
-<div className="space-y-4 text-justify text-base text-gray-800 p-6">
+<div className="space-y-4 text-justify text-base text-gray-800 lg:px-20">
+  <h1 className="text-4xl lg:text-5xl text-[#0F3D64] lg:py-10 font-bold mb-5">Privacy Policy</h1>
   <p>
     This website is owned and operated by <strong>HARE KRISHNA MOVEMENT INDIA</strong>. In this Privacy Policy, “we”, “us” and “our” refer to <strong>HARE KRISHNA MOVEMENT INDIA</strong>.
   </p>
@@ -20,8 +21,8 @@ export default function Page() {
     Hare Krishna Golden Temple, Swayambhu Sri Lakshmi Narasimha Swamy Kshetram<br />
     Road #12, near Anti Corruption Bureau office, NBT Nagar, Banjara Hills.<br />
     <strong>Phone:</strong> +91-95056 88881<br />
-    <strong>Email:</strong> <a href="mailto:connect2hkm@gmail.com" className="text-blue-600 underline">connect2hkm@gmail.com</a><br />
-    <strong>Website:</strong> <a href="https://harekrishnavidya.org/mn/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://harekrishnavidya.org/mn/</a>
+    <strong>Email:</strong> <a href="mailto:connect2hkm@gmail.com" >connect2hkm@gmail.com</a><br />
+    <strong>Website:</strong> <a href="https://harekrishnavidya.org/mn/" target="_blank" rel="noopener noreferrer" >https://harekrishnavidya.org/mn/</a>
   </address>
        <h2 className="text-lg font-semibold mt-6">Personal Information</h2>
       <p>
