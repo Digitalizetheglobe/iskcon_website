@@ -1,6 +1,14 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import emoj from "../../public/images/emoj.png";
+import k3 from "../../public/images/k3.png";
+import k1 from "../../public/images/k1.png";
+import k4 from "../../public/images/k4.png";
+import k5 from "../../public/images/k5.png";
+import k2 from "../../public/images/k2.png";
+import phn from "../../public/images/phn.png";
+import upi_qr from "../../public/images/upi_qr 1.png";
 
 const donationOptions = [
   { children: 100, amount: 2700 },
@@ -55,7 +63,7 @@ export default function DonationPage() {
     <>
       <div
         className="relative min-h-screen rounded-xl w-full max-w-6xl mx-auto bg-cover bg-center text-white overflow-hidden"
-        style={{ backgroundImage: "url('/images/emoj.png')" }}
+        style={{ backgroundImage: `url(${emoj.src})` }}
       >
         {/* Black overlay */}
         <div className="absolute inset-0 bg-black/50 z-0"></div>
@@ -74,11 +82,11 @@ export default function DonationPage() {
             <div className="text-sm">Children’s Educated</div>
             <div className="flex -space-x-3">
               {[
-                "/images/k3.png",
-                "/images/k1.png",
-                "/images/k4.png",
-                "/images/k5.png",
-                "/images/k2.png",
+                k3,
+                k1,
+                k4,
+                k5,
+                k2,
               ].map((src, idx) => (
                 <Image
                   key={idx}
@@ -384,7 +392,7 @@ export default function DonationPage() {
 
             <div className="mb-4">
               <Image
-                src="/images/phn.png"
+                src={phn}
                 alt="UPI Options"
                 width={260}
                 height={260}
@@ -401,7 +409,7 @@ export default function DonationPage() {
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-center">
             <h2 className="text-xl font-semibold mb-4">Scan QR Code</h2>
             <Image
-              src="/images/upi_qr 1.png"
+              src={upi_qr}
               alt="QR Code"
               width={280}
               height={280}

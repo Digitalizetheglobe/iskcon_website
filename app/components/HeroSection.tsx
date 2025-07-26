@@ -1,6 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import homeImg from "../../public/images/homeImg.png";
+import img9 from "../../public/images/img9.png";
+import k3 from "../../public/images/k3.png";
+import k1 from "../../public/images/k1.png";
+import k4 from "../../public/images/k4.png";
+import k5 from "../../public/images/k5.png";
+import k2 from "../../public/images/k2.png";
 
 import { useState, useEffect } from "react";
 
@@ -90,7 +97,7 @@ export default function HeroSection() {
         <div className="flex flex-col gap-2 ">
           <div
             className=" bg-cover bg-center text-white    rounded-xl overflow-hidden h-[60vh] "
-            style={{ backgroundImage: "url('/images/homeImg.png')" }}
+            style={{ backgroundImage: `url(${homeImg.src})` }}
           ></div>
           {/* Container for cards */}
           <div className=" mb:bottom-10 left-0 right-0 flex flex-col-reverse  px-4  gap-4">
@@ -99,7 +106,7 @@ export default function HeroSection() {
               <div className="flex items-center justify-between flex-wrap  gap-2">
                 <div className="flex items-center  gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md  text-black font-semibold text-base ">
                   <Image
-                    src="/images/img9.png"
+                    src={img9}
                     alt="Star Icon"
                     width={20}
                     height={20}
@@ -134,11 +141,11 @@ export default function HeroSection() {
               <div className="flex items-center mt-2 flex-wrap gap-2">
                 <div className="flex -space-x-3">
                   {[
-                    "/images/k3.png",
-                    "/images/k1.png",
-                    "/images/k4.png",
-                    "/images/k5.png",
-                    "/images/k2.png",
+                    k3,
+                    k1,
+                    k4,
+                    k5,
+                    k2,
                   ].map((src, idx) => (
                     <Image
                       key={idx}
@@ -182,7 +189,7 @@ export default function HeroSection() {
       ) : (
         <section
           className="relative bg-cover bg-top text-white w-full max-w-6xl mx-auto rounded-xl overflow-hidden h-[70vh] md:h-[80vh] lg:h-[120vh]"
-          style={{ backgroundImage: "url('/images/img1.png')" }}
+          style={{ backgroundImage: `url(${homeImg.src})` }}
         >
           {/* Container for cards */}
           <div className="absolute bottom-4 md:bottom-10 left-0 right-0 flex flex-col md:flex-row md:justify-between px-4 md:px-10 lg:px-16 gap-4">
@@ -191,7 +198,7 @@ export default function HeroSection() {
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md text-black font-semibold text-base md:text-lg">
                   <Image
-                    src="/images/img9.png"
+                    src={img9}
                     alt="Star Icon"
                     width={20}
                     height={20}
@@ -226,11 +233,11 @@ export default function HeroSection() {
               <div className="flex items-center mt-2 flex-wrap gap-2">
                 <div className="flex -space-x-3">
                   {[
-                    "/images/k3.png",
-                    "/images/k1.png",
-                    "/images/k4.png",
-                    "/images/k5.png",
-                    "/images/k2.png",
+                    k3,
+                    k1,
+                    k4,
+                    k5,
+                    k2, 
                   ].map((src, idx) => (
                     <Image
                       key={idx}

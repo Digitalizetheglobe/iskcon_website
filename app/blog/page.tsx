@@ -1,10 +1,21 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
+import lap3 from '../../public/images/lap3.png';
+import lap from '../../public/images/lap.png';
+import lap1 from '../../public/images/lap1.png';
+import t from '../../public/images/t.png';
+import tr from '../../public/images/tr.png';
+import trr from '../../public/images/trr.png';
+import tt from '../../public/images/tt.png';
+import trrr from '../../public/images/trrr.png';
+import tra from '../../public/images/tra.png';
+
+
 
 const posts = [
   {
-    image: '/images/t.png',
+    image: t,
     author: 'Alec Whitten',
     date: '17 Jan 2022',
     title: 'Bill Walsh leadership lessons',
@@ -12,7 +23,7 @@ const posts = [
     tags: ['Leadership', 'Management'],
   },
   {
-    image: '/images/tr.png',
+    image: tr,
     author: 'Demi Wilkinson',
     date: '16 Jan 2022',
     title: 'PM mental models',
@@ -20,7 +31,7 @@ const posts = [
     tags: ['Product', 'Research', 'Frameworks'],
   },
   {
-    image: '/images/trr.png',
+    image: trr,
     author: 'Candice Wu',
     date: '15 Jan 2022',
     title: 'What is Wireframing?',
@@ -28,7 +39,7 @@ const posts = [
     tags: ['Design', 'Research'],
   },
   {
-    image: '/images/tt.png',
+    image: tt,
     author: 'Natalie Craig',
     date: '14 Jan 2022',
     title: 'How collaboration makes us better designers',
@@ -36,7 +47,7 @@ const posts = [
     tags: ['Design', 'Research'],
   },
   {
-    image: '/images/trrr.png',
+    image: trrr,
     author: 'Drew Cano',
     date: '13 Jan 2022',
     title: 'Our top 10 Javascript frameworks to use',
@@ -44,7 +55,7 @@ const posts = [
     tags: ['Software Development', 'Tools', 'SaaS'],
   },
   {
-    image: '/images/tra.png',
+    image: tra,
     author: 'Orlando Diggs',
     date: '12 Jan 2022',
     title: 'Podcast: Creating a better CX Community',
@@ -52,7 +63,7 @@ const posts = [
     tags: ['Podcasts', 'Customer Success'],
   },
   {
-    image: '/images/t.png',
+    image: t,
     author: 'Alec Whitten',
     date: '17 Jan 2022',
     title: 'Bill Walsh leadership lessons',
@@ -60,7 +71,7 @@ const posts = [
     tags: ['Leadership', 'Management'],
   },
   {
-    image: '/images/tr.png',
+    image: tr,
     author: 'Demi Wilkinson',
     date: '16 Jan 2022',
     title: 'PM mental models',
@@ -68,7 +79,7 @@ const posts = [
     tags: ['Product', 'Research', 'Frameworks'],
   },
   {
-    image: '/images/trr.png',
+    image: trr,
     author: 'Candice Wu',
     date: '15 Jan 2022',
     title: 'What is Wireframing?',
@@ -76,7 +87,7 @@ const posts = [
     tags: ['Design', 'Research'],
   },
   {
-    image: '/images/tt.png',
+    image: tt,
     author: 'Natalie Craig',
     date: '14 Jan 2022',
     title: 'How designers',
@@ -84,7 +95,7 @@ const posts = [
     tags: ['Design', 'Research'],
   },
   {
-    image: '/images/trrr.png',
+    image: trrr,
     author: 'Drew Cano',
     date: '13 Jan 2022',
     title: 'Our top 10 Javascript frameworks to use',
@@ -92,7 +103,7 @@ const posts = [
     tags: ['Software Development', 'Tools', 'SaaS'],
   },
   {
-    image: '/images/tra.png',
+    image: tra,
     author: 'Orlando Diggs',
     date: '12 Jan 2022',
     title: 'Podcast: Creating a better CX Community',
@@ -157,7 +168,7 @@ export default function BlogPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
         {/* Post 1 */}
         <div>
-          <Image src="/images/lap3.png" alt="Post 1" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
+          <Image src={lap3} alt="Post 1" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
           <p className="text-xs sm:text-sm text-purple-600 font-medium mt-4">Olivia Rhye • 20 Jan 2022</p>
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 mt-1 flex items-center gap-1">
             UX review presentations{' '}
@@ -175,7 +186,7 @@ export default function BlogPage() {
 
         {/* Post 2 */}
         <div>
-          <Image src="/images/lap.png" alt="Post 2" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
+          <Image src={lap} alt="Post 2" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
           <p className="text-xs sm:text-sm text-purple-600 font-medium mt-4">Phoenix Baker • 19 Jan 2022</p>
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 mt-1">Migrating to Linear 101</h3>
           <p className="text-gray-500 text-xs sm:text-sm mt-2">
@@ -189,7 +200,7 @@ export default function BlogPage() {
 
         {/* Post 3 */}
         <div>
-          <Image src="/images/lap1.png" alt="Post 3" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
+          <Image src={lap1} alt="Post 3" width={600} height={400} className="rounded-md w-full h-auto object-cover" />
           <p className="text-xs sm:text-sm text-purple-600 font-medium mt-4">Lana Steiner • 18 Jan 2022</p>
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 mt-1">Building your API Stack</h3>
           <p className="text-gray-500 text-xs sm:text-sm mt-2">

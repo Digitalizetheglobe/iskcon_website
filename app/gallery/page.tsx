@@ -22,7 +22,7 @@ export default function Page() {
   const [zoomed, setZoomed] = useState<number | null>(null);
 
   const galleryImages = [
-    { src: "/images/ch2.jpg", alt: "Gallery 1", width: 500, height: 320 },
+    { src: "/images/ch2.jpg",alt: "Gallery 1", width: 500, height: 320 },
     { src: "/images/harinam.jpg", alt: "Gallery 3", width: 400, height: 400 },
     { src: "/images/image-160.png", alt: "Gallery 2", width: 250, height: 480 },
     { src: "/images/radha.jpg", alt: "Gallery 3", width: 520, height: 480 },

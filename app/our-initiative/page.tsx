@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import image from "../../public/images/image.png";
 import mahadanam from "../../public/images/mahadanam.png";
+import m from "../../public/images/m.png";
+import v from "../../public/images/v.png";
+import fans from "../../public/images/fans.png";
+import mahada from "../../public/images/maha_da_mob.png";
+import Heart from "../../public/images/Heart.png";
+
+
+
 
 
 import {
@@ -91,7 +99,7 @@ export default function Page() {
               <div className="bg-[#ec6d4e] rounded-full px-3 py-3 flex items-center space-x-4 shadow-md transform transition-transform duration-300 hover:scale-105">
                 <div className="bg-white p-2 rounded-full flex-shrink-0">
                   <Image
-                    src="/images/m.png"
+                    src={m}
                     alt="Moral Values Icon"
                     width={24}
                     height={24}
@@ -107,7 +115,7 @@ export default function Page() {
               <div className="bg-[#ec6d4e] rounded-full px-3 py-3 flex items-center space-x-4 shadow-md transform transition-transform duration-300 hover:scale-105">
                 <div className="bg-white p-2 rounded-full flex-shrink-0">
                   <Image
-                    src="/images/v.png"
+                    src={v}
                     alt="Culture Icon"
                     width={24}
                     height={24}
@@ -123,7 +131,7 @@ export default function Page() {
               <div className="bg-[#ec6d4e] rounded-full px-3 py-3 flex items-center space-x-4 shadow-md transform transition-transform duration-300 hover:scale-105">
                 <div className="bg-white p-2 rounded-full flex-shrink-0">
                   <Image
-                    src="/images/fans.png"
+                    src={fans}
                     alt="Life Skills Icon"
                     width={24}
                     height={24}
@@ -140,7 +148,7 @@ export default function Page() {
           <div className="relative mt-4 px-2">
             <div
               className="h-48 sm:h-64 md:h-76 bg-cover bg-center rounded-xl mx-2 mb-4 relative overflow-hidden shadow-lg"
-              style={{ backgroundImage: "url('/images/maha_da_mob.png')" }}
+              style={{ backgroundImage: `url(${mahada.src})` }}
             >
               <div className="absolute inset-0 bg-black opacity-50"></div>
             </div>
@@ -170,7 +178,7 @@ export default function Page() {
               {/* Donate Button */}
               <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
                 <Image
-                  src="/images/Heart.png"
+                  src={Heart}
                   alt="Donate Icon"
                   width={20}
                   height={20}
@@ -414,7 +422,7 @@ export default function Page() {
                 {/* Button */}
                 <button className="flex items-center gap-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 mt-10 rounded-full shadow-md z-10 transition-transform transform hover:scale-105">
                   <Image
-                    src="/images/Heart.png"
+                    src={Heart}
                     alt="Donate Icon"
                     width={24}
                     height={24}
