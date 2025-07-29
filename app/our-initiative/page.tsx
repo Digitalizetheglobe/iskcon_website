@@ -1,17 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
 import Image from "next/image";
-import image from "../../public/images/image.png";
+import React, { useState, useEffect } from "react";
+
+import img from "../../public/images/aikya-vidya.png";
 import mahadanam from "../../public/images/mahadanam.png";
 import m from "../../public/images/m.png";
 import v from "../../public/images/v.png";
 import fans from "../../public/images/fans.png";
 import mahada from "../../public/images/maha_da_mob.png";
 import Heart from "../../public/images/Heart.png";
-
-
-
-
 
 import {
   FaTheaterMasks,
@@ -49,7 +47,7 @@ export default function Page() {
             </h2>
             <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400 mb-6">
               <Image
-                src={image}
+                src={img}
                 alt="AIKYA VIDYA"
                 width={600}
                 height={340}
@@ -198,7 +196,7 @@ export default function Page() {
             {/* Video Thumbnail */}
             <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400">
               <Image
-                src={image} // replace with actual image path
+                src={img} // replace with actual image path
                 alt="AIKYA VIDYA"
                 width={600}
                 height={340}
