@@ -17,7 +17,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[200px] md:h-[550px]">
         <section
-          className="relative bg-cover bg-center text-white w-full h-full max-w-6xl mx-auto rounded-xl overflow-hidden bg-black opacity-100"
+          className="relative bg-cover bg-center text-white w-full h-full max-w-6xl mx-auto rounded-xl overflow-hidden bg-black opacity-90"
           style={{ backgroundImage: `url(${join.src})` }}
         >
         </section>
@@ -94,7 +94,7 @@ export default function Home() {
       </section>
 
       {/* Upcoming Opportunities */}
-      <section className="px-2 sm:px-0">
+      <section className="px-2 sm:px-8">
         <h2 className="text-xl lg:text-4xl sm:text-2xl font-semibold text-center mb-6 lg:mb-0 sm:mb-10 lg:py-15">Upcoming Volunteer Opportunities</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 items-center">
           {/* Card 1 */}

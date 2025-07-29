@@ -257,7 +257,7 @@ export default function Page() {
                 <div className="bg-[#ec6d4e] rounded-lg px-4 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-auto max-w-full">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
-                      src="/images/m.png"
+                      src={m}
                       alt="Star Icon"
                       width={32}
                       height={32}
@@ -275,7 +275,7 @@ export default function Page() {
                 <div className="bg-[#ec6d4e] rounded-xl px-4 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-[450px] ">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
-                      src="/images/v.png"
+                      src={v}
                       alt="Star Icon"
                       width={32}
                       height={32}
@@ -293,7 +293,7 @@ export default function Page() {
                 <div className="bg-[#ec6d4e] rounded-xl px-6 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-[420px]">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
-                      src="/images/fans.png"
+                      src={fans}
                       alt="Star Icon"
                       width={32}
                       height={32}

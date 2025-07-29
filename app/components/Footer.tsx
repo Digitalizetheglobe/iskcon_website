@@ -19,7 +19,7 @@ export default function Footer() {
         {/* Top Grid Section */}
         <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 ">
           {/* Left: Logo + About Us */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 md:col-span-2 px-6">
             <div className="mb-4">
               <Image
                 src={logo}

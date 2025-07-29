@@ -188,7 +188,7 @@ export default function HeroSection() {
         </div>
       ) : (
         <section
-          className="relative bg-cover bg-top text-white w-full max-w-6xl mx-auto rounded-xl overflow-hidden h-[70vh] md:h-[80vh] lg:h-[120vh]"
+          className="relative bg-cover bg-top text-white w-full max-w-6xl mx-auto rounded-xl overflow-hidden h-[70vh] md:h-[80vh] lg:h-[180vh]"
           style={{ backgroundImage: `url(${homeImg.src})` }}
         >
           {/* Container for cards */}
@@ -256,7 +256,7 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Box */}
-            <div className="text-white shadow-xl flex w-full md:w-[400px] lg:w-[515px] px-4 md:px-[35px] py-4 md:py-[26px] justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md">
+            <div className="text-white shadow-xl flex w-full md:w-[400px] lg:w-[450px] px-4 md:px-[35px] py-4 md:py-[26px] justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md">
               <div className="w-full text-center md:text-left">
                 <h3 className="text-lg md:text-xl font-semibold mb-2">
                   Nourish a Life. Uplift a Soul.

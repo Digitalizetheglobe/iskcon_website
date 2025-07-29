@@ -3,6 +3,14 @@
 import HeroSection from "@/app/components/HeroSection";
 import Image from "next/image";
 import React, { useState } from "react";
+import isk2 from "../public/images/isk2c.png";
+import image150 from "../public/images/image-150.png"
+import image160 from "../public/images/image-160.png"
+import image170 from "../public/images/image-170.png"
+import ik from "../public/images/ik.png"
+import pic1 from "../public/images/pic1.png"
+import person from "../public/images/person.png"
+
 
 const causes = [
   {
@@ -31,7 +39,7 @@ const cardData = [
     subtitle: "Lorem ipsum",
     donation: "Donated ₹1000 in Anadaan",
     text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-    avatar: "/images/e.png",
+  avatar: person,
   },
   {
     id: 2,
@@ -39,7 +47,7 @@ const cardData = [
     subtitle: "Lorem ipsum",
     donation: "Donated ₹1000 in Anadaan",
     text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-    avatar: "/images/e.png",
+    avatar: person,
   },
   {
     id: 3,
@@ -47,7 +55,7 @@ const cardData = [
     subtitle: "Lorem ipsum",
     donation: "Donated ₹1000 in Anadaan",
     text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-    avatar: "/images/e.png",
+    avatar: person,
   },
 ];
 
@@ -57,12 +65,12 @@ const HomePage = () => {
   const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
 
   const galleryImages = [
-    { src: "/images/image-150.png", alt: "Gallery 1", width: 520, height: 320 },
-    { src: "/images/isk2.png", alt: "Gallery 3", width: 520, height: 480 },
-    { src: "/images/image-160.png", alt: "Gallery 2", width: 250, height: 480 },
-    { src: "/images/image-170.png", alt: "Gallery 3", width: 520, height: 480 },
-    { src: "/images/isk2.png", alt: "Gallery 3", width: 520, height: 480 },
-    { src: "/images/ik.png", alt: "Gallery 3", width: 400, height: 400 },
+    { src:image150, alt: "Gallery 1", width: 520, height: 320 },
+    { src: isk2, alt: "Gallery 3", width: 520, height: 480 },
+    { src: image160, alt: "Gallery 2", width: 250, height: 480 },
+    { src: image170, alt: "Gallery 3", width: 520, height: 480 },
+    { src: isk2, alt: "Gallery 3", width: 520, height: 480 },
+    { src:ik, alt: "Gallery 3", width: 400, height: 400 },
   ];
   return (
     <main className="bg-white text-gray-800">
@@ -98,7 +106,7 @@ const HomePage = () => {
                 <div className="flex justify-start w-full mb-4">
                   <div className="bg-orange-200 p-4 rounded-full">
                     <Image
-                      src="/images/pic1.png"
+                      src={pic1}
                       alt={option.title}
                       width={32}
                       height={32}
@@ -128,7 +136,7 @@ const HomePage = () => {
           }}
         >
           {/* <Image
-            src="/images/pic2.png"
+            src={pic2}
             alt="Donation Journey Layout"
             width={1337}
             height={768}

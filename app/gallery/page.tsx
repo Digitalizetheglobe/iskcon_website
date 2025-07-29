@@ -3,6 +3,20 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import ch2 from "../../public/images/ch2.jpg";
+import harinam from "../../public/images/Harinam.jpg";
+import radha from "../../public/images/radha.jpg";
+import ch3 from "../../public/images/ch3.jpg";
+import ch from "../../public/images/ch.jpg";
+import gau from "../../public/images/gau.jpg";
+import krish from "../../public/images/krish.jpg";
+import bal from "../../public/images/bal.jpg";
+import g from "../../public/images/g.jpg";
+import mini from "../../public/images/mini.jpg";
+import image160 from "../../public/images/image-160.png";
+
+
+
 
 export default function Page() {
   const [isMobile, setIsMobile] = useState(false);
@@ -22,12 +36,12 @@ export default function Page() {
   const [zoomed, setZoomed] = useState<number | null>(null);
 
   const galleryImages = [
-    { src: "/images/ch2.jpg",alt: "Gallery 1", width: 500, height: 320 },
-    { src: "/images/harinam.jpg", alt: "Gallery 3", width: 400, height: 400 },
-    { src: "/images/image-160.png", alt: "Gallery 2", width: 250, height: 480 },
-    { src: "/images/radha.jpg", alt: "Gallery 3", width: 520, height: 480 },
-    { src: "/images/ch3.jpg", alt: "Gallery 3", width: 400, height: 400 },
-    { src: "/images/ch.jpg", alt: "Gallery 3", width: 200, height: 300 },
+    { src: ch2,alt: "Gallery 1", width: 500, height: 320 },
+    { src: harinam, alt: "Gallery 3", width: 400, height: 400 },
+    { src: image160, alt: "Gallery 2", width: 250, height: 480 },
+    { src: radha, alt: "Gallery 3", width: 520, height: 480 },
+    { src: ch3, alt: "Gallery 3", width: 400, height: 400 },
+    { src: ch, alt: "Gallery 3", width: 200, height: 300 },
   ];
 
   return (
@@ -138,7 +152,7 @@ export default function Page() {
           {/* Image 1 */}
           <div className="col-span-2 row-span-4 relative shadow-xl contrast-more:">
             <Image
-              src="/images/gau.jpg"
+              src={gau}
               alt="Image 1"
               fill
               className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
@@ -148,7 +162,7 @@ export default function Page() {
           {/* Image 2 */}
           <div className="col-span-3 row-span-6 col-start-3 relative">
             <Image
-              src="/images/krish.jpg"
+              src={krish}
               alt="Image 2"
               fill
               className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
@@ -158,7 +172,7 @@ export default function Page() {
           {/* Image 3 */}
           <div className="col-span-2 row-span-4 col-start-6 relative">
             <Image
-              src="/images/bal.jpg"
+              src={bal}
               alt="Image 3"
               fill
               className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
@@ -168,7 +182,7 @@ export default function Page() {
           {/* Image 4 */}
           <div className="col-span-2 row-span-2 row-start-5 relative">
             <Image
-              src="/images/g.jpg"
+              src={g}
               alt="Image 4"
               fill
               className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
@@ -178,7 +192,7 @@ export default function Page() {
           {/* Image 5 */}
           <div className="col-span-2 row-span-2 col-start-6 row-start-5 relative">
             <Image
-              src="/images/mini.jpg"
+              src={mini}
               alt="Image 5"
               fill
               className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"

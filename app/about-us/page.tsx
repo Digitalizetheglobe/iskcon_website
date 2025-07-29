@@ -5,6 +5,7 @@ import Image from "next/image";
 import CountUp from "react-countup";
 import Link from "next/link";
 import harinamImg from "../../public/images/Harinam.jpg";
+import harinamImg2 from "../../public/images/ch2.jpg";
 import pImg from "../../public/images/p.png";
 import iImg from "../../public/images/i.png";
 import img9 from "../../public/images/img9.png";
@@ -93,9 +94,9 @@ export default function Page() {
 
   const galleryImages = [
     { src: ch2, alt: "Gallery 1", width: 500, height: 320 },
-    { src: harinamImg, alt: "Gallery 3", width: 400, height: 400 },
+    { src: harinamImg2, alt: "Gallery 3", width: 400, height: 400 },
     { src: image160, alt: "Gallery 2", width: 250, height: 480 },
-    { src: radha, alt: "Gallery 3", width: 520, height: 480 },
+    { src: harinamImg2, alt: "Gallery 3", width: 520, height: 480 },
     { src: radha, alt: "Gallery 3" , width: 520, height: 480},
     { src: ch, alt: "Gallery 3", width: 200, height: 300 },
   ];
