@@ -1,75 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
-import homeImg from "../../public/images/homeImg.png";
+import homeImg from "../../public/images/img1.png";
+import homeImg2 from "../../public/images/homeImg.png"
 import img9 from "../../public/images/img9.png";
 import k3 from "../../public/images/k3.png";
 import k1 from "../../public/images/k1.png";
 import k4 from "../../public/images/k4.png";
 import k5 from "../../public/images/k5.png";
 import k2 from "../../public/images/k2.png";
+import Heart from "../../public/images/Heart.png";
+import info from "../../public/images/info.png";
 
 import { useState, useEffect } from "react";
 
-//const donations = [
-//   {
-//     name: "Rohit",
-//     city: "Mumbai",
-//     amount: "₹1,000",
-//     children: 40,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "Priya",
-//     city: "Delhi",
-//     amount: "₹3,500",
-//     children: 70,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "yogesh",
-//     city: "Mumbai",
-//     amount: "₹1,000",
-//     children: 40,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "Priya",
-//     city: "Delhi",
-//     amount: "₹2,500",
-//     children: 100,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "Bhavik",
-//     city: "Mumbai",
-//     amount: "₹1,000",
-//     children: 40,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "yogesh",
-//     city: "Delhi",
-//     amount: "₹2,500",
-//     children: 100,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "Dimple",
-//     city: "Delhi",
-//     amount: "₹2,500",
-//     children: 100,
-//     image: "/images/om.png",
-//   },
-//   {
-//     name: "krutika",
-//     city: "Delhi",
-//     amount: "₹2,070",
-//     children: 100,
-//     image: "/images/om.png",
-//   },
-//   // Add more donation objects as needed
-// ];
+
+
 
 export default function HeroSection() {
   // Removed unused 'current' state
@@ -96,8 +43,8 @@ export default function HeroSection() {
       {isMobile ? (
         <div className="flex flex-col gap-2 ">
           <div
-            className=" bg-cover bg-center text-white    rounded-xl overflow-hidden h-[60vh] "
-            style={{ backgroundImage: `url(${homeImg.src})` }}
+            className=" bg-cover bg-center text-white w-full    rounded-xl overflow-hidden h-[60vh] "
+            style={{ backgroundImage: `url(${homeImg2.src})` }}
           ></div>
           {/* Container for cards */}
           <div className=" mb:bottom-10 left-0 right-0 flex flex-col-reverse  px-4  gap-4">
@@ -133,20 +80,14 @@ export default function HeroSection() {
                     50K
                   </p>
                   <p className="text-sm md:text-[16px] font-medium leading-[120%] text-[#2C2C2C] m-0">
-                    Children&#39;s  Educated
+                    Children&#39;s Educated
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center mt-2 flex-wrap gap-2">
                 <div className="flex -space-x-3">
-                  {[
-                    k3,
-                    k1,
-                    k4,
-                    k5,
-                    k2,
-                  ].map((src, idx) => (
+                  {[k3, k1, k4, k5, k2].map((src, idx) => (
                     <Image
                       key={idx}
                       src={src}
@@ -175,12 +116,30 @@ export default function HeroSection() {
                   hope to those who need it most.
                 </p>
                 <div className="flex justify-evenly    gap-2 ">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition">
-                    Donate Now
-                  </button>
-                  <button className="bg-white hover:bg-gray-200 text-black px-4 py-2 rounded-full transition">
-                    About Us
-                  </button>
+                  <Link href="/donation">
+                    <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+                      <Image
+                        src={Heart}
+                        alt="Donate Icon"
+                        width={20}
+                        height={20}
+                        className="w-6 h-6"
+                      />
+                      Donate Now
+                    </button>
+                  </Link>
+                  <Link href="/about-us">
+                    <button className="flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-full shadow-md transition-transform transform hover:scale-105">
+                      <Image
+                        src={info}
+                        alt="Info Icon"
+                        width={20}
+                        height={30}
+                        className="w-6 h-6"
+                      />
+                      About Us
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -192,10 +151,10 @@ export default function HeroSection() {
           style={{ backgroundImage: `url(${homeImg.src})` }}
         >
           {/* Container for cards */}
-          <div className="absolute bottom-4 md:bottom-10 left-0 right-0 flex flex-col md:flex-row md:justify-between px-4 md:px-10 lg:px-16 gap-4">
+          <div className="absolute bottom-4 lg:mb-10 md:bottom-10 left-3 right-3 flex flex-col md:flex-row md:justify-between px-4 md:px-10 lg:px-16 gap-4">
             {/* Karma Insights Box */}
             <div className="text-black p-4 md:p-6 shadow-xl w-full md:w-[400px] lg:w-[420px] flex flex-col gap-4 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md">
-              <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center justify-between md:justify-start flex-wrap gap-2">
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md text-black font-semibold text-base md:text-lg">
                   <Image
                     src={img9}
@@ -232,13 +191,7 @@ export default function HeroSection() {
 
               <div className="flex items-center mt-2 flex-wrap gap-2">
                 <div className="flex -space-x-3">
-                  {[
-                    k3,
-                    k1,
-                    k4,
-                    k5,
-                    k2, 
-                  ].map((src, idx) => (
+                  {[k3, k1, k4, k5, k2].map((src, idx) => (
                     <Image
                       key={idx}
                       src={src}
@@ -256,7 +209,7 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Box */}
-            <div className="text-white shadow-xl flex w-full md:w-[400px] lg:w-[450px] px-4 md:px-[35px] py-4 md:py-[26px] justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md">
+            <div className="text-white shadow-xl flex w-full md:w-[400px] lg:w-[430px] px-4 md:px-[35px] py-4 md:py-[26px] justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md">
               <div className="w-full text-center md:text-left">
                 <h3 className="text-lg md:text-xl font-semibold mb-2">
                   Nourish a Life. Uplift a Soul.
@@ -267,12 +220,31 @@ export default function HeroSection() {
                   hope to those who need it most.
                 </p>
                 <div className="flex flex-col md:flex-row md:space-x-4 gap-2 md:gap-0">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition">
-                    Donate Now
-                  </button>
-                  <button className="bg-white hover:bg-gray-200 text-black px-4 py-2 rounded-full transition">
-                    About Us
-                  </button>
+                  <Link href="/donation">
+                    <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+                      <Image
+                        src={Heart}
+                        alt="Donate Icon"
+                        width={20}
+                        height={20}
+                        className="w-6 h-6"
+                      />
+                      Donate Now
+                    </button>
+                  </Link>
+
+                  <Link href="/about-us">
+                    <button className="flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-full shadow-md transition-transform transform hover:scale-105">
+                      <Image
+                        src={info}
+                        alt="Info Icon"
+                        width={20}
+                        height={30}
+                        className="w-6 h-6"
+                      />
+                      About Us
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

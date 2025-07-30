@@ -8,13 +8,36 @@ import harinam from "../../public/images/Harinam.jpg";
 import radha from "../../public/images/radha.jpg";
 import ch3 from "../../public/images/ch3.jpg";
 import ch from "../../public/images/ch.jpg";
-import gau from "../../public/images/gau.jpg";
-import krish from "../../public/images/krish.jpg";
-import bal from "../../public/images/bal.jpg";
-import g from "../../public/images/g.jpg";
-import mini from "../../public/images/mini.jpg";
+
 import image160 from "../../public/images/image-160.png";
 
+//   new festivals images 
+import fest1 from "../../public/GalleryImages/Culture/fest (1).jpg"
+import fest2 from "../../public/GalleryImages/Culture/fest (2).jpg"
+import fest3 from "../../public/GalleryImages/Culture/fest (3).jpg"
+import fest4 from "../../public/GalleryImages/Culture/fest (4).jpg"
+
+
+// new education images 
+import edu2 from "../../public/GalleryImages/Education/edu02.jpg"
+import edu3 from "../../public/GalleryImages/Education/edu03.jpg"
+import edu4 from "../../public/GalleryImages/Education/edu04.jpg"
+import edu5 from "../../public/GalleryImages/Education/edu05.jpg"
+
+
+
+// new images of idyadaan
+import food01 from "../../public/GalleryImages/Food/food01.jpg"
+import food02 from "../../public/GalleryImages/Food/food02.jpg"
+import food03 from "../../public/GalleryImages/Food/food03.jpg"
+import food04 from "../../public/GalleryImages/Food/food04.jpg"
+
+
+//new images og valuesEducation
+import value1 from "../../public/GalleryImages/Values/value (1).jpg"
+import value2 from "../../public/GalleryImages/Values/value (2).jpg"
+import value3 from "../../public/GalleryImages/Values/value (3).jpg"
+import value4 from "../../public/GalleryImages/Values/value (4).jpg"
 
 
 
@@ -36,7 +59,7 @@ export default function Page() {
   const [zoomed, setZoomed] = useState<number | null>(null);
 
   const galleryImages = [
-    { src: ch2,alt: "Gallery 1", width: 500, height: 320 },
+    { src: ch2, alt: "Gallery 1", width: 500, height: 320 },
     { src: harinam, alt: "Gallery 3", width: 400, height: 400 },
     { src: image160, alt: "Gallery 2", width: 250, height: 480 },
     { src: radha, alt: "Gallery 3", width: 520, height: 480 },
@@ -44,79 +67,129 @@ export default function Page() {
     { src: ch, alt: "Gallery 3", width: 200, height: 300 },
   ];
 
+
+  const festivals=[
+  { src: fest1, alt: "Gallery 1", width: 400, height: 400 },
+  { src: fest2, alt: "Gallery 2", width: 500, height: 320 },
+  { src: fest3, alt: "Gallery 3", width: 500, height: 320 },
+  { src: fest4, alt: "Gallery 4", width: 500, height: 320 },
+ 
+  ]
+  
+  const education = [
+  { src: edu2, alt: "edu 2", width: 500, height: 320 },
+  { src: edu3, alt: "edu 3", width: 500, height: 320 },
+  { src: edu4, alt: "edu 4", width: 500, height: 320 },
+  { src: edu5, alt: "edu 5", width: 500, height: 320 },
+ 
+];
+
+const food = [
+  { src: food01, alt: "Food 1", width: 500, height: 320 },
+  { src: food02, alt: "Food 2", width: 500, height: 320 },
+  { src: food03, alt: "Food 3", width: 500, height: 320 },
+  { src: food04, alt: "Food 4", width: 500, height: 320 },
+
+];
+
+const valuesEducation = [
+  { src: value1, alt: "Values Education 1", width: 500, height: 320 },
+  { src: value2, alt: "Values Education 2", width: 500, height: 320 },
+  { src: value3, alt: "Values Education 3", width: 500, height: 320 },
+  { src: value4, alt: "Values Education 4", width: 500, height: 320 },
+ 
+];
+// ... existing code ...
+
+
   return (
     <>
       {isMobile ? (
         <>
           <div className=" mt-10 flex flex-col items-center gap-4 w-auto text-center text-[--text-dark-charcoal] font-['Urbanist']">
-            <h1 className="text-[25px] font-bold ">
-              A glipmse into the lives you&#39;ve <br />
+            <h1 className="text-[30px] font-bold mb-4">
+              A glipmse into the lives you&#39;ve 
               touched with your{" "}
               <span className="text-[#FF9C5A] italic">kindness</span>
             </h1>
           </div>
           <section className="flex flex-col  justify-center mx-10  mt-10  bg-white">
             <div className="grid grid-cols-1 gap-6  ">
-              {/* <div className="col-span-1 row-span-2 ">
-                        <Image
-                          src={galleryImages[0].src}
-                          alt={galleryImages[0].alt}
-                          width={galleryImages[0].width}
-                          height={galleryImages[0].height}
-                          className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
-                          onClick={() => setZoomed(0)}
-                        />
-                      </div> */}
-              {/* <div className="col-span-1 row-span-3 col-start-1 ">
-                        <Image
-                          src={galleryImages[1].src}
-                          alt={galleryImages[1].alt}
-                          width={galleryImages[1].width}
-                          height={galleryImages[1].height}
-                          className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
-                          onClick={() => setZoomed(1)}
-                        />
-                      </div> */}
-              <div>
-                <Image
-                  src={galleryImages[2].src}
-                  alt={galleryImages[2].alt}
-                  width={galleryImages[2].width}
-                  height={galleryImages[2].height}
-                  className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
-                  onClick={() => setZoomed(2)}
-                />
+              <section className="px-6 mb-5 lg:mb-20 ">
+              <h2 className="text-3xl  text-center font-semibold mb-4 text-[#333]">
+                Annadan
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {food.map((f, idx) => (
+                  <Image
+                    key={idx}
+                    src={f.src}
+                    alt={`Annadan ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
               </div>
-              <div>
-                <Image
-                  src={galleryImages[3].src}
-                  alt={galleryImages[3].alt}
-                  width={galleryImages[3].width}
-                  height={galleryImages[3].height}
-                  className="w-full h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
-                  onClick={() => setZoomed(3)}
-                />
+            </section>
+             <section className="px-6 mb-5 lg:mb-20">
+              <h2 className="text-3xl text-center font-semibold mb-4 text-[#333]">
+                Vidyadaan
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {education.map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src}
+                    alt={`Vidyadaan ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
               </div>
-              <div>
-                <Image
-                  src={galleryImages[4].src}
-                  alt={galleryImages[4].alt}
-                  width={galleryImages[4].width}
-                  height={galleryImages[4].height}
-                  className="w-auto h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out shadow-xl cursor-pointer"
-                  onClick={() => setZoomed(4)}
-                />
+            </section>
+
+            {/* Section: Values Education */}
+            <section className="px-6  mb-10 lg:mb-20">
+              <h2 className="text-3xl  text-center font-semibold mb-4 text-[#333]">
+                Values Education
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {valuesEducation.map((edu, idx) => (
+                  <Image
+                    key={idx}
+                    src={edu.src}
+                    alt={`Values Education ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
               </div>
-              <div>
-                <Image
-                  src={galleryImages[5].src}
-                  alt={galleryImages[5].alt}
-                  width={galleryImages[5].width}
-                  height={galleryImages[5].height}
-                  className="w-95 h-full object-cover rounded-2xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
-                  onClick={() => setZoomed(5)}
-                />
+            </section>
+
+            {/* Section: Festivals */}
+            <section className="px-6 mb-10 lg:mb-20">
+              <h2 className="text-3xl  text-center font-semibold mb-4 text-[#333]">
+                Festivals
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {festivals.map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src}
+                    alt={`Festival ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
               </div>
+            </section>
+             
+              
+             
             </div>
 
             {/* Zoomed Overlay */}
@@ -139,66 +212,96 @@ export default function Page() {
               </div>
             )}
           </section>
+          
+
         </>
       ) : (
-        <> 
-        <h1 className="text-[40px] font-bold text-center ">
-              A glipmse into the lives you&#39;ve <br />
+        <>
+          
+          <>
+            <h1 className="text-center text-[30px] lg:text-[44px] font-bold lg:mt-5 lg:mb-20">
+              A glimpse into the lives you&#39;ve <br />
               touched with your{" "}
               <span className="text-[#FF9C5A] italic">kindness</span>
             </h1>
 
-        <div className="grid grid-cols-7 grid-rows-6 gap-9 h-[800px] p-4 max-w-6xl mx-auto  shadow-xl rounded-lg bg-gray-100 m-8">
-          {/* Image 1 */}
-          <div className="col-span-2 row-span-4 relative shadow-xl contrast-more:">
-            <Image
-              src={gau}
-              alt="Image 1"
-              fill
-              className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
-            />
-          </div>
+            {/* Section: Annadan */}
+            <section className="px-6 mb-5 lg:mb-20 ">
+              <h2 className="text-2xl lg:text-5xl lg:py-15 text-center font-semibold mb-4 text-[#333]">
+                Annadan
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {food.map((f, idx) => (
+                  <Image
+                    key={idx}
+                    src={f.src}
+                    alt={`Annadan ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
+              </div>
+            </section>
 
-          {/* Image 2 */}
-          <div className="col-span-3 row-span-6 col-start-3 relative">
-            <Image
-              src={krish}
-              alt="Image 2"
-              fill
-              className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
-            />
-          </div>
+            {/* Section: Vidyadaan */}
+            <section className="px-6 mb-5 lg:mb-20">
+              <h2 className="text-2xl lg:text-5xl lg:py-15 text-center font-semibold mb-4 text-[#333]">
+                Vidyadaan
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {education.map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src}
+                    alt={`Vidyadaan ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
+              </div>
+            </section>
 
-          {/* Image 3 */}
-          <div className="col-span-2 row-span-4 col-start-6 relative">
-            <Image
-              src={bal}
-              alt="Image 3"
-              fill
-              className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
-            />
-          </div>
+            {/* Section: Values Education */}
+            <section className="px-6  mb-10 lg:mb-20">
+              <h2 className="text-2xl lg:text-5xl lg:py-15 text-center font-semibold mb-4 text-[#333]">
+                Values Education
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {valuesEducation.map((edu, idx) => (
+                  <Image
+                    key={idx}
+                    src={edu.src}
+                    alt={`Values Education ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
+              </div>
+            </section>
 
-          {/* Image 4 */}
-          <div className="col-span-2 row-span-2 row-start-5 relative">
-            <Image
-              src={g}
-              alt="Image 4"
-              fill
-              className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
-            />
-          </div>
-
-          {/* Image 5 */}
-          <div className="col-span-2 row-span-2 col-start-6 row-start-5 relative">
-            <Image
-              src={mini}
-              alt="Image 5"
-              fill
-              className="object-cover rounded-lg transition-transform duration-900 hover:scale-105"
-            />
-          </div>
-        </div>
+            {/* Section: Festivals */}
+            <section className="px-6 mb-10 lg:mb-20">
+              <h2 className="text-2xl lg:text-5xl lg:py-15 text-center font-semibold mb-4 text-[#333]">
+                Festivals
+              </h2>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {festivals.map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src}
+                    alt={`Festival ${idx + 1}`}
+                    width={300}
+                    height={200}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 object-cover"
+                  />
+                ))}
+              </div>
+            </section>
+          </>
+          );
         </>
       )}
     </>

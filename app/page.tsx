@@ -4,58 +4,61 @@ import HeroSection from "@/app/components/HeroSection";
 import Image from "next/image";
 import React, { useState } from "react";
 import isk2 from "../public/images/isk2c.png";
-import image150 from "../public/images/image-150.png"
-import image160 from "../public/images/image-160.png"
-import image170 from "../public/images/image-170.png"
-import ik from "../public/images/ik.png"
-import pic1 from "../public/images/pic1.png"
-import person from "../public/images/person.png"
-
+import image150 from "../public/images/image-150.png";
+import image160 from "../public/images/image-160.png";
+import image170 from "../public/images/image-170.png";
+import ik from "../public/images/ik.png";
+import pic1 from "../public/images/pic1.png";
 
 const causes = [
   {
     title: "Annadaan",
     description:
-      "Provide freshly cooked, sanctified meals to those in need. Your kindness fills plates and hearts.",
+   " No child should have to study on an empty stomach. Through Annadan, we serve warm, wholesome  meals every day—bringing not just nourishment, but love, care, and the strength to dream. ",
     icon: "/icons/donation-icon.svg",
   },
   {
-    title: "Sponsor a Child",
+    title: "Teaching Moral Values",
     description:
-      "Support a child’s education, nutrition, and wellbeing. Change one life forever.",
+      "In a world full of confusion, we guide young hearts with timeless values. Through simple stories, activities, and teachings from the Bhagavad Gita, we help children grow with character, faith, and urpose.",
     icon: "/icons/donation-icon.svg",
   },
   {
     title: "Vidya Daan",
-    description:
-      "Help light the lamp of learning. Your support shares sacred teachings and education with young hearts.",
+    description:"Education is the light that breaks the darkness of poverty. Through free tuition, we give children the chance to learn, grow, and build a future their parents only dreamed of. ",
     icon: "/icons/donation-icon.svg",
   },
 ];
 const cardData = [
   {
     id: 1,
-    name: "Lorem ipsum",
-    subtitle: "Lorem ipsum",
-    donation: "Donated ₹1000 in Anadaan",
-    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-  avatar: person,
+    name: "Suresh Reddy,",
+
+    location: "Hyderabad",
+
+    text: " I am very happy to support this programme. It gives food, education, and good values to poor children. I feel proud that my small help is making a big change in their lives.",
   },
   {
     id: 2,
-    name: "Lorem ipsum",
-    subtitle: "Lorem ipsum",
-    donation: "Donated ₹1000 in Anadaan",
-    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-    avatar: person,
+    name: "Anita Sharma",
+
+    location: " Mumbai",
+
+    text: "This is a very good cause. The children are learning not only school subjects but also how to be good human beings. I thank the team for giving me a chance to be part of this service.",
   },
   {
     id: 3,
-    name: "Lorem ipsum",
-    subtitle: "Lorem ipsum",
-    donation: "Donated ₹1000 in Anadaan",
-    text: "Lorem ipsum dolor sit amet consectetur. Libero convallis proin habitasse sollicitudin. Mi adipiscing sed quis odio duis ipsum eget scelerisque quis.",
-    avatar: person,
+    name: "Rajesh Iyer",
+
+    location: "Bangalore",
+    text: "I have seen the work of this programme closely. The kids are well fed, study daily, and learn about moral values. It gives me peace and joy to donate for such a beautiful mission.",
+  },
+  {
+    id: 4,
+    name: "Lakshmi Narayanan",
+
+    location: " Coimbatore",
+    text: "I donated to this programme because it takes care of children’s food, studies, and values. I feel very happy to see them growing in the right path. This is real service to society.",
   },
 ];
 
@@ -65,18 +68,18 @@ const HomePage = () => {
   const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
 
   const galleryImages = [
-    { src:image150, alt: "Gallery 1", width: 520, height: 320 },
+    { src: image150, alt: "Gallery 1", width: 520, height: 320 },
     { src: isk2, alt: "Gallery 3", width: 520, height: 480 },
     { src: image160, alt: "Gallery 2", width: 250, height: 480 },
     { src: image170, alt: "Gallery 3", width: 520, height: 480 },
     { src: isk2, alt: "Gallery 3", width: 520, height: 480 },
-    { src:ik, alt: "Gallery 3", width: 400, height: 400 },
+    { src: ik, alt: "Gallery 3", width: 400, height: 400 },
   ];
   return (
-    <main className="bg-white text-gray-800">
+    <main className="bg-white  text-gray-800">
       <HeroSection />
 
-      <section className="py-12 px-4 md:px-10 lg:px-20">
+      <section className="py-12 px-4 md:px-10 lg:px-10">
         {/* <h2 className="text-3xl md:text-4xl font-semibold text-center text-orange-600 mb-4">
           Give Nourishment, <span className="text-yellow-500">Give Knowledge</span>, Give Hope
         </h2>
@@ -166,69 +169,47 @@ const HomePage = () => {
 
         {/* ------------------------------------------------------- */}
 
-        <section className="flex flex-col lg:flex-row px-4 py-8 bg-white mx-auto lg:px-0 lg:py-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full lg:flex lg:flex-wrap lg:justify-center lg:gap-5">
-            {cardData.map((card) => (
-              <div
-                key={card.id}
-                className="rounded-[20px] sm:rounded-[30px] lg:rounded-[40px] bg-[#F28C6A] 
-           w-full max-w-[340px] mx-auto
-           h-[350px] sm:h-[380px] lg:h-[400px] 
-           flex-shrink-0 
-           p-4 sm:p-6 lg:p-8 
-           flex flex-col justify-between 
-           hover:scale-105 transition duration-300 ease-in-out
-           shadow-lg hover:shadow-xl"
-              >
+        <section className="flex flex-col items-center justify-center lg:flex-row px-4 py-8 bg-white mx-auto lg:px-0 lg:py-0">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-10 w-full  ">
+            {cardData.map((card) => {
+              // Generate initials from name
+              return (
                 <div
-                  className="text-[var(--Bg---color,#ECECE2)] font-inter 
-                text-lg sm:text-xl lg:text-[24px] 
-                font-normal leading-[150%] 
-                flex-grow"
+                  key={card.id}
+                  className="bg-[#FF9C5A] rounded-4xl shadow-xl w-full max-w-[340px] mx-auto h-[260px] sm:h-[400px] lg:h-[320px] flex-shrink-0 p-6 flex flex-col justify-between border border-[#F9D6C1]  transition duration-300  group"
                 >
-                  {card.text}
-                </div>
-
-                <div className="flex items-center gap-3 sm:gap-4 mt-4">
-                  <div
-                    className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 
-                  rounded-full overflow-hidden flex-shrink-0"
-                  >
-                    <Image
-                      src={card.avatar}
-                      alt={card.name}
-                      width={64}
-                      height={64}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="flex flex-col items-start ">
+                    <div className="text-white font-inter text-base sm:text-lg lg:text-[18px] font-normal leading-[150%] text-left flex-grow">
+                    {`"${card.text}"`}
+                    </div>
                   </div>
-
-                  <div className="flex flex-col min-w-0 flex-1">
-                    <h3
-                      className="text-[#ECECE2] font-inter 
-                   text-base sm:text-lg lg:text-xl 
-                   font-semibold truncate"
-                    >
-                      {card.name}
-                    </h3>
-                    <p
-                      className="text-[#ECECE2] font-inter 
-                  text-xs sm:text-sm 
-                  opacity-80 truncate"
-                    >
-                      {card.subtitle}
-                    </p>
-                    <p
-                      className="text-[#ECECE2] font-inter 
-                  text-xs sm:text-sm 
-                  font-medium truncate"
-                    >
-                      {card.donation}
-                    </p>
+                  <div className="flex items-center gap-3 sm:gap-4 mt-6">
+                    <div className="flex flex-col min-w-0 flex-1">
+                      <h3 className="text-white font-bold text-base sm:text-lg lg:text-xl  truncate">
+                        {card.name}
+                      </h3>
+                      <p className="text-gray-900 font-inter text-xs sm:text-sm opacity-80 truncate flex items-center gap-1">
+                        <svg
+                          className="w-4 h-4 inline-block mr-1 text-[#A67C52]"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                          />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        {card.location}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

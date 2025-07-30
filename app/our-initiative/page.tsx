@@ -171,10 +171,9 @@ export default function Page() {
             {/* Mobile Donate Button */}
             <div className="relative flex justify-center mt-1 items-center">
               {/* Left Arrow - Mobile */}
-              
 
               {/* Donate Button */}
-              <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+              <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
                 <Image
                   src={Heart}
                   alt="Donate Icon"
@@ -184,9 +183,7 @@ export default function Page() {
                 />
                 Donate Now
               </button>
-
               {/* Right Arrow - Mobile */}
-             
             </div>
           </div>
         </div>
@@ -415,7 +412,6 @@ export default function Page() {
               {/* Arrows and Donate Button Container */}
               <div className="relative flex items-center justify-center ">
                 {/* Left Arrow as Image */}
-               
 
                 {/* Button */}
                 <button className="flex items-center gap-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 mt-10 rounded-full shadow-md z-10 transition-transform transform hover:scale-105">
@@ -430,7 +426,6 @@ export default function Page() {
                 </button>
 
                 {/* Right Arrow */}
-                
               </div>
             </div>
             {/* ----  */}
