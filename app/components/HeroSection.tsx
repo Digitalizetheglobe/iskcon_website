@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import homeImg from "../../public/images/img1.png";
-import homeImg2 from "../../public/images/homeImg.png"
+import homeImg2 from "../../public/images/home_banner.png";
 import img9 from "../../public/images/img9.png";
 import k3 from "../../public/images/k3.png";
 import k1 from "../../public/images/k1.png";
@@ -15,9 +15,6 @@ import info from "../../public/images/info.png";
 
 import { useState, useEffect } from "react";
 
-
-
-
 export default function HeroSection() {
   // Removed unused 'current' state
   const [isMobile, setIsMobile] = useState(false);
@@ -27,7 +24,7 @@ export default function HeroSection() {
   useEffect(() => {
     // Function to check screen width
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // adjust breakpoint if needed
+      setIsMobile(window.innerWidth < 768); // adjust breakpoint if needed
     };
 
     handleResize(); // initial check
@@ -43,13 +40,13 @@ export default function HeroSection() {
       {isMobile ? (
         <div className="flex flex-col gap-2 ">
           <div
-            className=" bg-cover bg-center text-white w-full    rounded-xl overflow-hidden h-[60vh] "
+            className=" bg-cover bg-center text-white w-full   rounded-xl overflow-hidden h-[65vh] "
             style={{ backgroundImage: `url(${homeImg2.src})` }}
           ></div>
           {/* Container for cards */}
           <div className=" mb:bottom-10 left-0 right-0 flex flex-col-reverse  px-4  gap-4">
             {/* Karma Insights Box */}
-            <div className="text-black p-4 md:p-6 shadow-xl w-full md:w-[400px] lg:w-[420px] flex flex-col gap-4 border border-orange-500 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md">
+            <div className="text-black p-4 md:p-6 shadow-xl w-full md:w-[400px] lg:w-[420px] flex flex-col justify-center items-center gap-4 border border-orange-500 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md">
               <div className="flex items-center justify-between flex-wrap  gap-2">
                 <div className="flex items-center  gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md  text-black font-semibold text-base ">
                   <Image
@@ -147,22 +144,16 @@ export default function HeroSection() {
         </div>
       ) : (
         <section
-          className="relative bg-cover bg-top text-white w-full max-w-6xl mx-auto rounded-xl overflow-hidden h-[70vh] md:h-[80vh] lg:h-[180vh]"
+          className="relative bg-cover bg-top text-white w-full max-w-6xl mx-auto rounded-xl overflow-hidden  md:h-[100vh] lg:h-[180vh]"
           style={{ backgroundImage: `url(${homeImg.src})` }}
         >
           {/* Container for cards */}
-          <div className="absolute bottom-4 lg:mb-10 md:bottom-10 left-3 right-3 flex flex-col md:flex-row md:justify-between px-4 md:px-10 lg:px-16 gap-4">
+          <div className="absolute bottom-4 md:bottom-8 lg:mb-10 left-1 right-1 flex flex-col md:flex-col lg:flex-row md:items-center lg:items-start md:gap-6 lg:gap-40 px-4 md:px-8 lg:px-4">
             {/* Karma Insights Box */}
-            <div className="text-black p-4 md:p-6 shadow-xl w-full md:w-[400px] lg:w-[420px] flex flex-col gap-4 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md">
+            <div className="text-black p-4 md:p-4  shadow-xl w-full md:max-w-[500px] xl:w-[350px] flex flex-col gap-4 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md mx-auto lg:mx-0">
               <div className="flex items-center justify-between md:justify-start flex-wrap gap-2">
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md text-black font-semibold text-base md:text-lg">
-                  <Image
-                    src={img9}
-                    alt="Star Icon"
-                    width={20}
-                    height={20}
-                    className="inline-block"
-                  />
+                  <Image src={img9} alt="Star Icon" width={20} height={20} />
                   Welfare Insights
                 </div>
                 <span className="text-[#2C2C2C] font-medium text-sm md:text-md ml-auto hidden md:block">
@@ -170,7 +161,7 @@ export default function HeroSection() {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between gap-6 md:gap-10">
+              <div className="flex items-center  gap-6 xl:gap-4">
                 <div className="text-center">
                   <p className="text-2xl md:text-[32px] font-bold leading-[120%] text-[#2C2C2C] m-0">
                     800K
@@ -209,7 +200,7 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Box */}
-            <div className="text-white shadow-xl flex w-full md:w-[400px] lg:w-[430px] px-4 md:px-[35px] py-4 md:py-[26px] justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md">
+            <div className="absolute xl:right-6 text-white shadow-xl flex w-full md:max-w-[500px] lg:w-[430px] px-4 md:px-6 py-4 md:py-6 lg:py-8 xl:py-10 justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md mx-auto lg:mx-0">
               <div className="w-full text-center md:text-left">
                 <h3 className="text-lg md:text-xl font-semibold mb-2">
                   Nourish a Life. Uplift a Soul.
@@ -219,7 +210,7 @@ export default function HeroSection() {
                   <br className="hidden md:block" />
                   hope to those who need it most.
                 </p>
-                <div className="flex flex-col md:flex-row md:space-x-4 gap-2 md:gap-0">
+                <div className="flex flex-col sm:flex-row sm:justify-center md:justify-start md:space-x-4 gap-2">
                   <Link href="/donation">
                     <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
                       <Image

@@ -107,12 +107,12 @@ export default function Page() {
       {/* Hero Section */}
       {isMobile ? (
         <>
-          <div className="flex flex-col overflow-hidden ">
+          <div className="flex flex-col mx-2 overflow-hidden ">
             <Image
               src={harinamImg}
               alt="Harinam Sankirtan"
               width={400}
-              height={300}
+              height={200}
             />
             <div>
               <div className=" text-center mt-6">
@@ -808,7 +808,7 @@ export default function Page() {
 
                 {/* The Need Section */}
                 <div className="relative mb-20">
-                  <div className="flex items-start">
+                  <div className="flex items-start ">
                     <div className="flex-shrink-0 w-4 h-4 bg-orange-500 rounded-full mt-2 mr-6"></div>
                     <div className="flex-1 max-w-lg">
                       <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -833,10 +833,10 @@ export default function Page() {
                 </div>
 
                 {/* The Cause Section */}
-                <div className="relative mb-20 flex justify-end">
-                  <div className="flex items-start max-w-lg">
+                <div className="relative mb-26 flex justify-end ">
+                  <div className="flex items-start max-w-lg lg:mr-14">
                     <div className="flex-1 text-right">
-                      <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                      <h2 className="text-3xl font-bold text-gray-800 mb-6 ">
                         The Cause
                       </h2>
                       <div className="text-gray-600 leading-relaxed">

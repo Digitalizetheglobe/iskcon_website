@@ -9,12 +9,13 @@ import image160 from "../public/images/image-160.png";
 import image170 from "../public/images/image-170.png";
 import ik from "../public/images/ik.png";
 import pic1 from "../public/images/pic1.png";
+import MobileTestimonial from "../app/components/MobileTestimonial"
 
 const causes = [
   {
     title: "Annadaan",
     description:
-   " No child should have to study on an empty stomach. Through Annadan, we serve warm, wholesome  meals every day—bringing not just nourishment, but love, care, and the strength to dream. ",
+      " No child should have to study on an empty stomach. Through Annadan, we serve warm, wholesome  meals every day—bringing not just nourishment, but love, care, and the strength to dream. ",
     icon: "/icons/donation-icon.svg",
   },
   {
@@ -25,7 +26,8 @@ const causes = [
   },
   {
     title: "Vidya Daan",
-    description:"Education is the light that breaks the darkness of poverty. Through free tuition, we give children the chance to learn, grow, and build a future their parents only dreamed of. ",
+    description:
+      "Education is the light that breaks the darkness of poverty. Through free tuition, we give children the chance to learn, grow, and build a future their parents only dreamed of. ",
     icon: "/icons/donation-icon.svg",
   },
 ];
@@ -168,8 +170,11 @@ const HomePage = () => {
         </section>
 
         {/* ------------------------------------------------------- */}
+        <div className="block xl:hidden">
+          <MobileTestimonial />
+        </div>
 
-        <section className="flex flex-col items-center justify-center lg:flex-row px-4 py-8 bg-white mx-auto lg:px-0 lg:py-0">
+        <section className="hidden xl:flex flex-col items-center justify-center lg:flex-row px-4 py-8 bg-white mx-auto lg:px-0 lg:py-0">
           <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-10 w-full  ">
             {cardData.map((card) => {
               // Generate initials from name
@@ -180,7 +185,7 @@ const HomePage = () => {
                 >
                   <div className="flex flex-col items-start ">
                     <div className="text-white font-inter text-base sm:text-lg lg:text-[18px] font-normal leading-[150%] text-left flex-grow">
-                    {`"${card.text}"`}
+                      {`"${card.text}"`}
                     </div>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 mt-6">
