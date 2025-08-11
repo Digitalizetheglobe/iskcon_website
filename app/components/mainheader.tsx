@@ -17,8 +17,8 @@ export default function Header() {
     }`;
 
   return (
-    <header className="bg-white sticky top-0 z-50 w-full ">
-      <div className="flex items-center justify-between px-6 md:px-14 lg:px-20 py-4">
+    <header className="bg-white sticky top-0 z-50  ">
+      <div className="flex items-center justify-between px-6 md:px-14 lg:px-10 py-4">
         {/* Logo */}
         <div className=" text-xl lg:text-2xl font-bold text-black flex items-center gap-2">
           <Link href="/">
@@ -58,7 +58,7 @@ export default function Header() {
           </Link>
 
           <Link href="/donation">
-            <button className="flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px] shadow-[inset_0px_16px_26.9px_rgba(71,187,255,0.3)] hover:bg-red-600 hover:text-white transition-all duration-300">
+            <button className="flex items-center justify-center cursor-pointer gap-[10px] px-[24px] py-[10px] bg-[#0B3954] text-white rounded-[20px]  hover:bg-orange-400 hover:text-white transition-all duration-300">
               Donate Now
             </button>
           </Link>

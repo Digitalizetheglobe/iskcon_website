@@ -13,7 +13,7 @@ export default function Navbar() {
     }`;
 
   return (
-    <div className="w-full flex items-center justify-between px-6 md:px-12 py-6">
+    <div className="w-full max-w-7xl flex items-center justify-between md:px-2 py-6">
       {/* Logo */}
        <Image
           src={logo}

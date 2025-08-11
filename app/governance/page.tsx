@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import picc from "../../public/images/picc.png";
 import pii from "../../public/images/pii.png";
@@ -14,53 +15,108 @@ import kir4 from "../../public/images/kir4.png";
 import sai from "../../public/images/sai.png";
 import mani from "../../public/images/mani.png";
 import ravi from "../../public/images/ravi.png";
-import pi2 from "../../public/images/pi2.png"
+import pi2 from "../../public/images/pi2.png";
+import underline from "../../public/images/Underline_06.png";
+import progress_indicator from "../../public/images/Progress Indicator.png";
 
-import underline from "../../public/images/Underline_06.png"
-import progress_indicator from "../../public/images/Progress Indicator.png"
+// Animation variants
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.8 } },
+};
+
+const slideInFromLeft = {
+  hidden: { opacity: 0, x: -50 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+};
+
+const slideInFromRight = {
+  hidden: { opacity: 0, x: 50 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+};
 
 export default function Page() {
   return (
     <div className="w-full bg-white text-[#1a1a1a] overflow-x-hidden">
-      <div className="max-w-5xl mx-auto py-8 md:py-16 px-4">
+      <div className="max-w-5xl mx-auto py-8 md:py-8 px-4">
         {/* Header Section */}
-        <h2 className="text-center text-2xl md:text-3xl font-semibold text-[#d34736] mb-1">
-          Our Trustees & <span className="text-orange-400">Leadership</span> 
-        </h2>
-        <div className="flex justify-center mb-4 md:mb-6">
-          <Image
-            src={underline}
-            alt="decoration img"
-            width={80}
-            className="text-center mb-6 md:mb-10 md:w-[100px]"
-          />
-        </div>
-        
-        <p className="text-center text-xl md:text-2xl mb-1 text-orange-400 italic">Board of Trustees</p>
-        <div className="flex justify-center mb-4 md:mb-6">
-          <Image
-            src={progress_indicator}
-            alt="decoration img"
-            width={180}
-            className="text-center md:w-[240px]"
-          />
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-12"
+        >
+          <motion.h2
+            variants={item}
+            className="text-center text-2xl md:text-3xl font-semibold text-[#d34736] mb-1"
+          >
+            Our Trustees & <span className="text-orange-400">Leadership</span>
+          </motion.h2>
+          <motion.div variants={item} className="flex justify-center mb-4 md:mb-6">
+            <Image
+              src={underline}
+              alt="decoration img"
+              width={80}
+              className="text-center mb-6 md:mb-10 md:w-[100px]"
+            />
+          </motion.div>
+        </motion.div>
 
-        {/* Decorative Line */}
-        {/* <div className="flex justify-center mb-6 md:mb-0">
-          <Image
-            src={picc}
-            alt="Decorative line"
-            width={300}
-            height={2}
-            className="md:w-[428px]"
-          />
-        </div> */}
+        {/* Board of Trustees Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.p
+            variants={item}
+            className="text-center text-xl md:text-2xl mb-1 text-orange-400 italic"
+          >
+            Board of Trustees
+          </motion.p>
+          <motion.div
+            variants={item}
+            className="flex justify-center mb-4 md:mb-6"
+          >
+            <Image
+              src={progress_indicator}
+              alt="decoration img"
+              width={180}
+              className="text-center md:w-[240px]"
+            />
+          </motion.div>
+        </motion.div>
 
-        {/* Board Section - First Member */}
-        <div className="flex flex-col md:flex-row items-center justify-center min-h-screen md:h-screen bg-white text-black py-8 md:py-0">
+        {/* First Board Member */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col md:flex-row items-center justify-center min-h-screen md:h-screen bg-white text-black py-8 md:py-0"
+        >
           {/* Image Section */}
-          <div className="flex flex-col items-center flex-1 mb-6 md:mb-0">
+          <motion.div
+            variants={slideInFromLeft}
+            className="flex flex-col items-center flex-1 mb-6 md:mb-0"
+          >
             <div className="relative mb-4">
               <Image
                 src={picc}
@@ -78,11 +134,16 @@ export default function Page() {
             <h3 className="text-lg md:text-2xl font-bold text-center">
               HG Chanchalapathi Dasa
             </h3>
-            <p className="text-base md:text-lg text-center">Vice- Chairman Akshyapatra</p>
-          </div>
+            <p className="text-base md:text-lg text-center">
+              Vice- Chairman Akshyapatra
+            </p>
+          </motion.div>
 
           {/* Text Section */}
-          <div className="flex-1 p-4 md:p-10">
+          <motion.div
+            variants={slideInFromRight}
+            className="flex-1 p-4 md:p-10"
+          >
             <p className="text-sm md:text-base leading-relaxed text-justify md:text-left">
               Chanchalapathi Dasa has been working in the field of spiritual
               education since 1984 and social development since 2000. He pursued
@@ -95,13 +156,19 @@ export default function Page() {
               social development. He is currently involved in strategy, planning
               and governance of Akshaya Patra.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Second Board Member */}
-        <div className="flex flex-col-reverse md:flex-row items-center bg-white text-black p-4 md:p-12 gap-6 md:gap-8">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col-reverse md:flex-row items-center bg-white text-black p-4 md:p-12 gap-6 md:gap-8"
+        >
           {/* Left Section: Text Content */}
-          <div className="flex-1">
+          <motion.div variants={slideInFromLeft} className="flex-1">
             <p className="text-sm md:text-base leading-relaxed text-justify md:text-left">
               Amitasana Dasa is the President of Hare Krishna Movement, Mumbai
               and Governing Council Member of Hare Krishna Movement, India. He
@@ -116,10 +183,13 @@ export default function Page() {
               hundreds of people, especially youth, to lead a life of happiness
               and fulfilment.
             </p>
-          </div>
+          </motion.div>
 
           {/* Right Section: Image and Name */}
-          <div className="flex flex-col items-center flex-1 mb-4 md:mb-0">
+          <motion.div
+            variants={slideInFromRight}
+            className="flex flex-col items-center flex-1 mb-4 md:mb-0"
+          >
             <Image
               src={pii}
               alt="HG Amitasana Dasa"
@@ -127,30 +197,55 @@ export default function Page() {
               height={280}
               className="rounded-lg max-w-full h-auto mb-4 md:w-[300px] md:h-[300px]"
             />
-            <h3 className="text-lg md:text-2xl font-bold text-center">HG Amitasana Dasa</h3>
+            <h3 className="text-lg md:text-2xl font-bold text-center">
+              HG Amitasana Dasa
+            </h3>
             <p className="text-base md:text-lg text-center">
               President, Hare Krishna Movement-Mumbai
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Leadership Team Section */}
-        <h3 className="text-xl font-semibold mt-12 md:mt-16 text-center text-orange-400">
-          Leadership Team
-        </h3>
-        <div className="flex justify-center mb-4 md:mb-6">
-          <Image
-            src={progress_indicator}
-            alt="decoration img"
-            width={150}
-            className="text-center md:w-[200px]"
-          />
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-16"
+        >
+          <motion.h3
+            variants={item}
+            className="text-xl font-semibold mt-12 md:mt-16 text-center text-orange-400"
+          >
+            Leadership Team
+          </motion.h3>
+          <motion.div
+            variants={item}
+            className="flex justify-center mb-4 md:mb-6"
+          >
+            <Image
+              src={progress_indicator}
+              alt="decoration img"
+              width={150}
+              className="text-center md:w-[200px]"
+            />
+          </motion.div>
+        </motion.div>
 
         {/* First Leadership Member */}
-        <div className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-4 md:p-12 rounded-lg mb-6 md:mb-0">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-4 md:p-12 rounded-lg mb-6 md:mb-0"
+        >
           {/* Left Section: Image and Name */}
-          <div className="flex flex-col items-center flex-1 mb-6 md:mb-0 md:pr-8">
+          <motion.div
+            variants={slideInFromLeft}
+            className="flex flex-col items-center flex-1 mb-6 md:mb-0 md:pr-8"
+          >
             <Image
               src={pi2}
               alt="HG Satya Gaura Chandra Dasa"
@@ -166,10 +261,10 @@ export default function Page() {
               Regional President, The Akshaya Patra Foundation <br />
               Telangana & Andhra Pradesh
             </p>
-          </div>
+          </motion.div>
 
           {/* Right Section: Text Content */}
-          <div className="flex-1">
+          <motion.div variants={slideInFromRight} className="flex-1">
             <p className="text-sm md:text-base leading-relaxed text-justify md:text-center">
               HG Satya Gaura Chandra Dasa is a Gold Medalist in B.Tech
               Mechanical at Jawaharlal Nehru Technological University –
@@ -184,13 +279,22 @@ export default function Page() {
               Akshaya Patra Andhra Pradesh and Telangana. HG is also serving as
               the President of AIKYA VIDYA.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Second Leadership Member */}
-        <div className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-4 md:p-10 rounded-lg mt-8 md:mt-16 max-w-4xl mx-auto">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col md:flex-row items-center bg-gray-100 text-gray-800 p-4 md:p-10 rounded-lg mt-8 md:mt-16 max-w-4xl mx-auto"
+        >
           {/* Left Section: Image and Name */}
-          <div className="flex flex-col items-center flex-1 mb-6 md:mb-0 md:pr-8">
+          <motion.div
+            variants={slideInFromLeft}
+            className="flex flex-col items-center flex-1 mb-6 md:mb-0 md:pr-8"
+          >
             <Image
               src={p2}
               alt="HG Sahadeva Sakha Dasa"
@@ -201,11 +305,13 @@ export default function Page() {
             <h3 className="text-lg md:text-2xl font-bold text-orange-600 text-center">
               HG Sahadeva Sakha Dasa
             </h3>
-            <p className="text-sm md:text-lg text-center">Director, AIKYA VIDYA</p>
-          </div>
+            <p className="text-sm md:text-lg text-center">
+              Director, AIKYA VIDYA
+            </p>
+          </motion.div>
 
           {/* Right Section: Text Content */}
-          <div className="flex-1">
+          <motion.div variants={slideInFromRight} className="flex-1">
             <p className="text-sm md:text-base leading-relaxed text-justify md:text-center">
               HG is currently serving as Director of the AIKYA Vidya. Sahadeva
               Saka Dasa is also the Associate Vice President of Hare Krishna
@@ -220,12 +326,21 @@ export default function Page() {
               sought-after speaker in reputed software professionals
               from Microsoft, Google, Qualcom, Deloitte, TCS, Infosys etc.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Officers Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8 md:mt-12 mb-6 md:mb-10">
-          <div className="text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8 md:mt-12 mb-6 md:mb-10"
+        >
+          <motion.div
+            variants={item}
+            className="text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0"
+          >
             <Image
               src={ca2}
               alt="Charan Raj Krishna Dasa"
@@ -233,8 +348,12 @@ export default function Page() {
               height={120}
               className="mx-auto rounded mb-3 md:w-[150px] md:h-[150px]"
             />
-            <p className="font-semibold mt-2 md:mt-4 text-lg">Chaitanya Krishna Dasa</p>
-            <p className="text-sm text-orange-600 font-medium">Chief Education Officer</p>
+            <p className="font-semibold mt-2 md:mt-4 text-lg">
+              Chaitanya Krishna Dasa
+            </p>
+            <p className="text-sm text-orange-600 font-medium">
+              Chief Education Officer
+            </p>
             <p className="text-xs md:text-sm mt-2 text-justify md:text-center px-2 md:px-0">
               Chaitanya Krishna Dasa is currently serving as the CEdO of AIKYA
               Vidya. He Completed his B.Tech Mechanical Engineering from JNTU,
@@ -248,9 +367,12 @@ export default function Page() {
               influencers in India spreading the knowledge of the Bhagavad Gita
               through his digital media company JivJago media.
             </p>
-          </div>
-          
-          <div className="text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0">
+          </motion.div>
+
+          <motion.div
+            variants={item}
+            className="text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0"
+          >
             <Image
               src={ca}
               alt="Tapasvi Chaitanya Dasa"
@@ -258,8 +380,12 @@ export default function Page() {
               height={120}
               className="mx-auto rounded mb-3 md:w-[150px] md:h-[150px]"
             />
-            <p className="font-semibold mt-2 md:mt-4 text-lg">Tejasvi Chaitanya Dasa</p>
-            <p className="text-sm text-orange-600 font-medium">Chief Operations Officer</p>
+            <p className="font-semibold mt-2 md:mt-4 text-lg">
+              Tejasvi Chaitanya Dasa
+            </p>
+            <p className="text-sm text-orange-600 font-medium">
+              Chief Operations Officer
+            </p>
             <p className="text-xs md:text-sm mt-2 text-justify md:text-center px-2 md:px-0">
               Chaitanya Krishna Dasa is currently serving as the CEdO of AIKYA
               Vidya. He Completed his B.Tech Mechanical Engineering from JNTU,
@@ -273,13 +399,22 @@ export default function Page() {
               influencers in India spreading the knowledge of the Bhagavad Gita
               through his digital media company JivJago media.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Communication Officer */}
-        <div className="max-w-2xl mx-auto bg-white p-4 md:p-8 rounded-lg shadow-lg">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={fadeIn}
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-2xl mx-auto bg-white p-4 md:p-8 rounded-lg shadow-lg"
+        >
           {/* Profile Image */}
-          <div className="flex justify-center mb-6 md:mb-16">
+          <motion.div
+            variants={item}
+            className="flex justify-center mb-6 md:mb-16"
+          >
             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-orange-100">
               <Image
                 src={pr}
@@ -289,69 +424,95 @@ export default function Page() {
                 className="w-full h-full object-cover md:w-[128px] md:h-[128px]"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Name */}
-          <div className="text-center mb-2">
+          <motion.div variants={item} className="text-center mb-2">
             <h1 className="text-xl md:text-2xl font-semibold text-orange-500">
               Raghavendra
             </h1>
-          </div>
+          </motion.div>
 
           {/* Title */}
-          <div className="text-center mb-6 md:mb-8">
+          <motion.div variants={item} className="text-center mb-6 md:mb-8">
             <p className="text-gray-600 text-sm font-medium">
               Chief Sustainability and Communications Officer
             </p>
-          </div>
+          </motion.div>
 
           {/* Bio Content */}
-          <div className="space-y-3 md:space-y-4 text-gray-700 text-xs md:text-sm leading-relaxed">
-            <p className="text-justify">
+          <motion.div
+            variants={container}
+            className="space-y-3 md:space-y-4 text-gray-700 text-xs md:text-sm leading-relaxed"
+          >
+            <motion.p variants={item} className="text-justify">
               Raghavendra is currently serving as the CSCO of AIKYA VIDYA. He is
               an Ex-Political and Policy Consultant and Ex-Civil Services
               mentor. In a span of his 10 years career in government sector he
               contributed to many policy reforms in media in the spheres of
               education and governance.
-            </p>
+            </motion.p>
 
-            <p className="text-justify">
+            <motion.p variants={item} className="text-justify">
               Earlier he worked for reputed think tanks like Centre for Civil
               Society and Foundation for Democratic Reforms contributing towards
               Governance Reforms and National Education Policy.
-            </p>
+            </motion.p>
 
-            <p className="text-justify">
+            <motion.p variants={item} className="text-justify">
               He has published more than 60 articles for various reputed
               magazines like Swarajya, the Pulse and Telugu news dailies like
               Andhra Jyothi and Velugu.
-            </p>
+            </motion.p>
 
-            <p className="text-justify">
+            <motion.p variants={item} className="text-justify">
               He has done his Masters in Governance from MIT school of
               Government and was awarded a certificate in Rule of Law by
               International Academy of Leadership Germany.
-            </p>
-          </div>
-        </div>
+            </motion.p>
+          </motion.div>
+        </motion.div>
 
         {/* Management Team */}
-        <h3 className="text-xl font-semibold mt-12 md:mt-16 text-center text-orange-400">
-          Management Team
-        </h3>
-        <div className="flex justify-center mb-4 md:mb-6">
-          <Image
-            src={progress_indicator}
-            alt="decoration img"
-            width={220}
-            className="text-center md:w-[300px]"
-          />
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-16"
+        >
+          <motion.h3
+            variants={item}
+            className="text-xl font-semibold mt-12 md:mt-16 text-center text-orange-400"
+          >
+            Management Team
+          </motion.h3>
+          <motion.div
+            variants={item}
+            className="flex justify-center mb-4 md:mb-6"
+          >
+            <Image
+              src={progress_indicator}
+              alt="decoration img"
+              width={220}
+              className="text-center md:w-[300px]"
+            />
+          </motion.div>
+        </motion.div>
 
         {/* Management Team Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-12 max-w-7xl mx-auto lg:mb-24">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-12 max-w-7xl mx-auto lg:mb-24"
+        >
           {/* Card 1 */}
-          <div className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3">
+          <motion.div
+            variants={item}
+            className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3"
+          >
             <Image
               src={kir}
               alt="Rasa Mandal Dasa"
@@ -367,10 +528,13 @@ export default function Page() {
               Vidya. He is a B.Pharmacy graduate from Vignan University Vizag.
               Before joining AIKYA Vidya, he worked in Healthcare industry.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 2 */}
-          <div className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3">
+          <motion.div
+            variants={item}
+            className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3"
+          >
             <Image
               src={kir2}
               alt="Kumaraswamy"
@@ -388,10 +552,13 @@ export default function Page() {
               championship and won silver medal once. Before joining AIKYA Vidya
               he worked with various reputed NGOs in different capacities.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 3 */}
-          <div className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3">
+          <motion.div
+            variants={item}
+            className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3"
+          >
             <Image
               src={kir3}
               alt="Brahmanandam"
@@ -407,10 +574,13 @@ export default function Page() {
               joining AIKYA Vidya, Brahmanandam served in various reputed NGOs
               in different capacities.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 4 */}
-          <div className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3">
+          <motion.div
+            variants={item}
+            className="flex flex-col items-center text-center bg-gray-50 p-4 rounded-lg md:bg-transparent md:p-0 space-y-3"
+          >
             <Image
               src={kir4}
               alt="G. Karthik"
@@ -426,12 +596,21 @@ export default function Page() {
               is a Mechanical Engineer by education and previously worked in
               reputed pharmaceutical and software companies.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Executive Assistants */}
-        <div className="flex  lg:grid  sm:grid-cols-3 lg:gap-2 md:gap-4 mt-8 text-center">
-          <div className="bg-gray-50 p-1 lg:p-4 rounded-lg md:bg-transparent md:p-0">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={container}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex lg:grid sm:grid-cols-3 lg:gap-2 md:gap-4 mt-8 text-center"
+        >
+          <motion.div
+            variants={item}
+            className="bg-gray-50 p-1 lg:p-4 rounded-lg md:bg-transparent md:p-0"
+          >
             <Image
               src={ravi}
               alt="Ravi"
@@ -439,10 +618,17 @@ export default function Page() {
               height={80}
               className="mx-auto rounded-full mb-2 md:w-[100px] md:h-[100px]"
             />
-            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">Ravi</p>
-            <p className="text-xs md:text-sm text-gray-600">Executive Assistant Youth Outreach </p>
-          </div>
-          <div className="bg-gray-50 lg:p-4 rounded-lg md:bg-transparent md:p-0">
+            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">
+              Ravi
+            </p>
+            <p className="text-xs md:text-sm text-gray-600">
+              Executive Assistant Youth Outreach{" "}
+            </p>
+          </motion.div>
+          <motion.div
+            variants={item}
+            className="bg-gray-50 lg:p-4 rounded-lg md:bg-transparent md:p-0"
+          >
             <Image
               src={sai}
               alt="Sai Pawan"
@@ -450,10 +636,17 @@ export default function Page() {
               height={80}
               className="mx-auto rounded-full mb-2 md:w-[100px] md:h-[100px]"
             />
-            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">Sai Pawan</p>
-            <p className="text-xs md:text-sm text-gray-600">Executive Assistant Operations</p>
-          </div>
-          <div className="bg-gray-50 lg:p-4 rounded-lg md:bg-transparent md:p-0">
+            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">
+              Sai Pawan
+            </p>
+            <p className="text-xs md:text-sm text-gray-600">
+              Executive Assistant Operations
+            </p>
+          </motion.div>
+          <motion.div
+            variants={item}
+            className="bg-gray-50 lg:p-4 rounded-lg md:bg-transparent md:p-0"
+          >
             <Image
               src={mani}
               alt="Mani Teja"
@@ -461,10 +654,14 @@ export default function Page() {
               height={80}
               className="mx-auto rounded-full mb-2 md:w-[100px] md:h-[100px]"
             />
-            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">Mani Teja</p>
-            <p className="text-xs md:text-sm text-gray-600">Executive Assistant Donor Care</p>
-          </div>
-        </div>
+            <p className="font-semibold mt-2 text-sm md:text-base text-orange-400">
+              Mani Teja
+            </p>
+            <p className="text-xs md:text-sm text-gray-600">
+              Executive Assistant Donor Care
+            </p>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

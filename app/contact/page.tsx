@@ -1,148 +1,332 @@
 "use client";
-import { useState } from 'react';
-import Link from 'next/link';
-
+import { useState } from "react";
+import { Mail, Phone, Globe, MapPin, Send, CheckCircle } from "lucide-react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactPage() {
-  const [phonePlaceholder, setPhonePlaceholder] = useState('+1 (555) 000-0000');
-  const [phoneMaxLength, setPhoneMaxLength] = useState(10);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+    terms: false
+  });
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+    }));
+  };
+
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    setIsSubmitted(true);
+    
+    // Show success toast
+    toast.success('🙏 Thank you for your message! We will get back to you soon.', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+     setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      message: "",
+      terms: false,
+    });
+    setTimeout(() => setIsSubmitted(false), 3000);
+  };
+
   return (
-    <div className="min-h-screen bg-white px-6 py-12 lg:px-20 flex flex-col-reverse lg:flex-row gap-12">
-      {/* Left Side: 3 Info Boxes in Grid */}
-      <div className="flex-1 flex flex-reverse gap-6">
-        <div className="grid grid-cols-1 gap-6">
-          {/* Visit Us Box */}
-          <div className="rounded-xl border border-blue-300 shadow-md p-6 text-center">
-            <div className="text-orange-500 text-lg font-semibold mb-2">
-              📍 Visit us
-            </div>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              Hare Krishna Golden Temple,
-              <br />
-              Swayambhu Sri Lakshmi Narasimha Swamy Kshetram,
-              <br />
-              NBT Nagar, Road No 12,
-              <br />
-              Banjara Hills, Near Anti Corruption Bureau office,
-              <br />
-              Hyderabad-500034.
-              <br />
-              Telangana
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      
+      {/* Hero Section */}
+      <div className="relative  text-white overflow-hidden">
+        <div className="absolute inset-0  bg-opacity-20"></div>
+        <div className="relative max-w-6xl mx-auto px-6 py-10">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl text-black font-bold mb-4 tracking-tight">
+              Get In Touch
+            </h1>
+            <p className="text-xl md:text-2xl text-orange-400 max-w-3xl mx-auto leading-relaxed">
+              We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
             </p>
-          </div>
-
-          {/* Call Us Box */}
-          <div className="rounded-xl bg-gray-50 shadow-md p-6 text-center">
-            <div className="text-orange-500 text-lg font-semibold mb-2">
-              📞 Call us
-            </div>
-            <p className="text-gray-800 text-sm m-1">
-              <a href="tel:+91 81217 95663">+91 81217 95663</a>
-            </p>
-            <p className="text-gray-800 text-sm">
-              <a href="tel:+91 83283 89862">+91 83283 89862</a>
-            </p>
-          </div>
-
-          {/* Email Box */}
-          <div className="rounded-xl bg-gray-50 shadow-md p-6 text-center">
-            <div className="text-orange-500 text-lg font-semibold mb-2">
-              ✉️ Email at
-            </div>
-            <a href="mailto:connect2aikyavidya@gmail.com">connect2aikyavidya@gmail.com</a>
-              
-            
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
       </div>
 
-      {/* Right Side: Form */}
-      <div className="flex-1">
-        <div className="text-orange-600 text-2xl lg:text-xl text-center font-semibold mb-1">
-          Contact us
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-16 -mt-8 relative z-10">
+        <div className=" flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
+          
+          {/* Contact Information Side */}
+          <div className="space-y-8">
+            {/* Organization Info Card */}
+            <div className="bg-white rounded-2xl shadow-xs p-8 border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <span className="text-2xl font-bold text-white">HK</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Hare Krishna Golden Temple</h2>
+                <div className="flex items-start justify-center space-x-2 text-gray-600">
+                  <MapPin className="w-5 h-5 mt-1 text-orange-500 flex-shrink-0" />
+                  <p className="text-center leading-relaxed">
+                    Road No. 12, MLA Colony, Banjara Hills,<br />
+                    Hyderabad - 500034
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Methods */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+              
+              {/* Email */}
+              <div className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                    <Mail className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-800">Email</p>
+                    <a
+                      href="mailto:connect2aikyavidya@gmail.com"
+                      className="text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      connect2aikyavidya@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phone Numbers */}
+              <div className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                    <Phone className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-medium text-gray-800">Phone</p>
+                    <div className="space-y-1">
+                      <a
+                        href="tel:+918121795663"
+                        className="block text-green-600 hover:text-green-800 transition-colors"
+                      >
+                        +91 81217 95663
+                      </a>
+                      <a
+                        href="tel:+918328389862"
+                        className="block text-green-600 hover:text-green-800 transition-colors"
+                      >
+                        +91 83283 89862
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Website */}
+              <div className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                    <Globe className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-800">Website</p>
+                    <a
+                      href="https://www.harekrishnavidya.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-900 hover:text-purple-950 transition-colors"
+                    >
+                      www.harekrishnavidya.org
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form Side */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">Send us a message</h2>
+                <p className="text-gray-600">We&apos;ll get back to you within 24 hours</p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-gray-50 focus:bg-white"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Phone Field */}
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      required
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      maxLength={10}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-gray-50 focus:bg-white"
+                      placeholder="+91 xxxxx xxxxx"
+                    />
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-gray-50 focus:bg-white"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+
+                {/* Message Field */}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-vertical transition-all duration-300 bg-gray-50 focus:bg-white "
+                    placeholder="Tell us how we can help you..."
+                  />
+                </div>
+
+                {/* Terms Checkbox */}
+                <div className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    required
+                    checked={formData.terms}
+                    onChange={handleInputChange}
+                    className="mt-1 h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="terms" className="text-sm text-gray-700 leading-relaxed">
+                    I agree to the{" "}
+                    <a href="/terms-conditions" className="text-orange-600 hover:text-orange-800 font-medium underline">
+                      Terms and Conditions
+                    </a>
+                  </label>
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={isSubmitted}
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
+                  >
+                    {isSubmitted ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        
+                        <CheckCircle className="w-5 h-5" />
+                        <span>Message Sent!</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center space-x-2">
+                        <Send className="w-5 h-5" />
+                        <span>Send Message</span>
+                      </div>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
         </div>
-        <h2 className="text-5xl lg:text-4xl font-bold text-gray-900 text-center mb-2">Get in touch</h2>
-        <p className="text-gray-600 mb-6 text-sm lg:text-md ">
-          We’d love to hear from you. Please fill out this form.
-        </p>
 
-        <form className="space-y-4">
-          {/* Name Fields */}
-          <div className="flex gap-4">
-            <input
-              type="text"
-              placeholder="First name"
-              className="w-1/2 border rounded-md px-4 py-2 text-sm"
-            />
-            <input
-              type="text"
-              placeholder="Last name"
-              className="w-1/2 border rounded-md px-4 py-2 text-sm"
-            />
+        {/* Additional Info Section */}
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Need immediate assistance?</h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              For urgent inquiries or corporate/CSR related queries, please don&apos;t hesitate to call us directly or send an email. We&apos;re here to help you with any questions about our programs and services.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href="tel:+918121795663"
+                className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Call Now
+              </a>
+              <a
+                href="mailto:connect2aikyavidya@gmail.com"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Send Email
+              </a>
+            </div>
           </div>
-
-          {/* Email */}
-          <input
-            type="email"
-            placeholder="you@company.com"
-            className="w-full border rounded-md px-4 py-2 text-sm"
-          />
-
-          {/* Phone number */}
-          <div className="flex gap-2">
-            <select 
-              className="border rounded-md px-2 py-2 text-sm"
-              onChange={(e) => {
-                const country = e.target.value;
-                setPhonePlaceholder(
-                  country === 'US' ? '+1 (555) 000-0000' :
-                  country === 'IN' ? '+91 98765 43210' :
-                  '+44 7911 123456'
-                );
-                setPhoneMaxLength(
-                  country === 'US' ? 10 :
-                  country === 'IN' ? 10 :
-                  11
-                );
-              }}
-            >
-              <option value="US">US</option>
-              <option value="IN">IN</option>
-              <option value="UK">UK</option>
-            </select>
-            <input
-              type="text"
-              placeholder={phonePlaceholder}
-              maxLength={phoneMaxLength}
-              className="w-full border rounded-md px-4 py-2 text-sm"
-            />
-          </div>
-
-          {/* Message */}
-          <textarea
-            rows={4}
-            placeholder="Message"
-            className="w-full border rounded-md px-4 py-2 text-sm"
-          ></textarea>
-
-          {/* Checkbox */}
-          <div className="flex  items-center gap-2 text-sm">
-            <input type="checkbox" id="policy" required  />
-            <label htmlFor="policy">
-              I accept the {' '}
-              <Link href="/terms-conditions" className='text-blue-600 hover:underline'>Terms and Conditions</Link>
-              .
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-sm transition duration-300"
-          >
-            Send message
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );

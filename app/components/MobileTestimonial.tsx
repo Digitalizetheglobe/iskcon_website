@@ -50,7 +50,7 @@ export default function TestimonialCarousel() {
 
       {/* Heading */}
       <h2 className="text-xl font-semibold text-black mb-1">
-        Your <span className="text-orange-500 italic">Impact</span> in Their{" "}
+        Your <span className="text-orange-400 italic">Impact</span> in Their{" "}
         <span className="text-black font-bold">Words</span>
       </h2>
       <p className="text-gray-600 text-sm mb-6">

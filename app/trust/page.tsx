@@ -38,7 +38,7 @@ export default function Page() {
           <div className="p-2 mt-2">
             <button
               onClick={() => handleOpen("trust1")}
-              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700"
+              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700 cursor-pointer"
             >
               Learn More
             </button>
@@ -67,7 +67,7 @@ export default function Page() {
           <div className="p-2 mt-2">
             <button
               onClick={() => handleOpen("trust2")}
-              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700"
+              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700 cursor-pointer"
             >
               Learn More
             </button>
@@ -96,7 +96,7 @@ export default function Page() {
           <div className="p-2 mt-2">
             <button
               onClick={() => handleOpen("trust3")}
-              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700"
+              className="px-4 py-2 bg-orange-500 text-white text-sm rounded hover:scale-105 transition-transform duration-700 cursor-pointer"
             >
               Learn More
             </button>

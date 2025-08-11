@@ -3,7 +3,7 @@
 export default function termsConditionsPage() {
   return (
     <div className=" w-full lg:max-w-7xl mx-auto px-4 py-10 text-gray-800 space-y-6">
-      <h1 className="text-3xl lg:text-5xl font-bold text-[#0F3D64]  lg:py-10 mb-6">
+      <h1 className="text-3xl lg:text-5xl font-bold text-[#0F3D64] text-center  lg:py-10 mb-6">
         Terms & Conditions
       </h1>
       <h2 className="text-lg font-semibold mt-6">OVERVIEW</h2>

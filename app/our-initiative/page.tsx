@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
-import img from "../../public/images/aikya-vidya.png";
-import mahadanam from "../../public/images/mahadanam.png";
+import img from "../../public/images/our-init.png";
+import mahadanam from "../../public/images/poster.png";
 import m from "../../public/images/m.png";
 import v from "../../public/images/v.png";
 import fans from "../../public/images/fans.png";
@@ -37,7 +38,7 @@ export default function Page() {
   }, []);
 
   return (
-    <>
+    <div className="bg-gray-200">
       {isMobile ? (
         <div className="bg-white">
           {/* Hero Section */}
@@ -45,7 +46,7 @@ export default function Page() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
               Always and Forever
             </h2>
-            <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400 mb-6">
+            <div className="relative rounded-2xl overflow-hidden  mb-6">
               <Image
                 src={img}
                 alt="AIKYA VIDYA"
@@ -173,25 +174,27 @@ export default function Page() {
               {/* Left Arrow - Mobile */}
 
               {/* Donate Button */}
-              <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
-                <Image
-                  src={Heart}
-                  alt="Donate Icon"
-                  width={20}
-                  height={20}
-                  className="w-6 h-6"
-                />
-                Donate Now
-              </button>
+              <Link href="/donation">
+                <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+                  <Image
+                    src={Heart}
+                    alt="Donate Icon"
+                    width={20}
+                    height={20}
+                    className="w-6 h-6"
+                  />
+                  Donate Now
+                </button>
+              </Link>
               {/* Right Arrow - Mobile */}
             </div>
           </div>
         </div>
       ) : (
         <div>
-          <section className="max-w-6xl mx-auto py-12 px-4 grid md:grid-cols-2 gap-10 items-center">
+          <section className="max-w-7xl mx-auto py-12 px-1 grid md:grid-cols-2 gap-10 items-center">
             {/* Video Thumbnail */}
-            <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400">
+            <div className="relative rounded-2xl overflow-hidden ">
               <Image
                 src={img} // replace with actual image path
                 alt="AIKYA VIDYA"
@@ -234,8 +237,8 @@ export default function Page() {
           </section>
 
           {/* ---------------------------------image----------------- */}
-          <div className="min-h-screen bg-[#f0f4f8] flex flex-col items-center justify-center px-4 py-10 mb-10">
-            <h2 className="text-3xl font-semibold text-orange-500 mb-4">
+          <div className="min-h-screen bg-[#f0f4f8] flex flex-col items-center justify-start  px-4 pt-10">
+            <h2 className="text-5xl font-semibold text-orange-500 mb-4">
               Curriculum
             </h2>
             <p className="text-center text-gray-700 max-w-2xl mb-8">
@@ -248,7 +251,7 @@ export default function Page() {
 
             <div className="space-y-4 flex flex-col items-center">
               {/* Block 1 */}
-              <div className="relative group w-[350px]">
+              <div className="relative group w-[430px]">
                 <div className="bg-[#ec6d4e] rounded-lg px-4 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-auto max-w-full">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
@@ -267,7 +270,7 @@ export default function Page() {
 
               {/* Block 2 */}
               <div className="relative group w-[430px]">
-                <div className="bg-[#ec6d4e] rounded-xl px-4 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-[450px] ">
+                <div className="bg-[#ec6d4e] rounded-xl px-4 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105  ">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
                       src={v}
@@ -284,8 +287,8 @@ export default function Page() {
               </div>
 
               {/* Block 3 */}
-              <div className="relative group w-[400px]">
-                <div className="bg-[#ec6d4e] rounded-xl px-6 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 w-[420px]">
+              <div className="relative group w-[430px]">
+                <div className="bg-[#ec6d4e] rounded-xl px-6 py-4 flex items-center space-x-4 shadow-md  h-[80px] transform transition-transform duration-300 group-hover:scale-105 ">
                   <div className="bg-white p-3 rounded-lg">
                     <Image
                       src={fans}
@@ -303,8 +306,8 @@ export default function Page() {
             </div>
           </div>
           {/* ------------------------box------------------------- */}
-          <div className="flex flex-col items-center p-4 bg-gray-50 mb-5 ">
-            <div className="grid grid-cols-2 gap-8 mb-7">
+          <div className="flex flex-col items-center p-4 bg-gray-50 pb-15 ">
+            <div className="grid grid-cols-2 gap-8 mt-10">
               {/* Spiritual Education */}
               <div className="relative p-6 bg-[#EDF2F7] shadow-lg rounded-xl w-64 transform transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <div className="absolute -top-6 left-4 bg-orange-200 p-2 rounded-full">
@@ -392,10 +395,10 @@ export default function Page() {
 
           {/* ---------------------------maha------------ */}
           <section
-            className="hidden lg:block relative bg-cover bg-center text-white w-[1441px] h-[693px]  max-w-6xl mx-auto rounded-xl overflow-hidden bg-black  mb-14"
+            className="hidden   lg:block relative bg-cover text-white w-full h-[693px]    rounded-xl overflow-hidden bg-black  "
             style={{ backgroundImage: `url(${mahadanam.src})` }}
           ></section>
-          <div className="flex justify-center items-center  bg-gray-50 p-4 mb-16">
+          <div className="flex justify-center items-center  bg-gray-50 pt-14 mb-16">
             <div className="text-center ">
               {/* Main text */}
               <div className="mb-5">
@@ -406,7 +409,7 @@ export default function Page() {
                   <span className="font-semibold">Bhagavad-Gita</span> to
                   underprivileged
                   <br />
-                  in Rural Areas of India
+                  in Rural Areas of India.
                 </p>
               </div>
               {/* Arrows and Donate Button Container */}
@@ -414,16 +417,19 @@ export default function Page() {
                 {/* Left Arrow as Image */}
 
                 {/* Button */}
-                <button className="flex items-center gap-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 mt-10 rounded-full shadow-md z-10 transition-transform transform hover:scale-105">
-                  <Image
-                    src={Heart}
-                    alt="Donate Icon"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6"
-                  />
-                  Donate Now
-                </button>
+
+                <Link href="/donation">
+                  <button className="flex items-center gap-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 mt-2 rounded-full shadow-md z-10 transition-transform transform hover:scale-105">
+                    <Image
+                      src={Heart}
+                      alt="Donate Icon"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
+                    />
+                    Donate Now
+                  </button>
+                </Link>
 
                 {/* Right Arrow */}
               </div>
@@ -432,6 +438,6 @@ export default function Page() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
