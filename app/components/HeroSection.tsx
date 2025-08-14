@@ -40,7 +40,7 @@ export default function HeroSection() {
       {isMobile ? (
         <div className="flex flex-col gap-2 ">
           <div
-            className=" bg-cover bg-center text-white w-full   rounded-xl overflow-hidden h-[65vh] "
+            className=" bg-cover bg-center text-white w-full   rounded-xl overflow-hidden h-[65vh] md:[140vh]  "
             style={{ backgroundImage: `url(${homeImg2.src})` }}
           ></div>
           {/* Container for cards */}
@@ -112,7 +112,7 @@ export default function HeroSection() {
                 </p>
                 <div className="flex justify-evenly    gap-2 ">
                   <Link href="/donation">
-                    <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+                    <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={Heart}
                         alt="Donate Icon"
@@ -124,7 +124,7 @@ export default function HeroSection() {
                     </button>
                   </Link>
                   <Link href="/about-us">
-                    <button className="flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-full shadow-md transition-transform transform hover:scale-105">
+                    <button className="flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={info}
                         alt="Info Icon"
@@ -142,14 +142,14 @@ export default function HeroSection() {
         </div>
       ) : (
         <section
-          className="relative bg-cover bg-top text-white  max-w-7xl mx-auto rounded-xl overflow-hidden  md:h-[100vh] lg:h-[140vh]"
+          className="relative bg-cover bg-top text-white  max-w-7xl mx-auto rounded-xl overflow-hidden  h-[140vh] "
           style={{ backgroundImage: `url(${homeImg.src})` }}
         >
           {/* Container for cards */}
           <div className="absolute bottom-4 md:bottom-8 lg:mb-10 left-1 right-1 flex flex-col md:flex-col lg:flex-row md:items-center lg:items-start md:gap-6 lg:gap-40 px-4 md:px-8 lg:px-4">
             {/* Karma Insights Box */}
-            <div className="text-black p-4 md:p-4 mb-0 shadow-xl w-full md:max-w-[500px] xl:w-[350px] flex flex-col gap-4 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md mx-auto lg:mx-0">
-              <div className="flex items-center justify-between md:justify-start flex-wrap gap-2">
+            <div className="text-black p-4 md:p-4 mb-0 shadow-xl w-full md:max-w-[500px] xl:w-[300px] flex flex-col gap-4 rounded-3xl bg-[rgba(237,242,247,0.80)] backdrop-blur-md mx-auto lg:mx-0">
+              <div className="flex items-center justify-center md:justify-center flex-wrap gap-2">
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#F9F9F9] rounded-full shadow-md text-black font-semibold text-base md:text-lg">
                   <Image src={img9} alt="Star Icon" width={20} height={20} />
                   Welfare Insights
@@ -157,7 +157,7 @@ export default function HeroSection() {
                 
               </div>
 
-              <div className="flex items-center  gap-6 xl:gap-4">
+              <div className="flex items-center  gap-6 xl:gap-24">
                 <div className="text-center">
                   <p className="text-2xl md:text-[32px] font-bold leading-[120%] text-[#2C2C2C] m-0">
                     800K
@@ -196,7 +196,7 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Box */}
-            <div className="absolute xl:right-6 text-white shadow-xl flex w-full md:max-w-[500px] lg:w-[430px] px-4 md:px-6 py-4 md:py-6 lg:py-8 xl:py-10 justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md mx-auto lg:mx-0">
+            <div className="absolute xl:right-6 text-white shadow-xl flex w-full md:max-w-[500px] lg:w-[380px] px-4 md:px-6 py-4 md:py-6 lg:py-8 xl:py-10 justify-center items-center rounded-3xl border border-black bg-black/10 backdrop-blur-md mx-auto lg:mx-0">
               <div className="w-full text-center md:text-left">
                 <h3 className="text-lg md:text-xl font-semibold mb-2">
                   Nourish a Life. Uplift a Soul.
@@ -208,7 +208,7 @@ export default function HeroSection() {
                 </p>
                 <div className="flex flex-col sm:flex-row sm:justify-center md:justify-start md:space-x-4 gap-2">
                   <Link href="/donation">
-                    <button className=" mt-4 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-full shadow-md transition-transform transform hover:scale-105">
+                    <button className=" mt-4 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={Heart}
                         alt="Donate Icon"
@@ -221,7 +221,7 @@ export default function HeroSection() {
                   </Link>
 
                   <Link href="/about-us">
-                    <button className="mt-4 flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-full shadow-md transition-transform transform hover:scale-105">
+                    <button className="mt-4 flex justify-center gap-2 bg-white hover:bg-gray-200 cursor-pointer font-semibold px-4 py-3 text-black rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={info}
                         alt="Info Icon"

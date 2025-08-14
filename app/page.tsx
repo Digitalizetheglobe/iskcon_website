@@ -1,59 +1,29 @@
 "use client";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import Link from "next/link";
 
 import HeroSection from "@/app/components/HeroSection";
 import Image from "next/image";
 import React from "react";
 //import isk2 from "../public/images/isk2c.png";
 //import image150 from "../public/images/image-150.png";
-import image160 from "../public/images/image-160.png";
+//import image160 from "../public/images/image-160.png";
 //import image170 from "../public/images/image-170.png";
 //import ik from "../public/images/ik.png";
-import edu02 from "../public/GalleryImages/Education/edu02.jpg";
-import fest19 from "../public/GalleryImages/Culture/fest (19).jpg";
-import value2 from "../public/GalleryImages/Values/value (2).jpg";
-import yoga from "../public/GalleryImages/Yoga & Wellness/yoga.jpg";
-import edu03 from "../public/GalleryImages/Education/edu03.jpg";
-import fest10 from "../public/GalleryImages/Culture/fest (10).jpg";
-import fest20 from "../public/GalleryImages/Culture/fest (20).jpg";
-//import foodDonation from "../public/images/foodDonation.png"
-
-//import edu from "../public/images/education.png";
+import edu1 from "../public/galleryection/edu1.jpg";
+import fest1 from "../public/galleryection/fest1.jpg";
+import value from "../public/galleryection/val1.jpg";
+import yoga1 from "../public/galleryection/yoga.jpg";
+import edu2 from "../public/galleryection/edu2.jpg";
+import fest2 from "../public/galleryection/fest2.jpg";
+import cul1 from "../public/galleryection/cul1.jpg";
+import edu3 from "../public/galleryection/edu3.jpg";
 
 //import MobileTestimonial from "../app/components/MobileTestimonial";
 
 import CardCarousel from "./components/CardCarousel";
+import CausesSection from "./components/CauseSection";
 
-// const cardVariants = {
-//   hiddenLeft: { opacity: 0, x: -80 },
-//   hiddenRight: { opacity: 0, x: 80 },
-//   show: {
-//     opacity: 1,
-//     x: 0,
-//     transition: { duration: 0.6, ease: "easeOut" },
-//   },
-// };
-
-const causes = [
-  {
-    title: "Annadaan",
-    description:
-      " No child should have to study on an empty stomach. Through Annadan, we serve warm, wholesome  meals every day—bringing not just nourishment, but love, care, and the strength to dream. ",
-    icon: "/images/foodDonation.png",
-  },
-  {
-    title: "Teaching Moral Values",
-    description:
-      "In a world full of confusion, we guide young hearts with timeless values. Through simple stories, activities, and teachings from the Bhagavad Gita, we help children grow with character, faith, and urpose.",
-    icon: "/images/education.png",
-  },
-  {
-    title: "Vidya Daan",
-    description:
-      "Education is the light that breaks the darkness of poverty. Through free tuition, we give children the chance to learn, grow, and build a future their parents only dreamed of. ",
-    icon: "/images/bookDonation.png",
-  },
-];
 const cardData = [
   {
     id: 1,
@@ -107,75 +77,50 @@ const HomePage = () => {
   // const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
 
   const galleryImages = [
-    { src: fest20, alt: "Gallery 1", width: 520, height: 320 },
-    { src: edu02, alt: "Gallery 3", width: 520, height: 480 },
-    { src: fest19, alt: "Gallery 2", width: 250, height: 480 },
-    { src: image160, alt: "Gallery 3", width: 520, height: 480 },
-    { src: value2, alt: "Gallery 3", width: 520, height: 480 },
-    { src: yoga, alt: "Gallery 3", width: 400, height: 400 },
-    { src: edu03, alt: "Gallery 3", width: 520, height: 480 },
-    { src: fest10, alt: "Gallery 3", width: 400, height: 400 },
+    { src: fest1, alt: "Gallery 1" },
+    { src: edu1, alt: "Gallery 3" },
+    { src: fest2, alt: "Gallery 2" },
+    { src: edu3, alt: "Gallery 3" },
+    { src: value, alt: "Gallery 3" },
+    { src: yoga1, alt: "Gallery 3" },
+    { src: edu2, alt: "Gallery 3" },
+    { src: cul1, alt: "Gallery 3" },
   ];
 
   return (
-    <main className="bg-white  text-gray-800">
+    <main className="bg-white max-w-7xl mx-auto text-gray-800">
       <HeroSection />
 
-      <section className="py-12 px-4 md:px-10 lg:px-10">
-        {/* <h2 className="text-3xl md:text-4xl font-semibold text-center text-orange-600 mb-4">
-          Give Nourishment, <span className="text-yellow-500">Give Knowledge</span>, Give Hope
-        </h2>
-        <p className="text-center text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-          Decide the path of your kindness — each one leads to hope and transformation
-        </p> */}
-
+      <section className="py-1 px-4 md:px-10 lg:px-10">
         {/* ---------------------------denation form-------------------  */}
-        <section className="max-w-7xl mx-auto  lg:px-1 mb-10 lg:mb-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {causes.map((option, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  ease: "easeOut",
-                  delay: idx * 0.1,
-                }}
-                viewport={{ once: true, amount: 0.3 }}
-                style={{
-                  borderRadius: "30px",
-                  border: "1px solid #CFCFCF",
-                  background:
-                    "linear-gradient(135deg, #E1E6E8 100%, #F9FEFF 0%)",
-                  height: "257px",
-                  maxWidth: "434px",
-                  width: "100%",
-                }}
-                className="p-6 text-left flex flex-col justify-center items-center hover:scale-105 transition duration-300 ease-in-out"
-              >
-                <div className="flex justify-start w-full mb-4">
-                  <div className="bg-orange-200 p-4 rounded-full text-2xl">
-                    {option.icon.startsWith("/") ? (
-                      <Image
-                        src={option.icon}
-                        alt="icon"
-                        width={32}
-                        height={32}
-                      />
-                    ) : (
-                      <span>{option.icon}</span>
-                    )}
-                  </div>
-                </div>
-                <h3 className="text-3xl lg:text-lg font-semibold mb-2 text-gray-900 text-left w-full">
-                  {option.title}
-                </h3>
-                <p className="text-md lg:text-sm text-gray-600 text-left w-full">
-                  {option.description}
+        <section className="max-w-7xl mx-auto">
+          <div className=" bg-blue-50 rounded-lg shadow-sm p-2 lg:p-16 relative overflow-hidden">
+            {/* Decorative small star / scribble at top center */}
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:items-center item-start  px-4 sm:px-6 md:px-8">
+              {/* Left content */}
+              <div className="lg:pr-10 text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#07133a] leading-tight mb-4 sm:mb-6">
+                  Donate for cause
+                </h2>
+                <p className="text-gray-600 mb-6 sm:mb-8 text-sm w-[300px] sm:text-base">
+                  Support our mission to provide food, education, and care to
+                  those in need. Your contribution brings hope and changes lives
                 </p>
-              </motion.div>
-            ))}
+
+                <Link href="/donation">
+                  <button
+                    aria-label="View More"
+                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-white font-medium shadow-md bg-[#1C398E] hover:bg-[#fb923c] hover:scale-[1.01] transition-transform cursor-pointer"
+                  >
+                    Donate now
+                  </button>
+                </Link>
+              </div>
+
+              {/* Right testimonial stack */}
+              <CausesSection className="my-4 sm:my-1 px-2 sm:px-4" />
+            </div>
           </div>
         </section>
         {/* ---------------------------phn -------------------  */}
@@ -228,7 +173,7 @@ const HomePage = () => {
         <CardCarousel cardData={cardData} />
 
         {/* -------------------gallery------------------------ */}
-            <section className="mt-5 px-4 md:px-10 lg:px-20">
+        <section className="mt-5 px-4 md:px-10 lg:px-20">
           <div className=" flex items-center justify-center bg-white mt-2">
             <div className="flex flex-col items-center gap-4 w-[523px] text-center text-[--text-dark-charcoal] font-['Urbanist']">
               <h1 className=" text-2xl lg:text-[40px] font-extrabold leading-[120%]">
@@ -239,10 +184,10 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-        <section className="px-4 py-12 bg-white flex justify-center">
+        <section className="px-4 py-6 bg-white flex justify-center">
           <div className="max-w-6xl w-full text-center">
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {galleryImages.map((item, index) => (
                 <div
                   key={index}
@@ -251,9 +196,7 @@ const HomePage = () => {
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    width={item.width}
-                    height={item.height}
-                    className="w-full h-[320px] object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="  transition-transform duration-300 group-hover:scale-105"
                   />
 
                   {/* 🔁 Inverted overlay logic: starts dark, fades on hover */}
@@ -264,20 +207,10 @@ const HomePage = () => {
           </div>
         </section>
 
-       
-
         {/* <div className="mt-16">
           
         </div> */}
       </section>
-      {/* <section className="py-4 px-4 md:px-10 lg:px-20">
-      </section> */}
-      {/* <section className="py-12 px-4 md:px-10 lg:px-20">
-      </section> */}
-      {/* <Footer /> */}
-      {/* <section>
-         <AboutUs />
-       </section> */}
     </main>
   );
 };

@@ -5,11 +5,11 @@ import { useEffect, useState, Suspense } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Calendar, Clock, Users } from "lucide-react";
 
-import zulan from "../../public/images/zulan_yatra.jpeg";
-import krishna from "../../public/images/krihna_jnamashtmi.jpeg";
-import srila from "../../public/images/srila.jpeg";
-import radha_krishna from "../../public/images/radha_krishna.jpeg";
-import krish from "../../public/images/krish.jpg";
+import zulan from "../../public/images/Jhulan_yatra_2024.jpeg";
+import krishna from "../../public/images/janmashtmi.jpg";
+import srila from "../../public/images/prabhupada_4.jpg";
+import radha_krishna from "../../public/images/rahaKrishna.jpg";
+import krish from "../../public/images/Radha_Syamasundar_Vrindavan_Radhastami_2004.jpg";
 
 import Link from "next/link";
 
@@ -21,6 +21,8 @@ type Event = {
   description: string;
   slug: string;
   image: StaticImageData;
+  imgWidth?: number;
+  imgHeight?: number;
 };
 
 const allEvents: Event[] = [
@@ -33,6 +35,9 @@ const allEvents: Event[] = [
       "A joyful week-long swing festival where the deities of Radha-Krishna are placed on a decorated swing and worshipped with devotion...",
     slug: "jhulan-yatra-2025",
     image: zulan,
+    imgWidth:400,
+    imgHeight:330
+
   },
   {
     id: "2",
@@ -43,6 +48,8 @@ const allEvents: Event[] = [
       "A vibrant festival full of bhajans, dance, drama, and spiritual discourses celebrating the divine love of Radha and Krishna...",
     slug: "radha-krishna-utsav-2025",
     image: radha_krishna,
+     imgWidth:300,
+    imgHeight:100
   },
   {
     id: "3",
@@ -53,6 +60,8 @@ const allEvents: Event[] = [
       "Celebrate the divine appearance of Lord Sri Krishna with midnight darshan, kirtans, and abhishekam...",
     slug: "krishna-janmashtami-2025",
     image: krishna,
+     imgWidth:410,
+    imgHeight:330
   },
   {
     id: "4",
@@ -63,6 +72,8 @@ const allEvents: Event[] = [
       "A day dedicated to glorifying the life and teachings of ISKCON founder Srila Prabhupada with offerings and kirtans...",
     slug: "prabhupada-appearance-day-2025",
     image: srila,
+     imgWidth:400,
+    imgHeight:330
   },
   {
     id: "5",
@@ -73,6 +84,8 @@ const allEvents: Event[] = [
       "Celebrate the auspicious appearance of Srimati Radharani, the eternal consort of Lord Krishna, with special festivities and darshan...",
     slug: "radhashtami-2025",
     image: krish,
+     imgWidth:330,
+    imgHeight:200
   },
 ];
 
@@ -160,14 +173,15 @@ function EventsContent() {
 
                 {/* Image Section */}
                 <div className="lg:w-2/5 relative overflow-hidden">
-                  <div className="aspect-[4/3] lg:aspect-auto lg:h-80 relative hover:scale-105 transition-transform duration-500">
+                  <div className="aspect-[4/3] lg:aspect-auto lg:h-80 relative hover:scale-102 transition-transform duration-500">
                     <Image
                       src={event.image}
                       alt={event.title}
-                      fill
-                      className="object-cover "
+                      width={event.imgWidth || 640}
+                      height={event.imgHeight || 200}
+                      className="object-cover p-2"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" /> */}
                   </div>
                 </div>
 
@@ -211,7 +225,7 @@ function EventsContent() {
                   <div className="flex gap-4 ">
                     <Link href={`/events/${event.slug}`} className="flex-1 ">
                       <button className="w-fit bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300  cursor-pointer">
-                        View Details 
+                        View Details
                       </button>
                     </Link>
                   </div>

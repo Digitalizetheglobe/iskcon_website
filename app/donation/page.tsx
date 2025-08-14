@@ -16,7 +16,28 @@ import k5 from "../../public/images/k5.png";
 import k2 from "../../public/images/k2.png";
 import phn from "../../public/images/phn.png";
 import upi_qr from "../../public/images/upi_qr 1.png";
+
+import edu1 from "../../public/galleryection/edu1.jpg";
+import fest1 from "../../public/galleryection/fest1.jpg";
+import value from "../../public/galleryection/val1.jpg";
+import yoga1 from "../../public/galleryection/yoga.jpg";
+import edu2 from "../../public/galleryection/edu2.jpg";
+import fest2 from "../../public/galleryection/fest2.jpg";
+import cul1 from "../../public/galleryection/cul1.jpg";
+import edu3 from "../../public/galleryection/edu3.jpg";
 import Link from "next/link";
+
+  const galleryImages = [
+    { src: fest1, alt: "Gallery 1" },
+    { src: edu1, alt: "Gallery 3" },
+    { src: fest2, alt: "Gallery 2" },
+    { src: edu3, alt: "Gallery 3" },
+    { src: value, alt: "Gallery 3" },
+    { src: yoga1, alt: "Gallery 3" },
+    { src: edu2, alt: "Gallery 3" },
+    { src: cul1, alt: "Gallery 3" },
+  ];
+
 
 const donationOptions = [
   { children: 100, amount: 2700 },
@@ -67,8 +88,111 @@ const specialOptions = [
   },
 ];
 
+// Helper function to format numbers in Indian style
+const formatIndianCurrency = (amount: number) => {
+  return amount.toLocaleString("en-IN");
+};
+
+function AnnadanCard({
+  childrenCount,
+  amount,
+}: {
+  childrenCount: number;
+  amount: number;
+}) {
+  return (
+    <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
+      <div className="p-8 text-center">
+        <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
+          Serve {childrenCount} Children
+        </h3>
+        <div className="mb-6">
+          <span className="text-3xl font-extrabold text-blue-900">
+            ₹ {formatIndianCurrency(amount)}
+          </span>
+        </div>
+        <Link
+          href={`/donate?purpose=${encodeURIComponent(
+            `Serve ${childrenCount} Children - Annadan Seva`
+          )}&amount=${amount}`}
+        >
+          <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
+            Donate Now
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function AnnadanSpecialCard({
+  title,
+  amount,
+}: {
+  title: string;
+  amount: number;
+}) {
+  return (
+    <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
+      <div className="p-5 text-center">
+        <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
+          {title}
+        </h3>
+        <div className="mb-6">
+          <span className="text-3xl font-extrabold text-blue-900">
+            ₹ {formatIndianCurrency(amount)}
+          </span>
+        </div>
+        <Link
+          href={`/donate?purpose=${encodeURIComponent(title)}&amount=${amount}`}
+        >
+          <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
+            Donate Now
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function AnnadanAnyAmountCard() {
+  return (
+    <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
+      <div className="p-8 text-center">
+        <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
+          Donate Any Amount
+        </h3>
+        <div className="mb-6">
+          <span className="text-2xl font-semibold text-gray-500">
+            ------------
+          </span>
+        </div>
+        <Link
+          href={`/donate?purpose=${encodeURIComponent(
+            "Annadan Seva - Any Amount"
+          )}`}
+        >
+          <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
+            Donate Now
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function DonationPage() {
   const router = useRouter();
+
+  const vidyaDaanHandleClick = () => {
+    const url = `/donate?purpose=${encodeURIComponent(
+      "Vidhya Daan - Any Amount"
+    )}`;
+    router.push(url);
+  };
 
   const anadanHandleClick = () => {
     const purpose = "Annadan Seva - Any Amount";
@@ -103,7 +227,7 @@ export default function DonationPage() {
           {/* Top Stats Bar */}
           <div className="hidden  lg:flex items-center justify-center gap-6 bg-white/60 backdrop-blur rounded-full px-6 py-3 mx-auto w-fit shadow-md text-black">
             <div className="flex items-center gap-2">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded-full shadow">
+              <button className="bg-orange-500 hover:bg-orange-500 text-white px-3 py-1 rounded-full shadow">
                 🌟 Welfare Insights
               </button>
             </div>
@@ -128,10 +252,10 @@ export default function DonationPage() {
 
           {/* Main Text */}
           <div className="relative flex flex-col items-center text-center px-3 xl:px-4 py-16 max-w-xl mx-auto">
-            <div className="absolute top-4/5 xl:top-3/6 mt-18 xl:mt-28 ">
+            <div className="absolute top-4/5  xl:top-3/6 mt-18 sm:mt-40 xl:mt-28 ">
               <h1 className="text-3xl xl:text-4xl font-bold leading-tight">
                 Make a Lasting Difference. One{" "}
-                <span className="text-orange-400 italic">Act of Giving</span> at
+                <span className="text-orange-500 italic">Act of Giving</span> at
                 a Time.
               </h1>
               <p className=" mt-4 text-lg text-gray-200">
@@ -178,6 +302,7 @@ export default function DonationPage() {
                     height={40}
                   />
                 </div>
+
                 <h3 className="text-xl font-semibold">Teaching Moral Values</h3>
                 <p className="text-sm mt-2">
                   In a world full of confusion, we guide young hearts with
@@ -188,152 +313,37 @@ export default function DonationPage() {
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#FDF6EF] rounded-2xl shadow p-6 w-80 text-center hover:scale-105 hover:shadow-2xl hover:cursor-pointer transition-all duration-300">
-                <div className="flex justify-center mb-4">
-                  <Image
-                    src="/images/bookDonation.png"
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
+              <div onClick={vidyaDaanHandleClick}>
+                <div className="bg-[#FDF6EF] rounded-2xl shadow p-6 w-80 text-center hover:scale-105 hover:shadow-2xl hover:cursor-pointer transition-all duration-300">
+                  <div className="flex justify-center mb-4">
+                    <Image
+                      src="/images/bookDonation.png"
+                      alt=""
+                      width={40}
+                      height={40}
+                    />
+                  </div>
+                  <h3 className="text-xl font-semibold">Vidya Daan</h3>
+                  <p className="text-sm mt-2">
+                    Education is the light that breaks the darkness of poverty.
+                    Through free tuition, we give children the chance to learn,
+                    grow, and build a future their parents only dreamed of.
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold">Vidya Daan</h3>
-                <p className="text-sm mt-2">
-                  Education is the light that breaks the darkness of poverty.
-                  Through free tuition, we give children the chance to learn,
-                  grow, and build a future their parents only dreamed of.
-                </p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/*------------- Annadan ----------------*/}
-
-      <div className="bg-white text-center py-10 px-4">
-        <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4">
-          ✧ Annadan Seva
-        </button>
-
-        <h2 className="text-2xl md:text-4xl font-semibold italic">
-          Serve Love Through <span className="text-orange-500">Food</span>
-        </h2>
-
-        <p className="text-gray-600 mt-2 mb-10 max-w-xl mx-auto">
-          &quot;Join our sacred mission to feed hungry souls. Every meal you
-          fund is prasadam — blessed, nourishing, and life-changing.&quot;
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
-          {/* First 4 cards - always visible */}
-          {donationOptions.slice(0, 4).map(({ children, amount }) => (
-            <div
-              key={children}
-              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-100"
-            >
-              {/* Decorative accent */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600"></div>
-
-              <div className="p-8">
-                {/* Icon placeholder */}
-
-                <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
-                  Serve {children} Children
-                </h3>
-
-                <div className="mb-6">
-                  <span className="text-3xl font-extrabold text-blue-900">
-                    ₹ {amount.toLocaleString()}
-                  </span>
-                </div>
-
-                <Link
-                  href={`/donate?purpose=${encodeURIComponent(
-                    `Serve ${children} Children - Annadan Seva`
-                  )}&amount=${amount}`}
-                >
-                  <button className="w-fit bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer">
-                    Donate Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
-
-          {/* Remaining cards - hidden on mobile, shown on md+ */}
-          <div className="hidden md:block group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-100">
-            {/* Decorative accent */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600"></div>
-
-            <div className="p-8">
-              {/* Icon placeholder */}
-
-              <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
-                Donate Any amount
-              </h3>
-
-              <div className="mb-6">
-                <span className="text-2xl font-semibold text-gray-500">
-                  ------------
-                </span>
-              </div>
-
-              <Link
-                href={`/donate?purpose=${encodeURIComponent(
-                  "Annadan Seva - Any Amount"
-                )}`}
-              >
-                <button className="w-fit bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer">
-                  Donate Now
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          {[1, 2].map((i) => (
-            <div
-              key={`extra-${i}`}
-              className="hidden md:block group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-100"
-            >
-              {/* Decorative accent */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600"></div>
-
-              <div className="p-8">
-                {/* Icon placeholder */}
-
-                <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
-                  Sponsor Anna-Daan of 1 entire village for 1 month
-                </h3>
-
-                <div className="mb-6">
-                  <span className="text-3xl font-extrabold text-blue-900">
-                    ₹ 2,70,000
-                  </span>
-                </div>
-
-                <Link
-                  href={`/donate?purpose=${encodeURIComponent(
-                    "Sponsor Anna-Daan of 1 entire village for 1 month"
-                  )}&amount=270000`}
-                >
-                  <button className="w-fit bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer">
-                    Donate Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 
       {/* --------------Sponsor a child------------------- */}
-      <div className="bg-white text-center py-6 px-4 text-black ">
+      <div className="bg-white text-center py-8 px-4 text-black ">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-6">
           ✧ Sponsor a Child
         </button>
 
         <h2 className="text-3xl md:text-4xl font-semibold italic mb-2">
-          Gift a <span className="text-green-500">Future</span>
+          Gift a <span className="text-[#002A42]">Future</span>
         </h2>
         <p className="text-gray-500 max-w-xl mx-auto mb-10">
           &quot;Gift a child a future filled with wisdom and opportunity.&quot;
@@ -345,19 +355,12 @@ export default function DonationPage() {
             {sponsorshipOptions.slice(0, 2).map(({ children, amount }) => (
               <div
                 key={children}
-                className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-green-200 hover:border-green-400"
+                className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-[#002A42]"
               >
                 {/* Decorative top accent */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-[#002A42]"></div>
 
                 <div className="p-8">
-                  {/* Icon */}
-                  {/* <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-5 mx-auto">
-              <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div> */}
-
                   <h3 className="font-semibold text-lg text-gray-800 mb-1">
                     Sponsor {children} Child{children > 1 ? "ren" : ""}
                   </h3>
@@ -365,7 +368,7 @@ export default function DonationPage() {
                     Food and Education for 1 Year
                   </p>
                   <p className="text-2xl font-bold text-black mb-6">
-                    ₹ {amount.toLocaleString()}
+                    ₹ {formatIndianCurrency(amount)}
                   </p>
                   <Link
                     href={`/donate?purpose=${encodeURIComponent(
@@ -374,7 +377,7 @@ export default function DonationPage() {
                       } - Food and Education`
                     )}&amount=${amount}`}
                   >
-                    <button className="bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold px-6 py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                    <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:[#002A42]/20 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                       Donate Now
                     </button>
                   </Link>
@@ -387,14 +390,12 @@ export default function DonationPage() {
               {sponsorshipOptions.slice(2).map(({ children, amount }) => (
                 <div
                   key={children}
-                  className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-green-200 hover:border-green-400"
+                  className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-[#002A42]"
                 >
                   {/* Decorative top accent */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-[#002A42]"></div>
 
                   <div className="p-8">
-                    {/* Icon */}
-
                     <h3 className="font-semibold text-lg text-gray-800 mb-1">
                       Sponsor {children} Child{children > 1 ? "ren" : ""}
                     </h3>
@@ -402,7 +403,7 @@ export default function DonationPage() {
                       Food and Education for 1 Year
                     </p>
                     <p className="text-2xl font-bold text-black mb-6">
-                      ₹ {amount.toLocaleString()}
+                      ₹ {formatIndianCurrency(amount)}
                     </p>
                     <Link
                       href={`/donate?purpose=${encodeURIComponent(
@@ -411,7 +412,7 @@ export default function DonationPage() {
                         } - Food and Education`
                       )}&amount=${amount}`}
                     >
-                      <button className="bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold px-6 py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                      <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:from-orange-500 hover:to-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                         Donate Now
                       </button>
                     </Link>
@@ -421,18 +422,11 @@ export default function DonationPage() {
             </div>
           </>
 
-          <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-green-200 hover:border-green-400">
+          <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-[#002A42]">
             {/* Decorative top accent */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-[#002A42]"></div>
 
             <div className="p-8">
-              {/* Icon */}
-              {/* <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-5 mx-auto">
-          <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m-3-9a3 3 0 00-6 0v2.5"/>
-          </svg>
-        </div> */}
-
               <h3 className="font-semibold text-lg text-gray-800 mb-1">
                 Donate Any amount
               </h3>
@@ -442,7 +436,7 @@ export default function DonationPage() {
                   "Sponsor a Child - Any Amount"
                 )}`}
               >
-                <button className="bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold px-6 py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:from-orange-500 hover:to-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                   Donate Now
                 </button>
               </Link>
@@ -451,9 +445,70 @@ export default function DonationPage() {
         </div>
       </div>
 
+      {/*------------- Annadan ----------------*/}
+      {/*------------- Annadan ----------------*/}
+      {/*------------- Annadan ----------------*/}
+      <div className="bg-white text-center py-8 px-4">
+        <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4">
+          ✧ Annadan Seva
+        </button>
+
+        <h2 className="text-2xl md:text-4xl font-semibold italic">
+          Serve Love Through <span className="text-orange-500">Food</span>
+        </h2>
+
+        <p className="text-gray-600 mt-2 mb-10 max-w-xl mx-auto">
+          &quot;Join our sacred mission to feed hungry souls. Every meal you
+          fund is prasadam — blessed, nourishing, and life-changing.&quot;
+        </p>
+
+        {/* First row: only 4 cards on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {donationOptions.slice(0, 4).map(({ children, amount }) => (
+            <AnnadanCard
+              key={children}
+              childrenCount={children}
+              amount={amount}
+            />
+          ))}
+
+          {/* Remaining cards - desktop only */}
+          <div className="hidden md:contents">
+            {donationOptions.slice(4).map(({ children, amount }) => (
+              <AnnadanCard
+                key={children}
+                childrenCount={children}
+                amount={amount}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Special Section Centered */}
+        <div className="mt-16 flex flex-col items-center gap-12">
+          {/* Donate Any Amount - Center */}
+          <div className="max-w-sm w-full">
+            <AnnadanAnyAmountCard />
+          </div>
+
+          {/* Sponsor Village block */}
+          <div className="flex flex-col lg:flex-row gap-8 max-w-4xl mx-auto">
+            <div className="flex-1">
+              <AnnadanSpecialCard
+                title="Sponsor Anna-Daan of 1 entire village for 1 month"
+                amount={270000}
+              />
+            </div>
+            <div className="flex-1">
+              <AnnadanCard childrenCount={1000} amount={27000} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* -------------------Vidhya Dan--------------------------- */}
 
-      <div className="bg-white text-center py-12 px-4 text-black">
+      <div className="bg-white text-center py-8 px-4 text-black">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-6">
           ✧ Vidhya Dana Seva
         </button>
@@ -473,9 +528,9 @@ export default function DonationPage() {
             {academicYearOptions.slice(0, 2).map(({ children, amount }) => (
               <div
                 key={`year-${children}`}
-                className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-200 hover:border-blue-400"
+                className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900 hover:border-blue-900"
               >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-900 via-blue-900 to-blue-900"></div>
 
                 <div className="p-8">
                   <h3 className="font-semibold text-lg text-gray-800 mb-1">
@@ -486,7 +541,7 @@ export default function DonationPage() {
                     for 1 Academic Year
                   </p>
                   <p className="text-2xl font-bold text-black mb-6">
-                    ₹ {amount.toLocaleString()}
+                    ₹ {formatIndianCurrency(amount)}
                   </p>
                   <Link
                     href={`/donate?purpose=${encodeURIComponent(
@@ -495,7 +550,7 @@ export default function DonationPage() {
                       } Education for 1 Academic Year`
                     )}&amount=${amount}`}
                   >
-                    <button className="bg-gradient-to-r from-blue-800 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                    <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                       Donate Now
                     </button>
                   </Link>
@@ -508,9 +563,9 @@ export default function DonationPage() {
               {academicYearOptions.slice(2).map(({ children, amount }) => (
                 <div
                   key={`year-${children}`}
-                  className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-200 hover:border-blue-400"
+                  className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900 hover:border-blue-900"
                 >
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-900 via-blue-900 to-blue-900"></div>
 
                   <div className="p-8">
                     <h3 className="font-semibold text-lg text-gray-800 mb-1">
@@ -521,7 +576,7 @@ export default function DonationPage() {
                       for 1 Academic Year
                     </p>
                     <p className="text-2xl font-bold text-black mb-6">
-                      ₹ {amount.toLocaleString()}
+                      ₹ {formatIndianCurrency(amount)}
                     </p>
                     <Link
                       href={`/donate?purpose=${encodeURIComponent(
@@ -530,7 +585,7 @@ export default function DonationPage() {
                         } Education for 1 Academic Year`
                       )}&amount=${amount}`}
                     >
-                      <button className="bg-gradient-to-r from-blue-800 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                      <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                         Donate Now
                       </button>
                     </Link>
@@ -544,9 +599,9 @@ export default function DonationPage() {
           {monthlyOptions.slice(0, 1).map(({ children, amount }) => (
             <div
               key={`month-${children}`}
-              className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-200 hover:border-blue-400"
+              className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900 hover:border-blue-900"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-900 via-blue-900 to-blue-900"></div>
 
               <div className="p-8">
                 <h3 className="font-semibold text-lg text-gray-800 mb-1">
@@ -554,7 +609,7 @@ export default function DonationPage() {
                 </h3>
                 <p className="text-sm text-gray-600 mb-4">for 1 Month</p>
                 <p className="text-2xl font-bold text-black mb-6">
-                  ₹ {amount.toLocaleString()}
+                  ₹ {formatIndianCurrency(amount)}
                 </p>
                 <Link
                   href={`/donate?purpose=${encodeURIComponent(
@@ -563,7 +618,7 @@ export default function DonationPage() {
                     } Education for 1 Month`
                   )}&amount=${amount}`}
                 >
-                  <button className="bg-gradient-to-r from-blue-800 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                  <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                     Donate Now
                   </button>
                 </Link>
@@ -575,23 +630,23 @@ export default function DonationPage() {
           {specialOptions.map(({ title, amount }, index) => (
             <div
               key={`special-${index}`}
-              className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-200 hover:border-blue-400"
+              className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900 hover:border-blue-900"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-900 via-blue-900 to-blue-900"></div>
 
               <div className="p-8">
                 <h3 className="font-semibold text-lg text-center text-gray-800 mb-6">
                   {title}
                 </h3>
                 <p className="text-2xl font-bold text-black mb-6">
-                  ₹ {amount.toLocaleString()}
+                  ₹ {formatIndianCurrency(amount)}
                 </p>
                 <Link
                   href={`/donate?purpose=${encodeURIComponent(
                     title
                   )}&amount=${amount}`}
                 >
-                  <button className="bg-gradient-to-r from-blue-800 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
+                  <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                     Donate Now
                   </button>
                 </Link>
@@ -655,7 +710,42 @@ export default function DonationPage() {
         </div>
       </div>
 
-      {/* ---------------------------------------- */}
+      {/* -------------------Gallery Section--------------------- */}
+      <div className="bg-[#EDF2F7]">
+      <section className="mt-5 px-4 md:px-10 lg:px-20">
+        <div className=" flex items-center justify-center  mt-2">
+          <div className="flex flex-col items-center gap-4 w-[523px] text-center text-[--text-dark-charcoal] font-['Urbanist']">
+            <h1 className=" text-2xl mt-2 lg:text-[40px] font-extrabold leading-[120%]">
+              A glimpse into the lives you&#39;ve <br />
+              touched with your{" "}
+              <span className="text-[#FF9C5A] italic">kindness</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+      <section className="px-4 py-6  flex justify-center">
+        <div className="max-w-6xl w-full text-center">
+          {/* Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {galleryImages.map((item, index) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden rounded-md "
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  className="  transition-transform duration-300 group-hover:scale-105"
+                />
+
+                {/* 🔁 Inverted overlay logic: starts dark, fades on hover */}
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/10 bg-opacity-60 group-hover:bg-opacity-0 transition-all duration-300"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      </div>
     </>
   );
 }

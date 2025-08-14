@@ -34,13 +34,13 @@ const WhatsAppButton = () => {
   };
 
   return (
-    <div className="fixed bottom-4 lg:bottom-6 right-1 lg:right-4 z-50 flex flex-col items-end ">
+    <div className="fixed bottom-4 lg:bottom-10 left-1 lg:left-4 z-50 flex flex-col items-end ">
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-2xl w-[350px] sm:max-w-sm md:max-w-md mb-3 overflow-hidden border border-gray-200 mx-auto ">
+<div className="bg-white rounded-lg shadow-2xl w-[280px] md:w-[320px] lg:w-[350px] sm:max-w-sm md:max-w-xl mb-3 overflow-hidden border border-gray-200 mx-auto">
           {/* Header */}
           <div className="bg-[#075E54] text-white px-4 py-3 flex items-center justify-between">
             <div>
-              <div className="font-medium text-sm">Hare Krishna </div>
+              <div className="font-medium text-sm">Hare Krishna Vidya </div>
               {/* <div className="text-xs text-teal-100 opacity-90">
                 Replies within 1 day
               </div> */}
@@ -60,7 +60,7 @@ const WhatsAppButton = () => {
 
             {/* Message bubble */}
             <div className="bg-[#DCF8C6] rounded-lg p-3 shadow-sm max-w-full">
-              <div className="text-xs text-gray-400 mb-1">Hare Krishna</div>
+              <div className="text-xs text-gray-400 mb-1">Hare Krishna Vidya</div>
               <div className="text-sm text-gray-800 leading-relaxed">
                  Hare Krishna! <br />
                   How can we help you?

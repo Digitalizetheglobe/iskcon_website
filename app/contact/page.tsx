@@ -131,12 +131,12 @@ export default function ContactPage() {
               {/* Phone Numbers */}
               <div className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex  items-center justify-center group-hover:bg-green-200 transition-colors">
                     <Phone className="w-6 h-6 text-green-600" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="  space-y-1 ">
                     <p className="font-medium text-gray-800">Phone</p>
-                    <div className="space-y-1">
+                    <div className="space-y-1 flex flex-col lg:flex-row gap-1 lg:gap-10">
                       <a
                         href="tel:+918121795663"
                         className="block text-green-600 hover:text-green-800 transition-colors"
@@ -312,14 +312,14 @@ export default function ContactPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="tel:+918121795663"
-                className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+                className="inline-flex items-center px-6 py-3 border border-b  hover:bg-orange-500 text-black hover:text-white font-medium rounded-lg transition-colors"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
               <a
                 href="mailto:connect2aikyavidya@gmail.com"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-blue-800 hover:bg-blue-900 text-white font-medium rounded-lg transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Send Email

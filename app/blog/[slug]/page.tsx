@@ -31,6 +31,7 @@ interface BlogPost {
   slug: string;
   id: number;
   image: StaticImageData;
+  
   author: string;
   date: string;
   readTime: string;

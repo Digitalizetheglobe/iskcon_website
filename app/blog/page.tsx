@@ -3,13 +3,13 @@
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 import { Calendar, User} from "lucide-react";
-import krihna_jnamashtmi from "../../public/images/krihna_jnamashtmi.jpeg";
+import krihna_jnamashtmi from "../../public/images/rahaKrishna.jpg";
 import bhagvatGita from "../../public/blogs/bhagvatGita.jpeg";
-import bookMarathon from "../../public/blogs/book marathon.jpeg";
+import bookMarathon from "../../public/blogs/maxresdefault.jpg";
 import deity from "../../public/blogs/deity.jpeg";
 import eco_friendly from "../../public/blogs/eco_friendly.jpeg";
-import harinam from "../../public/blogs/harinam.jpeg";
-import meditation from "../../public/blogs/meditation.jpeg";
+import harinam from "../../public/images/harinamsan.png";
+import meditation from "../../public/blogs/mediation.jpg";
 import radhaAsthmi from "../../public/blogs/rada_Asthmi.jpeg";
 import stories from "../../public/blogs/storiesofkrishna.jpeg";
 import image from "../../public/images/image-140.png";
@@ -19,6 +19,8 @@ interface BlogPost {
   slug: string;
   id: number;
   image: StaticImageData;
+  imageWidht?:number,
+  imageHeight?:number,
   author: string;
   date: string;
   readTime: string;
@@ -48,6 +50,9 @@ const blogPosts: BlogPost[] = [
     slug: "sri-krishna-janmashtami-celebrations",
     id: 1,
     image: blogImages.krihna_jnamashtmi,
+    imageWidht:200,
+  imageHeight:100,
+
     author: "ISKCON Mumbai",
     date: "19 Aug 2025",
     readTime: "5 min read",
@@ -62,6 +67,8 @@ const blogPosts: BlogPost[] = [
     slug: "sri-radhashtami-festival",
     id: 2,
     image: blogImages.radhaAsthmi,
+    imageWidht:400,
+  imageHeight:300,
     author: "ISKCON Chowpatty",
     date: "6 Sep 2025",
     readTime: "4 min read",
@@ -76,6 +83,8 @@ const blogPosts: BlogPost[] = [
     slug: "bhagavad-gita-modern-life",
     id: 3,
     image: blogImages.bhagvatGita,
+    imageWidht:400,
+  imageHeight:300,
     author: "HH Radhanath Swami",
     date: "10 Aug 2025",
     readTime: "8 min read",
@@ -90,6 +99,8 @@ const blogPosts: BlogPost[] = [
     slug: "feeding-hungry-with-love",
     id: 4,
     image: blogImages.image,
+    imageWidht:400,
+  imageHeight:300,
     author: "ISKCON Food for Life",
     date: "2 Aug 2025",
     readTime: "6 min read",
@@ -104,6 +115,8 @@ const blogPosts: BlogPost[] = [
     slug: "harinam-sankirtan-marine-drive",
     id: 5,
     image: blogImages.harinam,
+    imageWidht:400,
+  imageHeight:300,
     author: "ISKCON Kirtan Team",
     date: "28 Jul 2025",
     readTime: "3 min read",
@@ -118,6 +131,8 @@ const blogPosts: BlogPost[] = [
     slug: "eco-friendly-pilgrimage-experience",
     id: 6,
     image: blogImages.eco_friendly,
+    imageWidht:400,
+  imageHeight:300,
     author: "ISKCON Govardhan Eco Village",
     date: "22 Jul 2025",
     readTime: "7 min read",
@@ -132,6 +147,8 @@ const blogPosts: BlogPost[] = [
     slug: "book-marathon-spiritual-reading",
     id: 7,
     image: blogImages.bookMarathon,
+    imageWidht:400,
+  imageHeight:300,
     author: "ISKCON Education Team",
     date: "15 Jul 2025",
     readTime: "5 min read",
@@ -146,6 +163,8 @@ const blogPosts: BlogPost[] = [
     slug: "deity-worship-temple-traditions",
     id: 8,
     image: blogImages.deity,
+    imageWidht:400,
+  imageHeight:300,
     author: "Temple Priests",
     date: "8 Jul 2025",
     readTime: "6 min read",
@@ -160,6 +179,8 @@ const blogPosts: BlogPost[] = [
     slug: "meditation-spiritual-practice",
     id: 9,
     image: blogImages.meditation,
+    imageWidht:400,
+  imageHeight:300,
     author: "Yoga Instructors",
     date: "1 Jul 2025",
     readTime: "7 min read",
@@ -174,6 +195,8 @@ const blogPosts: BlogPost[] = [
     slug: "krishna-stories-timeless-wisdom",
     id: 10,
     image: blogImages.stories,
+    imageWidht:400,
+  imageHeight:300,
     author: "Storytellers",
     date: "25 Jun 2025",
     readTime: "4 min read",
@@ -209,14 +232,16 @@ const BlogPostCard: React.FC<{
         <Image
           src={post.image}
           alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          width={post.imageWidht}
+          height={post.imageHeight}
+          className=" object-cover group-hover:scale-102 transition-transform duration-500 p-4"
         />
         {/* <div className="absolute top-4 left-4">
           <span className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
             {post.category}
           </span>
         </div> */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
       </div>
       <div className="p-6">
         <h3 className="font-bold text-xl text-blue-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2 leading-tight">

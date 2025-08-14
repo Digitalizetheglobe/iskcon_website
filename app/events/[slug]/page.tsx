@@ -4,12 +4,11 @@ import { notFound } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
 import Link from 'next/link'
 import { Calendar, Clock, MapPin, Users, Heart, Star } from "lucide-react";
-import zulan from '../../../public/images/zulan_yatra.jpeg'
-import krishna from '../../../public/images/krihna_jnamashtmi.jpeg'
-import srila from '../../../public/images/srila.jpeg'
-import radha_krishna from '../../../public/images/radha_krishna.jpeg'
-import krish from '../../../public/images/krish.jpg'
-
+import zulan from "../../../public/images/Jhulan_yatra_2024.jpeg";
+import krishna from "../../../public/images/janmashtmi.jpg";
+import srila from "../../../public/images/prabhupada_4.jpg";
+import radha_krishna from "../../../public/images/rahaKrishna.jpg";
+import krish from "../../../public/images/Radha_Syamasundar_Vrindavan_Radhastami_2004.jpg";
 type Event = {
   id: string;
   title: string;

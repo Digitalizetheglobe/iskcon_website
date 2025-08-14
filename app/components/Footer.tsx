@@ -15,10 +15,10 @@ import logo from "../../public/images/logo.png";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#002A42] text-white px-2 lg:px-4 py-5 mt-10">
+      <footer className="bg-[#002A42] text-white px-2 lg:px-4 py-5 mt-4">
         <div className="max-w-7xl mx-auto">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
             {/* Logo and About Section */}
             <div className="col-span-1 md:col-span-2 lg:col-span-1 ">
               <div>
@@ -32,15 +32,9 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <p className="text-sm   text-white leading-[1.8]">
-                &quot;Hare Krishna Vidya&quot; an initiative of{" "} <br />
-                
-                HARE KRISHNA MOVEMENT  INDIA <br /> is br  designed   for students
-                of classes <br /> 1st to 10th, especially in rural areas.
+                &quot;Hare Krishna Vidya&quot;, by Hare Krishna Movement India, serves students of <br />  classes 1–10, especially in rural areas.
               </p>
-
-              </div>
-              
-              <div className="mt-2">
+              <div className="mt-1">
                 <ul className="flex items-center gap-3">
                   <li>
                     <a
@@ -86,6 +80,10 @@ export default function Footer() {
                   </li>
                 </ul>
               </div>
+
+              </div>
+              
+             
             </div>
 
             {/* Quick Links */}
@@ -192,6 +190,19 @@ export default function Footer() {
                   </a>
                 </div>
 
+                
+
+                
+
+                <div className="group flex items-center gap-3">
+                  <FaEnvelope size={14} className="flex-shrink-0" />
+                  <a
+                    href="mailto:aikyavidya@hkmhyderabad.org"
+                    className="group-hover:text-yellow-200 text-base"
+                  >
+                    aikyavidya@hkmhyderabad.org
+                  </a>
+                </div>
                 <div className="group flex items-center gap-3">
                   <FaPhoneAlt size={14} className="flex-shrink-0" />
                   <a
@@ -201,7 +212,6 @@ export default function Footer() {
                     +91 8019397108
                   </a>
                 </div>
-
                 <div className="group flex items-center gap-3">
                   <FaPhoneAlt size={14} className="flex-shrink-0" />
                   <a
@@ -209,16 +219,6 @@ export default function Footer() {
                     className="group-hover:text-yellow-200 text-base"
                   >
                     +91 83283 89862
-                  </a>
-                </div>
-
-                <div className="group flex items-center gap-3">
-                  <FaEnvelope size={14} className="flex-shrink-0" />
-                  <a
-                    href="mailto:aikyavidya@hkmhyderabad.org"
-                    className="group-hover:text-yellow-200 text-base"
-                  >
-                    aikyavidya@hkmhyderabad.org
                   </a>
                 </div>
               </div>
@@ -231,10 +231,11 @@ export default function Footer() {
       </footer>
 
       {/* Bottom Section */}
-      <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-2 flex flex-col md:flex-row items-start justify-start text-sm text-white">
-        <p className="mb-2 md:mb-0 pb-3 lg:px-4 ">
+      <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-10 flex flex-col md:flex-row items-start justify-between text-sm text-white">
+        <p className="mb-2 md:mb-0 pb-3 lg:px-2 ">
           Copyright © 2025 Hare Krishna Vidya - Aikya Vidya
         </p>
+         
       </div>
     </>
   );
