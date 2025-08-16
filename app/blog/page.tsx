@@ -3,16 +3,19 @@
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 import { Calendar, User} from "lucide-react";
-import krihna_jnamashtmi from "../../public/images/rahaKrishna.jpg";
-import bhagvatGita from "../../public/blogs/bhagvatGita.jpeg";
-import bookMarathon from "../../public/blogs/maxresdefault.jpg";
-import deity from "../../public/blogs/deity.jpeg";
-import eco_friendly from "../../public/blogs/eco_friendly.jpeg";
-import harinam from "../../public/images/harinamsan.png";
-import meditation from "../../public/blogs/mediation.jpg";
-import radhaAsthmi from "../../public/blogs/rada_Asthmi.jpeg";
-import stories from "../../public/blogs/storiesofkrishna.jpeg";
-import image from "../../public/images/image-140.png";
+import krishna_jnamashtmi from "../../public/photosOfEvents/6.jpg";
+import radha_ashtmi from "../../public/photosOfEvents/2.jpg";
+import bhagvatGita from "../../public/photosOfEvents/5.jpg";
+
+import bookMarathon from "../../public/photosOfEvents/17.jpg";
+
+import deity from "../../public/photosOfEvents/20.jpg";
+import eco_friendly from "../../public/photosOfEvents/13.jpg";
+import harinam from "../../public/photosOfEvents/11.jpg";
+import meditation from "../../public/photosOfEvents/22.jpg";
+//import radhaAsthmi from "../../public/blogs/rada_Asthmi.jpeg";
+import stories from "../../public/photosOfEvents/26.jpg";
+import image from "../../public/photosOfEvents/8.jpg";
 
 // Type Definitions
 interface BlogPost {
@@ -33,8 +36,8 @@ interface BlogPost {
 
 // Blog images mapping
 const blogImages = {
-  krihna_jnamashtmi,
-  radhaAsthmi,
+  radha_ashtmi,
+  krishna_jnamashtmi,
   bhagvatGita,
   image,
   harinam,
@@ -49,9 +52,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: "sri-krishna-janmashtami-celebrations",
     id: 1,
-    image: blogImages.krihna_jnamashtmi,
-    imageWidht:200,
-  imageHeight:100,
+    image: blogImages.krishna_jnamashtmi,
 
     author: "ISKCON Mumbai",
     date: "19 Aug 2025",
@@ -66,9 +67,8 @@ const blogPosts: BlogPost[] = [
   {
     slug: "sri-radhashtami-festival",
     id: 2,
-    image: blogImages.radhaAsthmi,
-    imageWidht:400,
-  imageHeight:300,
+    image: blogImages.radha_ashtmi,
+   
     author: "ISKCON Chowpatty",
     date: "6 Sep 2025",
     readTime: "4 min read",
@@ -83,8 +83,7 @@ const blogPosts: BlogPost[] = [
     slug: "bhagavad-gita-modern-life",
     id: 3,
     image: blogImages.bhagvatGita,
-    imageWidht:400,
-  imageHeight:300,
+    
     author: "HH Radhanath Swami",
     date: "10 Aug 2025",
     readTime: "8 min read",
@@ -99,8 +98,7 @@ const blogPosts: BlogPost[] = [
     slug: "feeding-hungry-with-love",
     id: 4,
     image: blogImages.image,
-    imageWidht:400,
-  imageHeight:300,
+  
     author: "ISKCON Food for Life",
     date: "2 Aug 2025",
     readTime: "6 min read",
@@ -115,8 +113,7 @@ const blogPosts: BlogPost[] = [
     slug: "harinam-sankirtan-marine-drive",
     id: 5,
     image: blogImages.harinam,
-    imageWidht:400,
-  imageHeight:300,
+  
     author: "ISKCON Kirtan Team",
     date: "28 Jul 2025",
     readTime: "3 min read",
@@ -131,8 +128,7 @@ const blogPosts: BlogPost[] = [
     slug: "eco-friendly-pilgrimage-experience",
     id: 6,
     image: blogImages.eco_friendly,
-    imageWidht:400,
-  imageHeight:300,
+  
     author: "ISKCON Govardhan Eco Village",
     date: "22 Jul 2025",
     readTime: "7 min read",
@@ -147,8 +143,7 @@ const blogPosts: BlogPost[] = [
     slug: "book-marathon-spiritual-reading",
     id: 7,
     image: blogImages.bookMarathon,
-    imageWidht:400,
-  imageHeight:300,
+   
     author: "ISKCON Education Team",
     date: "15 Jul 2025",
     readTime: "5 min read",
@@ -163,8 +158,7 @@ const blogPosts: BlogPost[] = [
     slug: "deity-worship-temple-traditions",
     id: 8,
     image: blogImages.deity,
-    imageWidht:400,
-  imageHeight:300,
+    
     author: "Temple Priests",
     date: "8 Jul 2025",
     readTime: "6 min read",
@@ -179,8 +173,7 @@ const blogPosts: BlogPost[] = [
     slug: "meditation-spiritual-practice",
     id: 9,
     image: blogImages.meditation,
-    imageWidht:400,
-  imageHeight:300,
+   
     author: "Yoga Instructors",
     date: "1 Jul 2025",
     readTime: "7 min read",
@@ -195,8 +188,7 @@ const blogPosts: BlogPost[] = [
     slug: "krishna-stories-timeless-wisdom",
     id: 10,
     image: blogImages.stories,
-    imageWidht:400,
-  imageHeight:300,
+   
     author: "Storytellers",
     date: "25 Jun 2025",
     readTime: "4 min read",
@@ -228,7 +220,7 @@ const BlogPostCard: React.FC<{
       onClick={() => onClick(post)}
       className={`bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
     >
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-[450px] overflow-hidden">
         <Image
           src={post.image}
           alt={post.title}
@@ -236,12 +228,7 @@ const BlogPostCard: React.FC<{
           height={post.imageHeight}
           className=" object-cover group-hover:scale-102 transition-transform duration-500 p-4"
         />
-        {/* <div className="absolute top-4 left-4">
-          <span className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-            {post.category}
-          </span>
-        </div> */}
-        {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
+        
       </div>
       <div className="p-6">
         <h3 className="font-bold text-xl text-blue-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2 leading-tight">
@@ -277,7 +264,6 @@ const BlogSystem: React.FC = () => {
   // Featured post is first one
   const featuredPost = blogPosts[0];
   const regularPosts = blogPosts.slice(1);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
@@ -312,10 +298,7 @@ const BlogSystem: React.FC = () => {
             <h2 className="text-3xl font-bold text-blue-900">
               Latest Articles
             </h2>
-            <span className="text-gray-500 text-sm">
-              {blogPosts.length}{" "}
-              {blogPosts.length === 1 ? "article" : "articles"}
-            </span>
+           
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -323,11 +306,11 @@ const BlogSystem: React.FC = () => {
             {regularPosts[0] && (
               <div className="lg:col-span-2 bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
                 <div
-                  className="flex flex-col md:flex-row h-full cursor-pointer group"
+                  className="flex flex-col  md:flex-row h-full cursor-pointer group"
                   onClick={() => openPost(regularPosts[0])}
                 >
                   {/* Image */}
-                  <div className="md:w-1/2 h-60 md:h-auto overflow-hidden">
+                  <div className="md:w-1/2 h-92 md:h-auto overflow-hidden p-4">
                     <Image
                       src={regularPosts[0].image}
                       alt={regularPosts[0].title}

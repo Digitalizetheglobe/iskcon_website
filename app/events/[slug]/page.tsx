@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
 import Link from 'next/link'
 import { Calendar, Clock, MapPin, Users, Heart, Star } from "lucide-react";
-import zulan from "../../../public/images/Jhulan_yatra_2024.jpeg";
-import krishna from "../../../public/images/janmashtmi.jpg";
-import srila from "../../../public/images/prabhupada_4.jpg";
-import radha_krishna from "../../../public/images/rahaKrishna.jpg";
-import krish from "../../../public/images/Radha_Syamasundar_Vrindavan_Radhastami_2004.jpg";
+import zulan from "../../../public/photosOfEvents/31.jpg";
+
+import krishna from "../../../public/photosOfEvents/38.jpg";
+import srila from "../../../public/photosOfEvents/41.jpg";
+import radha_krishna from "../../../public/photosOfEvents/34.jpg";
+import krish from "../../../public/photosOfEvents/42.jpg";
+
 type Event = {
   id: string;
   title: string;
@@ -153,8 +155,8 @@ export default async function EventDetailPage({ params }: PageProps) {
                   src={event.image}
                   alt={event.title}
                   width={600}
-                  height={500}
-                  className="w-full h-96 object-cover"
+                  height={300}
+                  className="w-full h-100  object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent"></div>
               </div>

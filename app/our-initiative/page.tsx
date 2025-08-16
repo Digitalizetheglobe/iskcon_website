@@ -117,7 +117,7 @@ export default function Page() {
 
           {/* Call to Action Section - Mobile */}
           <div className=" px-4 py-8 m-5 flex flex-col justify-center items-center  text-center font-bold">
-            <p className="text-gray-800 text-md leading-relaxed mb-6">
+            <p className="text-gray-800 text-md leading-relaxed mb-6 ">
               We are providing <br />{" "}
               <span className="text-orange-400">
                 Free Food, Education and Values{" "}

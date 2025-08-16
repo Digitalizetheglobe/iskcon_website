@@ -108,7 +108,7 @@ const WhatsAppButton = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer"
       >
-        <FaWhatsapp size={28} fill="currentColor" />
+        <FaWhatsapp size={24} fill="currentColor" />
       </button>
     </div>
   );

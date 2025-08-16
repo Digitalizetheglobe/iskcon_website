@@ -3,35 +3,59 @@ import Image, { StaticImageData } from "next/image";
 import { Metadata } from "next";
 import { Calendar, User, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import krihna_jnamashtmi from "../../../public/images/krihna_jnamashtmi.jpeg";
-import bhagvatGita from "../../../public/blogs/bhagvatGita.jpeg";
-import bookMarathon from "../../../public/blogs/book marathon.jpeg";
-import deity from "../../../public/blogs/deity.jpeg";
-import eco_friendly from "../../../public/blogs/eco_friendly.jpeg";
-import harinam from "../../../public/blogs/harinam.jpeg";
-import meditation from "../../../public/blogs/meditation.jpeg";
+import radha_ashtmi from "../../../public/photos/1.jpg";
+import radha_ashtmi2 from "../../../public/photosOfEvents/3.jpg";
+
+
+import bhagvatGita from "../../../public/photosOfEvents/6.jpg";
+import bhagvatGita2 from "../../../public/photosOfEvents/4.jpg";
+import bookMarathon from "../../../public/photosOfEvents/16.jpg";
+import bookMarathon2 from "../../../public/photosOfEvents/18.jpg";
+
+import deity from "../../../public/photosOfEvents/19.jpg";
+import deity2 from "../../../public/photosOfEvents/21.jpg";
+import eco_friendly from "../../../public/photosOfEvents/14.jpg";
+import eco_friendly2 from "../../../public/photosOfEvents/15.jpg";
+import harinam from "../../../public/photosOfEvents/12.jpg";
+import harinam2 from "../../../public/photosOfEvents/12.jpg";
+
+import meditation from "../../../public/photosOfEvents/23.jpg";
+import meditation2 from "../../../public/photosOfEvents/24.jpg";
+
 import radhaAsthmi from "../../../public/blogs/rada_Asthmi.jpeg";
-import stories from "../../../public/blogs/storiesofkrishna.jpeg";
-import image from "../../../public/images/image-140.png";
+import stories from "../../../public/photosOfEvents/27.jpg";
+import stories2 from "../../../public/photosOfEvents/25.jpg";
+
+import feeding from "../../../public/photosOfEvents/9.jpg";
+import feeding2 from "../../../public/photosOfEvents/10.jpg";
 
 const blogImages = {
-  krihna_jnamashtmi,
+ radha_ashtmi,
+ radha_ashtmi2,
   radhaAsthmi,
   bhagvatGita,
-  image,
+  bhagvatGita2,
+  stories2,
   harinam,
+  harinam2,
   eco_friendly,
+  eco_friendly2,
   bookMarathon,
+  bookMarathon2,
   deity,
+  deity2,
   meditation,
+  meditation2,
   stories,
+  feeding,
+  feeding2
 };
 
 interface BlogPost {
   slug: string;
   id: number;
   image: StaticImageData;
-  
+  extraImage?: StaticImageData;
   author: string;
   date: string;
   readTime: string;
@@ -50,12 +74,14 @@ const blogPosts: BlogPost[] = [
   {
     slug: "sri-krishna-janmashtami-celebrations",
     id: 1,
-    image: blogImages.krihna_jnamashtmi,
+    image: blogImages.radha_ashtmi,
+
     author: "ISKCON Mumbai",
     date: "19 Aug 2025",
     readTime: "5 min read",
     title: "Sri Krishna Janmashtami Celebrations",
-    description: "Experience the grandeur of Sri Krishna Janmashtami with abhishek, kirtans, and cultural programs.",
+    description:
+      "Experience the grandeur of Sri Krishna Janmashtami with abhishek, kirtans, and cultural programs.",
     category: "Festival",
     content: `Sri Krishna Janmashtami, the celebration of Lord Krishna's divine appearance, is one of the most joyous festivals in the Vedic calendar. This year, ISKCON Mumbai presents a grand celebration that promises to immerse devotees in spiritual bliss.
 
@@ -79,12 +105,14 @@ We invite everyone to be part of this divine celebration. Come experience the jo
   {
     slug: "sri-radhashtami-festival",
     id: 2,
-    image: blogImages.radhaAsthmi,
+    image: blogImages.radha_ashtmi,
+    extraImage: blogImages.radha_ashtmi2,
     author: "ISKCON Chowpatty",
     date: "6 Sep 2025",
     readTime: "4 min read",
     title: "Sri Radhashtami Festival",
-    description: "A day to glorify Srimati Radharani with bhajans, lectures, and special darshan.",
+    description:
+      "A day to glorify Srimati Radharani with bhajans, lectures, and special darshan.",
     category: "Festival",
     content: `Sri Radhashtami marks the auspicious appearance day of Srimati Radharani, the eternal consort of Lord Krishna and the embodiment of divine love and devotion.
 
@@ -105,11 +133,13 @@ Through Radharani's example, we learn about selfless love, complete surrender, a
     slug: "bhagavad-gita-modern-life",
     id: 3,
     image: blogImages.bhagvatGita,
+    extraImage: blogImages.bhagvatGita2,
     author: "HH Radhanath Swami",
     date: "10 Aug 2025",
     readTime: "8 min read",
     title: "Bhagavad Gita for Modern Life",
-    description: "Learn how the timeless wisdom of the Gita applies to our daily challenges.",
+    description:
+      "Learn how the timeless wisdom of the Gita applies to our daily challenges.",
     category: "Philosophy",
     content: `The Bhagavad Gita, spoken by Lord Krishna to Arjuna on the battlefield of Kurukshetra, contains timeless wisdom that is remarkably relevant to our modern challenges and dilemmas.
 
@@ -133,12 +163,14 @@ From corporate boardrooms to personal relationships, the Gita's principles of et
   {
     slug: "feeding-hungry-with-love",
     id: 4,
-    image: blogImages.image,
+    image: blogImages.feeding,
+    extraImage: blogImages.feeding2,
     author: "ISKCON Food for Life",
     date: "2 Aug 2025",
     readTime: "6 min read",
     title: "Feeding the Hungry with Love",
-    description: "Join our prasadam distribution program and serve thousands every day.",
+    description:
+      "Join our prasadam distribution program and serve thousands every day.",
     category: "Service",
     content: `Food for Life, the world's largest vegetarian food relief program, embodies the principle of seeing all beings as spiritual souls deserving love and care.
 
@@ -163,11 +195,13 @@ Join our volunteer team and experience the joy of selfless service. Help in cook
     slug: "harinam-sankirtan-marine-drive",
     id: 5,
     image: blogImages.harinam,
+    extraImage: blogImages.harinam2,
     author: "ISKCON Kirtan Team",
     date: "28 Jul 2025",
     readTime: "3 min read",
     title: "Harinam Sankirtan at Marine Drive",
-    description: "An evening of joyous chanting and dancing in the streets of Mumbai.",
+    description:
+      "An evening of joyous chanting and dancing in the streets of Mumbai.",
     category: "Kirtan",
     content: `Harinam Sankirtan - the congregational chanting of the holy names - transforms the streets of Mumbai into a spiritual oasis filled with divine sound vibrations.
 
@@ -192,11 +226,13 @@ Come experience the transcendental joy of Harinam. No experience necessary - jus
     slug: "eco-friendly-pilgrimage-experience",
     id: 6,
     image: blogImages.eco_friendly,
+    extraImage: blogImages.eco_friendly2,
     author: "ISKCON Govardhan Eco Village",
     date: "22 Jul 2025",
     readTime: "7 min read",
     title: "Eco-Friendly Pilgrimage Experience",
-    description: "Discover sustainable living while connecting with the Divine at GEV.",
+    description:
+      "Discover sustainable living while connecting with the Divine at GEV.",
     category: "Environment",
     content: `The Govardhan Eco Village (GEV) demonstrates how spiritual life and environmental consciousness can beautifully coexist in harmony with nature.
 
@@ -225,11 +261,13 @@ Plan your eco-friendly pilgrimage to experience sustainable living while deepeni
     slug: "book-marathon-spiritual-reading",
     id: 7,
     image: blogImages.bookMarathon,
+    extraImage: blogImages.bookMarathon2,
     author: "ISKCON Education Team",
     date: "15 Jul 2025",
     readTime: "5 min read",
     title: "Book Marathon: Spiritual Reading Challenge",
-    description: "Join our annual book distribution and reading marathon to spread spiritual knowledge.",
+    description:
+      "Join our annual book distribution and reading marathon to spread spiritual knowledge.",
     category: "Education",
     content: `The annual Book Marathon is a celebration of spiritual literature and the transformative power of sacred texts in our modern world.
 
@@ -258,11 +296,13 @@ Become part of this spiritual revolution by volunteering in book distribution or
     slug: "deity-worship-temple-traditions",
     id: 8,
     image: blogImages.deity,
+    extraImage: blogImages.deity2,
     author: "Temple Priests",
     date: "8 Jul 2025",
     readTime: "6 min read",
     title: "Deity Worship: Temple Traditions",
-    description: "Discover the sacred art of deity worship and its spiritual significance.",
+    description:
+      "Discover the sacred art of deity worship and its spiritual significance.",
     category: "Worship",
     content: `Deity worship is the heart of temple life, representing the loving exchange between devotees and the Supreme Lord through His manifested form.
 
@@ -291,11 +331,13 @@ Visit our temple to witness the beauty of deity worship and participate in this 
     slug: "meditation-spiritual-practice",
     id: 9,
     image: blogImages.meditation,
+    extraImage: blogImages.meditation2,
     author: "Yoga Instructors",
     date: "1 Jul 2025",
     readTime: "7 min read",
     title: "Meditation and Spiritual Practice",
-    description: "Learn various meditation techniques for spiritual growth and inner peace.",
+    description:
+      "Learn various meditation techniques for spiritual growth and inner peace.",
     category: "Meditation",
     content: `Meditation is the bridge between our material existence and spiritual consciousness, offering a path to inner peace and divine connection.
 
@@ -324,11 +366,13 @@ Participate in our guided meditation sessions and learn from experienced practit
     slug: "krishna-stories-timeless-wisdom",
     id: 10,
     image: blogImages.stories,
+    extraImage: blogImages.stories2,
     author: "Storytellers",
     date: "25 Jun 2025",
     readTime: "4 min read",
     title: "Krishna Stories: Timeless Wisdom",
-    description: "Explore the enchanting stories of Lord Krishna and their deeper spiritual meanings.",
+    description:
+      "Explore the enchanting stories of Lord Krishna and their deeper spiritual meanings.",
     category: "Stories",
     content: `The stories of Lord Krishna are not mere fairy tales but profound spiritual teachings wrapped in captivating narratives that touch hearts across generations.
 
@@ -352,7 +396,7 @@ Story Sessions
 
 Join our weekly storytelling sessions where experienced narrators share these beautiful tales and their spiritual significance.`,
     tags: ["Krishna", "Stories", "Wisdom", "Culture"],
-  }
+  },
 ];
 
 // Generate static params for all blog posts
@@ -363,7 +407,9 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
 
@@ -385,9 +431,6 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
       images: [
         {
           url: post.image.src,
-          width: 1200,
-          height: 630,
-          alt: post.title,
         },
       ],
     },
@@ -404,14 +447,18 @@ function renderContent(content: string) {
       if (!text) return null;
 
       // Check if it's a heading (short line, mostly capital letters)
-      if (text.length < 50 && /^[A-Z][A-Za-z\s'-]*$/.test(text) && !text.includes('.')) {
+      if (
+        text.length < 50 &&
+        /^[A-Z][A-Za-z\s'-]*$/.test(text) &&
+        !text.includes(".")
+      ) {
         return (
           <h2 key={i} className="text-2xl font-bold text-blue-900 mt-8 mb-4">
             {text}
           </h2>
         );
       }
-      
+
       // Regular paragraph
       return (
         <p key={i} className="text-gray-700 leading-relaxed mb-4">
@@ -431,10 +478,14 @@ export default async function BlogDetail({ params }: BlogPageProps) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50 py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-blue-900 mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The requested blog post could not be found.</p>
-          <Link 
-            href="/blog" 
+          <h1 className="text-4xl font-bold text-blue-900 mb-4">
+            Post Not Found
+          </h1>
+          <p className="text-gray-600 mb-8">
+            The requested blog post could not be found.
+          </p>
+          <Link
+            href="/blog"
             className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
           >
             <ArrowLeft size={20} />
@@ -449,8 +500,8 @@ export default async function BlogDetail({ params }: BlogPageProps) {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50 py-16">
       <div className="max-w-4xl mx-auto px-4">
         {/* Back button */}
-        <Link 
-          href="/blog" 
+        <Link
+          href="/blog"
           className="inline-flex items-center gap-2 text-blue-900 hover:text-orange-500 transition-colors mb-8"
         >
           <ArrowLeft size={20} />
@@ -490,7 +541,7 @@ export default async function BlogDetail({ params }: BlogPageProps) {
           <Image
             src={post.image}
             alt={post.title}
-            className="w-full h-64 md:h-96 object-cover"
+            className="w-[850px] h-[600px]  object-cover "
             priority
           />
         </div>
@@ -499,11 +550,21 @@ export default async function BlogDetail({ params }: BlogPageProps) {
         <div className="text-xl text-gray-600 mb-8 leading-relaxed border-l-4 border-orange-500 pl-6">
           {post.description}
         </div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg"></div>
 
         {/* Content */}
         <div className="prose prose-lg max-w-none">
           {renderContent(post.content)}
         </div>
+        {post.extraImage && (
+          <div className="mt-8">
+            <Image
+              src={post.extraImage}
+              alt={`${post.title} extra visual`}
+              className="w-[850px] h-[650px] object-cover rounded-lg"
+            />
+          </div>
+        )}
 
         {/* Tags */}
         <div className="mt-12 pt-8 border-t border-gray-200">

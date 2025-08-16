@@ -97,15 +97,15 @@ const HomePage = () => {
           <div className=" bg-blue-50 rounded-lg shadow-sm p-2 lg:p-16 relative overflow-hidden">
             {/* Decorative small star / scribble at top center */}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:items-center item-start  px-4 sm:px-6 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:items-center item-start sm:item-center  px-4 sm:px-6 md:px-8">
               {/* Left content */}
-              <div className="lg:pr-10 text-center lg:text-left">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#07133a] leading-tight mb-4 sm:mb-6">
+              <div className="lg:pr-10  text-center lg:text-left">
+                <h2 className="text-3xl sm:text-5xl md:text-5xl font-extrabold text-[#07133a] leading-tight mb-4 sm:mb-6">
                   Donate for cause
                 </h2>
-                <p className="text-gray-600 mb-6 sm:mb-8 text-sm w-[300px] sm:text-base">
+                <p className="text-gray-600 mb-6 sm:mb-8 text-sm md:text-start w-[300px] sm:w-[500px] sm:text-base">
                   Support our mission to provide food, education, and care to
-                  those in need. Your contribution brings hope and changes lives
+                  those  <br />in need. Your contribution brings hope and changes lives
                 </p>
 
                 <Link href="/donation">

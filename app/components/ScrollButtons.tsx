@@ -40,9 +40,9 @@ export default function ScrollButton() {
 
   const handleClick = () => {
     if (isAtTop) {
-      customScroll(document.documentElement.scrollHeight, 1600); // slower
+      customScroll(document.documentElement.scrollHeight, 2600); // slower
     } else {
-      customScroll(0, 600); // faster
+      customScroll(0, 2600); // faster
     }
   };
 

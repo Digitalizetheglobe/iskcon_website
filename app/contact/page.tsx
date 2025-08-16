@@ -319,7 +319,7 @@ export default function ContactPage() {
               </a>
               <a
                 href="mailto:connect2aikyavidya@gmail.com"
-                className="inline-flex items-center px-6 py-3 bg-blue-800 hover:bg-blue-900 text-white font-medium rounded-lg transition-colors"
+                className="inline-flex items-center px-5 py-3  bg-blue-800 hover:bg-blue-900 text-white font-medium rounded-lg transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Send Email

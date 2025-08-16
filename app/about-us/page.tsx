@@ -11,6 +11,7 @@ import Link from "next/link";
 import pImg from "../../public/images/p.png";
 import iImg from "../../public/images/i.png";
 import img9 from "../../public/images/img9.png";
+import about_tab from "../../public/images/tab_banner_aboutUS.png"
 
 //import StatsCard from "../components/StatsCard";
 import edu1 from "../../public/galleryection/edu1.jpg";
@@ -66,11 +67,15 @@ export default function Page() {
   console.log("About Us Page Rendered");
   const [activeTab, setActiveTab] = useState("mission");
   const [isMobile, setIsMobile] = useState(false);
+  
+
 
   useEffect(() => {
     // Function to check screen width
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // adjust breakpoint if needed
+      setIsMobile(window.innerWidth <= 768);
+     
+ // adjust breakpoint if needed
     };
 
     handleResize(); // initial check
@@ -137,7 +142,16 @@ export default function Page() {
         alt="Harinam Sankirtan"
         width={400}
         height={200}
+         className="block sm:hidden"
       />
+      <Image
+        src={about_tab}
+        alt="Harinam Sankirtan"
+        width={800}
+        height={200}
+        className="hidden sm:block"
+      />
+
       <div>
         <div className="text-center mt-6">
           <h1 className="text-xl font-bold text-orange-500 leading-tight">

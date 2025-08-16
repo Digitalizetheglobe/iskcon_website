@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import homeImg from "../../public/images/img1.png";
 import homeImg2 from "../../public/images/home_banner.png";
+import tab_banner from "../../public/images/tab_home_banner.png";
 import img9 from "../../public/images/img9.png";
 import k3 from "../../public/images/k3.png";
 import k1 from "../../public/images/k1.png";
@@ -39,10 +40,18 @@ export default function HeroSection() {
       {/* Hero Section */}
       {isMobile ? (
         <div className="flex flex-col gap-2 ">
+          {/* ✅ Mobile banner */}
           <div
-            className=" bg-cover bg-center text-white w-full   rounded-xl overflow-hidden h-[65vh] md:[140vh]  "
+            className="bg-cover bg-center text-white w-full rounded-xl overflow-hidden h-[65vh] block sm:hidden"
             style={{ backgroundImage: `url(${homeImg2.src})` }}
           ></div>
+
+          {/* ✅ Tablet banner */}
+          <div
+            className="bg-cover bg-center text-white w-full rounded-xl overflow-hidden h-[65vh] hidden sm:block md:hidden"
+            style={{ backgroundImage: `url(${tab_banner.src})` }}
+          ></div>
+
           {/* Container for cards */}
           <div className=" mb:bottom-10 left-0 right-0 flex flex-col-reverse  px-4  gap-4">
             {/* Karma Insights Box */}
@@ -58,10 +67,9 @@ export default function HeroSection() {
                   />
                   Welfare Insights
                 </div>
-                
               </div>
 
-              <div className="flex items-center justify-between gap-6 md:gap-10">
+              <div className="flex items-center justify-between gap-6 sm:gap-20  md:gap-10">
                 <div className="text-center">
                   <p className="text-2xl md:text-[32px] font-bold leading-[120%] text-[#2C2C2C] m-0">
                     800K
@@ -154,7 +162,6 @@ export default function HeroSection() {
                   <Image src={img9} alt="Star Icon" width={20} height={20} />
                   Welfare Insights
                 </div>
-                
               </div>
 
               <div className="flex items-center  gap-6 xl:gap-24">
