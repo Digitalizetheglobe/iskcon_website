@@ -32,58 +32,57 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <p className="text-sm   text-white leading-[1.8]">
-                &quot;Hare Krishna Vidya&quot;, by Hare Krishna Movement India, serves students of <br />  classes 1–10, especially in rural areas.
-              </p>
-              <div className="mt-1">
-                <ul className="flex items-center gap-3">
-                  <li>
-                    <a
-                      href="https://www.facebook.com/people/Hare-Krishna-Vidya/pfbid05sv1xecw33n1XMN9WmiSoUNLmiQGf1xVwnW7znm2CaTcpShPSPjBKQZ2i1E9uqqpl/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#1877F2] transition-colors"
-                      aria-label="Facebook"
-                    >
-                      <FaFacebookF
-                        size={20}
-                        className="text-white transition-colors"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.instagram.com/harekrishnavidya_official/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#E4405F] transition-colors"
-                      aria-label="Instagram"
-                    >
-                      <FaInstagram
-                        size={20}
-                        className="text-white transition-colors"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="http://www.youtube.com/@HarekrishnaVidya"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#FF0000] transition-colors"
-                      aria-label="YouTube"
-                    >
-                      <FaYoutube
-                        size={20}
-                        className="text-white transition-colors"
-                      />
-                    </a>
-                  </li>
-                </ul>
+                  &quot;Hare Krishna Vidya&quot;, by Hare Krishna Movement
+                  India, serves students of <br /> classes 1–10, especially in
+                  rural areas.
+                </p>
+                <div className="mt-1">
+                  <ul className="flex items-center gap-3">
+                    <li>
+                      <a
+                        href="https://www.facebook.com/people/Hare-Krishna-Vidya/pfbid05sv1xecw33n1XMN9WmiSoUNLmiQGf1xVwnW7znm2CaTcpShPSPjBKQZ2i1E9uqqpl/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#1877F2] transition-colors"
+                        aria-label="Facebook"
+                      >
+                        <FaFacebookF
+                          size={20}
+                          className="text-white transition-colors"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.instagram.com/harekrishnavidya_official/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#E4405F] transition-colors"
+                        aria-label="Instagram"
+                      >
+                        <FaInstagram
+                          size={20}
+                          className="text-white transition-colors"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="http://www.youtube.com/@HarekrishnaVidya"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block p-2 rounded-full bg-white/10 hover:bg-[#FF0000] transition-colors"
+                        aria-label="YouTube"
+                      >
+                        <FaYoutube
+                          size={20}
+                          className="text-white transition-colors"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-
-              </div>
-              
-             
             </div>
 
             {/* Quick Links */}
@@ -123,7 +122,7 @@ export default function Footer() {
                   </Link>
                 </li>
 
-                 <li>
+                <li>
                   <Link
                     href="/events"
                     className="text-white hover:text-yellow-200 text-base"
@@ -190,10 +189,6 @@ export default function Footer() {
                   </a>
                 </div>
 
-                
-
-                
-
                 <div className="group flex items-center gap-3">
                   <FaEnvelope size={14} className="flex-shrink-0" />
                   <a
@@ -222,20 +217,30 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
+              
             </div>
           </div>
 
           {/* Footer Bottom */}
-         
         </div>
       </footer>
 
       {/* Bottom Section */}
-      <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-10 flex flex-col md:flex-row items-start justify-between text-sm text-white">
+      <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-10 flex flex-col sm:flex-row items-start justify-between text-sm text-white">
         <p className="mb-2 md:mb-0 pb-3 lg:px-2 ">
           Copyright © 2025 Hare Krishna Vidya - Aikya Vidya
         </p>
-         
+        <p>
+          Carefully Crafted by{" "}
+          <a
+            href="https://digitalizetheglobe.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-yellow-400"
+          >
+            Digitalize The Globe.
+          </a>
+        </p>
       </div>
     </>
   );
