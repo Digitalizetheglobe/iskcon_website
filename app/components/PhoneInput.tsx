@@ -139,9 +139,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ value, onChange, error, classNa
 
   return (
     <div className={className}>
-      <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
-        Phone Number *
-      </label>
+     
       
       <div className="relative">
         <div className={`flex border rounded-lg shadow-sm focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent ${
@@ -208,7 +206,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ value, onChange, error, classNa
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
             placeholder={`Enter ${selectedCountry.minLength}-${selectedCountry.maxLength} digit number`}
-            className="flex-1 px-3 py-2 rounded-r-lg focus:outline-none"
+            className="flex-1 px-3 py-2 rounded-r-lg focus:outline-none bg-white"
           />
         </div>
 

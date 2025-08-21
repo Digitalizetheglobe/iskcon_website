@@ -1,250 +1,114 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Calendar, User} from "lucide-react";
-import krishna_jnamashtmi from "../../public/photosOfEvents/6.jpg";
-import radha_ashtmi from "../../public/photosOfEvents/2.jpg";
-import bhagvatGita from "../../public/photosOfEvents/5.jpg";
+import { Calendar } from "lucide-react";
 
-import bookMarathon from "../../public/photosOfEvents/17.jpg";
-
-import deity from "../../public/photosOfEvents/20.jpg";
-import eco_friendly from "../../public/photosOfEvents/13.jpg";
-import harinam from "../../public/photosOfEvents/11.jpg";
-import meditation from "../../public/photosOfEvents/22.jpg";
-//import radhaAsthmi from "../../public/blogs/rada_Asthmi.jpeg";
-import stories from "../../public/photosOfEvents/26.jpg";
-import image from "../../public/photosOfEvents/8.jpg";
-
-// Type Definitions
+// Types
 interface BlogPost {
-  slug: string;
-  id: number;
-  image: StaticImageData;
-  imageWidht?:number,
-  imageHeight?:number,
-  author: string;
-  date: string;
-  readTime: string;
+  _id: string;
   title: string;
-  description: string;
-  category: string;
+  slug: string;
   content: string;
-  tags: string[];
+  excerpt: string;
+  uploadImage?: string;
+  coverImage?: string;
+  author?: string;
+  tags?: string[];
+  categories?: string[];
+  publishedAt?: string;
+  isPublished?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  readTime?: number;
+  views?: number;
+  likes?: number;
+  commentsCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-// Blog images mapping
-const blogImages = {
-  radha_ashtmi,
-  krishna_jnamashtmi,
-  bhagvatGita,
-  image,
-  harinam,
-  eco_friendly,
-  bookMarathon,
-  deity,
-  meditation,
-  stories,
-};
-
-const blogPosts: BlogPost[] = [
-  {
-    slug: "sri-krishna-janmashtami-celebrations",
-    id: 1,
-    image: blogImages.krishna_jnamashtmi,
-
-    author: "ISKCON Mumbai",
-    date: "19 Aug 2025",
-    readTime: "5 min read",
-    title: "Sri Krishna Janmashtami Celebrations",
-    description:
-      "Experience the grandeur of Sri Krishna Janmashtami with abhishek, kirtans, and cultural programs.",
-    category: "Festival",
-    content: `Sri Krishna Janmashtami, the celebration of Lord Krishna's divine appearance, is one of the most joyous festivals in the Vedic calendar...`,
-    tags: ["Krishna", "Festival", "Celebration", "Spirituality"],
-  },
-  {
-    slug: "sri-radhashtami-festival",
-    id: 2,
-    image: blogImages.radha_ashtmi,
-   
-    author: "ISKCON Chowpatty",
-    date: "6 Sep 2025",
-    readTime: "4 min read",
-    title: "Sri Radhashtami Festival",
-    description:
-      "A day to glorify Srimati Radharani with bhajans, lectures, and special darshan.",
-    category: "Festival",
-    content: `Sri Radhashtami marks the auspicious appearance day of Srimati Radharani...`,
-    tags: ["Radharani", "Festival", "Devotion", "Divine Love"],
-  },
-  {
-    slug: "bhagavad-gita-modern-life",
-    id: 3,
-    image: blogImages.bhagvatGita,
-    
-    author: "HH Radhanath Swami",
-    date: "10 Aug 2025",
-    readTime: "8 min read",
-    title: "Bhagavad Gita for Modern Life",
-    description:
-      "Learn how the timeless wisdom of the Gita applies to our daily challenges.",
-    category: "Philosophy",
-    content: `The Bhagavad Gita, spoken by Lord Krishna to Arjuna on the battlefield of Kurukshetra...`,
-    tags: ["Bhagavad Gita", "Philosophy", "Wisdom", "Modern Life"],
-  },
-  {
-    slug: "feeding-hungry-with-love",
-    id: 4,
-    image: blogImages.image,
-  
-    author: "ISKCON Food for Life",
-    date: "2 Aug 2025",
-    readTime: "6 min read",
-    title: "Feeding the Hungry with Love",
-    description:
-      "Join our prasadam distribution program and serve thousands every day.",
-    category: "Service",
-    content: `Food for Life, the world's largest vegetarian food relief program...`,
-    tags: ["Food for Life", "Service", "Compassion", "Community"],
-  },
-  {
-    slug: "harinam-sankirtan-marine-drive",
-    id: 5,
-    image: blogImages.harinam,
-  
-    author: "ISKCON Kirtan Team",
-    date: "28 Jul 2025",
-    readTime: "3 min read",
-    title: "Harinam Sankirtan at Marine Drive",
-    description:
-      "An evening of joyous chanting and dancing in the streets of Mumbai.",
-    category: "Kirtan",
-    content: `Harinam Sankirtan - the congregational chanting of the holy names...`,
-    tags: ["Harinam", "Kirtan", "Chanting", "Devotion"],
-  },
-  {
-    slug: "eco-friendly-pilgrimage-experience",
-    id: 6,
-    image: blogImages.eco_friendly,
-  
-    author: "ISKCON Govardhan Eco Village",
-    date: "22 Jul 2025",
-    readTime: "7 min read",
-    title: "Eco-Friendly Pilgrimage Experience",
-    description:
-      "Discover sustainable living while connecting with the Divine at GEV.",
-    category: "Environment",
-    content: `The Govardhan Eco Village (GEV) demonstrates how spiritual life...`,
-    tags: ["Eco-Friendly", "Sustainability", "Spiritual Living", "Environment"],
-  },
-  {
-    slug: "book-marathon-spiritual-reading",
-    id: 7,
-    image: blogImages.bookMarathon,
-   
-    author: "ISKCON Education Team",
-    date: "15 Jul 2025",
-    readTime: "5 min read",
-    title: "Book Marathon: Spiritual Reading Challenge",
-    description:
-      "Join our annual book distribution and reading marathon to spread spiritual knowledge.",
-    category: "Education",
-    content: `The annual Book Marathon is a celebration of spiritual literature...`,
-    tags: ["Books", "Education", "Spiritual Literature", "Community"],
-  },
-  {
-    slug: "deity-worship-temple-traditions",
-    id: 8,
-    image: blogImages.deity,
-    
-    author: "Temple Priests",
-    date: "8 Jul 2025",
-    readTime: "6 min read",
-    title: "Deity Worship: Temple Traditions",
-    description:
-      "Discover the sacred art of deity worship and its spiritual significance.",
-    category: "Worship",
-    content: `Deity worship is the heart of temple life...`,
-    tags: ["Deity", "Worship", "Temple", "Tradition"],
-  },
-  {
-    slug: "meditation-spiritual-practice",
-    id: 9,
-    image: blogImages.meditation,
-   
-    author: "Yoga Instructors",
-    date: "1 Jul 2025",
-    readTime: "7 min read",
-    title: "Meditation and Spiritual Practice",
-    description:
-      "Learn various meditation techniques for spiritual growth and inner peace.",
-    category: "Meditation",
-    content: `Meditation is the bridge between our material existence...`,
-    tags: ["Meditation", "Spiritual Practice", "Inner Peace", "Mindfulness"],
-  },
-  {
-    slug: "krishna-stories-timeless-wisdom",
-    id: 10,
-    image: blogImages.stories,
-   
-    author: "Storytellers",
-    date: "25 Jun 2025",
-    readTime: "4 min read",
-    title: "Krishna Stories: Timeless Wisdom",
-    description:
-      "Explore the enchanting stories of Lord Krishna and their deeper spiritual meanings.",
-    category: "Stories",
-    content: `The stories of Lord Krishna are not mere fairy tales...`,
-    tags: ["Krishna", "Stories", "Wisdom", "Culture"],
-  },
-];
-
 // Blog Post Card Component
-const BlogPostCard: React.FC<{
+const BlogPostCard = ({
+  post,
+  onClick,
+  isFeatured = false,
+  className = "",
+}: {
   post: BlogPost;
   onClick: (post: BlogPost) => void;
   isFeatured?: boolean;
   className?: string;
-}> = ({ post, onClick, isFeatured = false, className = "" }) => {
+}) => {
   if (isFeatured) {
-    return (
-      // 
-      <></>
-    );
-  }
+  return (
+    <article
+      onClick={() => onClick(post)}
+      className={`flex flex-col lg:flex-row h-full bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
+    >
+      {/* Image */}
+      <div className="relative w-full lg:w-1/2 h-64 lg:h-full">
+        {post.coverImage && (
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            layout="fill"
+            objectFit="cover"
+            className="group-hover:scale-105 transition-transform duration-500"
+          />
+        )}
+      </div>
 
+      {/* Content */}
+      <div className="p-6 flex flex-col justify-center w-full lg:w-1/2">
+        <h3 className="font-bold text-2xl lg:text-3xl text-blue-900 mb-4 group-hover:text-orange-500 transition-colors">
+          {post.title}
+        </h3>
+        <p className="text-gray-600 text-base mb-4 line-clamp-4">
+          {post.excerpt}
+        </p>
+        <div className="flex items-center text-sm text-gray-500">
+          <Calendar size={16} className="mr-1" />
+          <span>{post.createdAt?.split("T")[0]}</span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+
+  // Regular card layout
   return (
     <article
       onClick={() => onClick(post)}
       className={`bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
     >
       <div className="relative h-[450px] overflow-hidden">
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={post.imageWidht}
-          height={post.imageHeight}
-          className=" object-cover group-hover:scale-102 transition-transform duration-500 p-4"
-        />
-        
+        {post.coverImage && (
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            layout="fill"
+            objectFit="cover"
+            className="group-hover:scale-105 transition-transform duration-500"
+          />
+        )}
       </div>
-      <div className="p-6">
-        <h3 className="font-bold text-xl text-blue-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2 leading-tight">
+      <div className="p-4">
+        <h3 className="font-bold text-xl text-blue-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2">
           {post.title}
         </h3>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-          {post.description}
+        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+          {post.excerpt}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center gap-1">
-            <User size={14} />
-            <span className="font-medium">{post.author}</span>
-          </div>
-          <div className="flex items-center gap-1">
             <Calendar size={14} />
-            <span>{post.date}</span>
+            <span>{post.createdAt?.split("T")[0]}</span>
           </div>
         </div>
       </div>
@@ -252,24 +116,42 @@ const BlogPostCard: React.FC<{
   );
 };
 
-// Main Blog System Component
+// Main Blog Component
 const BlogSystem: React.FC = () => {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const router = useRouter();
 
-  // Handle blog post click
-  const openPost = (post: BlogPost): void => {
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/blogs/");
+        const data = await res.json();
+        console.log(data);
+        setBlogPosts(data);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  const openPost = (post: BlogPost) => {
     router.push(`/blog/${post.slug}`);
   };
 
-  // Featured post is first one
+  // split first 2 blogs
   const featuredPost = blogPosts[0];
-  const regularPosts = blogPosts.slice(1);
+  const rightSideCard = blogPosts[1];
+  const regularPosts = blogPosts.slice(2); // rest after the first two
+
+  console.log(featuredPost);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-3xl lg:text-5xl md:text-6xl font-bold text-blue-900 mb-6">
+          <h1 className="text-3xl lg:text-5xl font-bold text-blue-900 mb-6">
             Spiritual <span className="text-orange-500">Insights</span>
           </h1>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
@@ -280,80 +162,36 @@ const BlogSystem: React.FC = () => {
         </div>
 
         {/* Featured Post */}
-        <section className="mb-16">
-          {/* <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">
-            Featured Article
-          </h2> */}
-          <BlogPostCard
-            post={featuredPost}
-            onClick={openPost}
-            isFeatured={true}
-            className="max-w-5xl mx-auto"
-          />
-        </section>
+        {/* Featured + Right Card Section */}
+        {featuredPost && rightSideCard && (
+          <section className="mb-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Featured blog spans 2 columns */}
+            <div className="lg:col-span-2 h-[500px]">
+              <BlogPostCard
+                post={featuredPost}
+                onClick={openPost}
+                isFeatured={true}
+              />
+            </div>
 
-        {/* Regular Posts Grid */}
+            {/* Right-side blog (normal layout) */}
+            <div className="lg:col-span-1">
+              <BlogPostCard post={rightSideCard} onClick={openPost} />
+            </div>
+          </section>
+        )}
+
+        {/* Regular Posts */}
         <section>
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-bold text-blue-900">
               Latest Articles
             </h2>
-           
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* First blog - wide with flex row */}
-            {regularPosts[0] && (
-              <div className="lg:col-span-2 bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
-                <div
-                  className="flex flex-col  md:flex-row h-full cursor-pointer group"
-                  onClick={() => openPost(regularPosts[0])}
-                >
-                  {/* Image */}
-                  <div className="md:w-1/2 h-92 md:h-auto overflow-hidden p-4">
-                    <Image
-                      src={regularPosts[0].image}
-                      alt={regularPosts[0].title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="md:w-1/2 p-6 flex flex-col justify-center">
-                    {/* <span className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide mb-3">
-                      {regularPosts[0].category}
-                    </span> */}
-                    <h3 className="font-bold text-2xl text-blue-900 mb-3 group-hover:text-orange-500 transition-colors">
-                      {regularPosts[0].title}
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                      {regularPosts[0].description}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
-                      <div className="flex items-center gap-1">
-                        <User size={14} />
-                        <span className="font-medium">
-                          {regularPosts[0].author}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        <span>{regularPosts[0].date}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Second blog (normal layout) */}
-            {regularPosts[1] && (
-              <BlogPostCard post={regularPosts[1]} onClick={openPost} />
-            )}
-
-            {/* Remaining blogs */}
-            {regularPosts.slice(2).map((post: BlogPost) => (
-              <BlogPostCard key={post.id} post={post} onClick={openPost} />
+            {regularPosts.map((post) => (
+              <BlogPostCard key={post._id} post={post} onClick={openPost} />
             ))}
           </div>
         </section>

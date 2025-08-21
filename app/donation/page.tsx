@@ -66,10 +66,10 @@ const academicYearOptions = [
 ];
 
 const monthlyOptions = [
-  { children: 1, amount: 500 },
+  
   { children: 5, amount: 2500 },
   { children: 10, amount: 5000 },
-  { children: 25, amount: 12000 },
+  { children: 25, amount: 12500 },
   { children: 50, amount: 25000 },
   { children: 75, amount: 37500 },
   { children: 100, amount: 50000 },
@@ -84,7 +84,7 @@ const specialOptions = [
   },
   {
     title: "Sponsor Education of 1 Entire Village for 1 Month",
-    amount: 12000,
+    amount: 12500,
   },
 ];
 
@@ -495,12 +495,15 @@ export default function DonationPage() {
           <div className="flex flex-col lg:flex-row gap-8 max-w-4xl mx-auto">
             <div className="flex-1">
               <AnnadanSpecialCard
-                title="Sponsor Anna-Daan of 1 entire village for 1 month"
+                title="Sponsor Anna-Daan of 1 Entire Village for 1 Whole Year"
                 amount={270000}
               />
             </div>
             <div className="flex-1">
-              <AnnadanCard childrenCount={1000} amount={27000} />
+               <AnnadanSpecialCard
+                title="Sponsor Anna-Daan of 1 Entire Village for 1 Month"
+                amount={18000}
+              />
             </div>
           </div>
         </div>
@@ -596,7 +599,7 @@ export default function DonationPage() {
           </>
 
           {/* Monthly Options */}
-          {monthlyOptions.slice(0, 1).map(({ children, amount }) => (
+          {monthlyOptions.slice(0).map(({ children, amount }) => (
             <div
               key={`month-${children}`}
               className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900 hover:border-blue-900"
