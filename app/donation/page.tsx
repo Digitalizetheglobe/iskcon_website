@@ -40,7 +40,7 @@ import Link from "next/link";
 
 
 const donationOptions = [
-  { children: 100, amount: 2700 },
+  { children: 100, amount: 1 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
   { children: 500, amount: 13500 },
@@ -52,7 +52,7 @@ const donationOptions = [
 ];
 
 const sponsorshipOptions = [
-  { children: 1, amount: 12000 },
+  { children: 1, amount: 1 },
   { children: 2, amount: 24000 },
   { children: 4, amount: 48000 },
   { children: 8, amount: 98000 },
