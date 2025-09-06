@@ -15,10 +15,12 @@ import Heart from "../../public/images/Heart.png";
 import info from "../../public/images/info.png";
 
 import { useState, useEffect } from "react";
+import useUTM from "../utils/useUTM";
 
 export default function HeroSection() {
   // Removed unused 'current' state
   const [isMobile, setIsMobile] = useState(false);
+  const { appendUTMToUrl } = useUTM();
 
   // Removed unused interval effect for 'current'
 
@@ -119,7 +121,7 @@ export default function HeroSection() {
                   hope to those who need it most.
                 </p>
                 <div className="flex justify-evenly    gap-2 ">
-                  <Link href="/donation">
+                  <Link href={appendUTMToUrl("/donation")}>
                     <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={Heart}
@@ -214,7 +216,7 @@ export default function HeroSection() {
                   hope to those who need it most.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:justify-center md:justify-start md:space-x-4 gap-2">
-                  <Link href="/donation">
+                  <Link href={appendUTMToUrl("/donation")}>
                     <button className=" mt-4 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105">
                       <Image
                         src={Heart}

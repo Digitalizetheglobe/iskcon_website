@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi"; // install react-icons if not installed
 import logo from "../../public/images/logo.png";
+import useUTM from "../utils/useUTM";
 
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { appendUTMToUrl } = useUTM();
 
   const linkClass = (href: string) =>
     `hover:text-orange-500 transition ${
@@ -57,7 +59,7 @@ export default function Header() {
             Contact Us
           </Link>
 
-          <Link href="/donation">
+          <Link href={appendUTMToUrl("/donation")}>
             <button className="flex items-center justify-center cursor-pointer gap-[10px] px-[12px] py-[4px] bg-[#0B3954] text-white rounded-lg  hover:bg-orange-400 hover:text-white transition-all duration-300">
               Donate Now
             </button>
@@ -113,7 +115,7 @@ export default function Header() {
             Contact Us
           </Link>
 
-          <Link href="/donation" onClick={() => setIsOpen(false)}>
+          <Link href={appendUTMToUrl("/donation")} onClick={() => setIsOpen(false)}>
             <button className="w-full flex items-center justify-center cursor-pointer gap-[10px] px-[16px] py-[8px] bg-[#0B3954] text-white rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300">
               Donate Now
             </button>

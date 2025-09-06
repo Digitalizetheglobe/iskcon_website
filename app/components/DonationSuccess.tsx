@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import useUTM from '../utils/useUTM';
 
 interface DonationSuccessProps {
   donationDetails?: {
@@ -15,6 +16,7 @@ const DonationSuccess: React.FC<DonationSuccessProps> = ({
   donationDetails, 
   onClose 
 }) => {
+  const { appendUTMToUrl } = useUTM();
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
@@ -84,7 +86,7 @@ const DonationSuccess: React.FC<DonationSuccessProps> = ({
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
           <Link 
-            href="/donation"
+            href={appendUTMToUrl("/donation")}
             className="flex-1 bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600 transition-colors"
           >
             Make Another Donation

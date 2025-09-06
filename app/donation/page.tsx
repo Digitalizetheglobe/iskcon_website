@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { useMediaQuery } from "react-responsive";
+import useUTM from "../utils/useUTM";
 import mobileImg from "../../public/images/donation.png";
 import tabletImg from "../../public/images/donation.png";
 import desktopImg from "../../public/images/emoj.png";
@@ -100,6 +101,8 @@ function AnnadanCard({
   childrenCount: number;
   amount: number;
 }) {
+  const { appendUTMToUrl } = useUTM();
+  
   return (
     <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
@@ -113,9 +116,9 @@ function AnnadanCard({
           </span>
         </div>
         <Link
-          href={`/donate?purpose=${encodeURIComponent(
+          href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
             `Serve ${childrenCount} Children - Annadan Seva`
-          )}&amount=${amount}`}
+          )}&amount=${amount}`)}
         >
           <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
             Donate Now
@@ -133,6 +136,8 @@ function AnnadanSpecialCard({
   title: string;
   amount: number;
 }) {
+  const { appendUTMToUrl } = useUTM();
+  
   return (
     <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
@@ -146,7 +151,7 @@ function AnnadanSpecialCard({
           </span>
         </div>
         <Link
-          href={`/donate?purpose=${encodeURIComponent(title)}&amount=${amount}`}
+          href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(title)}&amount=${amount}`)}
         >
           <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
             Donate Now
@@ -158,6 +163,8 @@ function AnnadanSpecialCard({
 }
 
 function AnnadanAnyAmountCard() {
+  const { appendUTMToUrl } = useUTM();
+  
   return (
     <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-orange-500">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
@@ -171,9 +178,9 @@ function AnnadanAnyAmountCard() {
           </span>
         </div>
         <Link
-          href={`/donate?purpose=${encodeURIComponent(
+          href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
             "Annadan Seva - Any Amount"
-          )}`}
+          )}`)}
         >
           <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer">
             Donate Now
@@ -186,24 +193,26 @@ function AnnadanAnyAmountCard() {
 
 export default function DonationPage() {
   const router = useRouter();
+  const { appendUTMToUrl } = useUTM();
 
   const vidyaDaanHandleClick = () => {
     const url = `/donate?purpose=${encodeURIComponent(
       "Vidhya Daan - Any Amount"
     )}`;
-    router.push(url);
+    router.push(appendUTMToUrl(url));
   };
 
   const anadanHandleClick = () => {
     const purpose = "Annadan Seva - Any Amount";
-    router.push(`/donate?purpose=${encodeURIComponent(purpose)}`);
+    const url = `/donate?purpose=${encodeURIComponent(purpose)}`;
+    router.push(appendUTMToUrl(url));
   };
 
   const TeachingHandleClick = () => {
     const url = `/donate?purpose=${encodeURIComponent(
       "Sponsor a Child - Any Amount"
     )}`;
-    router.push(url);
+    router.push(appendUTMToUrl(url));
   };
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
@@ -371,11 +380,11 @@ export default function DonationPage() {
                     ₹ {formatIndianCurrency(amount)}
                   </p>
                   <Link
-                    href={`/donate?purpose=${encodeURIComponent(
+                    href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                       `Sponsor ${children} Child${
                         children > 1 ? "ren" : ""
                       } - Food and Education`
-                    )}&amount=${amount}`}
+                    )}&amount=${amount}`)}
                   >
                     <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:[#002A42]/20 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                       Donate Now
@@ -406,11 +415,11 @@ export default function DonationPage() {
                       ₹ {formatIndianCurrency(amount)}
                     </p>
                     <Link
-                      href={`/donate?purpose=${encodeURIComponent(
+                      href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                         `Sponsor ${children} Child${
                           children > 1 ? "ren" : ""
                         } - Food and Education`
-                      )}&amount=${amount}`}
+                      )}&amount=${amount}`)}
                     >
                       <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:from-orange-500 hover:to-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                         Donate Now
@@ -432,9 +441,9 @@ export default function DonationPage() {
               </h3>
               <p className="text-2xl font-bold text-black mb-6">---------</p>
               <Link
-                href={`/donate?purpose=${encodeURIComponent(
+                href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                   "Sponsor a Child - Any Amount"
-                )}`}
+                )}`)}
               >
                 <button className="bg-[#002A42] text-white font-semibold px-6 py-3 rounded-xl hover:from-orange-500 hover:to-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                   Donate Now
@@ -547,11 +556,11 @@ export default function DonationPage() {
                     ₹ {formatIndianCurrency(amount)}
                   </p>
                   <Link
-                    href={`/donate?purpose=${encodeURIComponent(
+                    href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                       `Sponsor ${children} Child${
                         children > 1 ? "ren" : ""
                       } Education for 1 Academic Year`
-                    )}&amount=${amount}`}
+                    )}&amount=${amount}`)}
                   >
                     <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                       Donate Now
@@ -582,11 +591,11 @@ export default function DonationPage() {
                       ₹ {formatIndianCurrency(amount)}
                     </p>
                     <Link
-                      href={`/donate?purpose=${encodeURIComponent(
+                      href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                         `Sponsor ${children} Child${
                           children > 1 ? "ren" : ""
                         } Education for 1 Academic Year`
-                      )}&amount=${amount}`}
+                      )}&amount=${amount}`)}
                     >
                       <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                         Donate Now
@@ -615,11 +624,11 @@ export default function DonationPage() {
                   ₹ {formatIndianCurrency(amount)}
                 </p>
                 <Link
-                  href={`/donate?purpose=${encodeURIComponent(
+                  href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                     `Sponsor ${children} Child${
                       children > 1 ? "ren" : ""
                     } Education for 1 Month`
-                  )}&amount=${amount}`}
+                  )}&amount=${amount}`)}
                 >
                   <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                     Donate Now
@@ -645,9 +654,9 @@ export default function DonationPage() {
                   ₹ {formatIndianCurrency(amount)}
                 </p>
                 <Link
-                  href={`/donate?purpose=${encodeURIComponent(
+                  href={appendUTMToUrl(`/donate?purpose=${encodeURIComponent(
                     title
-                  )}&amount=${amount}`}
+                  )}&amount=${amount}`)}
                 >
                   <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-900 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
                     Donate Now

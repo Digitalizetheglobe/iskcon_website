@@ -32,6 +32,7 @@ import {
 } from '../config/donation';
 import { formatPhoneNumber, validatePhoneNumber } from '../utils/phoneUtils';
 import DonationSuccess from '../components/DonationSuccess';
+import useUTM from '../utils/useUTM';
 
 function DonatePageLoading() {
   return (
@@ -81,6 +82,7 @@ function DonatePageContent() {
   const searchParams = useSearchParams();
   const purpose = searchParams.get("purpose");
   const amount = searchParams.get("amount");
+  const { utm } = useUTM(); // Get UTM parameters
 
   const isAnyAmountDonation =
     !amount && purpose && purpose.includes("Any Amount");
@@ -292,7 +294,13 @@ function DonatePageContent() {
         donorPhone: formatPhoneNumber(formData.phoneNumber, formData.citizenType as 'indian' | 'foreign'),
         donorType: formData.citizenType === "indian" ? "Indian Citizen" : "Foreign Citizen",
         description: `Donation for ${purpose || "General Donation"}`,
-        campaign: purpose || "General Campaign"
+        campaign: purpose || "General Campaign",
+        // UTM Parameters
+        utmSource: utm.utm_source || null,
+        utmMedium: utm.utm_medium || null,
+        utmCampaign: utm.utm_campaign || null,
+        utmTerm: utm.utm_term || null,
+        utmContent: utm.utm_content || null
       };
 
       console.log('Submitting donation form:', donationData);

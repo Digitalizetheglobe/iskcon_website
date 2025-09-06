@@ -23,6 +23,7 @@ import edu3 from "../public/galleryection/edu3.jpg";
 
 import CardCarousel from "./components/CardCarousel";
 import CausesSection from "./components/CauseSection";
+import useUTM from "./utils/useUTM";
 
 const cardData = [
   {
@@ -75,6 +76,7 @@ const cardData = [
 
 const HomePage = () => {
   // const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
+  const { appendUTMToUrl } = useUTM();
 
   const galleryImages = [
     { src: fest1, alt: "Gallery 1" },
@@ -108,7 +110,7 @@ const HomePage = () => {
                   those  <br />in need. Your contribution brings hope and changes lives
                 </p>
 
-                <Link href="/donation">
+                <Link href={appendUTMToUrl("/donation")}>
                   <button
                     aria-label="View More"
                     className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-white font-medium shadow-md bg-[#1C398E] hover:bg-[#fb923c] hover:scale-[1.01] transition-transform cursor-pointer"
