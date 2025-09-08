@@ -75,9 +75,9 @@ const DonationSuccess: React.FC<DonationSuccessProps> = ({
 
         {/* Next Steps */}
         <div className="bg-blue-50 rounded-lg p-4 mb-6">
-          <h4 className="font-semibold text-blue-800 mb-2">What's Next?</h4>
+          <h4 className="font-semibold text-blue-800 mb-2">What&apos;s Next?</h4>
           <ul className="text-sm text-blue-700 space-y-1 text-left">
-            <li>• You'll receive a confirmation email shortly</li>
+            <li>• You&apos;ll receive a confirmation email shortly</li>
             <li>• Your donation receipt will be sent within 24 hours</li>
             <li>• For 80G tax exemption, please check your email</li>
           </ul>

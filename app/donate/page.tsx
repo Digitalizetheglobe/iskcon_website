@@ -27,7 +27,6 @@ import {
   DONATION_CONFIG, 
   getApiUrl, 
   validateDonationAmount, 
-  formatAmount as formatAmountConfig, 
   getSevaType as getSevaTypeConfig 
 } from '../config/donation';
 import { formatPhoneNumber, validatePhoneNumber } from '../utils/phoneUtils';
@@ -101,16 +100,18 @@ function DonatePageContent() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [donationDetails, setDonationDetails] = useState<any>(null);
+  const [donationDetails, setDonationDetails] = useState<{
+    sevaName: string;
+    amount: number;
+    donorName: string;
+    paymentId: string;
+  } | null>(null);
 
   // Load Razorpay script
   useEffect(() => {
     // Razorpay script is loaded via Next.js Script component
   }, []);
 
-  const getCurrencyName = () => {
-    return formData.citizenType === "indian" ? "INR" : "USD";
-  };
 
   // Improved helper to format amounts with correct commas
   const formatAmount = (value: string | number) => {
@@ -226,7 +227,11 @@ function DonatePageContent() {
   };
 
   // Function to verify payment with Razorpay
-  const verifyPayment = async (paymentResponse: any, donationId: string) => {
+  const verifyPayment = async (paymentResponse: {
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
+  }, donationId: string) => {
     try {
       console.log('Verifying payment...');
       
@@ -327,7 +332,11 @@ function DonatePageContent() {
           name: DONATION_CONFIG.ORGANIZATION.NAME,
           description: result.donation.sevaName,
           order_id: result.order.id,
-          handler: function (paymentResponse: any) {
+          handler: function (paymentResponse: {
+            razorpay_order_id: string;
+            razorpay_payment_id: string;
+            razorpay_signature: string;
+          }) {
             console.log('Payment successful:', paymentResponse);
             verifyPayment(paymentResponse, result.donation.id);
           },
@@ -347,8 +356,8 @@ function DonatePageContent() {
         };
 
         // Check if Razorpay is loaded
-        if (typeof window !== 'undefined' && (window as any).Razorpay) {
-          const rzp = new (window as any).Razorpay(options);
+        if (typeof window !== 'undefined' && (window as unknown as { Razorpay: new (options: typeof options) => { open(): void } }).Razorpay) {
+          const rzp = new (window as unknown as { Razorpay: new (options: typeof options) => { open(): void } }).Razorpay(options);
           rzp.open();
         } else {
           throw new Error('Razorpay not loaded. Please refresh the page and try again.');
@@ -358,9 +367,9 @@ function DonatePageContent() {
           throw new Error(result.message || DONATION_CONFIG.ERRORS.FORM_VALIDATION);
         }
         
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Error submitting form:', error);
-        setErrorMessage(DONATION_CONFIG.ERRORS.NETWORK_ERROR + ' ' + error.message);
+        setErrorMessage(DONATION_CONFIG.ERRORS.NETWORK_ERROR + ' ' + (error instanceof Error ? error.message : 'Unknown error'));
         setShowError(true);
       } finally {
         setIsSubmitting(false);
