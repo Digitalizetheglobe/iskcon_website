@@ -136,8 +136,8 @@ function DonatePageContent() {
     sevaName: string;
     amount: number;
     donorName: string;
-    paymentId: string;
-  } | null>(null);
+    paymentId?: string;
+  } | undefined>(undefined);
 
   // Load Razorpay script
   useEffect(() => {
@@ -472,7 +472,7 @@ function DonatePageContent() {
               donationDetails={donationDetails}
               onClose={() => {
                 setShowSuccess(false);
-                setDonationDetails(null);
+                setDonationDetails(undefined);
                 // Reset form
                 setFormData({
                   fullName: "",
