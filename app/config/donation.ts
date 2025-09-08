@@ -1,7 +1,7 @@
 // Donation API Configuration
 export const DONATION_CONFIG = {
   // API Base URL - Change this based on your environment
-  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'http://localhost:5000/api/donations',
+  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'https://dtg-universal-cms.onrender.com/api/donations',
   
   // Razorpay Configuration
   RAZORPAY: {

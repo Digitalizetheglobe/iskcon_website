@@ -38,7 +38,7 @@ export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const res = await fetch(
-    `http://localhost:5000/api/blogs/slug/${params.slug}`,
+    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${params.slug}`,
     { next: { revalidate: 60 } }
   );
 
@@ -69,7 +69,7 @@ export async function generateMetadata({
 // Main component
 export default async function BlogDetail({ params }: BlogPageProps) {
   const res = await fetch(
-    `http://localhost:5000/api/blogs/slug/${params.slug}`,
+    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${params.slug}`,
     { cache: "no-store" }
   );
   //console.log(res)

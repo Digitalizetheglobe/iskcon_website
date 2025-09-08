@@ -35,7 +35,7 @@ export default function ContactPage() {
 
   const submitForm = async (formData: ContactFormData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/forms/forms/68a5c118f8e31150018c88a2/submit', {
+      const response = await fetch('https://dtg-universal-cms.onrender.com/api/forms/forms/68a5c118f8e31150018c88a2/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
