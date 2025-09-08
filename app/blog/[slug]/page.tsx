@@ -30,15 +30,16 @@ interface BlogPost {
 }
 
 interface BlogPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Optional: Generate SEO metadata
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
+  const { slug } = await params;
   const res = await fetch(
-    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${params.slug}`,
+    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${slug}`,
     { next: { revalidate: 60 } }
   );
 
@@ -68,8 +69,9 @@ export async function generateMetadata({
 
 // Main component
 export default async function BlogDetail({ params }: BlogPageProps) {
+  const { slug } = await params;
   const res = await fetch(
-    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${params.slug}`,
+    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${slug}`,
     { cache: "no-store" }
   );
   //console.log(res)
