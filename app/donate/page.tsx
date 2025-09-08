@@ -138,10 +138,39 @@ function DonatePageContent() {
     donorName: string;
     paymentId?: string;
   } | undefined>(undefined);
+  const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
 
-  // Load Razorpay script
+  // Check if Razorpay is loaded
   useEffect(() => {
-    // Razorpay script is loaded via Next.js Script component
+    const checkRazorpayLoaded = () => {
+      if (typeof window !== 'undefined' && (window as unknown as RazorpayWindow).Razorpay) {
+        setIsRazorpayLoaded(true);
+        return true;
+      }
+      return false;
+    };
+
+    // Check immediately
+    if (checkRazorpayLoaded()) {
+      return;
+    }
+
+    // If not loaded, check periodically
+    const interval = setInterval(() => {
+      if (checkRazorpayLoaded()) {
+        clearInterval(interval);
+      }
+    }, 100);
+
+    // Clear interval after 10 seconds to avoid infinite checking
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, []);
 
 
@@ -388,12 +417,29 @@ function DonatePageContent() {
         };
 
         // Check if Razorpay is loaded
-        if (typeof window !== 'undefined' && (window as unknown as RazorpayWindow).Razorpay) {
-          const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
-          rzp.open();
-        } else {
-          throw new Error('Razorpay not loaded. Please refresh the page and try again.');
+        if (!isRazorpayLoaded || !((window as unknown as RazorpayWindow).Razorpay)) {
+          // If Razorpay is not loaded, wait a bit and try again
+          setErrorMessage('Payment gateway is loading. Please wait a moment and try again.');
+          setShowError(true);
+          
+          // Try to wait for Razorpay to load
+          const checkAndRetry = () => {
+            if (typeof window !== 'undefined' && (window as unknown as RazorpayWindow).Razorpay) {
+              setIsRazorpayLoaded(true);
+              const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
+              rzp.open();
+              setShowError(false);
+            } else {
+              setTimeout(checkAndRetry, 500);
+            }
+          };
+          
+          setTimeout(checkAndRetry, 1000);
+          return;
         }
+
+        const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
+        rzp.open();
         
               } else {
           throw new Error(result.message || DONATION_CONFIG.ERRORS.FORM_VALIDATION);
@@ -415,7 +461,16 @@ function DonatePageContent() {
       {/* Load Razorpay Script */}
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
+        onLoad={() => {
+          console.log('Razorpay script loaded successfully');
+          setIsRazorpayLoaded(true);
+        }}
+        onError={() => {
+          console.error('Failed to load Razorpay script');
+          setErrorMessage('Failed to load payment gateway. Please refresh the page and try again.');
+          setShowError(true);
+        }}
       />
       
       <div className="min-h-screen bg-white flex items-center justify-center pt-4 pb-9 px-4">
@@ -614,12 +669,17 @@ function DonatePageContent() {
             {/* Donate Now Button */}
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isRazorpayLoaded}
               className={`w-full cursor-pointer ${
-                isSubmitting ? "bg-gray-400" : "bg-[#0B3954] hover:bg-[#0B3954]/90"
+                isSubmitting || !isRazorpayLoaded ? "bg-gray-400" : "bg-[#0B3954] hover:bg-[#0B3954]/90"
               } text-white font-bold py-2 rounded-md transition-colors`}
             >
-              {isSubmitting ? "Processing..." : "DONATE NOW"}
+              {isSubmitting 
+                ? "Processing..." 
+                : !isRazorpayLoaded 
+                  ? "Loading Payment Gateway..." 
+                  : "DONATE NOW"
+              }
             </button>
           </form>
         </div>

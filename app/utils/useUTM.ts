@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'next/navigation';
 
 // UTM parameter interface
 export interface UTMParams {
@@ -124,11 +123,25 @@ const appendUTMToURL = (url: string, utm: UTMParams): string => {
  * ```
  */
 export const useUTM = (): UseUTMReturn => {
-  const searchParams = useSearchParams();
   const [utm, setUtm] = useState<UTMParams>({});
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+
+  // Initialize searchParams on client side only
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        // Use window.location.search instead of useSearchParams for SSR safety
+        setSearchParams(new URLSearchParams(window.location.search));
+      } catch (error) {
+        console.warn('Failed to initialize search params:', error);
+      }
+    }
+  }, []);
 
   // Initialize UTM parameters on component mount
   useEffect(() => {
+    if (!searchParams) return;
+
     // Get UTM parameters from URL
     const urlUTM = getUTMFromURL(searchParams);
     
