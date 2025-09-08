@@ -33,6 +33,38 @@ import { formatPhoneNumber, validatePhoneNumber } from '../utils/phoneUtils';
 import DonationSuccess from '../components/DonationSuccess';
 import useUTM from '../utils/useUTM';
 
+// Define Razorpay interfaces
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: {
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
+  }) => void;
+  prefill: {
+    name: string;
+    email: string;
+    contact: string;
+  };
+  theme: {
+    color: string;
+  };
+  modal: {
+    ondismiss: () => void;
+  };
+}
+
+interface RazorpayWindow {
+  Razorpay: new (options: RazorpayOptions) => {
+    open(): void;
+  };
+}
+
 function DonatePageLoading() {
   return (
     <div className="min-h-screen bg-orange-50 py-8 px-4">
@@ -356,8 +388,8 @@ function DonatePageContent() {
         };
 
         // Check if Razorpay is loaded
-        if (typeof window !== 'undefined' && (window as unknown as { Razorpay: new (options: typeof options) => { open(): void } }).Razorpay) {
-          const rzp = new (window as unknown as { Razorpay: new (options: typeof options) => { open(): void } }).Razorpay(options);
+        if (typeof window !== 'undefined' && (window as unknown as RazorpayWindow).Razorpay) {
+          const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
           rzp.open();
         } else {
           throw new Error('Razorpay not loaded. Please refresh the page and try again.');
