@@ -33,7 +33,7 @@ export default function Footer() {
               <div className="pt-2">
                 <p className="text-sm   text-white leading-[1.8]">
                   &quot;Hare Krishna Vidya&quot;, by Hare Krishna Movement
-                  India, serves students of <br /> classes 1–10, especially in
+                  India, serves underprivileged students of  classes 1–10, especially in <br />
                   rural areas.
                 </p>
                 <div className="mt-1">
@@ -105,14 +105,14 @@ export default function Footer() {
                     Our Initiative
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     href="/volunteer"
                     className="text-white hover:text-yellow-200 text-base"
                   >
                     Volunteer
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     href="/blog"
@@ -228,7 +228,7 @@ export default function Footer() {
       {/* Bottom Section */}
       <div className="bg-[#002A42] border-t border-white pt-4 pb-3 px-10 flex flex-col sm:flex-row items-start justify-between text-sm text-white">
         <p className="mb-2 md:mb-0 pb-3 lg:px-2 ">
-          Copyright © 2025 Hare Krishna Vidya - Aikya Vidya
+          Copyright © 2025 Hare Krishna Vidya - Hare Krishna  Vidya
         </p>
         <p>
           Carefully Crafted by{" "}

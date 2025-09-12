@@ -165,7 +165,7 @@ const ModernGalleryLayout: React.FC = () => {
       subtitle:
         "Empowering minds and building brighter futures through scholarships, \neducational resources, and lifelong learning initiatives.",
     },
-    VALUESEDUCATION: {
+    "VALUES EDUCATION": {
       images: valuesEducation,
       subtitle:
         "Shaping character and inspiring moral excellence through values-based education, \ncultivating empathy, integrity, and ethical leadership.",
@@ -185,7 +185,7 @@ const ModernGalleryLayout: React.FC = () => {
   }}
 >
       <div className=" mx-auto px-6">
-        <h2 className="text-2xl sm:text-3xl md:text-5xl text-center text-white font-bold my-5">Divine Moments Gallery</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-5xl text-center text-white font-bold my-5"> Gallery</h2>
         
         {/* Tabs */}
         <div className="flex justify-center mb-4 px-2 sm:px-4">

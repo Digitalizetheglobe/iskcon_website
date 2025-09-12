@@ -126,7 +126,7 @@ export default function CertificateViewer() {
   return (
     <div className="w-full min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-800">ISKON Certificate</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-800">Legal Certificate</h2>
         
         {loading && (
           <div className="text-center mb-8">
@@ -148,16 +148,7 @@ export default function CertificateViewer() {
           ))}
         </div>
         
-        {numPages > 0 && (
-          <div className="text-center mt-6">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full">
-              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2-2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-              </svg>
-              Total pages: {numPages}
-            </div>
-          </div>
-        )}
+       
       </div>
     </div>
   );

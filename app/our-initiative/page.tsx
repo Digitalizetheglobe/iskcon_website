@@ -9,7 +9,6 @@ import temple from "../../public/images/greek-temple.png";
 import life from "../../public/images/life_cycle.png";
 import CcardsOurInitiative from "../components/CcardsOurInitiative";
 
-import img from "../../public/images/our-init.png";
 import mahadanam from "../../public/images/poster.png";
 import m from "../../public/images/core-values.png";
 
@@ -69,23 +68,23 @@ export default function Page() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
               Always and Forever
             </h2>
-            <div className="relative rounded-2xl overflow-hidden  mb-6">
+            {/* <div className="relative rounded-2xl overflow-hidden  mb-6">
               <Image
                 src={img}
-                alt="AIKYA VIDYA"
+                alt="Hare Krishna Vidya"
                 width={600}
                 height={340}
                 className="w-full h-auto object-cover"
               />
-            </div>
+            </div> */}
 
             {/* Description Text */}
-            <p className="text-gray-600 leading-relaxed text-center mb-6">
-              AIKYA VIDYA empowers underprivileged rural children with free
+            {/* <p className="text-gray-600 leading-relaxed text-center mb-6">
+              Hare Krishna Vidya empowers underprivileged rural children with free
               education, food, and values. We aim to anchor their lives, helping
               them find purpose and view education as a vital foundation for
               navigating life responsibly.
-            </p>
+            </p> */}
 
             {/* Initiative Section */}
             <div className="text-center mb-8">
@@ -94,7 +93,7 @@ export default function Page() {
                 <span className="text-blue-900">Hare Krishna Movement</span>
               </h3>
               <p className="text-gray-700  leading-relaxed">
-                At Harekrishnavidya, we believe that change begins with
+                At Hare krishna Vidya, we believe that change begins with
                 understanding the needs of the community. By addressing the root
                 causes of challenges like hunger, education gaps, and healthcare
                 disparities, we are creating sustainable and lasting impact.
@@ -155,13 +154,13 @@ export default function Page() {
           <section className="max-w-7xl mx-auto py-1 px-1 grid md:grid-cols-2 gap-10 items-center">
             {/* Video Thumbnail */}
             <div className="relative rounded-2xl overflow-hidden ">
-              <Image
+              {/* <Image
                 src={img} // replace with actual image path
-                alt="AIKYA VIDYA"
+                alt="Hare Krishna Vidya"
                 width={800}
                 height={380}
                 className="w-full h-full object-cover"
-              />
+              /> */}
               {/* Play Button */}
               {/* <button className="absolute right-12 top-1/2 transform -translate-y-1/2 bg-[#F47514] w-12 h-12 flex items-center justify-center rounded-full shadow-md hover:scale-105 transition">
           <Play className="text-white" />
@@ -169,17 +168,17 @@ export default function Page() {
             </div>
 
             {/* Text Content */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2 ">
+            {/* <div>
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2 w-full ">
                 Always and Forever
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                AIKYA VIDYA empowers underprivileged rural children with free
+                Hare Krishna Vidya empowers underprivileged rural children with free
                 education, food, and values. We aim to anchor their lives,
                 helping them find purpose and view education as a vital
                 foundation for navigating life responsibly.
               </p>
-            </div>
+            </div> */}
 
             {/* Bottom Section - Initiative */}
             <div className="md:col-span-2 text-center mt-2">
@@ -188,7 +187,7 @@ export default function Page() {
                 <span className="text-blue-900">Hare Krishna Movement</span>
               </h3>
               <p className="mt-4 text-gray-700 max-w-2xl mx-auto">
-                At Harekrishnavidya, we believe that change begins with
+                At Hare krishna Vidya, we believe that change begins with
                 understanding the needs of the community. By addressing the root
                 causes of challenges like hunger, education gaps, and healthcare
                 disparities, we are creating sustainable and lasting impact.
@@ -207,10 +206,10 @@ export default function Page() {
                   </h2>
                 </div>
                 <p className="text-gray-500 mt-4 lg:mt-0 max-w-3xl">
-                  The curriculum of <strong>AIKYA VIDYA</strong> is a synthesis
+                  The curriculum of <strong>Hare Krishna Vidya</strong> is a synthesis
                   of academic and value-based learning. The post-school
-                  education centres of <strong>AIKYA VIDYA</strong> cater to
-                  students of Grades 1 to 10. The sessions are systematically
+                  education centres of <strong>Hare Krishna Vidya</strong> cater to
+                  underprivileged students of Grades 1 to 10. The sessions are systematically
                   organized every evening.
                 </p>
               </div>

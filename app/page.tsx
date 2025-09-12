@@ -95,7 +95,7 @@ const HomePage = () => {
 
       <section className="py-1 px-4 md:px-10 lg:px-10">
         {/* ---------------------------denation form-------------------  */}
-        <section className="max-w-7xl mx-auto">
+        <section className="max-w-6xl mx-auto">
           <div className=" bg-blue-50 rounded-lg shadow-sm p-2 lg:p-16 relative overflow-hidden">
             {/* Decorative small star / scribble at top center */}
 

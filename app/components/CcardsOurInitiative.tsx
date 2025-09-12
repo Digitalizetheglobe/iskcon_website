@@ -89,7 +89,7 @@ export default function ServicesSection() {
             <ul className="text-gray-600 mt-6 text-sm space-y-1 ">
               <li>Yoga & Meditation</li>
               <li>Prayers</li>
-              <li>Philosophy</li>
+              <li>Bhagavad Gita</li>
             </ul>
           </article>
 

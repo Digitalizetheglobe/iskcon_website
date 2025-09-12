@@ -454,8 +454,10 @@ export default function termsConditionsPage() {
       </p>
       <h2 className="text-lg font-semibold mt-6">CONTACT INFORMATION</h2>
       <p className="text-base text-justify ">
-        Questions about the Terms of Service should be sent to us at
-        connect2aikyavidya@gmail.com or aikyavidya@hkmhyderabad.org.
+        Questions about the Terms of Service should be sent to us at{" "}
+         <span>
+          <a href="mailto:aikyavidya@hkmhyderabad.org.">aikyavidya@hkmhyderabad.org.</a>
+         </span>
       </p>
     </div>
   );

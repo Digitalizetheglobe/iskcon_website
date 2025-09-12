@@ -20,9 +20,9 @@ export default function Page() {
     <strong>HARE KRISHNA MOVEMENT INDIA</strong>,<br />
     Hare Krishna Golden Temple, Swayambhu Sri Lakshmi Narasimha Swamy Kshetram<br />
     Road #12, near Anti Corruption Bureau office, NBT Nagar, Banjara Hills.<br />
-    <strong>Phone:</strong> <a href="tel:+91-95056 88881" >+91-95056 88881</a><br />
+    <strong>Phone:</strong> <a href="tel:+91-7207619870" >+91-7207619870</a><br />
     <strong>Email:</strong> <a href="mailto:connect2hkm@gmail.com"  >connect2hkm@gmail.com</a><br />
-    <strong>Website:</strong> <a href="https://harekrishnavidya.org/mn/" target="_blank" rel="noopener noreferrer"  >https://harekrishnavidya.org/mn/</a>
+    <strong>Website:</strong> <a href="https://harekrishnavidya.org/" target="_blank" rel="noopener noreferrer"  >https://harekrishnavidya.org/</a>
   </address>
        <h2 className="text-lg font-semibold mt-6">Personal Information</h2>
       <p>
@@ -76,7 +76,7 @@ Contact person’s details are used to communicate regarding any matters related
 
   <h2 className="text-lg font-semibold mt-6">Charitable Activities </h2>
  <p>
-We offer scholarships on merit to economically backward students of Bengaluru every year who have appeared for the SSLC or II PUC exams. When you submit an application online for availing the scholarship, we collect the student’s name, parent/guardian’s name, address, zip/postal code, mobile number, e-mail address, student’s percentage marks, parent/guardian’s occupation, annual income, the course which the student wants to pursue, the name and postal address of the college or institution where he/she is admitted or seeking admission. This information is used for communication regarding any matters related to scholarship and to assess the student’s eligibility to receive the scholarship.</p> 
+We offer scholarships on merit to economically backward  underprivileged students of Bengaluru every year who have appeared for the SSLC or II PUC exams. When you submit an application online for availing the scholarship, we collect the student’s name, parent/guardian’s name, address, zip/postal code, mobile number, e-mail address, student’s percentage marks, parent/guardian’s occupation, annual income, the course which the student wants to pursue, the name and postal address of the college or institution where he/she is admitted or seeking admission. This information is used for communication regarding any matters related to scholarship and to assess the student’s eligibility to receive the scholarship.</p> 
   
   <h2 className="text-lg font-semibold mt-6">WhatsApp Subscription </h2>
  <p>

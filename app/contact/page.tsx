@@ -1,15 +1,18 @@
 "use client";
 import { useState } from "react";
 import { Mail, Phone, Globe, MapPin, Send, CheckCircle } from "lucide-react";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
+import Image from "next/image"
+import logo from "../../public/images/logo.png";
 
 type ContactFormData = {
   name: string;
   phone: string;
   email: string;
   message: string;
-  terms: boolean;     
+  terms: boolean;
 };
 
 export default function ContactPage() {
@@ -18,7 +21,7 @@ export default function ContactPage() {
     phone: "",
     email: "",
     message: "",
-    terms: false
+    terms: false,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -29,30 +32,34 @@ export default function ContactPage() {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
   const submitForm = async (formData: ContactFormData) => {
     try {
-      const response = await fetch('https://dtg-universal-cms.onrender.com/api/forms/forms/68a5c118f8e31150018c88a2/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ data: formData })
-      });
+      const response = await fetch(
+        "https://dtg-universal-cms.onrender.com/api/forms/forms/68a5c118f8e31150018c88a2/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: formData }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Form submission failed');
+        throw new Error(errorData.message || "Form submission failed");
       }
 
       const result = await response.json();
-      console.log('Form submitted successfully:', result);
+      console.log("Form submitted successfully:", result);
       return result;
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
       throw error;
     }
   };
@@ -66,14 +73,17 @@ export default function ContactPage() {
       await submitForm(formData);
       setIsSubmitted(true);
 
-      toast.success('🙏 Thank you for your message! We will get back to you soon.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success(
+        "🙏 Thank you for your message! We will get back to you soon.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
 
       setFormData({
         name: "",
@@ -85,7 +95,7 @@ export default function ContactPage() {
 
       setTimeout(() => setIsSubmitted(false), 3000);
     } catch (error: unknown) {
-      let errorMessage = 'Submission failed. Please try again later.';
+      let errorMessage = "Submission failed. Please try again later.";
       if (error instanceof Error) {
         errorMessage = error.message;
       }
@@ -107,7 +117,8 @@ export default function ContactPage() {
               Get In Touch
             </h1>
             <p className="text-xl md:text-2xl text-orange-400 max-w-3xl mx-auto leading-relaxed">
-              We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
+              We&apos;d love to hear from you. Send us a message and we&apos;ll
+              respond as soon as possible.
             </p>
           </div>
         </div>
@@ -116,18 +127,22 @@ export default function ContactPage() {
 
       <div className="max-w-7xl mx-auto px-6 py-16 -mt-8 relative z-10">
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
-
           <div className="space-y-8">
             <div className="bg-white rounded-2xl shadow-xs p-8 border border-gray-100">
               <div className="text-center mb-8">
-                <div className="w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white">HK</span>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Hare Krishna Golden Temple</h2>
+              <div className="flex justify-center items-center">
+              <Image src={logo} alt="logo" className="w-30 h-20 text-center" />
+
+              </div>
+               
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                  Hare Krishna Movement India
+                </h2>
                 <div className="flex items-start justify-center space-x-2 text-gray-600">
                   <MapPin className="w-5 h-5 mt-1 text-orange-500 flex-shrink-0" />
                   <p className="text-center leading-relaxed">
-                    Road No. 12, MLA Colony, Banjara Hills,<br />
+                    Road No. 12, MLA Colony, Banjara Hills,
+                    <br />
                     Hyderabad - 500034
                   </p>
                 </div>
@@ -135,7 +150,9 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-6">
+                Contact Information
+              </h3>
 
               <div className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
                 <div className="flex items-center space-x-4">
@@ -144,8 +161,11 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-800">Email</p>
-                    <a href="mailto:connect2aikyavidya@gmail.com" className="text-blue-600 hover:text-blue-800 transition-colors">
-                      connect2aikyavidya@gmail.com
+                    <a
+                      href="mailto:connect2aikyavidya@gmail.com"
+                      className="text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      aikyavidya@hkmhyderabad.org
                     </a>
                   </div>
                 </div>
@@ -159,10 +179,16 @@ export default function ContactPage() {
                   <div className="space-y-1">
                     <p className="font-medium text-gray-800">Phone</p>
                     <div className="space-y-1 flex flex-col lg:flex-row gap-1 lg:gap-10">
-                      <a href="tel:+918121795663" className="block text-green-600 hover:text-green-800 transition-colors">
+                      <a
+                        href="tel:+918121795663"
+                        className="block text-green-600 hover:text-green-800 transition-colors"
+                      >
                         +91 81217 95663
                       </a>
-                      <a href="tel:+918328389862" className="block text-green-600 hover:text-green-800 transition-colors">
+                      <a
+                        href="tel:+918328389862"
+                        className="block text-green-600 hover:text-green-800 transition-colors"
+                      >
                         +91 83283 89862
                       </a>
                     </div>
@@ -177,7 +203,12 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-800">Website</p>
-                    <a href="https://www.harekrishnavidya.org/" target="_blank" rel="noopener noreferrer" className="text-blue-900 hover:text-purple-950 transition-colors">
+                    <a
+                      href="https://www.harekrishnavidya.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-900 hover:text-purple-950 transition-colors"
+                    >
                       www.harekrishnavidya.org
                     </a>
                   </div>
@@ -190,13 +221,20 @@ export default function ContactPage() {
             <div>
               <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-2">Send us a message</h2>
-                  <p className="text-gray-600">We&apos;ll get back to you within 24 hours</p>
+                  <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                    Send us a message
+                  </h2>
+                  <p className="text-gray-600">
+                    We&apos;ll get back to you within 24 hours
+                  </p>
                 </div>
 
                 <div className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -213,7 +251,10 @@ export default function ContactPage() {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Phone Number *
                       </label>
                       <input
@@ -230,7 +271,10 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Email Address *
                       </label>
                       <input
@@ -247,7 +291,10 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
                       Message
                     </label>
                     <textarea
@@ -271,11 +318,25 @@ export default function ContactPage() {
                       onChange={handleInputChange}
                       className="mt-1 h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
                     />
-                    <label htmlFor="terms" className="text-sm text-gray-700 leading-relaxed">
+
+                    <label
+                      htmlFor="terms"
+                      className="text-sm text-gray-700 leading-relaxed"
+                    >
                       I agree to the{" "}
-                      <a href="/terms-conditions" className="text-orange-600 hover:text-orange-800 font-medium underline">
+                      <Link
+                        href="/policies"
+                        className="text-orange-600 hover:text-orange-800 font-medium underline"
+                      >
+                        Privacy Policy
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        href="/terms-conditions"
+                        className="text-orange-600 hover:text-orange-800 font-medium underline"
+                      >
                         Terms and Conditions
-                      </a>
+                      </Link>
                     </label>
                   </div>
 
@@ -306,16 +367,27 @@ export default function ContactPage() {
 
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Need immediate assistance?</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              Need immediate assistance?
+            </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              For urgent inquiries or corporate/CSR related queries, please don&apos;t hesitate to call us directly or send an email. We&apos;re here to help you with any questions about our programs and services.
+              For urgent inquiries or corporate/CSR related queries, please
+              don&apos;t hesitate to call us directly or send an email.
+              We&apos;re here to help you with any questions about our programs
+              and services.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="tel:+918121795663" className="inline-flex items-center px-6 py-3 border hover:bg-orange-500 text-black hover:text-white font-medium rounded-lg">
+              <a
+                href="tel:+918121795663"
+                className="inline-flex items-center px-6 py-3 border hover:bg-orange-500 text-black hover:text-white font-medium rounded-lg"
+              >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
-              <a href="mailto:connect2aikyavidya@gmail.com" className="inline-flex items-center px-5 py-3 bg-blue-800 hover:bg-blue-900 text-white font-medium rounded-lg">
+              <a
+                href="mailto:aikyavidya@hkmhyderabad.org"
+                className="inline-flex items-center px-5 py-3 bg-blue-800 hover:bg-blue-900 text-white font-medium rounded-lg"
+              >
                 <Mail className="w-4 h-4 mr-2" />
                 Send Email
               </a>
