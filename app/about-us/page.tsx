@@ -500,7 +500,7 @@ export default function Page() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
-              Why We <span className="text-orange-500">Exists?</span>
+            The cause for which we are  <span className="text-orange-500">here?</span>
             </h1>
 
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">

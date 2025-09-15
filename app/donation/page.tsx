@@ -6,9 +6,9 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "../../public/images/donation.png";
+import mobileImg from "../../public/images/mob_Web banner Pitru Paksha-01 (2).jpg";
 import tabletImg from "../../public/images/donation.png";
-import desktopImg from "../../public/images/emoj.png";
+import desktopImg from "../../public/images/Web banner Pitru Paksha-02.jpg"; // or try another image
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
@@ -221,7 +221,7 @@ export default function DonationPage() {
   // };
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  // const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const backgroundImage = isMobile
     ? mobileImg.src
@@ -229,13 +229,21 @@ export default function DonationPage() {
     ? tabletImg.src
     : desktopImg.src;
 
+  // Add this debugging
+  console.log('isMobile:', isMobile, 'isTablet:', isTablet, 'isDesktop:', isDesktop);
+  console.log('Selected image:', backgroundImage);
+
   return (
     <>
-      <div
-        className="relative  rounded-xl h-[65vh] w-full xl:w-full sm:h-[120vh] xl:h-[130vh] xl:max-w-7xl xl:mx-auto   bg-cover bg-center text-white overflow-hidden"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        <div className="absolute inset-0 b z-0"></div>
+      <div className="relative rounded-xl h-[65vh] w-full xl:w-full sm:h-[120vh] xl:h-[130vh] xl:max-w-7xl xl:mx-auto overflow-hidden">
+        <Image
+          src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
+          alt="Donation Banner"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0  z-10"></div>
       </div>
 
       <div className="text-center py-10  text-2xl  md:text-3xl font-bold   md:max-w-6xl mx-auto">
@@ -245,9 +253,7 @@ export default function DonationPage() {
         <span className="text-orange-500"> Rural Areas of India</span>
       </div>
 
-      <div className="flex flex-col items-center gap-6 mt-10 max-w-6xl mx-auto">
-        {/* Images Row */}
-        <div className="flex justify-center gap-10 w-full">
+      <div className="flex flex-col md:flex-row justify-center gap-10 max-w-6xl mx-auto">
           <div className="flex-1">
             <Image
               src={dig1}
@@ -265,7 +271,7 @@ export default function DonationPage() {
         </div>
 
         {/* Text Section */}
-        <div className="bg-orange-500 text-white text-center py-3 rounded-md w-full">
+        <div className="mt-4 md:mt-0 bg-orange-500 text-white text-center py-3 rounded-md  max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold">
             Our Trustee Shri Madhu Pandit Dasa
           </h3>
@@ -274,7 +280,6 @@ export default function DonationPage() {
             visionary who wanted to see a hunger free world.
           </p>
         </div>
-      </div>
 
       <div className="bg-white text-center py-8 px-4">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4 text-[36px]">
@@ -644,8 +649,8 @@ export default function DonationPage() {
               />
             </div>
 
-            <p className="text-md">
-              <span className="font-bold">Mob No:</span> 8919035202
+            <p className="text-md ">
+              <span className="font-bold">Mob No:</span> <span className="font-extrabold"> 8919035202</span>  
             </p>
           </div>
 
