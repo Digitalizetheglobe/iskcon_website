@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useUTM from "../../utils/useUTM";
 
 export default function RDonationsPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { utm } = useUTM();
   const [isRedirecting, setIsRedirecting] = useState(true);
 
