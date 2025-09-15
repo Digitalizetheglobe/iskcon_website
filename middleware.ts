@@ -6,6 +6,8 @@ const EXCLUDED_ROUTES = [
   '/contact', 
   '/donate',
   '/donation',
+  '/r/donations', // Special donation campaign route
+  '/u/donations', // Special donation campaign route
   '/blog',
   '/events',
   '/gallery',
@@ -55,6 +57,38 @@ const EXCLUDED_ROUTES = [
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Handle special donation campaigns FIRST (before excluded routes check)
+  if (pathname === "/r/donations" || pathname === "/r/donations/") {
+    // Only redirect if UTM parameters are not already present
+    if (!request.nextUrl.searchParams.has("utm_source")) {
+      const redirectUrl = new URL("/r/donations", request.url);
+      redirectUrl.searchParams.set("utm_source", "AHB RURAL");
+      redirectUrl.searchParams.set("utm_medium", "HUNDI");
+      redirectUrl.searchParams.set("utm_campaign", "AHB003");
+      return NextResponse.redirect(redirectUrl);
+    }
+    // If UTM parameters are already present, let the page handle it
+    return NextResponse.next();
+  }
+
+  if (pathname === "/u/donations" || pathname === "/u/donations/") {
+    // Only redirect if UTM parameters are not already present
+    if (!request.nextUrl.searchParams.has("utm_source")) {
+      const redirectUrl = new URL("/u/donations", request.url);
+      redirectUrl.searchParams.set("utm_source", "HYD URBAN");
+      redirectUrl.searchParams.set("utm_medium", "HUNDI");
+      redirectUrl.searchParams.set("utm_campaign", "HYD004");
+      return NextResponse.redirect(redirectUrl);
+    }
+    // If UTM parameters are already present, let the page handle it
+    return NextResponse.next();
+  }
+
+  // Early return for special donation routes to prevent further processing
+  if (pathname.startsWith("/r/donations") || pathname.startsWith("/u/donations")) {
+    return NextResponse.next();
+  }
   
   // Skip middleware for excluded routes
   if (EXCLUDED_ROUTES.some(route => {
