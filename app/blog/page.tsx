@@ -12,7 +12,7 @@ interface BlogPost {
   slug: string;
   content: string;
   excerpt: string;
-  uploadImage?: string;
+  uploadImage?: string; // Changed from StaticImageData to string
   coverImage?: string;
   author?: string;
   tags?: string[];
@@ -52,12 +52,12 @@ const BlogPostCard = ({
     >
       {/* Image */}
       <div className="relative w-full lg:w-1/2 h-64 lg:h-full">
-        {post.coverImage && (
+        {post.uploadImage && (
           <Image
-            src={post.coverImage}
+            src={post.uploadImage}
             alt={post.title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             className="group-hover:scale-105 transition-transform duration-500"
           />
         )}
@@ -88,12 +88,12 @@ const BlogPostCard = ({
       className={`bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
     >
       <div className="relative h-[450px] overflow-hidden">
-        {post.coverImage && (
+        {post.uploadImage && (
           <Image
-            src={post.coverImage}
+            src={post.uploadImage}
             alt={post.title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             className="group-hover:scale-105 transition-transform duration-500"
           />
         )}
