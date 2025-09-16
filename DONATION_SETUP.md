@@ -58,7 +58,7 @@ Ensure your backend server is running on `https://harekrishnavidya.org` with the
 
 ### API Base URL
 Change `NEXT_PUBLIC_DONATION_API_URL` to point to your backend server:
-- Development: `https://dtg-universal-cms.onrender.com/api/donations`
+- Development: `https://api.harekrishnavidya.org/api/donations`
 - Staging: `https://staging-api.yourdomain.com/api/donations`
 - Production: `https://api.yourdomain.com/api/donations`
 

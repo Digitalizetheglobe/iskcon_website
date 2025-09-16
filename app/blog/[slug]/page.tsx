@@ -39,7 +39,7 @@ export async function generateMetadata({
 }: BlogPageProps): Promise<Metadata> {
   const { slug } = await params;
   const res = await fetch(
-    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${slug}`,
+    `https://api.harekrishnavidya.org/api/blogs/slug/${slug}`,
     { next: { revalidate: 60 } }
   );
 
@@ -71,7 +71,7 @@ export async function generateMetadata({
 export default async function BlogDetail({ params }: BlogPageProps) {
   const { slug } = await params;
   const res = await fetch(
-    `https://dtg-universal-cms.onrender.com/api/blogs/slug/${slug}`,
+    `https://api.harekrishnavidya.org/api/blogs/slug/${slug}`,
     { cache: "no-store" }
   );
   //console.log(res)

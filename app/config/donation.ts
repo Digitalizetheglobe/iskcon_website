@@ -1,7 +1,7 @@
 // Donation API Configuration
 export const DONATION_CONFIG = {
-  // API Base URL - Change this based on your environment
-  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'https://dtg-universal-cms.onrender.com/api/donations',
+  // API Base URL - Change this based on your environment  // https://api.harekrishnavidya.org/ //https://api.harekrishnavidya.org
+  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'https://api.harekrishnavidya.org/api/donations',
   
   // Razorpay Configuration
   RAZORPAY: {
