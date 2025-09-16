@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "../../public/images/mob_Web banner Pitru Paksha-01 (2).jpg";
+import mobileImg from "../../public/images/mobilNewBanner.jpg";
 import tabletImg from "../../public/images/donation.png";
 import desktopImg from "../../public/images/Web banner Pitru Paksha-02.jpg"; // or try another image
 
@@ -43,7 +43,7 @@ const galleryImages = [
 ];
 
 const donationOptions = [
-  { children: 100, amount: 1 },
+  { children: 100, amount: 2700 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
   { children: 500, amount: 13500 },
@@ -55,7 +55,7 @@ const donationOptions = [
 ];
 
 const sponsorshipOptions = [
-  { children: 1, amount: 1 },
+  { children: 1, amount: 12000 },
   { children: 2, amount: 24000 },
   { children: 4, amount: 48000 },
   { children: 8, amount: 98000 },
