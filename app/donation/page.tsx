@@ -242,12 +242,12 @@ export default function DonationPage() {
 
   return (
     <>
-      <div className="relative w-full max-w-7xl mx-auto md:aspect-[15/9]   aspect-[4/5]  rounded-xl overflow-hidden">
+      <div className="relative w-full  md:aspect-[15/9]   aspect-[4/5]   overflow-hidden">
         <Image
           src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
           alt="Donation Banner"
           fill
-          className="object-cover"
+          className="object-cover lg:px-3"
           priority
         />
         <div className="absolute inset-0 z-10"></div>
