@@ -230,12 +230,19 @@ export default function DonationPage() {
     : desktopImg.src;
 
   // Add this debugging
-  console.log('isMobile:', isMobile, 'isTablet:', isTablet, 'isDesktop:', isDesktop);
-  console.log('Selected image:', backgroundImage);
+  console.log(
+    "isMobile:",
+    isMobile,
+    "isTablet:",
+    isTablet,
+    "isDesktop:",
+    isDesktop
+  );
+  console.log("Selected image:", backgroundImage);
 
   return (
     <>
-      <div className="relative rounded-xl h-[65vh] w-full xl:w-full sm:h-[120vh] xl:h-[130vh] xl:max-w-7xl xl:mx-auto overflow-hidden">
+      <div className="relative w-full max-w-7xl mx-auto md:aspect-[15/9]   aspect-[4/5]  rounded-xl overflow-hidden">
         <Image
           src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
           alt="Donation Banner"
@@ -243,7 +250,7 @@ export default function DonationPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0  z-10"></div>
+        <div className="absolute inset-0 z-10"></div>
       </div>
 
       <div className="text-center py-10  text-2xl  md:text-3xl font-bold   md:max-w-6xl mx-auto">
@@ -254,32 +261,32 @@ export default function DonationPage() {
       </div>
 
       <div className="flex flex-col md:flex-row justify-center gap-10 max-w-6xl mx-auto">
-          <div className="flex-1">
-            <Image
-              src={dig1}
-              alt="idji1"
-              className="object-contain w-full h-auto"
-            />
-          </div>
-          <div className="flex-1">
-            <Image
-              src={dig2}
-              alt="idji2"
-              className="object-contain w-full h-auto"
-            />
-          </div>
+        <div className="flex-1">
+          <Image
+            src={dig1}
+            alt="idji1"
+            className="object-contain w-full h-auto"
+          />
         </div>
+        <div className="flex-1">
+          <Image
+            src={dig2}
+            alt="idji2"
+            className="object-contain w-full h-auto"
+          />
+        </div>
+      </div>
 
-        {/* Text Section */}
-        <div className="mt-4 md:mt-0 bg-orange-500 text-white text-center py-3 rounded-md  max-w-6xl mx-auto">
-          <h3 className="text-2xl font-bold">
-            Our Trustee Shri Madhu Pandit Dasa
-          </h3>
-          <p className="text-md mt-1">
-            Striving to please spiritual Master Srila Prabhupada, a true
-            visionary who wanted to see a hunger free world.
-          </p>
-        </div>
+      {/* Text Section */}
+      <div className="mt-4 md:mt-0 bg-orange-500 text-white text-center py-3 rounded-md  max-w-6xl mx-auto">
+        <h3 className="text-2xl font-bold">
+          Our Trustee Shri Madhu Pandit Dasa
+        </h3>
+        <p className="text-md mt-1">
+          Striving to please spiritual Master Srila Prabhupada, a true visionary
+          who wanted to see a hunger free world.
+        </p>
+      </div>
 
       <div className="bg-white text-center py-8 px-4">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4 text-[36px]">
@@ -650,7 +657,8 @@ export default function DonationPage() {
             </div>
 
             <p className="text-md ">
-              <span className="font-bold">Mob No:</span> <span className="font-extrabold"> 8919035202</span>  
+              <span className="font-bold">Mob No:</span>{" "}
+              <span className="font-extrabold"> 8919035202</span>
             </p>
           </div>
 
