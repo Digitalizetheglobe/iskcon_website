@@ -318,6 +318,7 @@ function DonatePageContent() {
       
       if (result.success) {
         console.log('Payment verified successfully:', result);
+        console.log('Email status:', { sent: result.emailSent, message: result.emailMessage });
         setDonationDetails({
           sevaName: result.donation.sevaName,
           amount: result.donation.amount,
