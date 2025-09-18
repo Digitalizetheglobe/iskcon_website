@@ -137,6 +137,11 @@ function DonatePageContent() {
     amount: number;
     donorName: string;
     paymentId?: string;
+    donorEmail?: string;
+  } | undefined>(undefined);
+  const [emailStatus, setEmailStatus] = useState<{
+    sent: boolean;
+    message: string;
   } | undefined>(undefined);
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
 
@@ -317,8 +322,18 @@ function DonatePageContent() {
           sevaName: result.donation.sevaName,
           amount: result.donation.amount,
           donorName: result.donation.donorName,
-          paymentId: result.donation.paymentId
+          paymentId: result.donation.paymentId,
+          donorEmail: result.donation.donorEmail
         });
+        
+        // Set email status if provided by backend
+        if (result.emailSent !== undefined && result.emailMessage) {
+          setEmailStatus({
+            sent: result.emailSent,
+            message: result.emailMessage
+          });
+        }
+        
         setShowSuccess(true);
         setShowError(false);
         
@@ -525,9 +540,12 @@ function DonatePageContent() {
           {showSuccess && (
             <DonationSuccess 
               donationDetails={donationDetails}
+              emailSent={emailStatus?.sent}
+              emailMessage={emailStatus?.message}
               onClose={() => {
                 setShowSuccess(false);
                 setDonationDetails(undefined);
+                setEmailStatus(undefined);
                 // Reset form
                 setFormData({
                   fullName: "",

@@ -8,12 +8,17 @@ interface DonationSuccessProps {
     amount: number;
     donorName: string;
     paymentId?: string;
+    donorEmail?: string;
   };
+  emailSent?: boolean;
+  emailMessage?: string;
   onClose?: () => void;
 }
 
 const DonationSuccess: React.FC<DonationSuccessProps> = ({ 
   donationDetails, 
+  emailSent,
+  emailMessage,
   onClose 
 }) => {
   const { appendUTMToUrl } = useUTM();
@@ -77,10 +82,35 @@ const DonationSuccess: React.FC<DonationSuccessProps> = ({
         <div className="bg-blue-50 rounded-lg p-4 mb-6">
           <h4 className="font-semibold text-blue-800 mb-2">What&apos;s Next?</h4>
           <ul className="text-sm text-blue-700 space-y-1 text-left">
-            <li>• You&apos;ll receive a confirmation email shortly</li>
-            <li>• Your donation receipt will be sent within 24 hours</li>
-            <li>• For 80G tax exemption, please check your email</li>
+            {emailSent ? (
+              <>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-600">✓</span>
+                  Receipt email sent to {donationDetails?.donorEmail}
+                </li>
+                <li>• Check your email inbox (and spam folder)</li>
+                <li>• Your receipt is ready for download/printing</li>
+                <li>• For 80G tax exemption, use the receipt from email</li>
+              </>
+            ) : (
+              <>
+                <li>• You&apos;ll receive a confirmation email shortly</li>
+                <li>• Your donation receipt will be sent within 24 hours</li>
+                <li>• For 80G tax exemption, please check your email</li>
+              </>
+            )}
           </ul>
+          
+          {/* Email Status Message */}
+          {emailMessage && (
+            <div className={`mt-3 p-2 rounded text-xs ${
+              emailSent 
+                ? 'bg-green-100 text-green-700' 
+                : 'bg-yellow-100 text-yellow-700'
+            }`}>
+              {emailMessage}
+            </div>
+          )}
         </div>
 
         {/* Action Buttons */}

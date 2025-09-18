@@ -49,6 +49,8 @@ export const DONATION_CONFIG = {
   SUCCESS: {
     PAYMENT_COMPLETED: '🎉 Thank you for your donation! Your payment has been processed successfully.',
     FORM_SUBMITTED: 'Form submitted successfully. Redirecting to payment...',
+    EMAIL_SENT: '📧 Receipt email sent successfully to your email address.',
+    EMAIL_PENDING: '📧 Your receipt will be sent to your email address shortly.',
   },
 };
 
