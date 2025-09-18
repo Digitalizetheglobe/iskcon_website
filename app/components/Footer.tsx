@@ -15,7 +15,7 @@ import logo from "../../public/images/logo.png";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#002A42] text-white px-2 lg:px-4 py-5 mt-4">
+      <footer className="bg-[#002A42] text-white px-2 lg:px-4 py-5 ">
         <div className="max-w-7xl mx-auto">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">

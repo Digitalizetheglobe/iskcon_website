@@ -15,8 +15,8 @@ import desktopImg from "../../public/images/Web banner Pitru Paksha-02.jpg"; // 
 // import k4 from "../../public/images/k4.png";
 // import k5 from "../../public/images/k5.png";
 // import k2 from "../../public/images/k2.png";
-import phn from "../../public/images/phn.png";
-import upi_qr from "../../public/newQR.png";
+// import phn from "../../public/images/phn.png";
+// import upi_qr from "../../public/newQR.png";
 
 import dig1 from "../../public/dig1.jpg";
 import dig2 from "../../public/dig2.jpg";
@@ -622,10 +622,10 @@ export default function DonationPage() {
       {/* -------------------Vidhya Dan--------------------------- */}
 
       {/* -----------------donation details------------------------ */}
-      <div className="bg-white text-black py-12 px-4">
+      {/* <div className="bg-white text-black py-12 px-4">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-10">
           {/* Left Section - Text & UPI Icons */}
-          <div className="w-full md:w-1/2">
+          {/* <div className="w-full md:w-1/2">
             <h2 className="text-xl font-semibold mb-4">
               Donation Through Bank (NEFT/ RTGS)
             </h2>
@@ -660,10 +660,10 @@ export default function DonationPage() {
               <span className="font-bold">Mob No:</span>{" "}
               <span className="font-extrabold"> 8919035202</span>
             </p>
-          </div>
+          </div> */}
 
           {/* Right Section - QR Code */}
-          <div className="w-full md:w-1/2 flex flex-col items-center">
+          {/* <div className="w-full md:w-1/2 flex flex-col items-center">
             <h2 className="text-xl font-semibold mb-4">Scan QR Code</h2>
             <div className="flex justify-center w-full">
               <Image
@@ -674,9 +674,9 @@ export default function DonationPage() {
                 className="rounded-md object-contain"
               />
             </div>
-          </div>
-        </div>
-      </div>
+          </div> */}
+        {/* </div>
+      </div> */} 
 
       {/* -------------------Gallery Section--------------------- */}
       <div className="bg-[#EDF2F7]">
