@@ -5,7 +5,7 @@ export default function Page() {
 <div className=" w-full lg:max-w-7xl mx-auto px-4 py-10 text-gray-800 space-y-6">
   <h1 className="text-4xl lg:text-5xl text-[#0F3D64] text-center lg:py-10 font-bold mb-5">Privacy Policy</h1>
   <p>
-    This website is owned and operated by <strong>HARE KRISHNA MOVEMENT INDIA</strong>. In this Privacy Policy, “we”, “us” and “our” refer to <strong>HARE KRISHNA MOVEMENT INDIA</strong>.
+    This website is owned and operated by <strong>HARE KRISHNA MOVEMENT INDIA INDIA</strong>. In this Privacy Policy, “we”, “us” and “our” refer to <strong>HARE KRISHNA MOVEMENT INDIA INDIA</strong>.
   </p>
   <p>
     We recognize that you may be concerned about the information we collect from you through our website and how we treat that information. We are committed to ensuring that your privacy is protected.
@@ -17,7 +17,7 @@ export default function Page() {
     If you have any questions, comments and concerns about this Privacy Policy, or any requests concerning your personal data, you may contact us at:
   </p>
   <address className="not-italic">
-    <strong>HARE KRISHNA MOVEMENT INDIA</strong>,<br />
+    <strong>HARE KRISHNA MOVEMENT INDIA INDIA</strong>,<br />
     Hare Krishna Golden Temple, Swayambhu Sri Lakshmi Narasimha Swamy Kshetram<br />
     Road #12, near Anti Corruption Bureau office, NBT Nagar, Banjara Hills.<br />
     <strong>Phone:</strong> <a href="tel:+91-7207619870" >+91-7207619870</a><br />

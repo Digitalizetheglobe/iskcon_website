@@ -136,7 +136,7 @@ export default function ContactPage() {
               </div>
                
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                  Hare Krishna Movement India
+                  HARE KRISHNA MOVEMENT INDIA India
                 </h2>
                 <div className="flex items-start justify-center space-x-2 text-gray-600">
                   <MapPin className="w-5 h-5 mt-1 text-orange-500 flex-shrink-0" />

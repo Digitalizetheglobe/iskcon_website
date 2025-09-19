@@ -8,7 +8,7 @@ export default function RefundPolicy() {
       </h1>
 
       <p className="text-base text-justify">
-        HARE KRISHNA MOVEMENT INDIA follow a reliable refund policy to let our
+        HARE KRISHNA MOVEMENT INDIA INDIA follow a reliable refund policy to let our
         donors feel privileged about their association with us. We take utmost
         care about processing donations as per the mandates signed by our donors
         in the donor forms, both offline and online. But in case of an unlikely

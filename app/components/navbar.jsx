@@ -17,7 +17,7 @@ export default function Navbar() {
       {/* Logo */}
        <Image
           src={logo}
-          alt="Hare Krishna Movement Logo"
+          alt="HARE KRISHNA MOVEMENT INDIA Logo"
           width={160}
           height={100}
           className="object-contain"

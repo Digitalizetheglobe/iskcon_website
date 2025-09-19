@@ -24,7 +24,7 @@ export default function Footer() {
               <div>
                 <Image
                   src={logo}
-                  alt="Hare Krishna Movement Logo"
+                  alt="HARE KRISHNA MOVEMENT INDIA Logo"
                   width={160}
                   height={100}
                   className="object-contain"
@@ -32,7 +32,7 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <p className="text-sm   text-white leading-[1.8]">
-                  &quot;Hare Krishna Vidya&quot;, by Hare Krishna Movement
+                  &quot;Hare Krishna Vidya&quot;, by HARE KRISHNA MOVEMENT INDIA
                   India, serves underprivileged students of  classes 1–10, especially in <br />
                   rural areas.
                 </p>

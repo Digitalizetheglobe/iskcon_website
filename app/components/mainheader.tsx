@@ -26,7 +26,7 @@ export default function Header() {
           <Link href="/">
             <Image
               src={logo}
-              alt="Hare Krishna Movement Logo"
+              alt="HARE KRISHNA MOVEMENT INDIA Logo"
               width={100}
               height={80}
               className="hidden lg:block object-contain"

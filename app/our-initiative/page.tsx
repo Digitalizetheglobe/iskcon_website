@@ -90,7 +90,7 @@ export default function Page() {
             <div className="text-center mb-8">
               <h3 className="text-xl font-semibold mb-3">
                 <span className="text-orange-500">An Initiative of </span>
-                <span className="text-blue-900">Hare Krishna Movement</span>
+                <span className="text-blue-900">HARE KRISHNA MOVEMENT INDIA</span>
               </h3>
               <p className="text-gray-700  leading-relaxed">
                 At Hare krishna Vidya, we believe that change begins with
@@ -184,7 +184,7 @@ export default function Page() {
             <div className="md:col-span-2 text-center mt-2">
               <h3 className="text-2xl md:text-5xl font-semibold">
                 <span className="text-orange-500">An Initiative of </span>
-                <span className="text-blue-900">Hare Krishna Movement</span>
+                <span className="text-blue-900">HARE KRISHNA MOVEMENT INDIA</span>
               </h3>
               <p className="mt-4 text-gray-700 max-w-2xl mx-auto">
                 At Hare krishna Vidya, we believe that change begins with

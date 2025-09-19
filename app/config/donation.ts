@@ -15,7 +15,7 @@ export const DONATION_CONFIG = {
   
   // Organization Details
   ORGANIZATION: {
-    NAME: 'Hare Krishna Movement',
+    NAME: 'HARE KRISHNA MOVEMENT INDIA',
     DESCRIPTION: 'International Society for Krishna Consciousness',
     THEME_COLOR: '#FF6800',
   },

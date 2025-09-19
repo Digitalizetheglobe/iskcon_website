@@ -8,9 +8,9 @@ export default function termsConditionsPage() {
       </h1>
       <h2 className="text-lg font-semibold mt-6">OVERVIEW</h2>
       <p className="text-base text-justify">
-        This website is operated by Hare Krishna Movement Hyderabad. Throughout
-        the site, the terms “we”, “us” and “our” refer to Hare Krishna Movement
-        Hyderabad. Hare Krishna Movement Hyderabad. offers this website,
+        This website is operated by HARE KRISHNA MOVEMENT INDIA Hyderabad. Throughout
+        the site, the terms “we”, “us” and “our” refer to HARE KRISHNA MOVEMENT INDIA
+        Hyderabad. HARE KRISHNA MOVEMENT INDIA Hyderabad. offers this website,
         including all information, tools and services available from this site
         to you, the user, conditioned upon your acceptance of all terms,
         conditions, policies and notices stated here.
@@ -353,7 +353,7 @@ export default function termsConditionsPage() {
         durability, title, and non-infringement.
       </p>
       <p className="text-base text-justify ">
-        In no case shall Hare Krishna Movement Hyderabad. our directors,
+        In no case shall HARE KRISHNA MOVEMENT INDIA Hyderabad. our directors,
         officers, employees, affiliates, agents, contractors, interns,
         suppliers, service providers or licensors be liable for any injury,
         loss, claim, or any direct, indirect, incidental, punitive, special, or
@@ -374,7 +374,7 @@ export default function termsConditionsPage() {
       </p>
       <h2 className="text-lg font-semibold mt-6">INDEMNIFICATION</h2>
       <p className="text-base text-justify ">
-        You agree to indemnify, defend and hold harmless Hare Krishna Movement
+        You agree to indemnify, defend and hold harmless HARE KRISHNA MOVEMENT INDIA
         Hyderabad. and our parent, subsidiaries, affiliates, partners, officers,
         directors, agents, contractors, licensors, service providers,
         subcontractors, suppliers, interns and employees, harmless from any

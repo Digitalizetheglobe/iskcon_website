@@ -156,7 +156,7 @@ export default function Page() {
                 <p className="text-sm text-gray-700 font-medium leading-relaxed">
                   Founder-Acharya of the worldwide
                   <br />
-                  Hare Krishna Movement
+                  HARE KRISHNA MOVEMENT INDIA
                 </p>
               </div>
 
@@ -166,7 +166,7 @@ export default function Page() {
               >
                 <div>
                   <p className="text-base leading-relaxed">
-                    Hare Krishna Movement (HKM) was founded by His Divine Grace{" "}
+                    HARE KRISHNA MOVEMENT INDIA (HKM) was founded by His Divine Grace{" "}
                     <span className="font-bold italic">
                       A.C. Bhaktivedanta Prabhupada
                     </span>
@@ -246,7 +246,7 @@ export default function Page() {
               <p className="text-lg text-gray-700 font-medium leading-relaxed">
                 Founder-Acharya of the worldwide
                 <br />
-                Hare Krishna Movement
+                HARE KRISHNA MOVEMENT INDIA
               </p>
             </div>
           </div>
@@ -256,7 +256,7 @@ export default function Page() {
             {/* First Paragraph */}
             <div className="bg-[#FF9C5A] text-white p-6 rounded-2xl shadow-lg">
               <p className="text-base leading-relaxed">
-                Hare Krishna Movement (HKM) was founded by His Divine Grace{" "}
+                HARE KRISHNA MOVEMENT INDIA (HKM) was founded by His Divine Grace{" "}
                 <span className="font-bold italic">
                   A.C. Bhaktivedanta Prabhupada
                 </span>
@@ -545,7 +545,7 @@ export default function Page() {
                   </h2>
                   <div className="text-gray-600 leading-relaxed">
                     <p>
-                      Hare Krishna Vidya affiliated to Hare Krishna Movement
+                      Hare Krishna Vidya affiliated to HARE KRISHNA MOVEMENT INDIA
                       Hyderabad which is a non-profit organization on a mission
                       to empower every single child from rural areas, through
                       free education.
@@ -630,7 +630,7 @@ export default function Page() {
                   </h2>
                   <div className="text-gray-600 leading-relaxed">
                     <p>
-                      Hare Krishna Vidya affiliated to Hare Krishna Movement
+                      Hare Krishna Vidya affiliated to HARE KRISHNA MOVEMENT INDIA
                       Hyderabad which is a non-profit organization on a mission
                       to empower every single child from rural areas, through
                       free education.

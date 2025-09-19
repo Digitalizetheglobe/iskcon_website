@@ -170,8 +170,8 @@ export default function Page() {
           {/* Left Section: Text Content */}
           <motion.div variants={slideInFromLeft} className="flex-1">
             <p className="text-sm md:text-base leading-relaxed text-justify md:text-left">
-              Amitasana Dasa is the President of Hare Krishna Movement, Mumbai
-              and Governing Council Member of Hare Krishna Movement, India. He
+              Amitasana Dasa is the President of HARE KRISHNA MOVEMENT INDIA, Mumbai
+              and Governing Council Member of HARE KRISHNA MOVEMENT INDIA, India. He
               is also the President of Akshaya Patra operations in Maharashtra.
               Under his leadership, the Foundation has implemented several
               development initiatives in the region. Born in 1969 in Namrup,
@@ -201,7 +201,7 @@ export default function Page() {
               HG Amitasana Dasa
             </h3>
             <p className="text-base md:text-lg text-center">
-              President, Hare Krishna Movement-Mumbai
+              President, HARE KRISHNA MOVEMENT INDIA-Mumbai
             </p>
           </motion.div>
         </motion.div>
@@ -257,7 +257,7 @@ export default function Page() {
               HG Satya Gaura Chandra Dasa
             </h3>
             <p className="text-sm md:text-lg text-center">
-              President, Hare Krishna Movement - Hyderabad <br />
+              President, HARE KRISHNA MOVEMENT INDIA - Hyderabad <br />
               Regional President, The Akshaya Patra Foundation <br />
               Telangana & Andhra Pradesh
             </p>
@@ -358,7 +358,7 @@ export default function Page() {
               Chaitanya Krishna Dasa is currently serving as the CEdO of AIKYA
               Vidya. He Completed his B.Tech Mechanical Engineering from JNTU,
               Kakinada and worked in PSUs, Railways, and India Post
-              (Accounting). He has been serving the Hare Krishna Movement and
+              (Accounting). He has been serving the HARE KRISHNA MOVEMENT INDIA and
               ISKCON (Vrindavan and Delhi temples) from the past 11 years. He is
               also serving as the main editor of Bhakti Vedanta Book Trust one
               of the world&apos;s largest publisher of classic Vaishnava texts and
@@ -390,7 +390,7 @@ export default function Page() {
               Chaitanya Krishna Dasa is currently serving as the CEdO of AIKYA
               Vidya. He Completed his B.Tech Mechanical Engineering from JNTU,
               Kakinada and worked in PSUs, Railways, and India Post
-              (Accounting). He has been serving the Hare Krishna Movement and
+              (Accounting). He has been serving the HARE KRISHNA MOVEMENT INDIA and
               ISKCON (Vrindavan and Delhi temples) from the past 11 years. He is
               also serving as the main editor of Bhakti Vedanta Book Trust one
               of the world&apos;s largest publisher of classic Vaishnava texts and

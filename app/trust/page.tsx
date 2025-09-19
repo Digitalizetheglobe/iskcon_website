@@ -86,12 +86,12 @@ export default function Page() {
         <section className="mb-10">
           <Image
             src={logo}
-            alt="Hare Krishna Movement"
+            alt="HARE KRISHNA MOVEMENT INDIA"
             width={180}
             height={50}
           />
           <p className="mt-4 text-sm leading-6">
-            The Hare Krishna Movement (HKM) was brought to the whole world in this modern age by His Divine Grace. A.C. Bhaktivedanta Swami Prabhupada (in short addressed as “Srila Prabhupada”). Srila Prabhupada is the Founder-Acarya of the worldwide Hare Krishna Movement and is the current link to Almighty Lord Sri Krishna. By his powerful devotion to his Spiritual master, Srila Bhakti Siddhantha Sarasvati Thakur, and Lord Sri Krishna, he attracted the attention of Sri Chaitanya Mahaprabhu to spread His mission all over the planet delivering innumerable souls to the perfectional stage of life. This site is a humble offering to Srila Prabhupada who is our eternal spiritual master and shelter & to Lord Sri Krishna, the original attraction of everyone. May this endeavor please our eternal master for the benefit of hungry seeking souls who are trying to find something permanent, steady, satisfying & blissful in this world of impermanence, misery & dualities. Om Tat Sat.
+            The HARE KRISHNA MOVEMENT INDIA (HKM) was brought to the whole world in this modern age by His Divine Grace. A.C. Bhaktivedanta Swami Prabhupada (in short addressed as “Srila Prabhupada”). Srila Prabhupada is the Founder-Acarya of the worldwide HARE KRISHNA MOVEMENT INDIA and is the current link to Almighty Lord Sri Krishna. By his powerful devotion to his Spiritual master, Srila Bhakti Siddhantha Sarasvati Thakur, and Lord Sri Krishna, he attracted the attention of Sri Chaitanya Mahaprabhu to spread His mission all over the planet delivering innumerable souls to the perfectional stage of life. This site is a humble offering to Srila Prabhupada who is our eternal spiritual master and shelter & to Lord Sri Krishna, the original attraction of everyone. May this endeavor please our eternal master for the benefit of hungry seeking souls who are trying to find something permanent, steady, satisfying & blissful in this world of impermanence, misery & dualities. Om Tat Sat.
           </p>
           <div className="p-2 mt-2">
             <button
