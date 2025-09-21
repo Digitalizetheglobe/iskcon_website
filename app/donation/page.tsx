@@ -6,9 +6,9 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "../../public/images/mob_amavasaya.jpg";
-import tabletImg from "../../public/images/mob_amavasaya.jpg";
-import desktopImg from "../../public/images/new_ama.jpg"; // or try another image
+import mobileImg from "../../public/images/mob_navratri.jpg";
+import tabletImg from "../../public/images/mob_navratri.jpg";
+import desktopImg from "../../public/images/navartri.jpg"; // or try another image
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
