@@ -317,7 +317,7 @@ function DonatePageContent() {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     
     if (name === "phoneNumber") {
       // Only allow valid phone numbers
