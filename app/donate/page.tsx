@@ -13,6 +13,16 @@ interface FormData {
   isPhoneValid: boolean;
   citizenType: string;
   customAmount?: string;
+  wantsMahaPrasadam: boolean;
+  wants80G: boolean;
+  address: string;
+  houseApartment: string;
+  village: string;
+  district: string;
+  state: string;
+  pinCode: string;
+  landmark: string;
+  panNumber: string;
 }
 
 interface FormErrors {
@@ -21,6 +31,14 @@ interface FormErrors {
   phoneNumber?: string;
   citizenType?: string;
   customAmount?: string;
+  address?: string;
+  houseApartment?: string;
+  village?: string;
+  district?: string;
+  state?: string;
+  pinCode?: string;
+  landmark?: string;
+  panNumber?: string;
 }
 
 import { 
@@ -125,6 +143,16 @@ function DonatePageContent() {
     isPhoneValid: false,
     citizenType: "",
     customAmount: "",
+    wantsMahaPrasadam: false,
+    wants80G: false,
+    address: "",
+    houseApartment: "",
+    village: "",
+    district: "",
+    state: "",
+    pinCode: "",
+    landmark: "",
+    panNumber: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -249,14 +277,48 @@ function DonatePageContent() {
         }
       }
     }
+
+    // Validate address fields if Maha Prasadam OR 80G is selected
+    if (formData.wantsMahaPrasadam || formData.wants80G) {
+      if (!formData.address.trim()) {
+        newErrors.address = "Address is required";
+      }
+      if (!formData.houseApartment.trim()) {
+        newErrors.houseApartment = "House/Apartment number is required";
+      }
+      if (!formData.village.trim()) {
+        newErrors.village = "Village/City is required";
+      }
+      if (!formData.district.trim()) {
+        newErrors.district = "District is required";
+      }
+      if (!formData.state.trim()) {
+        newErrors.state = "State is required";
+      }
+      if (!formData.pinCode.trim()) {
+        newErrors.pinCode = "PIN code is required";
+      } else if (!/^\d{6}$/.test(formData.pinCode)) {
+        newErrors.pinCode = "PIN code must be 6 digits";
+      }
+    }
+
+    // Validate PAN if 80G is selected
+    if (formData.wants80G) {
+      if (!formData.panNumber.trim()) {
+        newErrors.panNumber = "PAN number is required for 80G tax exemption";
+      } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNumber.toUpperCase())) {
+        newErrors.panNumber = "Please enter a valid PAN number (e.g., ABCDE1234F)";
+      }
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    
     if (name === "phoneNumber") {
       // Only allow valid phone numbers
       const numericValue = value.replace(/\D/g, "").slice(0, 10);
@@ -272,9 +334,23 @@ function DonatePageContent() {
           ? parts[0] + "." + parts.slice(1).join("")
           : numericValue;
       setFormData((prev) => ({ ...prev, [name]: formattedValue }));
+    } else if (name === "wantsMahaPrasadam" || name === "wants80G") {
+      // Handle checkboxes for Maha Prasadam and 80G
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+    } else if (name === "pinCode") {
+      // Only allow 6 digits for PIN code
+      const numericValue = value.replace(/\D/g, "").slice(0, 6);
+      setFormData((prev) => ({ ...prev, [name]: numericValue }));
+    } else if (name === "panNumber") {
+      // Format PAN number (uppercase, alphanumeric only)
+      const formattedValue = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 10);
+      setFormData((prev) => ({ ...prev, [name]: formattedValue }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
+    
+    // Clear error for this field
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -382,7 +458,18 @@ function DonatePageContent() {
         utmMedium: utm.utm_medium || null,
         utmCampaign: utm.utm_campaign || null,
         utmTerm: utm.utm_term || null,
-        utmContent: utm.utm_content || null
+        utmContent: utm.utm_content || null,
+        // Address fields for Maha Prasadam and 80G
+        wantsMahaPrasadam: formData.wantsMahaPrasadam,
+        wants80G: formData.wants80G,
+        address: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.address : null,
+        houseApartment: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.houseApartment : null,
+        village: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.village : null,
+        district: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.district : null,
+        state: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.state : null,
+        pinCode: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.pinCode : null,
+        landmark: (formData.wantsMahaPrasadam || formData.wants80G) ? formData.landmark : null,
+        panNumber: formData.wants80G ? formData.panNumber : null
       };
 
       console.log('Submitting donation form:', donationData);
@@ -498,8 +585,8 @@ function DonatePageContent() {
             {/* SEVA NAME */}
             <div className="mb-4 text-center">
               <div className="bg-blue-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block">
-                SEVA NAME
-              </div>
+                SEVA NAME 
+              </div> 
               <h2 className="text-lg font-semibold text-black mt-2">
                 {purpose || "General Donation"}
               </h2>
@@ -555,6 +642,16 @@ function DonatePageContent() {
                   isPhoneValid: false,
                   citizenType: "",
                   customAmount: "",
+                  wantsMahaPrasadam: false,
+                  wants80G: false,
+                  address: "",
+                  houseApartment: "",
+                  village: "",
+                  district: "",
+                  state: "",
+                  pinCode: "",
+                  landmark: "",
+                  panNumber: "",
                 });
               }}
             />
@@ -667,12 +764,24 @@ function DonatePageContent() {
             <div className="text-sm space-y-2">
               {formData.citizenType === "indian" && (
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" className="accent-blue-700" />I would
-                  like to receive Maha Prasadam (Only within India)
+                  <input 
+                    type="checkbox" 
+                    name="wantsMahaPrasadam"
+                    checked={formData.wantsMahaPrasadam}
+                    onChange={handleInputChange}
+                    className="accent-blue-700" 
+                  />
+                  I would like to receive Maha Prasadam (Only within India)
                 </label>
               )}
               <label className="flex items-start gap-2">
-                <input type="checkbox" className="accent-blue-700 mt-1" />
+                <input 
+                  type="checkbox" 
+                  name="wants80G"
+                  checked={formData.wants80G}
+                  onChange={handleInputChange}
+                  className="accent-blue-700 mt-1" 
+                />
                 <span>
                   I wish to receive 80G Tax Exemption
                   <p className="text-[11px] text-black font-semibold mt-1">
@@ -684,6 +793,178 @@ function DonatePageContent() {
                 </span>
               </label>
             </div>
+
+            {/* Address Fields - Show when Maha Prasadam OR 80G is selected */}
+            {((formData.wantsMahaPrasadam && formData.citizenType === "indian") || formData.wants80G) && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h3 className="text-lg font-semibold text-blue-900 mb-4 text-center">
+                  📍 Address
+                </h3>
+                <div className="space-y-4">
+                  {/* Address */}
+                  <div>
+                    <label className="block text-sm font-bold text-black mb-1">
+                      Address<span className="text-red-600">*</span>
+                    </label>
+                    <textarea
+                      name="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      placeholder="Enter your complete address"
+                      required={formData.wantsMahaPrasadam || formData.wants80G}
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white h-20 resize-none"
+                    />
+                    {errors.address && (
+                      <p className="text-red-600 text-sm mt-1">{errors.address}</p>
+                    )}
+                  </div>
+
+                  {/* House/Apartment and Village in one row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-bold text-black mb-1">
+                        House/Apartment No.<span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="houseApartment"
+                        value={formData.houseApartment}
+                        onChange={handleInputChange}
+                        placeholder="House/Apartment number"
+                        required={formData.wantsMahaPrasadam || formData.wants80G}
+                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                      />
+                      {errors.houseApartment && (
+                        <p className="text-red-600 text-sm mt-1">{errors.houseApartment}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-black mb-1">
+                        Village/City<span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="village"
+                        value={formData.village}
+                        onChange={handleInputChange}
+                        placeholder="Village or City"
+                        required={formData.wantsMahaPrasadam || formData.wants80G}
+                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                      />
+                      {errors.village && (
+                        <p className="text-red-600 text-sm mt-1">{errors.village}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* District and State in one row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-bold text-black mb-1">
+                        District<span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="district"
+                        value={formData.district}
+                        onChange={handleInputChange}
+                        placeholder="District"
+                        required={formData.wantsMahaPrasadam || formData.wants80G}
+                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                      />
+                      {errors.district && (
+                        <p className="text-red-600 text-sm mt-1">{errors.district}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-black mb-1">
+                        State<span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
+                        placeholder="State"
+                        required={formData.wantsMahaPrasadam || formData.wants80G}
+                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                      />
+                      {errors.state && (
+                        <p className="text-red-600 text-sm mt-1">{errors.state}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* PIN Code */}
+                  <div>
+                    <label className="block text-sm font-bold text-black mb-1">
+                      PIN Code<span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="pinCode"
+                      value={formData.pinCode}
+                      onChange={handleInputChange}
+                      placeholder="6-digit PIN code"
+                      maxLength={6}
+                      required={formData.wantsMahaPrasadam || formData.wants80G}
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                    />
+                    {errors.pinCode && (
+                      <p className="text-red-600 text-sm mt-1">{errors.pinCode}</p>
+                    )}
+                  </div>
+
+                  {/* Landmark */}
+                  <div>
+                    <label className="block text-sm font-bold text-black mb-1">
+                      Landmark
+                    </label>
+                    <input
+                      type="text"
+                      name="landmark"
+                      value={formData.landmark}
+                      onChange={handleInputChange}
+                      placeholder="Nearby landmark (optional)"
+                      className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white"
+                    />
+                    {errors.landmark && (
+                      <p className="text-red-600 text-sm mt-1">{errors.landmark}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* PAN Number Field - Show only when 80G is selected */}
+            {formData.wants80G && (
+              <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                <h3 className="text-lg font-semibold text-green-900 mb-4 text-center">
+                  🆔 PAN Details for 80G Tax Exemption
+                </h3>
+                <div>
+                  <label className="block text-sm font-bold text-black mb-1">
+                    PAN Number<span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="panNumber"
+                    value={formData.panNumber}
+                    onChange={handleInputChange}
+                    placeholder="Enter your PAN number (e.g., ABCDE1234F)"
+                    maxLength={10}
+                    required={formData.wants80G}
+                    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none bg-white uppercase"
+                  />
+                  {errors.panNumber && (
+                    <p className="text-red-600 text-sm mt-1">{errors.panNumber}</p>
+                  )}
+                  <p className="text-xs text-gray-600 mt-1">
+                    Format: 5 letters + 4 numbers + 1 letter (e.g., ABCDE1234F)
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Donate Now Button */}
             <button
