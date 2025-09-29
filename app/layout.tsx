@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ISKCON | Annadaan, Vidya Daan & Seva – HARE KRISHNA MOVEMENT INDIA",
-  description: "Support ISKCON's HARE KRISHNA MOVEMENT INDIA through Annadaan, Vidya Daan & spiritual initiatives. Join us in spreading values, serving meals & educating children.",
-  keywords: "ISKCON Annadaan, ISKCON Seva, Donate to ISKCON, HARE KRISHNA MOVEMENT INDIA",
+  title: "Hare Krishna Movement   | Annadaan, Vidya Daan & Seva – HARE KRISHNA MOVEMENT  ",
+  description: "Support Hare Krishna Movement   through Annadaan, Vidya Daan & spiritual initiatives. Join us in spreading values, serving meals & educating children.",
+  keywords: "Hare Krishna Movement   Annadaan, Hare Krishna Movement   Seva, Donate to Hare Krishna Movement  , HARE KRISHNA MOVEMENT  ",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "NGO",
-              "name": "ISKCON - HARE KRISHNA MOVEMENT INDIA",
+              "name": "ISKCON - HARE KRISHNA MOVEMENT  ",
               "alternateName": "Hare Krishna Golden Temple Hyderabad",
               "url": "https://iskcon-website-mmwe.vercel.app/",
               "logo": "https://iskcon-website-mmwe.vercel.app/logo.png",
