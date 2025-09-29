@@ -6,6 +6,7 @@ const EXCLUDED_ROUTES = [
   '/contact', 
   '/donate',
   '/donation',
+  '/urban', // Add this line to exclude /urban from redirect
   '/r/donations', // Special donation campaign route
   '/u/donations', // Special donation campaign route
   '/blog',

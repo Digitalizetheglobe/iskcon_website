@@ -1,21 +1,24 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import useUTM from "@/app/utils/useUTM";
 
 const HomePage = () => {
   const router = useRouter();
+  const { appendUTMToUrl } = useUTM();
 
   useEffect(() => {
-    // Redirect to donation page immediately
-    router.push("/donation");
-  }, [router]);
+    // Automatically redirect to donation page with UTM parameters preserved
+    const donationUrl = appendUTMToUrl("/donation");
+    router.push(donationUrl);
+  }, [router, appendUTMToUrl]);
 
-  // Optional: Show a loading message while redirecting
+  // Show a loading screen while redirecting
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Redirecting to donation page...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1C398E] mx-auto mb-4"></div>
+        <p className="text-gray-600 text-lg">Redirecting to donation page...</p>
       </div>
     </div>
   );
