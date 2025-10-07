@@ -8,7 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
 import mobileImg from "../../public/images/mob_navratri.jpg";
 import tabletImg from "../../public/images/mob_navratri.jpg";
-import desktopImg from "../../public/images/navartri.jpg"; // or try another image
+import desktopImg from "../../public/images/enrichBanner.jpg"; // or try another image
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
@@ -221,24 +221,24 @@ export default function DonationPage() {
   // };
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  // const isDesktop = useMediaQuery({ minWidth: 1024 });
 
-  const backgroundImage = isMobile
-    ? mobileImg.src
-    : isTablet
-    ? tabletImg.src
-    : desktopImg.src;
+  // const backgroundImage = isMobile
+  //   ? mobileImg.src
+  //   : isTablet
+  //   ? tabletImg.src
+  //   : desktopImg.src;
 
-  // Add this debugging
-  console.log(
-    "isMobile:",
-    isMobile,
-    "isTablet:",
-    isTablet,
-    "isDesktop:",
-    isDesktop
-  );
-  console.log("Selected image:", backgroundImage);
+  // // Add this debugging
+  // console.log(
+  //   "isMobile:",
+  //   isMobile,
+  //   "isTablet:",
+  //   isTablet,
+  //   "isDesktop:",
+  //   isDesktop
+  // );
+  // console.log("Selected image:", backgroundImage);
 
   return (
     <>
