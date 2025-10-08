@@ -2,13 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Define the routes that should NOT be redirected (your existing routes)
 const EXCLUDED_ROUTES = [
+  '/home',
   '/about-us',
   '/contact', 
   '/donate',
   '/donation',
   '/urban', // Add this line to exclude /urban from redirect
   '/r/donations', // Special donation campaign route
-  '/u/donations', // Special donation campaign route
+  '/u/donations',
+  '/rural',
+
   '/blog',
   '/events',
   '/gallery',
@@ -20,7 +23,7 @@ const EXCLUDED_ROUTES = [
   '/refund',
   '/certificates',
   '/our-initiative',
-  '/our initiative', // Handle the space in folder name
+ 
   '/api',
   '/dashboard',
   '/_next', // Next.js internal routes

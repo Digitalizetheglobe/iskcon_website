@@ -23,7 +23,7 @@ export default function Header() {
       <div className="flex items-center justify-between px-6  lg:px-3 py-4">
         {/* Logo */}
         <div className=" text-xl lg:text-2xl font-bold text-black flex items-center gap-2">
-          <Link href="/">
+          <Link href="/home">
             <Image
               src={logo}
               alt="HARE KRISHNA MOVEMENT INDIA Logo"
@@ -35,7 +35,7 @@ export default function Header() {
          
           </Link>
 
-          <Link  href="/" >
+          <Link  href="/home" >
            <span className="text-blue-900">HARE KRISHNA</span>{" "}
           <span className="text-orange-400">VIDYA</span>
           </Link>
@@ -43,7 +43,7 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8 text-black text-lg">
-          <Link href="/" className={linkClass("/")}>
+          <Link href="/home" className={linkClass("/home")}>
             Home
           </Link>
           <Link href="/about-us" className={linkClass("/about-us")}>
