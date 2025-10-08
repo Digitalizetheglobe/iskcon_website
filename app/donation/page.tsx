@@ -6,9 +6,9 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "../../public/images/mob_navratri.jpg";
-import tabletImg from "../../public/images/mob_navratri.jpg";
-import desktopImg from "../../public/images/enrichBanner.jpg"; // or try another image
+import mobileImg from "@/public/images/mob_navratri.jpg";
+import tabletImg from "@/public/images/mob_navratri.jpg";
+import desktopImg from "@/public/images/enrichBanner.jpg";
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
@@ -18,17 +18,17 @@ import desktopImg from "../../public/images/enrichBanner.jpg"; // or try another
 // import phn from "../../public/images/phn.png";
 // import upi_qr from "../../public/newQR.png";
 
-import dig1 from "../../public/dig1.jpg";
-import dig2 from "../../public/dig2.jpg";
+import dig1 from "@/public/dig1.jpg";
+import dig3 from "@/public/dig2.jpg";
 
-import edu1 from "../../public/galleryection/education7.jpg";
-import fest1 from "../../public/galleryection/food01.jpg";
-import value from "../../public/galleryection/food04.jpg";
-import yoga1 from "../../public/galleryection/food2.jpg";
-import edu2 from "../../public/galleryection/edu2.jpg";
-import fest2 from "../../public/galleryection/foodDonation.jpg";
-import cul1 from "../../public/galleryection/cul1.jpg";
-import edu3 from "../../public/galleryection/education3.jpg";
+import edu1 from "@/public/galleryection/education7.jpg";
+import fest1 from "@/public/galleryection/food01.jpg";
+import value from "@/public/galleryection/food04.jpg";
+import yoga1 from "@/public/galleryection/food2.jpg";
+import edu2 from "@/public/galleryection/edu2.jpg";
+import fest2 from "@/public/galleryection/foodDonation.jpg";
+import cul1 from "@/public/galleryection/cul1.jpg";
+import edu3 from "@/public/galleryection/education3.jpg";
 import Link from "next/link";
 
 const galleryImages = [
@@ -270,7 +270,7 @@ export default function DonationPage() {
         </div>
         <div className="flex-1">
           <Image
-            src={dig2}
+            src={dig3}
             alt="idji2"
             className="object-contain w-full h-auto"
           />
