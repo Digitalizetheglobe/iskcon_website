@@ -80,8 +80,8 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden flex flex-col  justify-start gap-1  bg-white px-6 py-4 space-y-4 text-black text-lg shadow">
           <Link
-            href="/"
-            className={linkClass("/")}
+            href="/home"
+            className={linkClass("/home")}
             onClick={() => setIsOpen(false)}
           >
             Home
