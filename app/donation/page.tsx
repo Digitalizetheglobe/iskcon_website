@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "@/public/images/mob_navratri.jpg";
-import tabletImg from "@/public/images/mob_navratri.jpg";
+import mobileImg from "@/public/images/enrichBanner.jpg";
+import tabletImg from "@/public/images/enrichBanner.jpg";
 import desktopImg from "@/public/images/enrichBanner.jpg";
 
 // import k3 from "../../public/images/k3.png";
@@ -242,7 +242,7 @@ export default function DonationPage() {
 
   return (
     <>
-      <div className="relative w-full  md:aspect-[16/8]   aspect-[4/5]   overflow-hidden">
+      <div className="relative w-full  md:aspect-[16/8]   aspect-[9/5]   overflow-hidden">
         <Image
           src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
           alt="Donation Banner"
