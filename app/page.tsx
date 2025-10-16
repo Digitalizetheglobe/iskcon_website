@@ -8,7 +8,7 @@ const HomePage = () => {
   const { appendUTMToUrl } = useUTM();
 
   useEffect(() => {
-    // Automatically redirect to donation page with UTM parameters preserved
+    // Always redirect to donation page as the default homepage
     const donationUrl = appendUTMToUrl("/donation");
     router.push(donationUrl);
   }, [router, appendUTMToUrl]);
