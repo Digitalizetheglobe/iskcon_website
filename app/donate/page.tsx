@@ -269,7 +269,7 @@ function DonatePageContent() {
     };
 
     checkPaymentStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [searchParams]);
 
   // Check if Razorpay is loaded
@@ -1246,7 +1246,10 @@ function DonatePageContent() {
             <div className="space-y-4">
               {/* Razorpay Option */}
               <button
-                onClick={() => handlePaymentGatewaySelection('razorpay')}
+                onClick={() => {
+                  console.log('Razorpay selected');
+                  handlePaymentGatewaySelection('razorpay');
+                }}
                 className="w-full p-4 border-2 border-blue-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left cursor-pointer"
               >
                 <div className="flex items-center space-x-3">
@@ -1255,15 +1258,19 @@ function DonatePageContent() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Razorpay</div>
-                    {/* <div className="text-sm text-gray-600">Cards, UPI, Net Banking</div> */}
+                    <div className="text-sm text-gray-600">Cards, UPI, Net Banking</div>
                   </div>
                 </div>
               </button>
               
-              {/* PayU Option */}
+              {/* PayU Option - Always visible */}
               <button
-                onClick={() => handlePaymentGatewaySelection('payu')}
+                onClick={() => {
+                  console.log('PayU selected');
+                  handlePaymentGatewaySelection('payu');
+                }}
                 className="w-full p-4 border-2 border-green-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all text-left cursor-pointer"
+                style={{ display: 'block' }}
               >
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 border-2 border-green-500 rounded-full flex items-center justify-center">
@@ -1271,7 +1278,7 @@ function DonatePageContent() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">PayU</div>
-                    {/* <div className="text-sm text-gray-600">Cards, UPI, Wallets</div> */}
+                    <div className="text-sm text-gray-600">Cards, UPI, Wallets</div>
                   </div>
                 </div>
               </button>
