@@ -1,7 +1,7 @@
 // Donation API Configuration
 export const DONATION_CONFIG = {
   // API Base URL - Change this based on your environment  // https://api.harekrishnavidya.org/ //https://api.harekrishnavidya.org
-  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'http://localhost:5000/api/donations',
+  API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'https://api.harekrishnavidya.org/api/donations',
   
   // Razorpay Configuration
   RAZORPAY: {
@@ -56,7 +56,11 @@ export const DONATION_CONFIG = {
 
 // Helper function to get API URL
 export const getApiUrl = (endpoint: string): string => {
-  return `${DONATION_CONFIG.API_BASE_URL}${endpoint}`;
+  // Ensure endpoint starts with /
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  // Ensure base URL doesn't have trailing slash
+  const baseUrl = DONATION_CONFIG.API_BASE_URL.replace(/\/$/, '');
+  return `${baseUrl}${normalizedEndpoint}`;
 };
 
 // Helper function to validate donation amount
