@@ -198,7 +198,12 @@ function DonatePageContent() {
     };
   } | null>(null);
 
+  // ====================================================================
+  // 🔑 KEY FUNCTION: Shows Razorpay-like UI after PayU payment success
+  // ====================================================================
+  // This function is responsible for displaying the success UI that matches Razorpay
   // Function to verify PayU payment (called after redirect from PayU)
+  // This matches the Razorpay verification flow exactly
   const verifyPayUPayment = async (donationId: string, txnid?: string) => {
     try {
       console.log('Verifying PayU payment...', { donationId, txnid });
@@ -218,6 +223,10 @@ function DonatePageContent() {
       
       if (result.success) {
         console.log('PayU payment verified successfully:', result);
+        console.log('Email status:', { sent: result.emailSent, message: result.emailMessage });
+        
+        // ✅ PART 1: Set donation details (same structure as Razorpay)
+        // This populates the data shown in the success modal
         setDonationDetails({
           sevaName: result.donation.sevaName,
           amount: result.donation.amount,
@@ -226,7 +235,8 @@ function DonatePageContent() {
           donorEmail: result.donation.donorEmail
         });
         
-        // Set email status if provided by backend
+        // ✅ PART 2: Set email status if provided by backend (same as Razorpay)
+        // This shows email receipt status in the success modal
         if (result.emailSent !== undefined && result.emailMessage) {
           setEmailStatus({
             sent: result.emailSent,
@@ -234,21 +244,26 @@ function DonatePageContent() {
           });
         }
         
+        // ✅ PART 3: SHOW SUCCESS UI - This triggers the DonationSuccess component to appear!
+        // Same as Razorpay: setShowSuccess(true) displays the modal overlay
         setShowSuccess(true);
         setShowError(false);
         setIsSubmitting(false);
       } else {
-        throw new Error(result.message || 'PayU payment verification failed');
+        throw new Error(result.message || DONATION_CONFIG.ERRORS.VERIFICATION_FAILED);
       }
     } catch (error) {
       console.error('Error verifying PayU payment:', error);
-      setErrorMessage(error instanceof Error ? error.message : 'Payment verification failed. Please contact support.');
+      setErrorMessage(error instanceof Error ? error.message : DONATION_CONFIG.ERRORS.VERIFICATION_FAILED);
       setShowError(true);
       setShowSuccess(false);
       setIsSubmitting(false);
     }
   };
 
+  // ====================================================================
+  // 🔑 KEY TRIGGER: Detects PayU payment success and triggers UI display
+  // ====================================================================
   // Check for payment success in URL params (PayU callback)
   useEffect(() => {
     const checkPaymentStatus = async () => {
@@ -257,14 +272,20 @@ function DonatePageContent() {
       const donationId = searchParams.get('donationId');
       const txnid = searchParams.get('txnid');
 
+      // ✅ PART 4: When PayU redirects back with success URL params, detect it here
       // If PayU payment was successful, verify it
       if (paymentStatus === 'success' && paymentMethod === 'payu' && donationId) {
         console.log('PayU payment success detected, verifying...');
         
-        // Clean up URL params immediately (before verification) to hide them
+        // Show loading state immediately (matching Razorpay UX)
+        setIsSubmitting(true);
+        setShowError(false);
+        
+        // Clean up URL params immediately to hide them
         window.history.replaceState({}, '', window.location.pathname);
         
-        // Then verify payment and show success popup
+        // ✅ PART 5: This calls verifyPayUPayment() which sets showSuccess=true
+        // Then verify payment and show success popup (same as Razorpay)
         await verifyPayUPayment(donationId, txnid || undefined);
       }
       
@@ -277,6 +298,7 @@ function DonatePageContent() {
           ? 'There was an error processing your payment. Please contact support.'
           : 'Payment could not be processed. Please try again.');
         setShowError(true);
+        setShowSuccess(false);
         setIsSubmitting(false);
         
         // Clean up URL params
@@ -892,6 +914,11 @@ function DonatePageContent() {
             )}
           </div>
 
+          {/* ==================================================================== */}
+          {/* 🔑 KEY UI COMPONENT: This is the actual Razorpay-like success modal */}
+          {/* ==================================================================== */}
+          {/* ✅ PART 6: When showSuccess=true (set by verifyPayUPayment), this renders */}
+          {/* This is the SAME component used by Razorpay - ensuring identical UI/UX */}
           {/* Success Message */}
           {showSuccess && (
             <DonationSuccess 
