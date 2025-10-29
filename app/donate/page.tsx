@@ -260,16 +260,32 @@ function DonatePageContent() {
       // If PayU payment was successful, verify it
       if (paymentStatus === 'success' && paymentMethod === 'payu' && donationId) {
         console.log('PayU payment success detected, verifying...');
+        
+        // Clean up URL params immediately (before verification) to hide them
+        window.history.replaceState({}, '', window.location.pathname);
+        
+        // Then verify payment and show success popup
         await verifyPayUPayment(donationId, txnid || undefined);
+      }
+      
+      // Also handle payment failed/error cases
+      if (paymentStatus === 'failed' || (paymentStatus === 'error' && paymentMethod === 'payu')) {
+        const errorReason = searchParams.get('reason') || 'Payment failed';
+        setErrorMessage(errorReason === 'verification_failed' 
+          ? 'Payment verification failed. Please contact support if the amount was deducted.'
+          : errorReason === 'processing_error'
+          ? 'There was an error processing your payment. Please contact support.'
+          : 'Payment could not be processed. Please try again.');
+        setShowError(true);
+        setIsSubmitting(false);
         
         // Clean up URL params
-        const newUrl = window.location.pathname;
-        window.history.replaceState({}, '', newUrl);
+        window.history.replaceState({}, '', window.location.pathname);
       }
     };
 
     checkPaymentStatus();
-
+   
   }, [searchParams]);
 
   // Check if Razorpay is loaded
