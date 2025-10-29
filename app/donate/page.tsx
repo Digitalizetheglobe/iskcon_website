@@ -172,6 +172,105 @@ function DonatePageContent() {
     message: string;
   } | undefined>(undefined);
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [pendingDonationData, setPendingDonationData] = useState<{
+    donationData: {
+      sevaAmount: number;
+      donorName: string;
+      donorEmail: string;
+      donorPhone: string;
+      description: string;
+      sevaType: string;
+      donorType: string;
+    };
+    result: {
+      order: {
+        id: string;
+        amount: number;
+        currency: string;
+      };
+      donation: {
+        id: string;
+        sevaName: string;
+        donorName: string;
+        donorEmail: string;
+      };
+    };
+  } | null>(null);
+
+  // Function to verify PayU payment (called after redirect from PayU)
+  const verifyPayUPayment = async (donationId: string, txnid?: string) => {
+    try {
+      console.log('Verifying PayU payment...', { donationId, txnid });
+      
+      const response = await fetch(getApiUrl('/verify-payu-payment'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          donationId: donationId,
+          txnid: txnid
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('PayU payment verified successfully:', result);
+        setDonationDetails({
+          sevaName: result.donation.sevaName,
+          amount: result.donation.amount,
+          donorName: result.donation.donorName,
+          paymentId: result.donation.paymentId,
+          donorEmail: result.donation.donorEmail
+        });
+        
+        // Set email status if provided by backend
+        if (result.emailSent !== undefined && result.emailMessage) {
+          setEmailStatus({
+            sent: result.emailSent,
+            message: result.emailMessage
+          });
+        }
+        
+        setShowSuccess(true);
+        setShowError(false);
+        setIsSubmitting(false);
+      } else {
+        throw new Error(result.message || 'PayU payment verification failed');
+      }
+    } catch (error) {
+      console.error('Error verifying PayU payment:', error);
+      setErrorMessage(error instanceof Error ? error.message : 'Payment verification failed. Please contact support.');
+      setShowError(true);
+      setShowSuccess(false);
+      setIsSubmitting(false);
+    }
+  };
+
+  // Check for payment success in URL params (PayU callback)
+  useEffect(() => {
+    const checkPaymentStatus = async () => {
+      const paymentStatus = searchParams.get('payment');
+      const paymentMethod = searchParams.get('paymentMethod');
+      const donationId = searchParams.get('donationId');
+      const txnid = searchParams.get('txnid');
+
+      // If PayU payment was successful, verify it
+      if (paymentStatus === 'success' && paymentMethod === 'payu' && donationId) {
+        console.log('PayU payment success detected, verifying...');
+        await verifyPayUPayment(donationId, txnid || undefined);
+        
+        // Clean up URL params
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+      }
+    };
+
+    checkPaymentStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   // Check if Razorpay is loaded
   useEffect(() => {
@@ -368,6 +467,210 @@ function DonatePageContent() {
     return "GENERAL DONATION";
   };
 
+  // Function to handle payment gateway selection
+  const handlePaymentGatewaySelection = async (gateway: 'razorpay' | 'payu') => {
+    if (!pendingDonationData) return;
+    
+    // Prevent multiple simultaneous requests
+    if (isSubmitting) {
+      console.warn('Payment already in progress');
+      return;
+    }
+    
+    setShowPaymentDialog(false);
+    setIsSubmitting(true);
+    
+    try {
+      if (gateway === 'payu') {
+        await processPayUPayment(pendingDonationData.donationData);
+      } else {
+        await processRazorpayPayment(pendingDonationData.result, pendingDonationData.donationData);
+      }
+    } catch (error) {
+      console.error('Payment processing error:', error);
+      const errorMsg = error instanceof Error ? error.message : 'Payment failed. Please try again.';
+      
+      // Check if it's a rate limiting error
+      if (errorMsg.includes('Too many requests') || errorMsg.includes('rate limit')) {
+        setErrorMessage('Too many payment requests. Please wait 60 seconds and try again.');
+      } else {
+        setErrorMessage(errorMsg);
+      }
+      
+      setShowError(true);
+      setIsSubmitting(false);
+    }
+  };
+
+  // Function to process Razorpay payment
+  const processRazorpayPayment = async (result: {
+    order: {
+      id: string;
+      amount: number;
+      currency: string;
+    };
+    donation: {
+      id: string;
+      sevaName: string;
+      donorName: string;
+      donorEmail: string;
+    };
+  }, donationData: {
+    sevaAmount: number;
+    donorName: string;
+    donorEmail: string;
+    donorPhone: string;
+    description: string;
+    sevaType: string;
+    donorType: string;
+  }) => {
+    const options = {
+      key: DONATION_CONFIG.RAZORPAY.KEY_ID,
+      amount: result.order.amount,
+      currency: result.order.currency,
+      name: DONATION_CONFIG.ORGANIZATION.NAME,
+      description: result.donation.sevaName,
+      order_id: result.order.id,
+      handler: function (paymentResponse: {
+        razorpay_order_id: string;
+        razorpay_payment_id: string;
+        razorpay_signature: string;
+      }) {
+        console.log('Payment successful:', paymentResponse);
+        verifyPayment(paymentResponse, result.donation.id);
+      },
+      prefill: {
+        name: result.donation.donorName,
+        email: result.donation.donorEmail,
+        contact: donationData.donorPhone
+      },
+      theme: {
+        color: DONATION_CONFIG.ORGANIZATION.THEME_COLOR
+      },
+      modal: {
+        ondismiss: function() {
+          setIsSubmitting(false);
+        }
+      }
+    };
+
+    // Check if Razorpay is loaded
+    if (!isRazorpayLoaded || !((window as unknown as RazorpayWindow).Razorpay)) {
+      setErrorMessage('Payment gateway is loading. Please wait a moment and try again.');
+      setShowError(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
+    rzp.open();
+  };
+
+  // Function to process PayU payment
+  const processPayUPayment = async (donationData: {
+    sevaAmount: number;
+    donorName: string;
+    donorEmail: string;
+    donorPhone: string;
+    description: string;
+    sevaType: string;
+    donorType: string;
+  }) => {
+    try {
+      // Validate amount before sending
+      if (!donationData.sevaAmount || donationData.sevaAmount < 1) {
+        throw new Error('Amount must be at least ₹1');
+      }
+
+      // Ensure amount is a valid number (not string with formatting)
+      const amount = parseFloat(String(donationData.sevaAmount));
+      if (isNaN(amount) || amount <= 0) {
+        throw new Error('Invalid amount. Please enter a valid donation amount.');
+      }
+
+      // Get donationId from pendingDonationData (we have it from submit-form)
+      const donationId = pendingDonationData?.result?.donation?.id;
+
+      const response = await fetch(getApiUrl('/create-payu-order'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: amount, // Send as number, backend will format it
+          firstname: donationData.donorName.trim(),
+          email: donationData.donorEmail.trim(),
+          phone: donationData.donorPhone.trim(),
+          productinfo: donationData.description,
+          sevaType: donationData.sevaType,
+          donorType: donationData.donorType,
+          donationId: donationId // Pass donationId so backend can link payment
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Network error' }));
+        throw new Error(errorData.message || `Server error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        // Create and submit PayU form
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = result.payuUrl;
+        form.target = '_blank';
+
+        // Add all PayU form fields
+        Object.keys(result.payuData).forEach(key => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(result.payuData[key]); // Ensure value is string
+          form.appendChild(input);
+        });
+
+        // Open PayU in same window instead of new tab
+        // This allows proper redirect back to the page
+        form.target = '_self';
+        
+        document.body.appendChild(form);
+        form.submit();
+        
+        // Remove form after a short delay
+        setTimeout(() => {
+          if (form.parentNode) {
+            document.body.removeChild(form);
+          }
+        }, 1000);
+      } else {
+        throw new Error(result.message || 'Failed to create PayU order');
+      }
+    } catch (error) {
+      console.error('PayU payment error:', error);
+      
+      let errorMessage = 'PayU payment failed. Please try again.';
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        
+        // Check for specific errors
+        if (error.message.includes('Too many requests') || error.message.includes('rate limit')) {
+          errorMessage = 'Too many payment requests. Please wait 60 seconds before trying again.';
+        } else if (error.message.includes('Invalid amount')) {
+          errorMessage = 'Please enter a valid donation amount (minimum ₹1).';
+        } else if (error.message.includes('Network error')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        }
+      }
+      
+      setErrorMessage(errorMessage);
+      setShowError(true);
+      setIsSubmitting(false);
+    }
+  };
+
   // Function to verify payment with Razorpay
   const verifyPayment = async (paymentResponse: {
     razorpay_order_id: string;
@@ -488,61 +791,10 @@ function DonatePageContent() {
       if (result.success) {
         console.log('Form submitted successfully:', result);
         
-        // Initialize Razorpay payment
-        const options = {
-          key: DONATION_CONFIG.RAZORPAY.KEY_ID,
-          amount: result.order.amount,
-          currency: result.order.currency,
-          name: DONATION_CONFIG.ORGANIZATION.NAME,
-          description: result.donation.sevaName,
-          order_id: result.order.id,
-          handler: function (paymentResponse: {
-            razorpay_order_id: string;
-            razorpay_payment_id: string;
-            razorpay_signature: string;
-          }) {
-            console.log('Payment successful:', paymentResponse);
-            verifyPayment(paymentResponse, result.donation.id);
-          },
-          prefill: {
-            name: result.donation.donorName,
-            email: result.donation.donorEmail,
-            contact: donationData.donorPhone
-          },
-          theme: {
-            color: DONATION_CONFIG.ORGANIZATION.THEME_COLOR
-          },
-          modal: {
-            ondismiss: function() {
-              setIsSubmitting(false);
-            }
-          }
-        };
-
-        // Check if Razorpay is loaded
-        if (!isRazorpayLoaded || !((window as unknown as RazorpayWindow).Razorpay)) {
-          // If Razorpay is not loaded, wait a bit and try again
-          setErrorMessage('Payment gateway is loading. Please wait a moment and try again.');
-          setShowError(true);
-          
-          // Try to wait for Razorpay to load
-          const checkAndRetry = () => {
-            if (typeof window !== 'undefined' && (window as unknown as RazorpayWindow).Razorpay) {
-              setIsRazorpayLoaded(true);
-              const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
-              rzp.open();
-              setShowError(false);
-            } else {
-              setTimeout(checkAndRetry, 500);
-            }
-          };
-          
-          setTimeout(checkAndRetry, 1000);
-          return;
-        }
-
-        const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
-        rzp.open();
+        // Store donation data and show payment gateway selection popup
+        setPendingDonationData({ donationData, result });
+        setShowPaymentDialog(true);
+        setIsSubmitting(false);
         
               } else {
           throw new Error(result.message || DONATION_CONFIG.ERRORS.FORM_VALIDATION);
@@ -605,7 +857,7 @@ function DonatePageContent() {
             <div className="bg-blue-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block mb-2">
               SEVA AMOUNT
             </div>
-            <p className="text-xl font-bold text-black">
+            <p className="text-xl font-bold text-white">
               {isAnyAmountDonation ? (
                 <input
                   type="text"
@@ -613,7 +865,7 @@ function DonatePageContent() {
                   value={formData.customAmount}
                   onChange={handleInputChange}
                   placeholder="Enter amount"
-                  className="w-32 text-center bg-transparent border-b border-black focus:outline-none"
+                  className="w-32 text-center bg-transparent border-b border-white focus:outline-none text-white placeholder-white"
                 />
               ) : (
                 `₹ ${amount ? formatAmount(amount) : "0"}`
@@ -969,21 +1221,77 @@ function DonatePageContent() {
             {/* Donate Now Button */}
             <button
               type="submit"
-              disabled={isSubmitting || !isRazorpayLoaded}
+              disabled={isSubmitting}
               className={`w-full cursor-pointer ${
-                isSubmitting || !isRazorpayLoaded ? "bg-gray-400" : "bg-[#0B3954] hover:bg-[#0B3954]/90"
+                isSubmitting ? "bg-gray-400" : "bg-[#0B3954] hover:bg-[#0B3954]/90"
               } text-white font-bold py-2 rounded-md transition-colors`}
             >
-              {isSubmitting 
-                ? "Processing..." 
-                : !isRazorpayLoaded 
-                  ? "Loading Payment Gateway..." 
-                  : "DONATE NOW"
-              }
+              {isSubmitting ? "Processing..." : "DONATE NOW"}
             </button>
           </form>
         </div>
       </div>
+
+      {/* Payment Gateway Selection Dialog */}
+      {showPaymentDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+              💳 Choose Payment Method
+            </h3>
+            <p className="text-gray-600 text-center mb-6">
+              Select your preferred payment gateway to complete the donation
+            </p>
+            
+            <div className="space-y-4">
+              {/* Razorpay Option */}
+              <button
+                onClick={() => handlePaymentGatewaySelection('razorpay')}
+                className="w-full p-4 border-2 border-blue-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left cursor-pointer"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-4 h-4 border-2 border-blue-500 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Razorpay</div>
+                    {/* <div className="text-sm text-gray-600">Cards, UPI, Net Banking</div> */}
+                  </div>
+                </div>
+              </button>
+              
+              {/* PayU Option */}
+              <button
+                onClick={() => handlePaymentGatewaySelection('payu')}
+                className="w-full p-4 border-2 border-green-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all text-left cursor-pointer"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-4 h-4 border-2 border-green-500 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">PayU</div>
+                    {/* <div className="text-sm text-gray-600">Cards, UPI, Wallets</div> */}
+                  </div>
+                </div>
+              </button>
+            </div>
+            
+            <div className="mt-6 text-center ">
+              <button
+                onClick={() => {
+                  setShowPaymentDialog(false);
+                  setPendingDonationData(null);
+                  setIsSubmitting(false);
+                }}
+                className="text-gray-500 hover:text-gray-700 text-sm cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
