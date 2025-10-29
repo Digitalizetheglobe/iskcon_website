@@ -2,7 +2,7 @@
 export const DONATION_CONFIG = {
   // API Base URL - Change this based on your environment  // https://api.harekrishnavidya.org/ //https://api.harekrishnavidya.org
   API_BASE_URL: process.env.NEXT_PUBLIC_DONATION_API_URL || 'https://api.harekrishnavidya.org/api/donations',
-  
+  //my changes here now please check 
   // Razorpay Configuration
   RAZORPAY: {
     // Live keys from environment variables
