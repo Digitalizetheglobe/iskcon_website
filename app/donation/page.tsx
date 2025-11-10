@@ -6,9 +6,9 @@ import Image from "next/image";
 
 import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "@/public/images/newKarthikBanner.jpg";
-import tabletImg from "@/public/images/newKarthikBanner.jpg";
-import desktopImg from "@/public/images/newKarthikBanner.jpg";
+import mobileImg from "@/public/images/enrichBanner.jpg";
+import tabletImg from "@/public/images/enrichBanner.jpg";
+import desktopImg from "@/public/images/enrichBanner.jpg";
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
