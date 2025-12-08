@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-
 import Image from "next/image";
+
 import {
   FaPhoneAlt,
   FaEnvelope,
@@ -130,6 +130,14 @@ export default function Footer() {
                     Events
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/career"
+                    className="text-white hover:text-yellow-200 text-base"
+                  >
+                    Career
+                  </Link>
+                </li>
 
                 {/* <li>
                   <Link
@@ -179,6 +187,47 @@ export default function Footer() {
                   </Link>
                 </li>
               </ul>
+
+              {/* New Donation Links */}
+              <div className="pt-4 space-y-2">
+                <h3 className="text-[#F4A261] text-lg font-semibold">
+                  New Donation
+                </h3>
+                <li>
+                  <Link
+                    href="/build-school"
+                    className="text-white hover:text-yellow-200 text-base"
+                  >
+                    Build-school
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link
+                    href="/grocery-donation"
+                    className="text-white hover:text-yellow-200 text-base"
+                  >
+                    Grocery Donation
+                  </Link>
+                </li>
+                  <li>
+                  <Link
+                    href="/campaign-page"
+                    className="text-white hover:text-yellow-200 text-base"
+                  >
+                    Campaign Page
+                  </Link>
+                </li>
+                  <li>
+                  <Link
+                    href="/donation-kit"
+                    className="text-white hover:text-yellow-200 text-base"
+                  >
+                    Donation Kit
+                  </Link>
+                </li> */}
+
+
+              </div>
             </div>
 
             {/* Contact Section */}
@@ -226,7 +275,7 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
-              
+
             </div>
           </div>
 

@@ -4,14 +4,19 @@ import { NextRequest, NextResponse } from 'next/server';
 const EXCLUDED_ROUTES = [
   '/home',
   '/about-us',
-  '/contact', 
+  '/contact',
   '/donate',
   '/donation',
+  '/career',
   '/urban', // Add this line to exclude /urban from redirect
   '/r/donations', // Special donation campaign route
   '/u/donations',
   '/rural',
-
+  '/donate-to-cause',
+  '/campaign-page',
+  '/grocery-donation',
+  '/donation-kit',
+  
   '/blog',
   '/events',
   '/gallery',
@@ -23,7 +28,8 @@ const EXCLUDED_ROUTES = [
   '/refund',
   '/certificates',
   '/our-initiative',
- 
+// donation
+  '/build-school',
   '/api',
   '/dashboard',
   '/_next', // Next.js internal routes
@@ -93,42 +99,42 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith("/r/donations") || pathname.startsWith("/u/donations")) {
     return NextResponse.next();
   }
-  
+
   // Skip middleware for excluded routes
   if (EXCLUDED_ROUTES.some(route => {
     // Handle exact matches
     if (pathname === route) return true;
-    
+
     // Handle routes that start with the excluded path
     if (route.endsWith('*') && pathname.startsWith(route.slice(0, -1))) return true;
-    
+
     // Handle routes that should match the beginning of the path
     if (pathname.startsWith(route + '/')) return true;
-    
+
     return false;
   })) {
     return NextResponse.next();
   }
-  
+
   // Skip middleware for the home page itself
   if (pathname === '/') {
     return NextResponse.next();
   }
-  
+
   // Skip middleware for files with extensions (images, CSS, JS, etc.)
   if (pathname.includes('.')) {
     return NextResponse.next();
   }
-  
+
   // Extract the campaign name from the path (remove leading slash)
   const campaign = pathname.slice(1);
-  
+
   // Create the redirect URL with UTM parameters
   const redirectUrl = new URL('/', request.url);
   redirectUrl.searchParams.set('utm_source', 'AIKYA');
   redirectUrl.searchParams.set('utm_medium', 'SMS');
   redirectUrl.searchParams.set('utm_campaign', campaign);
-  
+
   // Perform the redirect
   return NextResponse.redirect(redirectUrl);
 }
