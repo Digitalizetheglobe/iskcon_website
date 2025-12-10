@@ -79,7 +79,20 @@ const appendUTMToURL = (url: string, utm: UTMParams): string => {
   }
 
   try {
-    const urlObj = new URL(url, window.location.origin);
+    // Handle both relative and absolute URLs
+    let urlObj: URL;
+    
+    // If url is already a full URL, parse it and extract only the pathname and search
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      urlObj = new URL(url);
+      // Reset to use only pathname and search, ignoring the origin
+      const pathAndSearch = urlObj.pathname + urlObj.search;
+      // Create a new URL object using the current origin to ensure we get the right base
+      urlObj = new URL(pathAndSearch, typeof window !== 'undefined' ? window.location.origin : 'https://harekrishnavidya.org');
+    } else {
+      // For relative URLs, use the current origin
+      urlObj = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'https://harekrishnavidya.org');
+    }
     
     // Add UTM parameters to the URL
     Object.entries(utm).forEach(([key, value]) => {
@@ -88,7 +101,7 @@ const appendUTMToURL = (url: string, utm: UTMParams): string => {
       }
     });
     
-    // Return the URL with UTM parameters
+    // Return only the pathname and search params (relative URL)
     return urlObj.pathname + urlObj.search;
   } catch (error) {
     console.warn('Failed to append UTM parameters to URL:', error);

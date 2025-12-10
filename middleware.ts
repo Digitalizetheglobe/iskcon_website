@@ -68,11 +68,24 @@ const EXCLUDED_ROUTES = [
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Get the correct base URL for redirects
+  // In production behind proxies, we need to check headers first
+  const host = 
+    request.headers.get('x-forwarded-host') || 
+    request.headers.get('host') || 
+    request.nextUrl.host;
+  
+  const protocol = 
+    request.headers.get('x-forwarded-proto') || 
+    (request.nextUrl.protocol === 'https:' ? 'https' : 'http');
+  
+  const baseUrl = `${protocol}://${host}`;
+
   // Handle special donation campaigns FIRST (before excluded routes check)
   if (pathname === "/r/donations" || pathname === "/r/donations/") {
     // Only redirect if UTM parameters are not already present
     if (!request.nextUrl.searchParams.has("utm_source")) {
-      const redirectUrl = new URL("/r/donations", request.url);
+      const redirectUrl = new URL("/r/donations", baseUrl);
       redirectUrl.searchParams.set("utm_source", "AHB RURAL");
       redirectUrl.searchParams.set("utm_medium", "HUNDI");
       redirectUrl.searchParams.set("utm_campaign", "AHB003");
@@ -85,7 +98,7 @@ export function middleware(request: NextRequest) {
   if (pathname === "/u/donations" || pathname === "/u/donations/") {
     // Only redirect if UTM parameters are not already present
     if (!request.nextUrl.searchParams.has("utm_source")) {
-      const redirectUrl = new URL("/u/donations", request.url);
+      const redirectUrl = new URL("/u/donations", baseUrl);
       redirectUrl.searchParams.set("utm_source", "HYD URBAN");
       redirectUrl.searchParams.set("utm_medium", "HUNDI");
       redirectUrl.searchParams.set("utm_campaign", "HYD004");
@@ -128,9 +141,9 @@ export function middleware(request: NextRequest) {
 
   // Extract the campaign name from the path (remove leading slash)
   const campaign = pathname.slice(1);
-
-  // Create the redirect URL with UTM parameters
-  const redirectUrl = new URL('/', request.url);
+  
+  // Create the redirect URL with UTM parameters using the correct host
+  const redirectUrl = new URL('/', baseUrl);
   redirectUrl.searchParams.set('utm_source', 'AIKYA');
   redirectUrl.searchParams.set('utm_medium', 'SMS');
   redirectUrl.searchParams.set('utm_campaign', campaign);
