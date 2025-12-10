@@ -7,18 +7,15 @@
 // import { Badge } from "@/components/ui/badge";
 // import { ArrowLeft, Heart, TrendingUp, Users, Calendar, Share2 } from "lucide-react";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowLeft,
   Heart,
   TrendingUp,
   Users,
   Calendar,
-  Share2,
 } from "lucide-react";
 
 // interface Campaign {
@@ -386,7 +383,7 @@ group-hover:scale-[1.02]"
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {otherCampaigns.map((campaign, index) => (
+            {otherCampaigns.map((campaign) => (
               <Card
                 key={campaign.id}
                 className="group hover:shadow-[0_10px_40px_-15px_rgba(251,146,60,0.3)] transition-all duration-300 hover:-translate-y-2 border-2 border-border hover:border-primary/50 overflow-hidden bg-gradient-to-br from-background to-primary/5"
@@ -466,7 +463,7 @@ group-hover:scale-[1.02]"
             <Heart className="w-10 h-10 text-white fill-white" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Can't Find Your Cause?
+            Can&apos;t Find Your Cause?
           </h2>
           <p className="text-xl md:text-2xl text-white/95 mb-10 leading-relaxed max-w-2xl mx-auto font-medium">
             Make a general donation to support our mission of reaching <span className="font-bold underline decoration-white/50">1000 villages by 2030</span>

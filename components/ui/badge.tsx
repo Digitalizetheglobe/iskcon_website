@@ -2,8 +2,7 @@
 
 import * as React from "react";
 
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLSpanElement> {}
+export type BadgeProps = React.HTMLAttributes<HTMLSpanElement>
 
 export function Badge({ className = "", children, ...props }: BadgeProps) {
   const baseClass =

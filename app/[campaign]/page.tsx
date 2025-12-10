@@ -45,12 +45,12 @@
 // }
 import { redirect } from "next/navigation";
 
-export default function CampaignRedirectPage({
+export default async function CampaignRedirectPage({
   params,
 }: {
-  params: { campaign: string };
+  params: Promise<{ campaign: string }>;
 }) {
-  const { campaign } = params;
+  const { campaign } = await params;
 
   // Routes that should NOT redirect
   const excludedCampaigns = [

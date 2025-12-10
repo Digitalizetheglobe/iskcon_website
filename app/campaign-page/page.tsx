@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Heart, Users, TrendingUp, Share2 } from "lucide-react";
+import { Heart, TrendingUp } from "lucide-react";
 
 interface CampaignerCampaign {
   id: string;
@@ -162,7 +162,7 @@ const CampaignerCampaigns = () => {
               Support a
               <span className="block mt-3">
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-[shimmer_3s_ease-in-out_infinite]">
-                  Campaigner's Mission
+                  Campaigner&apos;s Mission
                 </span>
               </span>
             </h1>

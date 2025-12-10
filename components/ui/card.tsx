@@ -2,8 +2,7 @@
 
 import * as React from "react";
 
-export interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardProps = React.HTMLAttributes<HTMLDivElement>
 
 export function Card({ className = "", children, ...props }: CardProps) {
   const baseClass =
@@ -15,8 +14,7 @@ export function Card({ className = "", children, ...props }: CardProps) {
   );
 }
 
-export interface CardContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardContentProps = React.HTMLAttributes<HTMLDivElement>
 
 export function CardContent({
   className = "",

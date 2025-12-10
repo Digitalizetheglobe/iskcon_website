@@ -6,13 +6,9 @@
 // import { PhotoGallerySection } from "@/components/PhotoGallerySection";
 // import { GuidanceDialog } from "@/components/GuidanceDialog";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Heart } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Heart } from "lucide-react";
 
 const Donationkit = () => {
-  const [isGuidanceDialogOpen, setIsGuidanceDialogOpen] = useState(false);
 
   const kits = [
     {
@@ -256,7 +252,6 @@ const Donationkit = () => {
               <Button
                 size="lg"
                 className="whitespace-nowrap bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                onClick={() => setIsGuidanceDialogOpen(true)}
               >
                 Get Guidance
               </Button>
@@ -298,7 +293,7 @@ const Donationkit = () => {
               </span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Together, we've created lasting change in thousands of lives across communities
+              Together, we&apos;ve created lasting change in thousands of lives across communities
             </p>
           </div>
 
