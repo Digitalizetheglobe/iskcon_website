@@ -189,45 +189,7 @@ export default function Footer() {
               </ul>
 
               {/* New Donation Links */}
-              <div className="pt-4 space-y-2">
-                <h3 className="text-[#F4A261] text-lg font-semibold">
-                  New Donation
-                </h3>
-                <li>
-                  <Link
-                    href="/build-school"
-                    className="text-white hover:text-yellow-200 text-base"
-                  >
-                    Build-school
-                  </Link>
-                </li>
-                {/* <li>
-                  <Link
-                    href="/grocery-donation"
-                    className="text-white hover:text-yellow-200 text-base"
-                  >
-                    Grocery Donation
-                  </Link>
-                </li>
-                  <li>
-                  <Link
-                    href="/campaign-page"
-                    className="text-white hover:text-yellow-200 text-base"
-                  >
-                    Campaign Page
-                  </Link>
-                </li>
-                  <li>
-                  <Link
-                    href="/donation-kit"
-                    className="text-white hover:text-yellow-200 text-base"
-                  >
-                    Donation Kit
-                  </Link>
-                </li> */}
-
-
-              </div>
+            
             </div>
 
             {/* Contact Section */}

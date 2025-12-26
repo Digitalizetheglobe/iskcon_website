@@ -262,7 +262,7 @@ export default function Header() {
           </Link>
 
           {/* New Donation Desktop Dropdown */}
-          <div className="relative group">
+          {/* <div className="relative group">
             <div
               className={`flex items-center gap-1 cursor-pointer ${linkClass(
                 "/new-donation"
@@ -314,7 +314,7 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Donate Now Button */}
           <Link href={appendUTMToUrl("/donation")}>

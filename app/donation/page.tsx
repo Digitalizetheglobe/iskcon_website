@@ -43,6 +43,9 @@ const galleryImages = [
 ];
 
 const donationOptions = [
+  { children: 20, amount: 540 },
+  { children: 25, amount: 675 },
+  { children: 50, amount: 1350 },
   { children: 100, amount: 2700 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
