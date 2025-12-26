@@ -305,26 +305,15 @@ export default function DonationPage() {
           fund is prasadam — blessed, nourishing, and life-changing.&quot;
         </p>
 
-        {/* First row: only 4 cards on mobile */}
+        {/* All donation cards visible on all screen sizes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {donationOptions.slice(0, 4).map(({ children, amount }) => (
+          {donationOptions.map(({ children, amount }) => (
             <AnnadanCard
               key={children}
               childrenCount={children}
               amount={amount}
             />
           ))}
-
-          {/* Remaining cards - desktop only */}
-          <div className="hidden md:contents">
-            {donationOptions.slice(4).map(({ children, amount }) => (
-              <AnnadanCard
-                key={children}
-                childrenCount={children}
-                amount={amount}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Special Section Centered */}
