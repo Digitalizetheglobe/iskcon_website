@@ -12,10 +12,10 @@ const EXCLUDED_ROUTES = [
   '/r/donations', // Special donation campaign route
   '/u/donations',
   '/rural',
-  '/donate-to-cause',
-  '/campaign-page',
-  '/grocery-donation',
-  '/donation-kit',
+  // '/donate-to-cause',
+  // '/campaign-page',
+  // '/grocery-donation',
+  // '/donation-kit',
   
   '/blog',
   '/events',
@@ -29,7 +29,7 @@ const EXCLUDED_ROUTES = [
   '/certificates',
   '/our-initiative',
 // donation
-  '/build-school',
+  // '/build-school',
   '/api',
   '/dashboard',
   '/_next', // Next.js internal routes
