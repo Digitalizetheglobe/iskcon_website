@@ -379,8 +379,7 @@ export default function DonationPage() {
                   <Link
                     href={appendUTMToUrl(
                       `/donate?purpose=${encodeURIComponent(
-                        `Sponsor ${children} Child${
-                          children > 1 ? "ren" : ""
+                        `Sponsor ${children} Child${children > 1 ? "ren" : ""
                         } Education for 1 Academic Year`
                       )}&amount=${amount}`
                     )}
@@ -416,8 +415,7 @@ export default function DonationPage() {
                     <Link
                       href={appendUTMToUrl(
                         `/donate?purpose=${encodeURIComponent(
-                          `Sponsor ${children} Child${
-                            children > 1 ? "ren" : ""
+                          `Sponsor ${children} Child${children > 1 ? "ren" : ""
                           } Education for 1 Academic Year`
                         )}&amount=${amount}`
                       )}
@@ -451,8 +449,7 @@ export default function DonationPage() {
                 <Link
                   href={appendUTMToUrl(
                     `/donate?purpose=${encodeURIComponent(
-                      `Sponsor ${children} Child${
-                        children > 1 ? "ren" : ""
+                      `Sponsor ${children} Child${children > 1 ? "ren" : ""
                       } Education for 1 Month`
                     )}&amount=${amount}`
                   )}
@@ -533,8 +530,7 @@ export default function DonationPage() {
                   <Link
                     href={appendUTMToUrl(
                       `/donate?purpose=${encodeURIComponent(
-                        `Sponsor ${children} Child${
-                          children > 1 ? "ren" : ""
+                        `Sponsor ${children} Child${children > 1 ? "ren" : ""
                         } - Food and Education`
                       )}&amount=${amount}`
                     )}
@@ -570,8 +566,7 @@ export default function DonationPage() {
                     <Link
                       href={appendUTMToUrl(
                         `/donate?purpose=${encodeURIComponent(
-                          `Sponsor ${children} Child${
-                            children > 1 ? "ren" : ""
+                          `Sponsor ${children} Child${children > 1 ? "ren" : ""
                           } - Food and Education`
                         )}&amount=${amount}`
                       )}
@@ -617,7 +612,7 @@ export default function DonationPage() {
       {/* <div className="bg-white text-black py-12 px-4">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-10">
           {/* Left Section - Text & UPI Icons */}
-          {/* <div className="w-full md:w-1/2">
+      {/* <div className="w-full md:w-1/2">
             <h2 className="text-xl font-semibold mb-4">
               Donation Through Bank (NEFT/ RTGS)
             </h2>
@@ -654,8 +649,8 @@ export default function DonationPage() {
             </p>
           </div> */}
 
-          {/* Right Section - QR Code */}
-          {/* <div className="w-full md:w-1/2 flex flex-col items-center">
+      {/* Right Section - QR Code */}
+      {/* <div className="w-full md:w-1/2 flex flex-col items-center">
             <h2 className="text-xl font-semibold mb-4">Scan QR Code</h2>
             <div className="flex justify-center w-full">
               <Image
@@ -667,8 +662,8 @@ export default function DonationPage() {
               />
             </div>
           </div> */}
-        {/* </div>
-      </div> */} 
+      {/* </div>
+      </div> */}
 
       {/* -------------------Gallery Section--------------------- */}
       <div className="bg-[#EDF2F7]">

@@ -155,6 +155,34 @@ function DonatePageContent() {
     panNumber: "",
   });
 
+  // Calculate current donation amount
+  const getCurrentDonationAmount = (): number => {
+    if (isAnyAmountDonation) {
+      const customAmountValue = parseFloat(
+        formData.customAmount?.replace(/[^\d.]/g, "") || "0"
+      );
+      return isNaN(customAmountValue) ? 0 : customAmountValue;
+    } else {
+      const amountValue = parseFloat(amount || "0");
+      return isNaN(amountValue) ? 0 : amountValue;
+    }
+  };
+
+  // Check if 80G should be disabled (amount < 500)
+  const is80GDisabled = getCurrentDonationAmount() < 500;
+
+  // Effect to uncheck 80G if amount becomes less than 500
+  useEffect(() => {
+    const currentAmount = getCurrentDonationAmount();
+    if (currentAmount < 500 && formData.wants80G) {
+      setFormData((prev) => ({
+        ...prev,
+        wants80G: false,
+        panNumber: "", // Clear PAN number when 80G is unchecked
+      }));
+    }
+  }, [formData.customAmount, amount, formData.wants80G, isAnyAmountDonation]);
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -439,12 +467,27 @@ function DonatePageContent() {
       }
     }
 
-    // Validate PAN if 80G is selected
+    // Validate 80G eligibility (amount must be >= 500)
     if (formData.wants80G) {
-      if (!formData.panNumber.trim()) {
-        newErrors.panNumber = "PAN number is required for 80G tax exemption";
-      } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNumber.toUpperCase())) {
-        newErrors.panNumber = "Please enter a valid PAN number (e.g., ABCDE1234F)";
+      const currentAmount = getCurrentDonationAmount();
+      if (currentAmount < 500) {
+        // Show error on customAmount if it's a custom amount donation, otherwise show general error
+        if (isAnyAmountDonation) {
+          newErrors.customAmount = "80G Tax Exemption is available only for donations of ₹500 or more";
+        }
+        // Uncheck 80G if amount is less than 500
+        setFormData((prev) => ({
+          ...prev,
+          wants80G: false,
+          panNumber: "",
+        }));
+      } else {
+        // Validate PAN if 80G is selected and amount is valid
+        if (!formData.panNumber.trim()) {
+          newErrors.panNumber = "PAN number is required for 80G tax exemption";
+        } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNumber.toUpperCase())) {
+          newErrors.panNumber = "Please enter a valid PAN number (e.g., ABCDE1234F)";
+        }
       }
     }
     setErrors(newErrors);
@@ -1069,16 +1112,22 @@ function DonatePageContent() {
                   I would like to receive Maha Prasadam (Only within India)
                 </label>
               )}
-              <label className="flex items-start gap-2">
+              <label className={`flex items-start gap-2 ${is80GDisabled ? 'opacity-60 cursor-not-allowed' : ''}`}>
                 <input 
                   type="checkbox" 
                   name="wants80G"
                   checked={formData.wants80G}
                   onChange={handleInputChange}
-                  className="accent-blue-700 mt-1" 
+                  disabled={is80GDisabled}
+                  className="accent-blue-700 mt-1 disabled:cursor-not-allowed" 
                 />
                 <span>
                   I wish to receive 80G Tax Exemption
+                  {is80GDisabled && (
+                    <p className="text-[11px] text-red-600 font-semibold mt-1">
+                      ⚠️ 80G Tax Exemption is available only for donations of ₹500 or more.
+                    </p>
+                  )}
                   <p className="text-[11px] text-black font-semibold mt-1">
                     Finance Act 2021 has made it mandatory to upload the details
                     of donations collected by all those organisations collecting
