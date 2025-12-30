@@ -4,11 +4,11 @@ import React from "react";
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
 
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-import mobileImg from "@/public/images/enrichBanner.jpg";
-import tabletImg from "@/public/images/enrichBanner.jpg";
-import desktopImg from "@/public/images/enrichBanner.jpg";
+// import mobileImg from "@/public/images/enrichBanner.jpg";
+// import tabletImg from "@/public/images/enrichBanner.jpg";
+// import desktopImg from "@/public/images/enrichBanner.jpg";
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
@@ -222,8 +222,8 @@ export default function DonationPage() {
   //   )}`;
   //   router.push(appendUTMToUrl(url));
   // };
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  // const isMobile = useMediaQuery({ maxWidth: 767 });
+  // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   // const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   // const backgroundImage = isMobile
@@ -246,13 +246,21 @@ export default function DonationPage() {
   return (
     <>
       <div className="relative w-full  md:aspect-[16/8]   aspect-[10/5]   overflow-hidden">
-        <Image
-          src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
+         <Image
+          src="/home/home_img.jpeg"
           alt="Donation Banner"
           fill
           className="object-cover lg:px-3"
           priority
         />
+       
+        {/* <Image
+          src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
+          alt="Donation Banner"
+          fill
+          className="object-cover lg:px-3"
+          priority
+        /> */}
         <div className="absolute inset-0 z-10"></div>
       </div>
 
