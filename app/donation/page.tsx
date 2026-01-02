@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
@@ -42,10 +42,8 @@ const galleryImages = [
   { src: cul1, alt: "Gallery 3" },
 ];
 
-const donationOptions = [
-  // { children: 20, amount: 540 },
-  // { children: 25, amount: 675 },
-  // { children: 50, amount: 1350 },
+// Default/fallback data
+const defaultDonationOptions = [
   { children: 100, amount: 2700 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
@@ -57,7 +55,7 @@ const donationOptions = [
   { children: 10000, amount: 270000 },
 ];
 
-const sponsorshipOptions = [
+const defaultSponsorshipOptions = [
   { children: 1, amount: 12000 },
   { children: 2, amount: 24000 },
   { children: 4, amount: 48000 },
@@ -65,13 +63,13 @@ const sponsorshipOptions = [
   { children: 9, amount: 108000 },
 ];
 
-const academicYearOptions = [
+const defaultAcademicYearOptions = [
   { children: 1, amount: 5000 },
   { children: 3, amount: 15000 },
   { children: 5, amount: 25000 },
 ];
 
-const monthlyOptions = [
+const defaultMonthlyOptions = [
   { children: 5, amount: 2500 },
   { children: 10, amount: 5000 },
   { children: 25, amount: 12500 },
@@ -82,7 +80,7 @@ const monthlyOptions = [
   { children: 200, amount: 100000 },
 ];
 
-const specialOptions = [
+const defaultSpecialOptions = [
   {
     title: "Sponsor Education of 1 Entire Village for 1 Whole Year",
     amount: 150000,
@@ -92,6 +90,68 @@ const specialOptions = [
     amount: 12500,
   },
 ];
+
+// API Types
+interface DonationCard {
+  _id: string;
+  category: "food" | "giftFuture" | "giftLearning";
+  text: string;
+  yearText?: string;
+  amount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  data: {
+    giftFuture?: DonationCard[];
+    giftLearning?: DonationCard[];
+    food?: DonationCard[];
+  };
+}
+
+// Helper function to extract children count from text
+const extractChildrenCount = (text: string): number | null => {
+  // Try to extract number from text like "Feed 100 Children", "Sponsor 2 Children", etc.
+  const match = text.match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+};
+
+// Helper function to get API base URL for donation amounts
+const getDonationAmountsApiUrl = (): string => {
+  // Try to use environment variable first, or default to the API base
+  const envUrl = process.env.NEXT_PUBLIC_DONATION_API_URL;
+
+  let baseUrl: string;
+
+  if (envUrl) {
+    // If it contains /donations, replace with /donation-amounts
+    if (envUrl.includes('/donations')) {
+      baseUrl = envUrl.replace('/donations', '/donation-amounts');
+    } else {
+      // Otherwise, assume it's a base URL and append the path
+      const base = envUrl.replace(/\/$/, ''); // Remove trailing slash
+      baseUrl = `${base}/donation-amounts`;
+    }
+  } else {
+    // Default fallback - use the same pattern as other APIs
+    baseUrl = 'http://localhost:5000/api/donation-amounts';
+  }
+
+  // Ensure it's a full URL (not relative)
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    // If it's a relative URL, make it absolute using the current origin
+    if (typeof window !== 'undefined') {
+      baseUrl = `${window.location.origin}${baseUrl}`;
+    } else {
+      // Server-side fallback
+      baseUrl = `http://localhost:5000/api/donation-amounts`;
+    }
+  }
+
+  return baseUrl;
+};
 
 // Helper function to format numbers in Indian style
 const formatIndianCurrency = (amount: number) => {
@@ -203,6 +263,243 @@ export default function DonationPage() {
   // const router = useRouter();
   const { appendUTMToUrl } = useUTM();
 
+  // State for API data
+  const [donationOptions, setDonationOptions] = useState(defaultDonationOptions);
+  const [sponsorshipOptions, setSponsorshipOptions] = useState(defaultSponsorshipOptions);
+  const [academicYearOptions, setAcademicYearOptions] = useState(defaultAcademicYearOptions);
+  const [monthlyOptions, setMonthlyOptions] = useState(defaultMonthlyOptions);
+  const [specialOptions, setSpecialOptions] = useState(defaultSpecialOptions);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch donation amounts from API
+  // useEffect(() => {
+  //   const fetchDonationAmounts = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       setError(null);
+
+  //       // Use Next.js API route which will proxy to external API
+  //       const apiUrl = '/api/donation-amounts/grouped/by-category';
+
+  //       console.log('Fetching donation amounts from:', apiUrl);
+
+  //       const response = await fetch(apiUrl, {
+  //         cache: "no-store",
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
+
+  //       if (!response.ok) {
+  //         console.warn('API request failed, using default values');
+  //         // Don't throw error - just use default values
+  //         return;
+  //       }
+
+  //       const result: ApiResponse = await response.json();
+
+  //       // If API returns success but no data, or if data is empty, use defaults
+  //       if (!result.success) {
+  //         console.warn('API returned success: false, using default values');
+  //         return;
+  //       }
+
+  //       if (!result.data) {
+  //         console.warn('API returned no data, using default values');
+  //         return;
+  //       }
+
+  //       // Map food category to donationOptions
+  //       if (result.data.food && result.data.food.length > 0) {
+  //         const mappedFood = result.data.food
+  //           .map((card) => {
+  //             const children = extractChildrenCount(card.text);
+  //             if (children !== null) {
+  //               return { children, amount: card.amount };
+  //             }
+  //             return null;
+  //           })
+  //           .filter((item): item is { children: number; amount: number } => item !== null)
+  //           .sort((a, b) => a.amount - b.amount);
+
+  //         if (mappedFood.length > 0) {
+  //           setDonationOptions(mappedFood);
+  //         }
+  //       }
+
+  //       // Map giftFuture category to sponsorshipOptions
+  //       if (result.data.giftFuture && result.data.giftFuture.length > 0) {
+  //         const mappedGiftFuture = result.data.giftFuture
+  //           .map((card) => {
+  //             const children = extractChildrenCount(card.text);
+  //             if (children !== null) {
+  //               return { children, amount: card.amount };
+  //             }
+  //             return null;
+  //           })
+  //           .filter((item): item is { children: number; amount: number } => item !== null)
+  //           .sort((a, b) => a.amount - b.amount);
+
+  //         if (mappedGiftFuture.length > 0) {
+  //           setSponsorshipOptions(mappedGiftFuture);
+  //         }
+  //       }
+
+  //       // Map giftLearning category to academicYearOptions and monthlyOptions
+  //       if (result.data.giftLearning && result.data.giftLearning.length > 0) {
+  //         const academicYear: { children: number; amount: number }[] = [];
+  //         const monthly: { children: number; amount: number }[] = [];
+  //         const special: { title: string; amount: number }[] = [];
+
+  //         result.data.giftLearning.forEach((card) => {
+  //           const children = extractChildrenCount(card.text);
+  //           const lowerText = card.text.toLowerCase();
+  //           const lowerYearText = (card.yearText || "").toLowerCase();
+
+  //           // Check if it's a special option (village sponsorship)
+  //           if (lowerText.includes("village") || lowerText.includes("entire")) {
+  //             special.push({
+  //               title: card.text,
+  //               amount: card.amount,
+  //             });
+  //           }
+  //           // Check if it's an academic year option
+  //           else if (lowerText.includes("academic year") || lowerYearText.includes("academic") || lowerYearText.includes("year")) {
+  //             if (children !== null) {
+  //               academicYear.push({ children, amount: card.amount });
+  //             }
+  //           }
+  //           // Check if it's a monthly option
+  //           else if (lowerText.includes("month") || lowerYearText.includes("month")) {
+  //             if (children !== null) {
+  //               monthly.push({ children, amount: card.amount });
+  //             }
+  //           }
+  //           // Default to monthly if unsure
+  //           else if (children !== null) {
+  //             monthly.push({ children, amount: card.amount });
+  //           }
+  //         });
+
+  //         if (academicYear.length > 0) {
+  //           setAcademicYearOptions(academicYear.sort((a, b) => a.amount - b.amount));
+  //         }
+  //         if (monthly.length > 0) {
+  //           setMonthlyOptions(monthly.sort((a, b) => a.amount - b.amount));
+  //         }
+  //         if (special.length > 0) {
+  //           setSpecialOptions(special);
+  //         }
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching donation amounts:", err);
+  //       setError(err instanceof Error ? err.message : "Failed to load donation amounts");
+  //       // Keep default values on error
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchDonationAmounts();
+  // }, []);
+  useEffect(() => {
+    const fetchDonationAmounts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const apiUrl = 'http://localhost:5000/api/donation-amounts/grouped/by-category';
+
+        console.log('Fetching donation amounts from:', apiUrl);
+
+        const response = await fetch(apiUrl, {
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          console.warn("API request failed, using default values");
+          return;
+        }
+
+        const result: ApiResponse = await response.json();
+
+        if (!result.success || !result.data) {
+          console.warn("Invalid API response, using default values");
+          return;
+        }
+
+        // ---- FOOD ----
+        if (result.data.food?.length) {
+          const mappedFood = result.data.food
+            .map(card => {
+              const children = extractChildrenCount(card.text);
+              return children ? { children, amount: card.amount } : null;
+            })
+            .filter(Boolean)
+            .sort((a, b) => a!.amount - b!.amount) as {
+              children: number;
+              amount: number;
+            }[];
+
+          if (mappedFood.length) setDonationOptions(mappedFood);
+        }
+
+        // ---- GIFT FUTURE ----
+        if (result.data.giftFuture?.length) {
+          const mapped = result.data.giftFuture
+            .map(card => {
+              const children = extractChildrenCount(card.text);
+              return children ? { children, amount: card.amount } : null;
+            })
+            .filter(Boolean)
+            .sort((a, b) => a!.amount - b!.amount) as {
+              children: number;
+              amount: number;
+            }[];
+
+          if (mapped.length) setSponsorshipOptions(mapped);
+        }
+
+        // ---- GIFT LEARNING ----
+        if (result.data.giftLearning?.length) {
+          const academicYear: any[] = [];
+          const monthly: any[] = [];
+          const special: any[] = [];
+
+          result.data.giftLearning.forEach(card => {
+            const children = extractChildrenCount(card.text);
+            const text = card.text.toLowerCase();
+            const yearText = (card.yearText || "").toLowerCase();
+
+            if (text.includes("village") || text.includes("entire")) {
+              special.push({ title: card.text, amount: card.amount });
+            } else if (text.includes("academic") || yearText.includes("year")) {
+              if (children) academicYear.push({ children, amount: card.amount });
+            } else {
+              if (children) monthly.push({ children, amount: card.amount });
+            }
+          });
+
+          if (academicYear.length) setAcademicYearOptions(academicYear);
+          if (monthly.length) setMonthlyOptions(monthly);
+          if (special.length) setSpecialOptions(special);
+        }
+
+      } catch (err) {
+        console.error("Error fetching donation amounts:", err);
+        setError("Failed to load donation amounts");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDonationAmounts();
+  }, []);
+
   // const vidyaDaanHandleClick = () => {
   //   const url = `/donate?purpose=${encodeURIComponent(
   //     "Vidhya Daan - Any Amount"
@@ -246,14 +543,14 @@ export default function DonationPage() {
   return (
     <>
       <div className="relative w-full  md:aspect-[16/8]   aspect-[10/5]   overflow-hidden">
-         <Image
+        <Image
           src="/home/home_img.jpeg"
           alt="Donation Banner"
           fill
           className="object-cover lg:px-3"
           priority
         />
-       
+
         {/* <Image
           src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
           alt="Donation Banner"
