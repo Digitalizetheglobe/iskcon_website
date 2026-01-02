@@ -68,11 +68,11 @@ export default async function CampaignRedirectPage({
     "certificates",
     "our-initiative",
     "home",
-    // "donate-to-cause",
-    // "campaign-page",
-    // "grocery-donation",
-    // "donation-kit",
-    // "build-school",
+    "donate-to-cause",
+    "campaign-page",
+    "grocery-donation",
+    "donation-kit",
+    "build-school",
 
   ];
 
