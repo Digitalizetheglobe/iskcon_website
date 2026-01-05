@@ -2,8 +2,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Heart,
   TrendingUp,
@@ -28,11 +28,7 @@ interface Campaign {
 
 
 const Campaigns = () => {
-  const params = useParams();
-  const campaignId = params.id as string;
-
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [currentCampaign, setCurrentCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchCampaigns = async () => {
@@ -133,9 +129,11 @@ const Campaigns = () => {
                 className="group hover:shadow-lg transition-all duration-500 hover:-translate-y-2 border-2 border-primary/30 overflow-hidden"
               >
                 <div className="relative h-72 overflow-hidden">
-                  <img
+                  <Image
                     src={campaign.image}
                     alt={campaign.title}
+                    width={400}
+                    height={288}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -240,9 +238,11 @@ const Campaigns = () => {
                   >
                     {/* IMAGE + PROGRESS */}
                     <div className="relative h-56 overflow-hidden">
-                      <img
+                      <Image
                         src={campaign.image}
                         alt={campaign.title}
+                        width={400}
+                        height={224}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
 
@@ -336,7 +336,7 @@ const Campaigns = () => {
             <Heart className="w-10 h-10 text-white fill-white" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Can't Find Your Cause?
+            Can&apos;t Find Your Cause?
           </h2>
           <p className="text-xl md:text-2xl text-white/95 mb-10 leading-relaxed max-w-2xl mx-auto font-medium">
             Make a general donation to support our mission of reaching <span className="font-bold underline decoration-white/50">1000 villages by 2030</span>

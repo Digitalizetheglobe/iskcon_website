@@ -3,11 +3,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Heart, Users, TrendingUp, Share2 } from "lucide-react";
+import { Heart, TrendingUp } from "lucide-react";
 
 interface CampaignerCampaign {
   id: string;
@@ -119,7 +120,7 @@ const CampaignerCampaigns = () => {
               Support a
               <span className="block mt-3">
                 <span className="text-gradient bg-gradient-to-b from-[#FF7F2A] to-[#F96D2F] bg-clip-text text-transparent">
-                  Campaigner's Mission
+                  Campaigner&apos;s Mission
                 </span>
               </span>
             </h1>
@@ -137,16 +138,18 @@ const CampaignerCampaigns = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {campaigns.map((campaign, index) => (
               <Card
-                key={campaign.id}
+                key={`${campaign.id}-${index}`}
                 className="group hover:shadow-[0_20px_60px_-15px_rgba(251,146,60,0.3)] transition-all duration-500 hover:-translate-y-2 border-2 border-primary/30 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Campaign Image */}
                 <div className="relative h-56 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-multiply z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <img
+                  <Image
                     src={campaign.campaignImage}
                     alt={campaign.story}
+                    width={400}
+                    height={224}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20"></div>
@@ -161,9 +164,11 @@ const CampaignerCampaigns = () => {
                   <div className="flex items-center gap-3 mb-4 pb-4 border-b-2 border-border">
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full blur-md opacity-50"></div>
-                      <img
+                      <Image
                         src={campaign.fundraiserImage}
                         alt={campaign.fundraiserName}
+                        width={56}
+                        height={56}
                         className="relative w-14 h-14 rounded-full object-cover border-4 border-background shadow-lg"
                       />
                     </div>

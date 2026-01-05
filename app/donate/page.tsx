@@ -173,8 +173,10 @@ function DonatePageContent() {
 
   // Effect to uncheck 80G if amount becomes less than 500
   useEffect(() => {
-    const currentAmount = getCurrentDonationAmount();
-    if (currentAmount < 500 && formData.wants80G) {
+    const currentAmount = isAnyAmountDonation
+      ? parseFloat(formData.customAmount?.replace(/[^\d.]/g, "") || "0")
+      : parseFloat(amount || "0");
+    if (!isNaN(currentAmount) && currentAmount < 500 && formData.wants80G) {
       setFormData((prev) => ({
         ...prev,
         wants80G: false,

@@ -32,7 +32,7 @@ export default function DonationKitDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [quantity, setQuantity] = useState<number>(urlQuantity ? parseInt(urlQuantity) : 1);
+  const [quantity] = useState<number>(urlQuantity ? parseInt(urlQuantity) : 1);
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
   const [isCustom, setIsCustom] = useState(false);
   const [customAmount, setCustomAmount] = useState("");
@@ -85,7 +85,7 @@ export default function DonationKitDetailPage() {
     if (slug) {
       fetchKit();
     }
-  }, [slug]);
+  }, [slug, urlQuantity, urlTotal]);
 
   // Generate amount options dynamically based on current quantity (1x, 2x, 5x)
   const generateAmounts = (basePrice: number, currentQuantity: number): string[] => {
@@ -102,15 +102,6 @@ export default function DonationKitDetailPage() {
   // Calculate total based on quantity
   const totalAmount = kit ? kit.price * quantity : 0;
 
-  // Handle quantity increment
-  const handleIncrement = () => {
-    setQuantity(prev => prev + 1);
-  };
-
-  // Handle quantity decrement
-  const handleDecrement = () => {
-    setQuantity(prev => (prev > 1 ? prev - 1 : 1));
-  };
 
   // Update selected amount when quantity changes
   useEffect(() => {
@@ -249,7 +240,7 @@ export default function DonationKitDetailPage() {
       }
 
       // Initialize Razorpay payment
-      if (!isRazorpayLoaded || !(window as any).Razorpay) {
+      if (!isRazorpayLoaded || !(window as unknown as { Razorpay: unknown }).Razorpay) {
         setSubmitError('Payment gateway is loading. Please wait a moment and try again.');
         setIsSubmitting(false);
         return;
@@ -284,11 +275,11 @@ export default function DonationKitDetailPage() {
         },
       };
 
-      const rzp = new (window as any).Razorpay(options);
+      const rzp = new (window as unknown as { Razorpay: new (options: unknown) => { open: () => void } }).Razorpay(options);
       rzp.open();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Donation submission error:', err);
-      setSubmitError(err.message || DONATION_CONFIG.ERRORS.NETWORK_ERROR);
+      setSubmitError(err instanceof Error ? err.message : DONATION_CONFIG.ERRORS.NETWORK_ERROR);
       setIsSubmitting(false);
     }
   };
@@ -333,10 +324,11 @@ export default function DonationKitDetailPage() {
       <section className="mx-auto">
         <div className="relative overflow-hidden shadow-xl py-14 sm:py-20">
           {/* Background Image */}
-          <img
+          <Image
             src={kit.img}
             alt={kit.title}
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
 
           {/* Overlay */}
@@ -433,7 +425,7 @@ export default function DonationKitDetailPage() {
             </span>
 
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-4">
-              What's Included
+              What&apos;s Included
             </h2>
 
             <p className="text-[#847062] mt-3 text-sm sm:text-[15px] leading-relaxed sm:leading-loose">
@@ -523,7 +515,7 @@ export default function DonationKitDetailPage() {
           </h2>
 
           <p className="text-[#847062] mt-2 text-sm sm:text-base">
-            Every contribution creates lasting change in children's lives
+            Every contribution creates lasting change in children&apos;s lives
           </p>
 
           <div className="bg-white p-5 sm:p-6 mt-8 rounded-xl shadow-md border border-orange-100 flex flex-col sm:flex-row gap-4 sm:gap-6 max-w-6xl mx-auto">
@@ -542,7 +534,7 @@ export default function DonationKitDetailPage() {
               <div className="flex mt-4 gap-3 sm:gap-4">
                 <div className="w-1 bg-orange-400 rounded"></div>
                 <p className="text-[#847062] text-sm sm:text-base italic leading-relaxed">
-                  Through our Aikya Vidya program, we've reached 108 villages and empowered 2,500+ students. Your contribution directly impacts children's education and well-being.
+                  Through our Aikya Vidya program, we&apos;ve reached 108 villages and empowered 2,500+ students. Your contribution directly impacts children&apos;s education and well-being.
                 </p>
               </div>
             </div>

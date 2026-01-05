@@ -71,7 +71,6 @@ interface RazorpayWindow {
 const BuildSchool = () => {
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isMonthlyDonation, setIsMonthlyDonation] = useState(false);
   const [showCustomAmount, setShowCustomAmount] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
@@ -267,7 +266,6 @@ const BuildSchool = () => {
             setSelectedAmount(null);
             setCustomAmount("");
             setShowCustomAmount(false);
-            setIsMonthlyDonation(false);
           } catch (err) {
             console.error("Error after Razorpay success handler:", err);
             alert(
@@ -537,7 +535,7 @@ const BuildSchool = () => {
                 <h2 className="text-3xl font-black text-[#2D1B0F] ">Why This Campaign Matters</h2>
 
                 <p className="text-[#847060] text-sm
- mt-1">The problem we're solving</p>
+ mt-1">The problem we&apos;re solving</p>
               </div>
             </div>
             {/* PROBLEM BOX */}
@@ -832,9 +830,11 @@ const BuildSchool = () => {
                     <div className="relative h-56 overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 mix-blend-multiply z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                      <img
+                      <Image
                         src={story.image}
                         alt={story.title}
+                        width={400}
+                        height={224}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
 
@@ -860,7 +860,7 @@ const BuildSchool = () => {
                       </p>
 
                       <p className="text-gray-700 text-sm leading-relaxed line-clamp-3 text-[#847060]">
-                        "{story.text}"
+                        &quot;{story.text}&quot;
                       </p>
                     </CardContent>
                   </Card>
@@ -990,10 +990,7 @@ const BuildSchool = () => {
                     const value = e.target.value;
                     if (value) {
                       setSelectedAmount(Number(value));
-                      setIsMonthlyDonation(true);
                       setShowCustomAmount(false);
-                    } else {
-                      setIsMonthlyDonation(false);
                     }
                   }}
                 />

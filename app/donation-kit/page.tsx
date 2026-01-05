@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const Donationkit = () => {
@@ -20,7 +21,6 @@ const Donationkit = () => {
     slug?: string;
   };
   const [isGuidanceDialogOpen, setIsGuidanceDialogOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [loading, setLoading] = useState(true);
   const validatePhone = (value: string) => {
     const phoneRegex = /^[6-9]\d{9}$/; // 10 digits, starts 6–9
@@ -115,7 +115,7 @@ const Donationkit = () => {
 
         // Transform backend data to match frontend Pack structure
         if (data.success && data.data && data.data.length > 0) {
-          const transformedPacks = data.data.map((kit: any) => ({
+          const transformedPacks = data.data.map((kit: { _id?: string; title: string; price: number; quantity?: number; img: string; description: string; included?: string[]; highlight: string; slug?: string }) => ({
             _id: kit._id,
             title: kit.title,
             price: kit.price,
@@ -336,9 +336,11 @@ const Donationkit = () => {
 
                 {/* Main Image */}
                 <div className="relative rounded-lg overflow-hidden shadow-2xl border-8 border-white">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
                     alt="Children learning together"
+                    width={1000}
+                    height={500}
                     className="w-full h-[500px] object-cover rounded-lg"
                   />
 
@@ -413,7 +415,7 @@ const Donationkit = () => {
             </div>
 
             <p className="text-2xl sm:text-4xl font-semibold leading-snug">
-              "The best way to find yourself is to lose yourself in the service of others."
+              &quot;The best way to find yourself is to lose yourself in the service of others.&quot;
             </p>
 
             <div className="mt-8 flex flex-col items-center">
@@ -509,7 +511,7 @@ const Donationkit = () => {
                   >
                     {/* Image */}
                     <div className="relative h-52 w-full">
-                      <img src={pack.img} className="w-full h-full object-cover" alt="pack" />
+                      <Image src={pack.img} width={400} height={208} className="w-full h-full object-cover" alt="pack" />
                       <span className="absolute top-4 left-4 bg-primary text-white font-extrabold text-sm px-8 py-4 rounded-full shadow">
                         ₹{pack.price}
                       </span>
@@ -816,9 +818,11 @@ const Donationkit = () => {
             >
               {/* Profile */}
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   src={item.img}
                   alt={item.name}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div className="leading-tight">
@@ -885,7 +889,7 @@ const Donationkit = () => {
             </h2>
 
             <p className="mt-4 text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">
-              Together, we've created lasting change in thousands of lives across communities
+              Together, we&apos;ve created lasting change in thousands of lives across communities
             </p>
           </div>
 

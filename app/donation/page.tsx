@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
 
-// import { useMediaQuery } from "react-responsive";
+  import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
-// import mobileImg from "@/public/images/enrichBanner.jpg";
-// import tabletImg from "@/public/images/enrichBanner.jpg";
-// import desktopImg from "@/public/images/enrichBanner.jpg";
+import mobileImg from "@/public/images/enrichBanner.jpg";
+import tabletImg from "@/public/images/enrichBanner.jpg";
+import desktopImg from "@/public/images/enrichBanner.jpg";
 
 // import k3 from "../../public/images/k3.png";
 // import k1 from "../../public/images/k1.png";
@@ -118,40 +118,6 @@ const extractChildrenCount = (text: string): number | null => {
   return match ? parseInt(match[1], 10) : null;
 };
 
-// Helper function to get API base URL for donation amounts
-const getDonationAmountsApiUrl = (): string => {
-  // Try to use environment variable first, or default to the API base
-  const envUrl = process.env.NEXT_PUBLIC_DONATION_API_URL;
-
-  let baseUrl: string;
-
-  if (envUrl) {
-    // If it contains /donations, replace with /donation-amounts
-    if (envUrl.includes('/donations')) {
-      baseUrl = envUrl.replace('/donations', '/donation-amounts');
-    } else {
-      // Otherwise, assume it's a base URL and append the path
-      const base = envUrl.replace(/\/$/, ''); // Remove trailing slash
-      baseUrl = `${base}/donation-amounts`;
-    }
-  } else {
-    // Default fallback - use the same pattern as other APIs
-    baseUrl = 'http://localhost:5000/api/donation-amounts';
-  }
-
-  // Ensure it's a full URL (not relative)
-  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
-    // If it's a relative URL, make it absolute using the current origin
-    if (typeof window !== 'undefined') {
-      baseUrl = `${window.location.origin}${baseUrl}`;
-    } else {
-      // Server-side fallback
-      baseUrl = `http://localhost:5000/api/donation-amounts`;
-    }
-  }
-
-  return baseUrl;
-};
 
 // Helper function to format numbers in Indian style
 const formatIndianCurrency = (amount: number) => {
@@ -269,8 +235,8 @@ export default function DonationPage() {
   const [academicYearOptions, setAcademicYearOptions] = useState(defaultAcademicYearOptions);
   const [monthlyOptions, setMonthlyOptions] = useState(defaultMonthlyOptions);
   const [specialOptions, setSpecialOptions] = useState(defaultSpecialOptions);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setIsLoading] = useState(true);
+  const [, setError] = useState<string | null>(null);
 
   // Fetch donation amounts from API
   // useEffect(() => {
@@ -466,9 +432,9 @@ export default function DonationPage() {
 
         // ---- GIFT LEARNING ----
         if (result.data.giftLearning?.length) {
-          const academicYear: any[] = [];
-          const monthly: any[] = [];
-          const special: any[] = [];
+          const academicYear: Array<{ children: number; amount: number }> = [];
+          const monthly: Array<{ children: number; amount: number }> = [];
+          const special: Array<{ title: string; amount: number }> = [];
 
           result.data.giftLearning.forEach(card => {
             const children = extractChildrenCount(card.text);
@@ -519,45 +485,45 @@ export default function DonationPage() {
   //   )}`;
   //   router.push(appendUTMToUrl(url));
   // };
-  // const isMobile = useMediaQuery({ maxWidth: 767 });
-  // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  // const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
-  // const backgroundImage = isMobile
-  //   ? mobileImg.src
-  //   : isTablet
-  //   ? tabletImg.src
-  //   : desktopImg.src;
+  const backgroundImage = isMobile
+    ? mobileImg.src
+    : isTablet
+    ? tabletImg.src
+    : desktopImg.src;
 
-  // // Add this debugging
-  // console.log(
-  //   "isMobile:",
-  //   isMobile,
-  //   "isTablet:",
-  //   isTablet,
-  //   "isDesktop:",
-  //   isDesktop
-  // );
-  // console.log("Selected image:", backgroundImage);
+  // Add this debugging
+  console.log(
+    "isMobile:",
+    isMobile,
+    "isTablet:",
+    isTablet,
+    "isDesktop:",
+    isDesktop
+  );
+  console.log("Selected image:", backgroundImage);
 
   return (
     <>
       <div className="relative w-full  md:aspect-[16/8]   aspect-[10/5]   overflow-hidden">
-        <Image
+        {/* <Image
           src="/home/home_img.jpeg"
           alt="Donation Banner"
           fill
           className="object-cover lg:px-3"
           priority
-        />
+        /> */}
 
-        {/* <Image
+        <Image
           src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
           alt="Donation Banner"
           fill
           className="object-cover lg:px-3"
           priority
-        /> */}
+        />
         <div className="absolute inset-0 z-10"></div>
       </div>
 

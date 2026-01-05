@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, CheckCircle } from "lucide-react";
+import { Shield, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
 
@@ -118,7 +118,7 @@ export default function Page() {
                     setSelectedAmount(response.data.form.defaultAmount);
                     // Initialize form data
                     const initialFormData: Record<string, string> = {};
-                    response.data.form.personalInformation.fields.forEach((field: any) => {
+                    response.data.form.personalInformation.fields.forEach((field: { name: string; label: string; placeholder: string; type: string; required: boolean; maxLength?: number }) => {
                         initialFormData[field.name] = "";
                     });
                     setFormData(initialFormData);
@@ -278,7 +278,7 @@ export default function Page() {
             }
 
             // Initialize Razorpay payment
-            if (!isRazorpayLoaded || !(window as any).Razorpay) {
+            if (!isRazorpayLoaded || !(window as unknown as { Razorpay: unknown }).Razorpay) {
                 setSubmitError('Payment gateway is loading. Please wait a moment and try again.');
                 setIsSubmitting(false);
                 return;
@@ -313,11 +313,11 @@ export default function Page() {
                 },
             };
 
-            const rzp = new (window as any).Razorpay(options);
+            const rzp = new (window as unknown as { Razorpay: new (options: unknown) => { open: () => void } }).Razorpay(options);
             rzp.open();
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Donation submission error:', err);
-            setSubmitError(err.message || DONATION_CONFIG.ERRORS.NETWORK_ERROR);
+            setSubmitError(err instanceof Error ? err.message : DONATION_CONFIG.ERRORS.NETWORK_ERROR);
             setIsSubmitting(false);
         }
     };
@@ -350,9 +350,11 @@ export default function Page() {
                 <div className="relative overflow-hidden shadow-xl bg-primary-200">
 
                     {/* Background Image */}
-                    <img
+                    <Image
                         src={data.hero.backgroundImage}
                         alt={data.hero.title}
+                        width={1200}
+                        height={420}
                         className="w-full h-[260px] sm:h-[330px] md:h-[420px] object-cover"
                     />
 

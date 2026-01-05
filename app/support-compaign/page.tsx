@@ -2,13 +2,24 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Script from "next/script";
-import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
+import { DONATION_CONFIG } from "@/app/config/donation";
 import { Heart, Share2, Facebook, Instagram } from "lucide-react";
 
 // Declare Razorpay types
 declare global {
     interface Window {
-        Razorpay: any;
+        Razorpay: new (options: {
+            key: string;
+            amount: number;
+            currency: string;
+            name: string;
+            description: string;
+            order_id: string;
+            handler: (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => void;
+            prefill?: { name?: string; email?: string; contact?: string };
+            theme?: { color?: string };
+            modal?: { ondismiss: () => void };
+        }) => { open: () => void };
     }
 }
 
@@ -118,24 +129,7 @@ const SupportCampaign = () => {
         { amount: 10000, description: "Library setup" },
     ];
 
-    const stories = campaignData?.stories || [
-        {
-            id: 1,
-            image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-            tag: "Education",
-            title: "First Girl From Her Village to Attend Classes",
-            author: "Asha · Student, Age 12",
-            text: `Asha walks 3 kilometers daily to our center. She's now teaching her siblings and dreams of becoming a teacher.`,
-        },
-        {
-            id: 2,
-            image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-            tag: "Nutrition",
-            title: "How One Meal Changed Everything",
-            author: "Ravi's Family · Beneficiary",
-            text: `Nutritious meals helped Ravi focus in school. His grades improved & his mother says it gave him hope.`,
-        },
-    ];
+    // Stories are available in campaignData but not used in this component
 
     const testimonials = campaignData?.testimonials || [
         {
@@ -267,7 +261,7 @@ const SupportCampaign = () => {
                 name: DONATION_CONFIG.ORGANIZATION.NAME,
                 description: `Donation for ${campaignData.title}`,
                 order_id: submitData.order.id,
-                handler: async function (response: any) {
+                handler: async function (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) {
                     try {
                         // Step 3: Verify payment
                         const verifyResponse = await fetch(`${apiBaseUrl}/verify-payment-form`, {
@@ -300,9 +294,9 @@ const SupportCampaign = () => {
                         } else {
                             throw new Error(verifyData.message || "Payment verification failed");
                         }
-                    } catch (verifyError: any) {
+                    } catch (verifyError: unknown) {
                         console.error("Payment verification error:", verifyError);
-                        setDonationError(verifyError.message || "Payment verification failed. Please contact support if the amount was deducted.");
+                        setDonationError(verifyError instanceof Error ? verifyError.message : "Payment verification failed. Please contact support if the amount was deducted.");
                     } finally {
                         setIsProcessing(false);
                     }
@@ -325,9 +319,9 @@ const SupportCampaign = () => {
             const razorpay = new window.Razorpay(razorpayOptions);
             razorpay.open();
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error("Donation error:", err);
-            setDonationError(err.message || "Failed to process donation. Please try again.");
+            setDonationError(err instanceof Error ? err.message : "Failed to process donation. Please try again.");
             setIsProcessing(false);
         }
     };
@@ -556,7 +550,7 @@ const SupportCampaign = () => {
                                         How Your Support Helps
                                     </h2>
                                     <p className="text-sm sm:text-sm text-[#847062] mt-1">
-                                        Direct impact on children's lives
+                                        Direct impact on children&apos;s lives
                                     </p>
                                 </div>
                             </div>

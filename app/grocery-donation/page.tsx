@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,9 +17,6 @@ interface GroceryItemType {
   quantity: number;
 }
 
-interface DonateButtonProps {
-  selectedItems: GroceryItemType[];
-}
 
 const GroceryDonation = () => {
   const router = useRouter();
@@ -42,7 +40,7 @@ const GroceryDonation = () => {
 
         if (data.success && data.data) {
           // Add quantity property to each item
-          const itemsWithQuantity = data.data.map((item: any) => ({
+          const itemsWithQuantity = data.data.map((item: { name: string; amount: string; price: number; icon: string; description: string }) => ({
             ...item,
             quantity: 0,
           }));
@@ -50,9 +48,9 @@ const GroceryDonation = () => {
         } else {
           throw new Error("Invalid response format");
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Failed to fetch grocery items:", err);
-        setError(err.message || "Failed to load grocery items");
+        setError(err instanceof Error ? err.message : "Failed to load grocery items");
         // Fallback to default items if API fails
         setGroceryItems([
           { name: "Premium Rice", amount: "10 Kg", price: 1, icon: "🍚", description: "High-quality, nutritious grains", quantity: 0 },
@@ -111,9 +109,9 @@ const GroceryDonation = () => {
 
       const selectionId = data.data.id;
       router.push(`/grocery-checkout?selectionId=${selectionId}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating grocery selection:", error);
-      alert(error.message || "Something went wrong. Please try again.");
+      alert(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     }
   };
 
@@ -241,9 +239,11 @@ const GroceryDonation = () => {
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-red-500/20 rounded-full blur-2xl" />
 
               <div className="relative rounded-lg overflow-hidden shadow-2xl border-8 border-white">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1000&q=80"
                   alt="Grocery items"
+                  width={1000}
+                  height={500}
                   className="w-full h-[360px] xl:h-[500px] object-cover"
                 />
 
@@ -275,7 +275,7 @@ const GroceryDonation = () => {
               <span className="text-orange-600 text-xs sm:text-sm font-bold uppercase tracking-wide">Select Items to Donate</span>
             </div>
             <h2 className="text-3xl text-[#2D1B0F]  sm:text-4xl md:text-5xl font-extrabold mb-4 text-foreground">
-              Choose What You'd Like to Donate
+              Choose What You&apos;d Like to Donate
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
               Select quantities for each item. Every contribution makes a difference!
@@ -444,6 +444,7 @@ const GroceryDonation = () => {
                   Donate Now
                   <ShoppingBasket className="w-5 h-5 sm:w-6 sm:h-6 ml-2" />
                 </button> */}
+                
                 <button
                   onClick={handleDonateNow}
                   disabled={selectedItems.length === 0}
@@ -522,9 +523,9 @@ const GroceryDonation = () => {
                   <div className="inline-block px-3 sm:px-4 py-1 bg-orange-100 rounded-full mb-3">
                     <span className="text-orange-700 text-xs font-bold uppercase tracking-wide">Success Story</span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-foreground mb-4">The Kumar Family's Journey</h3>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-foreground mb-4">The Kumar Family&apos;s Journey</h3>
                   <blockquote className="text-muted-foreground text-base sm:text-lg leading-relaxed italic border-l-4 border-orange-500 pl-4 sm:pl-6">
-                    "The Kumar family was struggling to feed their three children. Your Grocery Kit ensured the kids never went to bed hungry and could focus on their studies. Today, all three children are excelling in school, and the parents can focus on long-term goals instead of daily survival."
+                    &quot;The Kumar family was struggling to feed their three children. Your Grocery Kit ensured the kids never went to bed hungry and could focus on their studies. Today, all three children are excelling in school, and the parents can focus on long-term goals instead of daily survival.&quot;
                   </blockquote>
                 </div>
               </div>
@@ -541,7 +542,7 @@ const GroceryDonation = () => {
             Ready to Make a Difference?
           </h2>
           <p className="text-base sm:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed">
-            Your grocery kit donation can change a family's life today. Every meal matters.
+            Your grocery kit donation can change a family&apos;s life today. Every meal matters.
           </p>
           <div className="flex justify-center">
             <Link href="/build-school">
