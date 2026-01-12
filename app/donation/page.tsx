@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
 
-  import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 import useUTM from "../utils/useUTM";
 import mobileImg from "@/public/images/enrichBanner.jpg";
 import tabletImg from "@/public/images/enrichBanner.jpg";
@@ -237,6 +237,9 @@ export default function DonationPage() {
   const [specialOptions, setSpecialOptions] = useState(defaultSpecialOptions);
   const [, setIsLoading] = useState(true);
   const [, setError] = useState<string | null>(null);
+  
+  // State for banner
+  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
 
   // Fetch donation amounts from API
   // useEffect(() => {
@@ -466,6 +469,28 @@ export default function DonationPage() {
     fetchDonationAmounts();
   }, []);
 
+  // Fetch banner
+  useEffect(() => {
+    const fetchBanner = async () => {
+      try {
+        const response = await fetch(  "https://api.harekrishnavidya.org/api/banner/get", {
+          cache: "no-store",
+        });
+        const data = await response.json();
+        if (data.url) {
+          // Prepend backend URL if the banner URL is relative
+          const fullUrl = data.url.startsWith("http") 
+            ? data.url 
+            : `http://localhost:5000${data.url}`;
+          setBannerUrl(fullUrl);
+        }
+      } catch (err) {
+        console.error("Error fetching banner:", err);
+      }
+    };
+    fetchBanner();
+  }, []);
+
   // const vidyaDaanHandleClick = () => {
   //   const url = `/donate?purpose=${encodeURIComponent(
   //     "Vidhya Daan - Any Amount"
@@ -489,22 +514,14 @@ export default function DonationPage() {
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
-  const backgroundImage = isMobile
-    ? mobileImg.src
-    : isTablet
-    ? tabletImg.src
-    : desktopImg.src;
-
-  // Add this debugging
-  console.log(
-    "isMobile:",
-    isMobile,
-    "isTablet:",
-    isTablet,
-    "isDesktop:",
-    isDesktop
-  );
-  console.log("Selected image:", backgroundImage);
+  // Use banner from API if available, otherwise use default images
+  const backgroundImage = bannerUrl
+    ? bannerUrl
+    : isMobile
+      ? mobileImg.src
+      : isTablet
+        ? tabletImg.src
+        : desktopImg.src;
 
   return (
     <>
@@ -518,7 +535,7 @@ export default function DonationPage() {
         /> */}
 
         <Image
-          src={isMobile ? mobileImg : isTablet ? tabletImg : desktopImg}
+          src={bannerUrl || (isMobile ? mobileImg : isTablet ? tabletImg : desktopImg)}
           alt="Donation Banner"
           fill
           className="object-cover lg:px-3"
