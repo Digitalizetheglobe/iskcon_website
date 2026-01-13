@@ -44,6 +44,7 @@ const galleryImages = [
 
 // Default/fallback data
 const defaultDonationOptions = [
+  { children: 50, amount: 1350 },
   { children: 100, amount: 2700 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
@@ -512,16 +513,6 @@ export default function DonationPage() {
   // };
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-
-  // Use banner from API if available, otherwise use default images
-  const backgroundImage = bannerUrl
-    ? bannerUrl
-    : isMobile
-      ? mobileImg.src
-      : isTablet
-        ? tabletImg.src
-        : desktopImg.src;
 
   return (
     <>
