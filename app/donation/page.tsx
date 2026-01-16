@@ -44,7 +44,7 @@ const galleryImages = [
 
 // Default/fallback data
 const defaultDonationOptions = [
-  { children: 50, amount: 1350 },
+  // { children: 50, amount: 1350 },
   { children: 100, amount: 2700 },
   { children: 200, amount: 5400 },
   { children: 300, amount: 8100 },
