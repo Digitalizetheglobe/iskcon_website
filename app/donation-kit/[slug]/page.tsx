@@ -382,8 +382,7 @@ export default function DonationKitDetailPage() {
                   w-full md:w-[85%]">
 
             <Image
-              // src={kit.img}
-              src="/images/donation-kit/general-support.jpg"
+              src={kit.img}
               width={500}
               height={300}
               alt={kit.title}
@@ -408,7 +407,7 @@ export default function DonationKitDetailPage() {
               <span className="text-base bg-primary p-2 rounded-lg">📚</span>
               <div>
                 <p className="font-black text-sm sm:text-base">
-                  General Support
+                  {kit.title}
                 </p>
                 <p className="text-[11px] sm:text-xs text-[#847062] leading-snug">
                   Support our mission to reach 1000 villages by 2030

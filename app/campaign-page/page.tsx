@@ -53,7 +53,6 @@ const CampaignerCampaigns = () => {
         }
 
         const data = await res.json();
-        console.log("Campaigns data received:", data);
         setCampaigns(data);
       } catch (err) {
         console.error("Failed to fetch campaigns", err);
@@ -204,7 +203,7 @@ const CampaignerCampaigns = () => {
                       className="w-full bg-primary text-white  transition-all duration-300 h-11 font-extrabold group-hover:scale-[1.02]"
                       asChild
                     >
-                      <Link href={`/${campaign.id}`} className="w-full">
+                      <Link href={`/support-compaign?id=${campaign.id}`} className="w-full">
                         Support Campaign
                       </Link>
                     </Button>

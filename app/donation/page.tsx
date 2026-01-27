@@ -378,7 +378,7 @@ export default function DonationPage() {
         setIsLoading(true);
         setError(null);
 
-        const apiUrl = 'http://localhost:5000/api/donation-amounts/grouped/by-category';
+        const apiUrl = 'https://api.harekrishnavidya.org/api/donation-amounts/grouped/by-category';
 
         console.log('Fetching donation amounts from:', apiUrl);
 

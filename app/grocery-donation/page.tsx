@@ -39,10 +39,14 @@ const GroceryDonation = () => {
         const data = await res.json();
 
         if (data.success && data.data) {
-          // Add quantity property to each item
-          const itemsWithQuantity = data.data.map((item: { name: string; amount: string; price: number; icon: string; description: string }) => ({
-            ...item,
-            quantity: 0,
+          // Add quantity property to each item and map fields
+          const itemsWithQuantity = data.data.map((item: any) => ({
+            name: item.itemName || item.name,
+            amount: item.quantity || item.amount, // Map backend 'quantity' (unit) to frontend 'amount'
+            price: item.price,
+            icon: item.icon,
+            description: item.description,
+            quantity: 0, // This is the user selected quantity
           }));
           setGroceryItems(itemsWithQuantity);
         } else {
@@ -60,7 +64,7 @@ const GroceryDonation = () => {
           { name: "Cooking Oil", amount: "1 Liter", price: 180, icon: "🫗", description: "Heart-healthy oil", quantity: 0 },
           { name: "Essential Spices", amount: "Complete Set", price: 150, icon: "🧂", description: "Salt & basic spices", quantity: 0 },
           { name: "Premium ultra Rice", amount: "10 Kg", price: 1, icon: "🍚", description: "High-quality, nutritious grains", quantity: 0 }
-          
+
         ]);
       } finally {
         setLoading(false);
@@ -427,24 +431,6 @@ const GroceryDonation = () => {
                 </div>
 
                 {/* Donate Button */}
-                {/* <button
-                  onClick={() => {
-                    if (selectedItems.length > 0) {
-                      const encodedItems = encodeURIComponent(JSON.stringify(selectedItems));
-                      router.push(`/grocery-checkout?items=${encodedItems}`);
-                      ;
-                    }
-                  }}
-                  disabled={selectedItems.length === 0}
-                  className={`inline-flex items-center justify-center h-12 sm:h-14 px-6 sm:px-10 text-base sm:text-lg font-bold shadow-xl transition-all ${selectedItems.length === 0
-                    ? 'bg-white text-orange-300 opacity-50 cursor-not-allowed'
-                    : 'bg-white text-orange-600 hover:bg-orange-50 hover:scale-105'
-                    }`}
-                >
-                  Donate Now
-                  <ShoppingBasket className="w-5 h-5 sm:w-6 sm:h-6 ml-2" />
-                </button> */}
-                
                 <button
                   onClick={handleDonateNow}
                   disabled={selectedItems.length === 0}
@@ -456,6 +442,19 @@ const GroceryDonation = () => {
                   Donate Now
                   <ShoppingBasket className="w-5 h-5 sm:w-6 sm:h-6 ml-2" />
                 </button>
+
+
+                {/* <button
+                  onClick={handleDonateNow}
+                  disabled={selectedItems.length === 0}
+                  className={`inline-flex items-center justify-center h-12 sm:h-14 px-6 sm:px-10 text-base sm:text-lg font-bold shadow-xl transition-all ${selectedItems.length === 0
+                    ? 'bg-white text-orange-300 opacity-50 cursor-not-allowed'
+                    : 'bg-white text-orange-600 hover:bg-orange-50 hover:scale-105 rounded-lg'
+                    }`}
+                >
+                  Donate Now
+                  <ShoppingBasket className="w-5 h-5 sm:w-6 sm:h-6 ml-2" />
+                </button> */}
 
 
               </div>

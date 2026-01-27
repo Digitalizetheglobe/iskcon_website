@@ -68,9 +68,17 @@ interface RazorpayWindow {
   };
 }
 
+import { useSearchParams } from "next/navigation";
+
+// ... previous imports
+
 const BuildSchool = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
+
   const [showCustomAmount, setShowCustomAmount] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
@@ -87,11 +95,19 @@ const BuildSchool = () => {
   // Fetch campaign data from API
   useEffect(() => {
     const fetchCampaign = async () => {
+      if (!id) {
+        // Fallback logic or fetch default "build-school" static ID if needed
+        // For now, let's try to fetch a default if no ID, or just stop.
+        // Given the context, we likely want to fetch the specific campaign if ID is there.
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
 
         const res = await fetch(
-          "http://localhost:5000/api/build-school",
+          `http://localhost:5000/api/campaigns/${id}`,
           {
             cache: "no-store",
             headers: {
@@ -108,11 +124,10 @@ const BuildSchool = () => {
         }
 
         const data = await res.json();
-        console.log("Campaign data received:", data);
+        // console.log("Campaign data received:", data);
         setCampaign(data);
       } catch (err) {
         console.error("Failed to fetch campaign", err);
-        // Set campaign to null to show loading/error state
         setCampaign(null);
       } finally {
         setLoading(false);
@@ -120,7 +135,7 @@ const BuildSchool = () => {
     };
 
     fetchCampaign();
-  }, []);
+  }, [id]);
 
   // Calculate progress percentage
   const progressPercentage = campaign

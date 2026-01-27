@@ -210,7 +210,7 @@ const Campaigns = () => {
                     </div>
                   </div>
 
-                  <Link href='/build-school'>
+                  <Link href={`/build-school?id=${campaign.id}`}>
                     <div className="w-full h-12 mt-4 text-white bg-gradient-to-br from-[#F96D2F] to-[#F1872B] rounded-xl flex items-center justify-center font-bold cursor-pointer">
                       View Campaign & Donate
                     </div>
@@ -304,7 +304,7 @@ const Campaigns = () => {
                         </div>
                       </div>
 
-                      <Link href="/build-school">
+                      <Link href={`/build-school?id=${campaign.id}`}>
                         <div className="w-full h-11 bg-primary text-white rounded-xl flex items-center justify-center font-bold">
                           View Campaign
                         </div>

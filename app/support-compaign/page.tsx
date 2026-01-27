@@ -4,6 +4,7 @@ import Image from "next/image";
 import Script from "next/script";
 import { DONATION_CONFIG } from "@/app/config/donation";
 import { Heart, Share2, Facebook, Instagram } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 // Declare Razorpay types
 declare global {
@@ -83,43 +84,125 @@ const SupportCampaign = () => {
     const [donationError, setDonationError] = useState<string | null>(null);
     const [donationSuccess, setDonationSuccess] = useState(false);
 
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
+
     // Fetch campaign data from API
     useEffect(() => {
         const fetchCampaignData = async () => {
-            try {
-                setLoading(true);
-                setError(null);
+            // If NO ID is present, we might want to fetch the default static data or a "featured" one.
+            // But the user specifically wants navigation. 
+            // Logic: If ID exists, fetch specific. If not, fetch generic (or keep existing logic).
+            // The existing endpoint `api/support-campaign` returns a single static structure. 
+            // We will try ID first.
 
-                const res = await fetch(
-                    "http://localhost:5000/api/support-campaign",
-                    {
-                        cache: "no-store",
-                        headers: {
-                            "Cache-Control": "no-cache",
-                            "Pragma": "no-cache"
+            if (id) {
+                try {
+                    setLoading(true);
+                    setError(null);
+
+                    const res = await fetch(
+                        `http://localhost:5000/api/campaigner-campaigns/${id}`,
+                        {
+                            cache: "no-store",
+                            headers: {
+                                "Cache-Control": "no-cache",
+                                "Pragma": "no-cache"
+                            }
                         }
+                    );
+
+                    if (!res.ok) {
+                        const errorData = await res.json().catch(() => ({}));
+                        throw new Error(errorData.message || "Failed to fetch campaign data");
                     }
-                );
 
-                if (!res.ok) {
-                    const errorData = await res.json().catch(() => ({}));
-                    console.error("Failed to fetch campaign:", res.status, errorData);
-                    throw new Error(errorData.message || "Failed to fetch campaign data");
+                    const data = await res.json();
+
+                    // Map backend data to frontend structure
+                    const mappedData: SupportCampaignData = {
+                        id: data.id,
+                        title: data.fundraiserName, // Using fundraiserName as title based on campaign-page usage
+                        description: data.story,
+                        hostName: data.fundraiserName,
+                        category: data.category,
+                        backgroundImage: data.campaignImage || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format",
+                        raisedAmount: data.raisedAmount,
+                        goalAmount: data.targetAmount,
+                        supporters: data.supporters,
+                        daysLeft: 30, // Default or calculate if createdAt available
+                        avgDonation: Math.round(data.raisedAmount / (data.supporters || 1)) || 1000,
+                        mission: {
+                            title: "Our Mission",
+                            description: data.story // Reuse story
+                        },
+                        fundUtilization: [
+                            {
+                                icon: "education",
+                                title: "Direct Aid",
+                                description: "Funds go directly to the beneficiary's needs."
+                            },
+                            {
+                                icon: "nutrition",
+                                title: "Support Costs",
+                                description: "Minimal overheads to ensure delivery."
+                            }
+                        ],
+                        donationOptions: [
+                            { amount: 500, description: "Support Cause" },
+                            { amount: 1000, description: "Make a Difference" },
+                            { amount: 2500, description: "Big Impact" },
+                            { amount: 5000, description: "Change a Life" },
+                        ],
+                        stories: [],
+                        testimonials: [],
+                        thankYou: {
+                            title: "Thank You!",
+                            description: "Your support means the world to us."
+                        }
+                    };
+
+                    setCampaignData(mappedData);
+                } catch (err) {
+                    console.error("Failed to fetch campaign data", err);
+                    setError(err instanceof Error ? err.message : "Failed to fetch campaign data");
+                } finally {
+                    setLoading(false);
                 }
+            } else {
+                // Fallback to original fetching logic for default/static page
+                try {
+                    setLoading(true);
+                    setError(null);
 
-                const data = await res.json();
-                console.log("Campaign data received:", data);
-                setCampaignData(data);
-            } catch (err) {
-                console.error("Failed to fetch campaign data", err);
-                setError(err instanceof Error ? err.message : "Failed to fetch campaign data");
-            } finally {
-                setLoading(false);
+                    const res = await fetch(
+                        "http://localhost:5000/api/support-campaign",
+                        {
+                            cache: "no-store",
+                            headers: {
+                                "Cache-Control": "no-cache",
+                                "Pragma": "no-cache"
+                            }
+                        }
+                    );
+
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch default campaign");
+                    }
+
+                    const data = await res.json();
+                    setCampaignData(data);
+                } catch (err) {
+                    console.error("Failed to fetch default campaign", err);
+                    setError("Failed to load campaign.");
+                } finally {
+                    setLoading(false);
+                }
             }
         };
 
         fetchCampaignData();
-    }, []);
+    }, [id]);
 
     // Use default values if data is not loaded yet
     const donationOptions = campaignData?.donationOptions || [
@@ -139,6 +222,13 @@ const SupportCampaign = () => {
             imageSrc: '/images/lakshmi-devi.jpg',
         },
     ];
+
+    // Check if Razorpay is already loaded (e.g. from another page)
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Razorpay) {
+            setIsRazorpayLoaded(true);
+        }
+    }, []);
 
     if (loading) {
         return (
@@ -558,7 +648,7 @@ const SupportCampaign = () => {
                             {/* Cards */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
                                 {campaignData.fundUtilization.map((item, index) => {
-                        const getIcon = (iconType: string) => {
+                                    const getIcon = (iconType: string) => {
                                         switch (iconType) {
                                             case "education":
                                                 return (
