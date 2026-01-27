@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["localhost", "api.harekrishnavidya.org", "images.unsplash.com"],
+    remotePatterns: [
+      { hostname: "localhost" },
+      { hostname: "api.harekrishnavidya.org" },
+      { hostname: "images.unsplash.com" },
+    ],
   },
 };
 
