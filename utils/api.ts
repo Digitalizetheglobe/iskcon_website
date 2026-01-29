@@ -1,7 +1,7 @@
 // utils/api.ts
 export async function fetchTestimonials() {
   try {
-    const res = await fetch("http://localhost:5000/api/testimonials/", {
+    const res = await fetch("https://api.harekrishnavidya.org/api/testimonials/", {
       cache: "no-store",
     });
 

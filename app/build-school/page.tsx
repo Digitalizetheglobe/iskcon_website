@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { MapPin } from "lucide-react";
@@ -72,7 +72,7 @@ import { useSearchParams } from "next/navigation";
 
 // ... previous imports
 
-const BuildSchool = () => {
+function BuildSchoolContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
@@ -1027,6 +1027,42 @@ const BuildSchool = () => {
       </section>
     </>
   );
-};
+}
 
-export default BuildSchool;
+function BuildSchoolLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#F96D2F] via-[#FA6F30] to-[#F1872B] flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-md max-w-md text-center">
+        <div className="w-16 h-16 mx-auto mb-4 animate-pulse bg-orange-500 rounded-full flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            className="w-8 h-8 text-white"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+            <path d="M18 5v16" />
+            <path d="m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6" />
+            <path d="m6 11-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11" />
+            <path d="M6 5v16" />
+            <circle cx="12" cy="9" r="2" />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold mb-2">Loading...</h2>
+        <p className="text-gray-500">Please wait while we load the campaign</p>
+      </div>
+    </div>
+  );
+}
+
+export default function BuildSchool() {
+  return (
+    <Suspense fallback={<BuildSchoolLoading />}>
+      <BuildSchoolContent />
+    </Suspense>
+  );
+}

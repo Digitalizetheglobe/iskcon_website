@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Script from "next/script";
 import { ShoppingBasket } from "lucide-react";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
@@ -49,7 +49,7 @@ interface GroceryItem {
   quantity: number;
 }
 
-export default function GroceryCheckout() {
+function GroceryCheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState<GroceryItem[]>([]);
@@ -510,5 +510,25 @@ export default function GroceryCheckout() {
       {/* Bottom padding for mobile */}
       <div className="pb-20 lg:pb-0"></div>
     </div>
+  );
+}
+
+function GroceryCheckoutLoading() {
+  return (
+    <div className="min-h-screen bg-orange-50 py-10 px-4 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-md max-w-md text-center">
+        <ShoppingBasket className="w-16 h-16 mx-auto text-gray-400 mb-4 animate-pulse" />
+        <h2 className="text-2xl font-bold mb-2">Loading...</h2>
+        <p className="text-gray-500">Please wait while we load your checkout</p>
+      </div>
+    </div>
+  );
+}
+
+export default function GroceryCheckout() {
+  return (
+    <Suspense fallback={<GroceryCheckoutLoading />}>
+      <GroceryCheckoutContent />
+    </Suspense>
   );
 }

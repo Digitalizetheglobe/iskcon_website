@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { DONATION_CONFIG } from "@/app/config/donation";
@@ -69,7 +69,7 @@ interface SupportCampaignData {
     };
 }
 
-const SupportCampaign = () => {
+function SupportCampaignContent() {
     const [isMonthlyDonation, setIsMonthlyDonation] = useState(false);
     const [showCustomAmount, setShowCustomAmount] = useState(false);
     const [campaignData, setCampaignData] = useState<SupportCampaignData | null>(null);
@@ -967,6 +967,23 @@ const SupportCampaign = () => {
             </section>
         </>
     );
-};
+}
 
-export default SupportCampaign;
+function SupportCampaignLoading() {
+    return (
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Loading campaign...</p>
+            </div>
+        </div>
+    );
+}
+
+export default function SupportCampaign() {
+    return (
+        <Suspense fallback={<SupportCampaignLoading />}>
+            <SupportCampaignContent />
+        </Suspense>
+    );
+}

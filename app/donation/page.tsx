@@ -482,7 +482,7 @@ export default function DonationPage() {
           // Prepend backend URL if the banner URL is relative
           const fullUrl = data.url.startsWith("http") 
             ? data.url 
-            : `http://localhost:5000${data.url}`;
+            : `https://api.harekrishnavidya.org${data.url}`;
           setBannerUrl(fullUrl);
         }
       } catch (err) {

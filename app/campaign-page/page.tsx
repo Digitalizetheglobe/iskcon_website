@@ -36,7 +36,7 @@ const CampaignerCampaigns = () => {
         setError(null);
 
         const res = await fetch(
-          "http://localhost:5000/api/campaigner-campaigns",
+          "https://api.harekrishnavidya.org/api/campaigner-campaigns",
           {
             cache: "no-store",
             headers: {

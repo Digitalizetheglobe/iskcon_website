@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Heart, Shield, CheckCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
@@ -18,7 +18,7 @@ interface DonationKit {
   slug: string;
 }
 
-export default function DonationKitDetailPage() {
+function DonationKitDetailPageContent() {
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -772,6 +772,25 @@ export default function DonationKitDetailPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function DonationKitDetailPageLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-orange-50">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading donation kit...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function DonationKitDetailPage() {
+  return (
+    <Suspense fallback={<DonationKitDetailPageLoading />}>
+      <DonationKitDetailPageContent />
+    </Suspense>
   );
 }
 
