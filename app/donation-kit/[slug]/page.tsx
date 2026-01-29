@@ -18,6 +18,44 @@ interface DonationKit {
   slug: string;
 }
 
+const normalizeImageUrl = (rawUrl: string, baseUrl: string): string => {
+  const trimmed = (rawUrl || "").trim();
+  if (!trimmed) return trimmed;
+  if (/^data:/i.test(trimmed)) return trimmed;
+
+  let baseOrigin = baseUrl;
+  let baseHost: string | null = null;
+  let baseProtocol: string | null = null;
+  try {
+    const base = new URL(baseUrl);
+    baseOrigin = base.origin;
+    baseHost = base.hostname;
+    baseProtocol = base.protocol;
+  } catch {
+    // keep baseUrl as-is if it's not a valid URL
+  }
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    try {
+      const u = new URL(trimmed);
+      if (u.hostname === "localhost" || u.hostname === "127.0.0.1") {
+        return `${baseOrigin}${u.pathname}${u.search}`;
+      }
+      if (baseHost && baseProtocol && u.hostname === baseHost && u.protocol !== baseProtocol) {
+        return `${baseOrigin}${u.pathname}${u.search}`;
+      }
+      return trimmed;
+    } catch {
+      return trimmed;
+    }
+  }
+
+  const path = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  // Prefer /api/uploads so it works behind proxies forwarding only /api/*
+  const normalizedPath = path.startsWith("/uploads/") ? `/api${path}` : path;
+  return `${baseOrigin}${normalizedPath}`;
+};
+
 function DonationKitDetailPageContent() {
   const params = useParams();
   const router = useRouter();
@@ -51,8 +89,9 @@ function DonationKitDetailPageContent() {
     const fetchKit = async () => {
       try {
         setLoading(true);
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${API_BASE_URL}/donation-kits/slug/${slug}`, {
+        const API_BASE_URL =
+          process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+        const res = await fetch(`${API_BASE_URL}/api/donation-kits/slug/${slug}`, {
           cache: "no-store",
         });
 
@@ -63,7 +102,10 @@ function DonationKitDetailPageContent() {
         const data = await res.json();
 
         if (data.success && data.data) {
-          setKit(data.data);
+          setKit({
+            ...data.data,
+            img: normalizeImageUrl(data.data.img, API_BASE_URL),
+          });
           // Set default selected amount based on URL params or kit price
           if (urlTotal) {
             setSelectedAmount(urlTotal);

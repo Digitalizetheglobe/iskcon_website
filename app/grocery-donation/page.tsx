@@ -17,6 +17,13 @@ interface GroceryItemType {
   quantity: number;
 }
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+const getApiUrl = (endpoint: string) => {
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+  return `${API_BASE_URL}/${cleanEndpoint}`;
+};
 
 const GroceryDonation = () => {
   const router = useRouter();
@@ -29,7 +36,7 @@ const GroceryDonation = () => {
     const fetchGroceryItems = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:5000/api/grocery/items");
+        const res = await fetch(getApiUrl("/api/grocery/items"));
 
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
@@ -92,7 +99,7 @@ const GroceryDonation = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/grocery/selections", {
+      const res = await fetch(getApiUrl("/api/grocery/selections"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

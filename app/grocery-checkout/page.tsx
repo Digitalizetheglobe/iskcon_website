@@ -6,6 +6,14 @@ import Script from "next/script";
 import { ShoppingBasket } from "lucide-react";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+const getBackendApiUrl = (endpoint: string) => {
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+  return `${API_BASE_URL}/${cleanEndpoint}`;
+};
+
 // Minimal Razorpay types for TypeScript
 interface RazorpayHandlerResponse {
   razorpay_order_id: string;
@@ -76,7 +84,9 @@ function GroceryCheckoutContent() {
 
     const fetchSelection = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/grocery/selections/${selectionId}`);
+        const res = await fetch(
+          getBackendApiUrl(`/api/grocery/selections/${selectionId}`)
+        );
 
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
@@ -245,7 +255,7 @@ function GroceryCheckoutContent() {
               };
 
               const groceryRes = await fetch(
-                "http://localhost:5000/api/grocery/donate",
+                getBackendApiUrl("/api/grocery/donate"),
                 {
                   method: "POST",
                   headers: {

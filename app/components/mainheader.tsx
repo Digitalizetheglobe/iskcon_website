@@ -209,6 +209,7 @@ import { IoChevronDown } from "react-icons/io5";
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [showDonation, setShowDonation] = useState(false);
 
   const { appendUTMToUrl } = useUTM();
 
@@ -376,7 +377,7 @@ export default function Header() {
           </Link>
 
           {/* Mobile New Donation Dropdown */}
-          {/* <div className="flex flex-col">
+          <div className="flex flex-col">
             <button
               className="flex items-center justify-between w-full text-left text-lg text-black"
               onClick={() => setShowDonation(!showDonation)}
@@ -431,7 +432,7 @@ export default function Header() {
                 </Link>
               </div>
             )}
-          </div> */}
+          </div>
 
           <Link
             href={appendUTMToUrl("/donation")}

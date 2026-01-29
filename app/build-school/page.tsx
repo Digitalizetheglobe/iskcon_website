@@ -7,6 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+const getBackendApiUrl = (endpoint: string) => {
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+  return `${API_BASE_URL}/${cleanEndpoint}`;
+};
+
 interface FundUtilizationItem {
   name: string;
   percentage: number;
@@ -107,7 +115,7 @@ function BuildSchoolContent() {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:5000/api/campaigns/${id}`,
+          getBackendApiUrl(`/api/campaigns/${id}`),
           {
             cache: "no-store",
             headers: {
@@ -250,7 +258,7 @@ function BuildSchoolContent() {
             // 5) Update build-school campaign totals using existing endpoint
             if (campaign._id) {
               const updateRes = await fetch(
-                "http://localhost:5000/api/build-school/donate",
+                getBackendApiUrl("/api/build-school/donate"),
                 {
                   method: "POST",
                   headers: {

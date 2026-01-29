@@ -102,8 +102,9 @@ export default function Page() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-                const res = await fetch(`${API_BASE_URL}/general-support`, {
+                const API_BASE_URL =
+                    process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+                const res = await fetch(`${API_BASE_URL}/api/general-support`, {
                     cache: "no-store",
                 });
 

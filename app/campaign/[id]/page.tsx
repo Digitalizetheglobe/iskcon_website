@@ -8,6 +8,14 @@ import { Badge } from "@/components/ui/badge";
 import { DONATION_CONFIG, getApiUrl } from "@/app/config/donation";
 import { useParams } from "next/navigation";
 
+const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+const getBackendApiUrl = (endpoint: string) => {
+    const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+    return `${API_BASE_URL}/${cleanEndpoint}`;
+};
+
 interface FundUtilizationItem {
     name: string;
     percentage: number;
@@ -98,7 +106,7 @@ const CampaignDetail = () => {
                 setLoading(true);
 
                 const res = await fetch(
-                    `http://localhost:5000/api/campaigns/${id}`,
+                    getBackendApiUrl(`/api/campaigns/${id}`),
                     {
                         cache: "no-store",
                         headers: {
@@ -242,7 +250,7 @@ const CampaignDetail = () => {
                         // 5) Update campaign totals
                         if (campaign.id) {
                             const updateRes = await fetch(
-                                "http://localhost:5000/api/campaigns/donate",
+                                getBackendApiUrl("/api/campaigns/donate"),
                                 {
                                     method: "POST",
                                     headers: {

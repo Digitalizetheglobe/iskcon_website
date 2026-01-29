@@ -25,6 +25,14 @@ interface Campaign {
   featured: boolean;
 }
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+const getBackendApiUrl = (endpoint: string) => {
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+  return `${API_BASE_URL}/${cleanEndpoint}`;
+};
+
 
 
 const Campaigns = () => {
@@ -34,7 +42,7 @@ const Campaigns = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/campaigns",
+          getBackendApiUrl("/api/campaigns"),
           { cache: "no-store" }
         );
 

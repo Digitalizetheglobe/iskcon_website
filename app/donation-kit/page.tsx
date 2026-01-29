@@ -20,8 +20,67 @@ const Donationkit = () => {
     highlight: string;
     slug?: string;
   };
+
+  type ApiTestimonial = {
+    _id?: string;
+    fullName?: string;
+    testimonialText?: string;
+    rating?: number;
+    date?: string;
+    location?: string;
+    createdAt?: string;
+    updatedAt?: string;
+  };
+
+  type TestimonialCard = {
+    name: string;
+    role: string;
+    text: string;
+    img: string;
+  };
+
+  const avatarDataUri = (name: string) => {
+    const initials = (name || "")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase() ?? "")
+      .join("");
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="100%" height="100%" rx="48" fill="#FF7F2A"/><text x="50%" y="54%" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#FFFFFF" font-weight="700">${initials || "U"}</text></svg>`;
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  };
+
+  const staticTestimonials: TestimonialCard[] = [
+    {
+      name: "Priya Sharma",
+      role: "Regular Donor",
+      text: "Seeing the impact of my donations on children's education has been incredibly fulfilling. This organization makes it so easy to make a real difference.",
+      img: avatarDataUri("Priya Sharma"),
+    },
+    {
+      name: "Rajesh Kumar",
+      role: "Corporate Sponsor",
+      text: "The transparency and dedication shown is outstanding. I know exactly where my contribution goes and how it helps families.",
+      img: avatarDataUri("Rajesh Kumar"),
+    },
+    {
+      name: "Anita Desai",
+      role: "Monthly Contributor",
+      text: "Supporting this cause has changed my perspective on giving. The grocery kits ensure no family goes hungry, and that means everything to me.",
+      img: avatarDataUri("Anita Desai"),
+    },
+    {
+      name: "Vikram Patel",
+      role: "Volunteer & Donor",
+      text: "I've witnessed firsthand how these education kits transform lives. Supporting this organization is one of the best decisions I've made.",
+      img: avatarDataUri("Vikram Patel"),
+    },
+  ];
   const [isGuidanceDialogOpen, setIsGuidanceDialogOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [packsError, setPacksError] = useState<string | null>(null);
   const validatePhone = (value: string) => {
     const phoneRegex = /^[6-9]\d{9}$/; // 10 digits, starts 6–9
     if (!phoneRegex.test(value)) {
@@ -33,60 +92,9 @@ const Donationkit = () => {
 
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
-
-  // Default packs as fallback
-  const defaultPacks: Pack[] = [
-    {
-      title: "Education Support Pack",
-      price: 750,
-      quantity: 1,
-      total: 750,
-      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      description:
-        "School supplies, books, and learning resources to help a child succeed in their learning journey.",
-      included: [
-        "3–5 Recycled Notebooks",
-        "2 Blue Pens",
-        "Pencils & Eraser",
-        "Geometry Box",
-        "+ 2 more items",
-      ],
-      highlight: "Supports one child's education for an entire term",
-    },
-
-    {
-      title: "Nutritious Meal Pack",
-      price: 1200,
-      quantity: 4,
-      total: 4800,
-      img: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      description:
-        "Millet-based nutritious food providing essential nourishment for growing children.",
-      included: ["Rico 10Kg", "Millets 5Kg", "Dal 5Kg", "Wheat Flour 5Kg", "+ 2 more items"],
-      highlight: "Provides nutritious meals for underprivileged children",
-    },
-
-    {
-      title: "Learning Center Package",
-      price: 35000,
-      quantity: 1,
-      total: 35000,
-      img: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      description:
-        "Complete setup for Aikya Vidya learning centers including teaching materials and infrastructure.",
-      included: [
-        "Green Board & Stand",
-        "Charts & Teaching Materials",
-        "Steel Plates & Glasses (50 sets)",
-        "Floor Mats",
-        "+ 2 more items",
-      ],
-      highlight:
-        "Establishes a learning center serving 50+ children with 2 hours of daily education",
-    },
-  ];
-
-  const [packs, setPacks] = useState<Pack[]>(defaultPacks);
+  const [packs, setPacks] = useState<Pack[]>([]);
+  const [testimonials, setTestimonials] =
+    useState<TestimonialCard[]>(staticTestimonials);
 
   // Guidance form state
   const [guidanceName, setGuidanceName] = useState("");
@@ -102,8 +110,52 @@ const Donationkit = () => {
     const loadDonationKits = async () => {
       try {
         setLoading(true);
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${API_BASE_URL}/donation-kits?active=true`, {
+        setPacksError(null);
+        const API_BASE_URL =
+          process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
+
+        const normalizeImageUrl = (rawUrl: string, baseUrl: string): string => {
+          const trimmed = (rawUrl || "").trim();
+          if (!trimmed) return trimmed;
+          if (/^data:/i.test(trimmed)) return trimmed;
+
+          let baseOrigin = baseUrl;
+          let baseHost: string | null = null;
+          let baseProtocol: string | null = null;
+          try {
+            const base = new URL(baseUrl);
+            baseOrigin = base.origin;
+            baseHost = base.hostname;
+            baseProtocol = base.protocol;
+          } catch {
+            // keep baseUrl as-is if it's not a valid URL
+          }
+
+          // If stored as absolute localhost URL (often from local dashboard uploads),
+          // rewrite to current API base origin so it works on live.
+          if (/^https?:\/\//i.test(trimmed)) {
+            try {
+              const u = new URL(trimmed);
+              if (u.hostname === "localhost" || u.hostname === "127.0.0.1") {
+                return `${baseOrigin}${u.pathname}${u.search}`;
+              }
+              // Fix mixed-content / protocol mismatch (e.g. http image on https site)
+              if (baseHost && baseProtocol && u.hostname === baseHost && u.protocol !== baseProtocol) {
+                return `${baseOrigin}${u.pathname}${u.search}`;
+              }
+              return trimmed;
+            } catch {
+              return trimmed;
+            }
+          }
+
+          // Relative path -> make it absolute from API origin
+          const path = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+          // Prefer /api/uploads so it works behind proxies forwarding only /api/*
+          const normalizedPath = path.startsWith("/uploads/") ? `/api${path}` : path;
+          return `${baseOrigin}${normalizedPath}`;
+        };
+        const res = await fetch(`${API_BASE_URL}/api/donation-kits?active=true`, {
           cache: "no-store",
         });
 
@@ -121,7 +173,7 @@ const Donationkit = () => {
             price: kit.price,
             quantity: kit.quantity || 1,
             total: kit.price * (kit.quantity || 1),
-            img: kit.img,
+            img: normalizeImageUrl(kit.img, API_BASE_URL),
             description: kit.description,
             included: kit.included || [],
             highlight: kit.highlight,
@@ -129,12 +181,13 @@ const Donationkit = () => {
           }));
           setPacks(transformedPacks);
         } else {
-          // If API returns empty array, keep default packs
-          console.log("No donation kits found in API, using default packs");
+          // No kits in dashboard/API
+          setPacks([]);
         }
       } catch (error) {
         console.error("Error loading donation kits:", error);
-        // Keep default packs on error
+        setPacks([]);
+        setPacksError("Unable to load donation kits right now.");
       } finally {
         setLoading(false);
       }
@@ -143,32 +196,47 @@ const Donationkit = () => {
     loadDonationKits();
   }, []);
 
-  const testimonials = [
-    {
-      name: "Priya Sharma",
-      role: "Regular Donor",
-      text: "Seeing the impact of my donations on children's education has been incredibly fulfilling. This organization makes it so easy to make a real difference.",
-      img: "/t1.png",
-    },
-    {
-      name: "Rajesh Kumar",
-      role: "Corporate Sponsor",
-      text: "The transparency and dedication shown is outstanding. I know exactly where my contribution goes and how it helps families.",
-      img: "/t2.png",
-    },
-    {
-      name: "Anita Desai",
-      role: "Monthly Contributor",
-      text: "Supporting this cause has changed my perspective on giving. The grocery kits ensure no family goes hungry, and that means everything to me.",
-      img: "/t3.png",
-    },
-    {
-      name: "Vikram Patel",
-      role: "Volunteer & Donor",
-      text: "I've witnessed firsthand how these education kits transform lives. Supporting this organization is one of the best decisions I've made.",
-      img: "/t4.png",
-    },
-  ];
+  // Fetch testimonials from CMS API (fallback to staticTestimonials)
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const API_BASE_URL =
+          process.env.NEXT_PUBLIC_API_BASE_URL ||
+          "https://api.harekrishnavidya.org";
+
+        const res = await fetch(`${API_BASE_URL}/api/testimonials`, {
+          cache: "no-store",
+        });
+
+        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+
+        const data = (await res.json()) as unknown;
+        const list = Array.isArray(data) ? (data as ApiTestimonial[]) : [];
+
+        const mapped: TestimonialCard[] = list
+          .map((t, idx) => {
+            const name = (t?.fullName || "").trim() || `Donor ${idx + 1}`;
+            const text = (t?.testimonialText || "").trim();
+            const role = (t?.location || "").trim() || "Donor";
+
+            return {
+              name,
+              role,
+              text,
+              img: avatarDataUri(name),
+            };
+          })
+          .filter((t) => t.text.length > 0);
+
+        setTestimonials(mapped.length > 0 ? mapped : staticTestimonials);
+      } catch (error) {
+        console.error("Error loading testimonials:", error);
+        setTestimonials(staticTestimonials);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
 
   const increment = (index: number): void => {
     setPacks((prev) =>
@@ -502,6 +570,14 @@ const Donationkit = () => {
                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 <p className="mt-4 text-muted-foreground">Loading donation kits...</p>
               </div>
+            ) : packsError ? (
+              <div className="text-center py-20">
+                <p className="text-muted-foreground">{packsError}</p>
+              </div>
+            ) : packs.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-muted-foreground">No donation kits available right now.</p>
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 {packs.map((pack, i) => (
@@ -823,6 +899,7 @@ const Donationkit = () => {
                   alt={item.name}
                   width={48}
                   height={48}
+                  unoptimized
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div className="leading-tight">

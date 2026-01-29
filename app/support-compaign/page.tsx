@@ -3,8 +3,11 @@ import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { DONATION_CONFIG } from "@/app/config/donation";
-import { Heart, Share2, Facebook, Instagram } from "lucide-react";
+import { Heart, Facebook, Instagram, Youtube } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+
+const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
 
 // Declare Razorpay types
 declare global {
@@ -102,7 +105,7 @@ function SupportCampaignContent() {
                     setError(null);
 
                     const res = await fetch(
-                        `http://localhost:5000/api/campaigner-campaigns/${id}`,
+                        `${API_BASE_URL}/api/campaigner-campaigns/${id}`,
                         {
                             cache: "no-store",
                             headers: {
@@ -176,7 +179,7 @@ function SupportCampaignContent() {
                     setError(null);
 
                     const res = await fetch(
-                        "http://localhost:5000/api/support-campaign",
+                        `${API_BASE_URL}/api/support-campaign`,
                         {
                             cache: "no-store",
                             headers: {
@@ -323,7 +326,7 @@ function SupportCampaignContent() {
                 notes: `Donation for ${campaignData.title}`,
             };
 
-            const apiBaseUrl = process.env.NEXT_PUBLIC_DONATION_API_URL || "http://localhost:5000/api/donations";
+            const apiBaseUrl = DONATION_CONFIG.API_BASE_URL;
             const submitResponse = await fetch(`${apiBaseUrl}/submit-form`, {
                 method: "POST",
                 headers: {
@@ -809,23 +812,41 @@ function SupportCampaignContent() {
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 flex-wrap">
                                 <span className="font-bold text-[#32241B]">Share:</span>
 
-                                {/* WhatsApp (Generic Share) */}
-                                <button className="flex items-center gap-2 px-4 py-2 border-2 border-green-300 rounded-xl bg-green-50 hover:bg-green-100 transition text-green-700 text-sm sm:text-base">
-                                    <Share2 className="w-5 h-5" />
-                                    WhatsApp
-                                </button>
+                                {/* YouTube */}
+                                <a
+                                    href="http://www.youtube.com/@HarekrishnaVidya"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="YouTube"
+                                    className="flex items-center gap-2 px-4 py-2 border-2 border-red-300 rounded-xl bg-red-50 hover:bg-red-100 transition text-red-700 text-sm sm:text-base"
+                                >
+                                    <Youtube className="w-5 h-5" />
+                                    YouTube
+                                </a>
 
                                 {/* Facebook */}
-                                <button className="flex items-center gap-2 px-4 py-2 border-2 border-blue-300 rounded-xl bg-blue-50 hover:bg-blue-100 transition text-blue-700 text-sm sm:text-base">
+                                <a
+                                    href="https://www.facebook.com/people/Hare-Krishna-Vidya/pfbid05sv1xecw33n1XMN9WmiSoUNLmiQGf1xVwnW7znm2CaTcpShPSPjBKQZ2i1E9uqqpl/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Facebook"
+                                    className="flex items-center gap-2 px-4 py-2 border-2 border-blue-300 rounded-xl bg-blue-50 hover:bg-blue-100 transition text-blue-700 text-sm sm:text-base"
+                                >
                                     <Facebook className="w-5 h-5" />
                                     Facebook
-                                </button>
+                                </a>
 
                                 {/* Instagram */}
-                                <button className="flex items-center gap-2 px-4 py-2 border-2 border-pink-300 rounded-xl bg-pink-50 hover:bg-pink-100 transition text-pink-700 text-sm sm:text-base">
+                                <a
+                                    href="https://www.instagram.com/harekrishnavidya_official/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Instagram"
+                                    className="flex items-center gap-2 px-4 py-2 border-2 border-pink-300 rounded-xl bg-pink-50 hover:bg-pink-100 transition text-pink-700 text-sm sm:text-base"
+                                >
                                     <Instagram className="w-5 h-5" />
                                     Instagram
-                                </button>
+                                </a>
                             </div>
                         </div>
 
