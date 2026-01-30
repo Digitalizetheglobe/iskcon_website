@@ -112,6 +112,20 @@ interface ApiResponse {
   };
 }
 
+type FoodDonationOption =
+  | { key: string; children: number; amount: number }
+  | { key: string; title: string; amount: number };
+
+type GiftFutureOption =
+  | { key: string; children: number; amount: number; yearText?: string }
+  | { key: string; title: string; amount: number; yearText?: string };
+
+type GiftLearningOption =
+  | { key: string; children: number; amount: number; yearText?: string }
+  | { key: string; title: string; amount: number; yearText?: string };
+
+type GiftLearningSpecialOption = { key: string; title: string; amount: number };
+
 // Helper function to extract children count from text
 const extractChildrenCount = (text: string): number | null => {
   // Try to extract number from text like "Feed 100 Children", "Sponsor 2 Children", etc.
@@ -128,18 +142,28 @@ const formatIndianCurrency = (amount: number) => {
 function AnnadanCard({
   childrenCount,
   amount,
+  title,
 }: {
-  childrenCount: number;
+  childrenCount?: number;
   amount: number;
+  title?: string;
 }) {
   const { appendUTMToUrl } = useUTM();
+  const heading =
+    title ?? (childrenCount !== undefined ? `Feed ${childrenCount} Children` : "Donate");
+  const purpose =
+    title
+      ? `${title} - Annadan Seva`
+      : childrenCount !== undefined
+        ? `Serve ${childrenCount} Children - Annadan Seva`
+        : "Annadan Seva";
 
   return (
     <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-blue-900 hover:border-blue-900">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-900 via-blue-900 to-blue-900"></div>
       <div className="p-8 text-center">
         <h3 className="font-bold text-xl mb-3 text-gray-800 leading-tight">
-          Feed {childrenCount} Children
+          {heading}
         </h3>
         <div className="mb-6">
           <span className="text-3xl font-extrabold text-black">
@@ -149,7 +173,7 @@ function AnnadanCard({
         <Link
           href={appendUTMToUrl(
             `/donate?purpose=${encodeURIComponent(
-              `Serve ${childrenCount} Children - Annadan Seva`
+              purpose
             )}&amount=${amount}`
           )}
         >
@@ -231,11 +255,44 @@ export default function DonationPage() {
   const { appendUTMToUrl } = useUTM();
 
   // State for API data
-  const [donationOptions, setDonationOptions] = useState(defaultDonationOptions);
-  const [sponsorshipOptions, setSponsorshipOptions] = useState(defaultSponsorshipOptions);
-  const [academicYearOptions, setAcademicYearOptions] = useState(defaultAcademicYearOptions);
-  const [monthlyOptions, setMonthlyOptions] = useState(defaultMonthlyOptions);
-  const [specialOptions, setSpecialOptions] = useState(defaultSpecialOptions);
+  const [donationOptions, setDonationOptions] = useState<FoodDonationOption[]>(
+    defaultDonationOptions.map(({ children, amount }) => ({
+      key: `default-food-${children}`,
+      children,
+      amount,
+    }))
+  );
+  const [sponsorshipOptions, setSponsorshipOptions] = useState<GiftFutureOption[]>(
+    defaultSponsorshipOptions.map(({ children, amount }) => ({
+      key: `default-giftFuture-${children}`,
+      children,
+      amount,
+      yearText: "Food and Education for 1 Year",
+    }))
+  );
+  const [academicYearOptions, setAcademicYearOptions] = useState<GiftLearningOption[]>(
+    defaultAcademicYearOptions.map(({ children, amount }) => ({
+      key: `default-giftLearning-year-${children}`,
+      children,
+      amount,
+      yearText: "for 1 Academic Year",
+    }))
+  );
+  const [monthlyOptions, setMonthlyOptions] = useState<GiftLearningOption[]>(
+    defaultMonthlyOptions.map(({ children, amount }) => ({
+      key: `default-giftLearning-month-${children}`,
+      children,
+      amount,
+      yearText: "for 1 Month",
+    }))
+  );
+  const [specialOptions, setSpecialOptions] = useState<GiftLearningSpecialOption[]>(
+    defaultSpecialOptions.map(({ title, amount }) => ({
+      key: `default-giftLearning-special-${title}`,
+      title,
+      amount,
+    }))
+  );
   const [, setIsLoading] = useState(true);
   const [, setError] = useState<string | null>(null);
   
@@ -405,15 +462,14 @@ export default function DonationPage() {
         // ---- FOOD ----
         if (result.data.food?.length) {
           const mappedFood = result.data.food
-            .map(card => {
+            .map((card): FoodDonationOption => {
               const children = extractChildrenCount(card.text);
-              return children ? { children, amount: card.amount } : null;
+              if (children !== null) {
+                return { key: card._id, children, amount: card.amount };
+              }
+              return { key: card._id, title: card.text, amount: card.amount };
             })
-            .filter(Boolean)
-            .sort((a, b) => a!.amount - b!.amount) as {
-              children: number;
-              amount: number;
-            }[];
+            .sort((a, b) => a.amount - b.amount);
 
           if (mappedFood.length) setDonationOptions(mappedFood);
         }
@@ -421,24 +477,33 @@ export default function DonationPage() {
         // ---- GIFT FUTURE ----
         if (result.data.giftFuture?.length) {
           const mapped = result.data.giftFuture
-            .map(card => {
+            .map((card): GiftFutureOption => {
               const children = extractChildrenCount(card.text);
-              return children ? { children, amount: card.amount } : null;
+              if (children !== null) {
+                return {
+                  key: card._id,
+                  children,
+                  amount: card.amount,
+                  yearText: card.yearText,
+                };
+              }
+              return {
+                key: card._id,
+                title: card.text,
+                amount: card.amount,
+                yearText: card.yearText,
+              };
             })
-            .filter(Boolean)
-            .sort((a, b) => a!.amount - b!.amount) as {
-              children: number;
-              amount: number;
-            }[];
+            .sort((a, b) => a.amount - b.amount);
 
           if (mapped.length) setSponsorshipOptions(mapped);
         }
 
         // ---- GIFT LEARNING ----
         if (result.data.giftLearning?.length) {
-          const academicYear: Array<{ children: number; amount: number }> = [];
-          const monthly: Array<{ children: number; amount: number }> = [];
-          const special: Array<{ title: string; amount: number }> = [];
+          const academicYear: GiftLearningOption[] = [];
+          const monthly: GiftLearningOption[] = [];
+          const special: GiftLearningSpecialOption[] = [];
 
           result.data.giftLearning.forEach(card => {
             const children = extractChildrenCount(card.text);
@@ -446,17 +511,45 @@ export default function DonationPage() {
             const yearText = (card.yearText || "").toLowerCase();
 
             if (text.includes("village") || text.includes("entire")) {
-              special.push({ title: card.text, amount: card.amount });
+              special.push({ key: card._id, title: card.text, amount: card.amount });
             } else if (text.includes("academic") || yearText.includes("year")) {
-              if (children) academicYear.push({ children, amount: card.amount });
+              if (children !== null) {
+                academicYear.push({
+                  key: card._id,
+                  children,
+                  amount: card.amount,
+                  yearText: card.yearText,
+                });
+              } else {
+                academicYear.push({
+                  key: card._id,
+                  title: card.text,
+                  amount: card.amount,
+                  yearText: card.yearText,
+                });
+              }
             } else {
-              if (children) monthly.push({ children, amount: card.amount });
+              if (children !== null) {
+                monthly.push({
+                  key: card._id,
+                  children,
+                  amount: card.amount,
+                  yearText: card.yearText,
+                });
+              } else {
+                monthly.push({
+                  key: card._id,
+                  title: card.text,
+                  amount: card.amount,
+                  yearText: card.yearText,
+                });
+              }
             }
           });
 
-          if (academicYear.length) setAcademicYearOptions(academicYear);
-          if (monthly.length) setMonthlyOptions(monthly);
-          if (special.length) setSpecialOptions(special);
+          if (academicYear.length) setAcademicYearOptions(academicYear.sort((a, b) => a.amount - b.amount));
+          if (monthly.length) setMonthlyOptions(monthly.sort((a, b) => a.amount - b.amount));
+          if (special.length) setSpecialOptions(special.sort((a, b) => a.amount - b.amount));
         }
 
       } catch (err) {
@@ -586,13 +679,17 @@ export default function DonationPage() {
 
         {/* All donation cards visible on all screen sizes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {donationOptions.map(({ children, amount }) => (
-            <AnnadanCard
-              key={children}
-              childrenCount={children}
-              amount={amount}
-            />
-          ))}
+          {donationOptions.map((opt) =>
+            "children" in opt ? (
+              <AnnadanCard
+                key={opt.key}
+                childrenCount={opt.children}
+                amount={opt.amount}
+              />
+            ) : (
+              <AnnadanCard key={opt.key} title={opt.title} amount={opt.amount} />
+            )
+          )}
         </div>
 
         {/* Special Section Centered */}
@@ -637,30 +734,32 @@ export default function DonationPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* First 2 Academic Year Options */}
           <>
-            {academicYearOptions.slice(0, 2).map(({ children, amount }) => (
+            {academicYearOptions.slice(0, 2).map((opt) => (
               <div
-                key={`year-${children}`}
+                key={opt.key}
                 className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-orange-500"
               >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
 
                 <div className="p-8">
                   <h3 className="font-bold text-xl text-gray-800 mb-1">
-                    Sponsor {children} Child{children > 1 ? "ren" : ""}{" "}
-                    Education
+                    {"children" in opt
+                      ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education`
+                      : opt.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    for 1 Academic Year
+                    {opt.yearText || "for 1 Academic Year"}
                   </p>
                   <p className="text-3xl font-extrabold text-black mb-6">
-                    ₹ {formatIndianCurrency(amount)}
+                    ₹ {formatIndianCurrency(opt.amount)}
                   </p>
                   <Link
                     href={appendUTMToUrl(
                       `/donate?purpose=${encodeURIComponent(
-                        `Sponsor ${children} Child${children > 1 ? "ren" : ""
-                        } Education for 1 Academic Year`
-                      )}&amount=${amount}`
+                        "children" in opt
+                          ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education for 1 Academic Year`
+                          : opt.title
+                      )}&amount=${opt.amount}`
                     )}
                   >
                     <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-semibold px-6 py-3 rounded-xl  transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
@@ -673,30 +772,32 @@ export default function DonationPage() {
 
             {/* Remaining Academic Year Options - only shown on lg+ */}
             <div className="hidden lg:contents">
-              {academicYearOptions.slice(2).map(({ children, amount }) => (
+              {academicYearOptions.slice(2).map((opt) => (
                 <div
-                  key={`year-${children}`}
+                  key={opt.key}
                   className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-orange-500"
                 >
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500 "></div>
 
                   <div className="p-8">
                     <h3 className="font-bold text-xl text-gray-800 mb-1">
-                      Sponsor {children} Child{children > 1 ? "ren" : ""}{" "}
-                      Education
+                      {"children" in opt
+                        ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education`
+                        : opt.title}
                     </h3>
                     <p className="text-sm text-gray-600 mb-4">
-                      for 1 Academic Year
+                      {opt.yearText || "for 1 Academic Year"}
                     </p>
                     <p className="text-3xl font-extrabold text-black mb-6">
-                      ₹ {formatIndianCurrency(amount)}
+                      ₹ {formatIndianCurrency(opt.amount)}
                     </p>
                     <Link
                       href={appendUTMToUrl(
                         `/donate?purpose=${encodeURIComponent(
-                          `Sponsor ${children} Child${children > 1 ? "ren" : ""
-                          } Education for 1 Academic Year`
-                        )}&amount=${amount}`
+                          "children" in opt
+                            ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education for 1 Academic Year`
+                            : opt.title
+                        )}&amount=${opt.amount}`
                       )}
                     >
                       <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-semibold px-6 py-3 rounded-xl  transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
@@ -710,27 +811,30 @@ export default function DonationPage() {
           </>
 
           {/* Monthly Options */}
-          {monthlyOptions.slice(0).map(({ children, amount }) => (
+          {monthlyOptions.slice(0).map((opt) => (
             <div
-              key={`month-${children}`}
+              key={opt.key}
               className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-orange-500"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
 
               <div className="p-8">
                 <h3 className="font-bold text-xl text-gray-800 mb-1">
-                  Sponsor {children} Child{children > 1 ? "ren" : ""} Education
+                  {"children" in opt
+                    ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education`
+                    : opt.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">for 1 Month</p>
+                <p className="text-sm text-gray-600 mb-4">{opt.yearText || "for 1 Month"}</p>
                 <p className="text-3xl font-extrabold text-black mb-6">
-                  ₹ {formatIndianCurrency(amount)}
+                  ₹ {formatIndianCurrency(opt.amount)}
                 </p>
                 <Link
                   href={appendUTMToUrl(
                     `/donate?purpose=${encodeURIComponent(
-                      `Sponsor ${children} Child${children > 1 ? "ren" : ""
-                      } Education for 1 Month`
-                    )}&amount=${amount}`
+                      "children" in opt
+                        ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} Education for 1 Month`
+                        : opt.title
+                    )}&amount=${opt.amount}`
                   )}
                 >
                   <button className="bg-gradient-to-r from-orange-500 to-orange-500 text-white font-semibold px-6 py-3 rounded-xl  transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
@@ -742,9 +846,9 @@ export default function DonationPage() {
           ))}
 
           {/* Special Options */}
-          {specialOptions.map(({ title, amount }, index) => (
+          {specialOptions.map(({ key, title, amount }) => (
             <div
-              key={`special-${index}`}
+              key={key}
               className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-orange-500"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-500"></div>
@@ -788,9 +892,9 @@ export default function DonationPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <>
             {/* First 2 cards - always visible */}
-            {sponsorshipOptions.slice(0, 2).map(({ children, amount }) => (
+            {sponsorshipOptions.slice(0, 2).map((opt) => (
               <div
-                key={children}
+                key={opt.key}
                 className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900"
               >
                 {/* Decorative top accent */}
@@ -798,20 +902,23 @@ export default function DonationPage() {
 
                 <div className="p-8">
                   <h3 className="font-bold text-xl text-gray-800 mb-1">
-                    Sponsor {children} Child{children > 1 ? "ren" : ""}
+                    {"children" in opt
+                      ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""}`
+                      : opt.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Food and Education for 1 Year
+                    {opt.yearText || "Food and Education for 1 Year"}
                   </p>
                   <p className="text-3xl font-extrabold text-black mb-6">
-                    ₹ {formatIndianCurrency(amount)}
+                    ₹ {formatIndianCurrency(opt.amount)}
                   </p>
                   <Link
                     href={appendUTMToUrl(
                       `/donate?purpose=${encodeURIComponent(
-                        `Sponsor ${children} Child${children > 1 ? "ren" : ""
-                        } - Food and Education`
-                      )}&amount=${amount}`
+                        "children" in opt
+                          ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} - Food and Education`
+                          : opt.title
+                      )}&amount=${opt.amount}`
                     )}
                   >
                     <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl hover:[#002A42]/20 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">
@@ -824,9 +931,9 @@ export default function DonationPage() {
 
             {/* Remaining cards - visible only on md+ */}
             <div className="hidden md:contents">
-              {sponsorshipOptions.slice(2).map(({ children, amount }) => (
+              {sponsorshipOptions.slice(2).map((opt) => (
                 <div
-                  key={children}
+                  key={opt.key}
                   className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border-2 border-blue-900"
                 >
                   {/* Decorative top accent */}
@@ -834,20 +941,23 @@ export default function DonationPage() {
 
                   <div className="p-8">
                     <h3 className="font-bold text-xl text-gray-800 mb-1">
-                      Sponsor {children} Child{children > 1 ? "ren" : ""}
+                      {"children" in opt
+                        ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""}`
+                        : opt.title}
                     </h3>
                     <p className="text-sm text-gray-600 mb-4">
-                      Food and Education for 1 Year
+                      {opt.yearText || "Food and Education for 1 Year"}
                     </p>
                     <p className="text-3xl font-extrabold text-black mb-6">
-                      ₹ {formatIndianCurrency(amount)}
+                      ₹ {formatIndianCurrency(opt.amount)}
                     </p>
                     <Link
                       href={appendUTMToUrl(
                         `/donate?purpose=${encodeURIComponent(
-                          `Sponsor ${children} Child${children > 1 ? "ren" : ""
-                          } - Food and Education`
-                        )}&amount=${amount}`
+                          "children" in opt
+                            ? `Sponsor ${opt.children} Child${opt.children > 1 ? "ren" : ""} - Food and Education`
+                            : opt.title
+                        )}&amount=${opt.amount}`
                       )}
                     >
                       <button className="bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold px-6 py-3 rounded-xl  transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 w-fit cursor-pointer">

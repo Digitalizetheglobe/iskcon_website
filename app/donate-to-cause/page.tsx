@@ -194,13 +194,19 @@ const Campaigns = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-xl p-4 border-2 border-primary/40">
+                      <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-primary mb-1" />
+                      <span className="text-sm text-[#847062]">Supporters:</span>
+                      </div>
                       <div className="text-2xl font-bold">
                         {campaign.supporters}
                       </div>
                     </div>
                     <div className="rounded-xl p-4 border-2 border-primary/40">
+                      <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-primary mb-1" />
+                      <span className="text-sm text-[#847062]">Days Left:</span>
+                      </div>
                       <div className="text-2xl font-bold">
                         {calculateDaysLeft(campaign.deadline)}
                       </div>

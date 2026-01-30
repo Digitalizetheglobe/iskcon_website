@@ -44,6 +44,15 @@ interface Campaign {
   fundUtilization?: FundUtilizationItem[];
 }
 
+interface Testimonial {
+  _id?: string;
+  fullName: string;
+  location: string;
+  testimonialText: string;
+  date?: string;
+  rating?: number;
+}
+
 // Minimal Razorpay types for TypeScript
 interface RazorpayHandlerResponse {
   razorpay_order_id: string;
@@ -86,6 +95,9 @@ function BuildSchoolContent() {
 
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
 
   const [showCustomAmount, setShowCustomAmount] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -145,6 +157,46 @@ function BuildSchoolContent() {
     fetchCampaign();
   }, [id]);
 
+  // Fetch testimonials from API (managed in CMS-FE)
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        setTestimonialsLoading(true);
+        const res = await fetch(getBackendApiUrl("/api/testimonials/"), {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+          },
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          console.error("Failed to fetch testimonials:", res.status, errorData);
+          throw new Error(errorData.message || "Failed to fetch testimonials");
+        }
+
+        const data = await res.json();
+        setTestimonials(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Failed to fetch testimonials", err);
+        setTestimonials([]);
+      } finally {
+        setTestimonialsLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  const getInitials = (name?: string) => {
+    const cleaned = (name ?? "").trim();
+    if (!cleaned) return "?";
+    const parts = cleaned.split(/\s+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+  };
+
   // Calculate progress percentage
   const progressPercentage = campaign
     ? Math.min((campaign.raisedAmount / campaign.goalAmount) * 100, 100)
@@ -165,7 +217,12 @@ function BuildSchoolContent() {
 
   // Handle donation submission
   const handleDonate = async () => {
-    if (!campaign || !selectedAmount) {
+    if (
+      !campaign ||
+      typeof selectedAmount !== "number" ||
+      !Number.isFinite(selectedAmount) ||
+      selectedAmount <= 0
+    ) {
       alert("Please select an amount to donate");
       return;
     }
@@ -327,12 +384,28 @@ function BuildSchoolContent() {
 
   // Handle custom amount input
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setCustomAmount(value);
-    if (value) {
-      setSelectedAmount(Number(value));
+    const raw = e.target.value;
+    setCustomAmount(raw);
+
+    // When user clears/backspaces, also clear the selected amount
+    if (!raw) {
+      setSelectedAmount(null);
+      return;
     }
+
+    const parsed = Number(raw);
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+      setSelectedAmount(null);
+      return;
+    }
+
+    // Donations should be whole rupees
+    setSelectedAmount(Math.floor(parsed));
   };
+  const isValidSelectedAmount =
+    typeof selectedAmount === "number" &&
+    Number.isFinite(selectedAmount) &&
+    selectedAmount > 0;
   const stories = [
     {
       id: 1,
@@ -352,20 +425,6 @@ function BuildSchoolContent() {
       title: "How One Meal Changed Everything",
       author: "Ravi’s Family · Beneficiary",
       text: `Nutritious meals helped Ravi focus in school. His grades improved & his mother says it gave him hope.`,
-    },
-  ];
-  const testimonials = [
-    {
-      name: 'Lakshmi Devi',
-      role: 'Parent, Komarolu Village',
-      quote: "My children currently study under a tree. This school will change their lives forever. Thank you for giving them hope.",
-      imageSrc: '/images/lakshmi-devi.jpg', // Replace with the actual path to Lakshmi Devi's image
-    },
-    {
-      name: 'Ravi Kumar',
-      role: 'Village Sarpanch',
-      quote: "This is the biggest development our village has seen in decades. Education is the key to breaking the cycle of poverty.",
-      imageSrc: '/images/ravi-kumar.jpg', // Replace with the actual path to Ravi Kumar's image
     },
   ];
   return (
@@ -894,38 +953,40 @@ function BuildSchoolContent() {
             <div className="mt-16">
               <h2 className="text-4xl font-black text-[#2D1B0F]">Community Voices</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8 " >
-                {testimonials.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    // Background and border style to mimic the card
-                    className="bg-[#fcf8f5] p-6 rounded-lg shadow-md  border-2 border-primary/40  flex flex-col"
-                  >
-                    <div className="flex items-center mb-4">
-                      {/* Image Container */}
-                      <div className="w-16 h-16 rounded-full overflow-hidden mr-4 relative border-2 border-[#f5e0d3]">
-                        <Image
-                          src={testimonial.imageSrc}
-                          alt={testimonial.name}
-                          layout="fill"
-                          objectFit="cover"
-                        // Optional: Add a placeholder while loading
-                        // placeholder="blur"
-                        // blurDataURL="..." 
-                        />
-                      </div>
-                      <div>
-                        {/* Name */}
-                        <p className="text-lg font-bold text-[#443026]">{testimonial.name}</p>
-                        {/* Role/Village */}
-                        <p className="text-sm text-[#847062]">{testimonial.role}</p>
-                      </div>
-                    </div>
-                    {/* Quote */}
-                    <blockquote className="text-sm italic text-[#847062] leading-relaxed mt-2">
-                      &quot;{testimonial.quote}&quot;
-                    </blockquote>
+                {testimonialsLoading ? (
+                  <div className="col-span-full text-sm text-[#847062]">
+                    Loading testimonials...
                   </div>
-                ))}
+                ) : testimonials.length === 0 ? (
+                  <div className="col-span-full text-sm text-[#847062]">
+                    No testimonials available right now.
+                  </div>
+                ) : (
+                  testimonials.map((testimonial) => (
+                    <div
+                      key={testimonial._id || `${testimonial.fullName}-${testimonial.date ?? ""}`}
+                      className="bg-[#fcf8f5] p-6 rounded-lg shadow-md border-2 border-primary/40 flex flex-col"
+                    >
+                      <div className="flex items-center mb-4">
+                        {/* Avatar (API has no image field) */}
+                        <div className="w-16 h-16 rounded-full mr-4 border-2 border-[#f5e0d3] bg-primary text-white flex items-center justify-center font-black text-xl">
+                          {getInitials(testimonial.fullName)}
+                        </div>
+                        <div>
+                          <p className="text-lg font-bold text-[#443026]">
+                            {testimonial.fullName}
+                          </p>
+                          <p className="text-sm text-[#847062]">
+                            {testimonial.location}
+                          </p>
+                        </div>
+                      </div>
+                      <blockquote className="text-sm italic text-[#847062] leading-relaxed mt-2">
+                        &quot;{testimonial.testimonialText}&quot;
+                      </blockquote>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -990,6 +1051,8 @@ function BuildSchoolContent() {
                 <div className="border-2 border-orange-300 rounded-xl p-1 bg-gray-50 mt-2 text-[#847062]">
                   <input
                     type="number"
+                    min={1}
+                    step={1}
                     placeholder="Enter amount"
                     value={customAmount}
                     onChange={handleCustomAmountChange}
@@ -998,7 +1061,7 @@ function BuildSchoolContent() {
                 </div>
               </div>
               {/* Monthly Donation Toggle */}
-              <div className="flex items-center mt-2  border-2 border-orange-50 rounded-xl p-6 bg-orange-50 ">
+              {/* <div className="flex items-center mt-2  border-2 border-orange-50 rounded-xl p-6 bg-orange-50 ">
                 <label
                   htmlFor="monthly-donation-toggle"
                   className="text-sm font-semibold text-gray-700 mr-2 "
@@ -1017,16 +1080,18 @@ function BuildSchoolContent() {
                     }
                   }}
                 />
-              </div>
+              </div> */}
 
               {/* Donate Button */}
               <div className="mt-8">
                 <button
                   onClick={handleDonate}
-                  disabled={!selectedAmount || submitting || loading}
+                  disabled={!isValidSelectedAmount || submitting || loading}
                   className="w-full bg-orange-500 text-white py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-600 transition-colors"
                 >
-                  {submitting ? "Submitting..." : `Donate ${selectedAmount ? `₹${selectedAmount.toLocaleString('en-IN')}` : ""}`}
+                  {submitting
+                    ? "Submitting..."
+                    : `Donate ${isValidSelectedAmount ? `₹${selectedAmount.toLocaleString("en-IN")}` : ""}`}
                 </button>
               </div>
             </div>

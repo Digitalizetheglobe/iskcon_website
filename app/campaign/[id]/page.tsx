@@ -623,7 +623,7 @@ const CampaignDetail = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center mt-2  border-2 border-orange-50 rounded-xl p-6 bg-orange-50 ">
+                            {/* <div className="flex items-center mt-2  border-2 border-orange-50 rounded-xl p-6 bg-orange-50 ">
                                 <label className="text-sm font-semibold text-gray-700 mr-2 ">
                                     Monthly Donation (eNACH)
                                 </label>
@@ -639,7 +639,7 @@ const CampaignDetail = () => {
                                         }
                                     }}
                                 />
-                            </div>
+                            </div> */}
 
 
                             <div className="mt-8">
