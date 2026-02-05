@@ -532,7 +532,7 @@ function BuildSchoolContent() {
                   <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/60 z-10 rounded-2xl sm:rounded-3xl" />
 
                   <Image
-                    src={campaign?.basicInfo?.coverImage || "/donation-section/stacked-books.jpg"}
+                    src={campaign?.basicInfo?.coverImage || "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80"}
                     width={800}
                     height={400}
                     alt={campaign?.basicInfo?.title || "Books"}
