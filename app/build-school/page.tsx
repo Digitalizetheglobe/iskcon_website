@@ -15,42 +15,113 @@ const getBackendApiUrl = (endpoint: string) => {
   return `${API_BASE_URL}/${cleanEndpoint}`;
 };
 
-interface FundUtilizationItem {
-  name: string;
-  percentage: number;
-  amount: number;
+// CMS Backend Data Structure
+interface ImpactStatistic {
+  value: string;
+  label: string;
   description: string;
+  _id?: string;
 }
 
-interface CampaignImpact {
-  classrooms: number;
-  students: string;
-  teachers: number;
-  duration: string;
+interface DonationImpact {
+  amount: string;
+  description: string;
+  _id?: string;
+}
+
+interface FundUtilizationItem {
+  label: string;
+  percentage: string;
+  amount: string;
+  description: string;
+  _id?: string;
+}
+
+interface GalleryItem {
+  url: string;
+  caption: string;
+  category: string;
+}
+
+interface VideoItem {
+  title: string;
+  url: string;
+  thumbnail: string;
+}
+
+interface Testimonial {
+  name: string;
+  designation: string;
+  quote: string;
+  image: string;
+  _id?: string;
 }
 
 interface Campaign {
   _id?: string;
-  slug: string;
-  title: string;
-  description: string;
-  image: string;
-  goalAmount: number;
-  raisedAmount: number;
-  supporters: number;
-  deadline: string;
-  category?: string;
-  campaignImpact?: CampaignImpact;
-  fundUtilization?: FundUtilizationItem[];
-}
-
-interface Testimonial {
-  _id?: string;
-  fullName: string;
-  location: string;
-  testimonialText: string;
-  date?: string;
-  rating?: number;
+  basicInfo: {
+    title: string;
+    subtitle: string;
+    slug: string;
+    category: string;
+    location: string;
+    shortDescription: string;
+    coverImage: string;
+    bannerImage: string;
+    deadline: string;
+    isFeatured: boolean;
+    isActive: boolean;
+  };
+  story: {
+    fullStory: string;
+    mission: string;
+    vision: string;
+  };
+  impact: {
+    impactStatistics: ImpactStatistic[];
+    donationImpacts: DonationImpact[];
+  };
+  campaignImpact?: {
+    classrooms?: number;
+    students?: string | number;
+    teachers?: number;
+    duration?: string;
+  };
+  funds: {
+    targetAmount: number;
+    raisedAmount: number;
+    minimumDonation: number;
+    suggestedAmounts: number[];
+    fundUtilization: FundUtilizationItem[];
+    currency: string;
+    totalDonors?: number;
+  };
+  gallery: GalleryItem[];
+  albums: string[];
+  videos: VideoItem[];
+  testimonials?: Testimonial[];
+  donorWall: {
+    showDonorWall: boolean;
+    showDonorNames: boolean;
+    showDonationAmounts: boolean;
+    minAmountToDisplay: number;
+    recentDonors: any[];
+  };
+  contact: {
+    email: string;
+    phone: string;
+    address: string;
+    socialLinks: {
+      facebook: string;
+      twitter: string;
+      instagram: string;
+      linkedin: string;
+    };
+  };
+  isActive: boolean;
+  displayOrder: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // Minimal Razorpay types for TypeScript
@@ -96,38 +167,42 @@ function BuildSchoolContent() {
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
-
   const [showCustomAmount, setShowCustomAmount] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
 
-  const donationOptions = [
-    { amount: 500, description: "10 bricks for construction" },
-    { amount: 2500, description: "One desk and bench set" },
-    { amount: 5000, description: "Classroom materials" },
-    { amount: 10000, description: "Library setup" },
-  ];
+  // Dynamic donation options from campaign data, with fallback
+  const donationOptions = campaign?.impact?.donationImpacts && campaign.impact.donationImpacts.length > 0
+    ? campaign.impact.donationImpacts.map(impact => ({
+      amount: parseInt(impact.amount),
+      description: impact.description
+    }))
+    : [
+      { amount: 500, description: "10 bricks for construction" },
+      { amount: 2500, description: "One desk and bench set" },
+      { amount: 5000, description: "Classroom materials" },
+      { amount: 10000, description: "Library setup" },
+    ];
 
-  // Fetch campaign data from API
+
+  // Fetch campaign data from CMS API
   useEffect(() => {
     const fetchCampaign = async () => {
-      if (!id) {
-        // Fallback logic or fetch default "build-school" static ID if needed
-        // For now, let's try to fetch a default if no ID, or just stop.
-        // Given the context, we likely want to fetch the specific campaign if ID is there.
-        setLoading(false);
-        return;
+      let url;
+      if (id) {
+        url = getBackendApiUrl(`/api/campaign-management/${id}`);
+      } else {
+        // Default to the specific campaign slug for this page if no ID is provided
+        url = getBackendApiUrl(`/api/campaign-management/slug/build-a-school-in-rural-telangana`);
       }
 
       try {
         setLoading(true);
 
         const res = await fetch(
-          getBackendApiUrl(`/api/campaigns/${id}`),
+          url,
           {
             cache: "no-store",
             headers: {
@@ -143,9 +218,13 @@ function BuildSchoolContent() {
           throw new Error(errorData.message || "Failed to fetch campaign");
         }
 
-        const data = await res.json();
-        // console.log("Campaign data received:", data);
-        setCampaign(data);
+        const response = await res.json();
+        console.log("Campaign data received:", response);
+
+        // Map CMS data structure to component usage
+        if (response.success && response.data) {
+          setCampaign(response.data);
+        }
       } catch (err) {
         console.error("Failed to fetch campaign", err);
         setCampaign(null);
@@ -157,38 +236,6 @@ function BuildSchoolContent() {
     fetchCampaign();
   }, [id]);
 
-  // Fetch testimonials from API (managed in CMS-FE)
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        setTestimonialsLoading(true);
-        const res = await fetch(getBackendApiUrl("/api/testimonials/"), {
-          cache: "no-store",
-          headers: {
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-          },
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json().catch(() => ({}));
-          console.error("Failed to fetch testimonials:", res.status, errorData);
-          throw new Error(errorData.message || "Failed to fetch testimonials");
-        }
-
-        const data = await res.json();
-        setTestimonials(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Failed to fetch testimonials", err);
-        setTestimonials([]);
-      } finally {
-        setTestimonialsLoading(false);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
-
   const getInitials = (name?: string) => {
     const cleaned = (name ?? "").trim();
     if (!cleaned) return "?";
@@ -199,16 +246,20 @@ function BuildSchoolContent() {
 
   // Calculate progress percentage
   const progressPercentage = campaign
-    ? Math.min((campaign.raisedAmount / campaign.goalAmount) * 100, 100)
+    ? Math.min((campaign.funds.raisedAmount / campaign.funds.targetAmount) * 100, 100)
     : 65;
 
   // Calculate days left
-  const daysLeft = campaign?.deadline
-    ? Math.max(0, Math.ceil((new Date(campaign.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
+  const daysLeft = campaign?.basicInfo?.deadline
+    ? Math.max(0, Math.ceil((new Date(campaign.basicInfo.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
     : 0;
 
   // Format currency
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount: number | undefined | null) => {
+    // Handle undefined, null, or non-numeric values
+    if (amount === undefined || amount === null || !Number.isFinite(amount)) {
+      return '₹0';
+    }
     if (amount >= 100000) {
       return `₹${(amount / 100000).toFixed(2)}L`;
     }
@@ -239,7 +290,7 @@ function BuildSchoolContent() {
         body: JSON.stringify({
           amount: selectedAmount,
           currency: DONATION_CONFIG.PAYMENT.CURRENCY,
-          notes: `Build School Campaign - ${campaign.title}`,
+          notes: `Build School Campaign - ${campaign.basicInfo.title}`,
         }),
       });
 
@@ -271,7 +322,7 @@ function BuildSchoolContent() {
         amount: order.amount,
         currency: order.currency,
         name: DONATION_CONFIG.ORGANIZATION.NAME,
-        description: campaign.title,
+        description: campaign.basicInfo.title,
         order_id: order.id,
         handler: async (response: RazorpayHandlerResponse) => {
           try {
@@ -292,7 +343,7 @@ function BuildSchoolContent() {
                   isAnonymous: true,
                   description: `Donation for build-school campaign`,
                   campaign: "build-school",
-                  notes: `Build School Campaign - ${campaign.title}`,
+                  notes: `Build School Campaign - ${campaign.basicInfo.title}`,
                   // Minimal donor info so backend validation always passes
                   donorName: "Build School Donor",
                   donorEmail: "anonymous@example.com",
@@ -312,26 +363,27 @@ function BuildSchoolContent() {
               return;
             }
 
-            // 5) Update build-school campaign totals using existing endpoint
+            // 5) Update campaign totals using Campaign Management endpoint
             if (campaign._id) {
               const updateRes = await fetch(
-                getBackendApiUrl("/api/build-school/donate"),
+                getBackendApiUrl(`/api/campaign-management/${campaign._id}/donor`),
                 {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                    campaignId: campaign._id,
+                    name: "Build School Supporter",
                     amount: selectedAmount,
+                    isAnonymous: true
                   }),
                 }
               );
 
               const updateData = await updateRes.json().catch(() => ({}));
 
-              if (updateRes.ok && updateData.campaign) {
-                setCampaign(updateData.campaign);
+              if (updateRes.ok && updateData.data) {
+                setCampaign(updateData.data);
               } else {
                 console.error(
                   "Campaign update after payment failed:",
@@ -452,20 +504,20 @@ function BuildSchoolContent() {
               </span>
 
               <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-display font-bold leading-tight">
-                {loading ? "Loading..." : campaign?.title || "Build a School in Rural Telangana"}
+                {loading ? "Loading..." : campaign?.basicInfo?.title || "Build a School in Rural Telangana"}
               </h1>
 
               <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {loading
                   ? "Loading campaign details..."
-                  : campaign?.description ||
+                  : campaign?.basicInfo?.subtitle || campaign?.basicInfo?.shortDescription ||
                   "Give 200+ children a safe place to learn and grow in a permanent school building"}
               </p>
 
               <div className="flex items-center justify-center lg:justify-start gap-2">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 <span className="text-sm sm:text-base font-medium text-white">
-                  Komarolu, Telangana
+                  {campaign?.basicInfo?.location || "Komarolu, Telangana"}
                 </span>
               </div>
             </div>
@@ -480,10 +532,10 @@ function BuildSchoolContent() {
                   <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/60 z-10 rounded-2xl sm:rounded-3xl" />
 
                   <Image
-                    src={campaign?.image || "/donation-section/stacked-books.jpg"}
+                    src={campaign?.basicInfo?.coverImage || "/donation-section/stacked-books.jpg"}
                     width={800}
                     height={400}
-                    alt={campaign?.title || "Books"}
+                    alt={campaign?.basicInfo?.title || "Books"}
                     className="object-cover w-full h-auto"
                     priority
                   />
@@ -517,7 +569,7 @@ function BuildSchoolContent() {
                       AMOUNT RAISED
                     </p>
                     <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#FA6B2E] mt-2">
-                      {loading ? "..." : campaign ? formatCurrency(campaign.raisedAmount) : "₹32.50L"}
+                      {loading ? "..." : campaign ? formatCurrency(campaign.funds.raisedAmount) : "₹32.50L"}
                     </div>
                   </div>
 
@@ -526,7 +578,7 @@ function BuildSchoolContent() {
                       Goal
                     </p>
                     <div className="text-xl sm:text-2xl font-bold mt-2">
-                      {loading ? "..." : campaign ? formatCurrency(campaign.goalAmount) : "₹50.00L"}
+                      {loading ? "..." : campaign ? formatCurrency(campaign.funds.targetAmount) : "₹50.00L"}
                     </div>
                   </div>
                 </div>
@@ -551,7 +603,7 @@ function BuildSchoolContent() {
                     {loading
                       ? "..."
                       : campaign
-                        ? `${formatCurrency(campaign.goalAmount - campaign.raisedAmount)} to go`
+                        ? `${formatCurrency(campaign.funds.targetAmount - campaign.funds.raisedAmount)} to go`
                         : "₹17.50L to go"}
                   </p>
                 </div>
@@ -565,7 +617,11 @@ function BuildSchoolContent() {
                     </div>
                     <div>
                       <p className="text-lg sm:text-xl font-black">
-                        {loading ? "..." : campaign?.supporters || 124}
+                        {loading
+                          ? "..."
+                          : campaign?.funds?.totalDonors
+                          ?? campaign?.donorWall?.recentDonors?.length
+                          ?? 0}
                       </p>
                       <p className="text-[#847062] text-sm">Supporters</p>
                     </div>
@@ -646,10 +702,7 @@ function BuildSchoolContent() {
                 <div>
                   <p className="font-semibold text-red-700 text-lg">The Problem</p>
                   <p className="text-[#847060] text-sm mt-2 leading-relaxed">
-                    In the heart of rural Telangana, over 200 children are denied the basic right to
-                    educational infrastructure. They attend classes under trees, in extreme heat, rain,
-                    and harsh weather conditions. Without proper facilities, these children struggle
-                    to focus on learning, and their potential remains untapped.
+                    {campaign?.story?.fullStory || "In the heart of rural Telangana, over 200 children are denied the basic right to educational infrastructure. They attend classes under trees, in extreme heat, rain, and harsh weather conditions. Without proper facilities, these children struggle to focus on learning, and their potential remains untapped."}
                   </p>
                 </div>
               </div>
@@ -676,7 +729,7 @@ function BuildSchoolContent() {
                   <p className="font-semibold text-red-700 text-lg">Our Solution
                   </p>
                   <p className="text-[#847060] text-sm mt-2 leading-relaxed">
-                    This campaign aims to build a permanent school building with 6 classrooms, a library, separate facilities for boys and girls, and a playground. The school will serve children for 25+ years, providing a safe, conducive learning environment where they can thrive.
+                    {campaign?.story?.mission || "This campaign aims to build a permanent school building with 6 classrooms, a library, separate facilities for boys and girls, and a playground. The school will serve children for 25+ years, providing a safe, conducive learning environment where they can thrive."}
                   </p>
                 </div>
               </div>
@@ -685,113 +738,93 @@ function BuildSchoolContent() {
             <div className="mt-12">
               <h2 className="text-3xl font-black text-[#2D1B0F]">Campaign Impact</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-
-                {/* Card 1 */}
-                <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
-                      <path d="M18 5v16" />
-                      <path d="m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6" />
-                      <path d="m6 11-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11" />
-                      <path d="M6 5v16" />
-                      <circle cx="12" cy="9" r="2" />
-                    </svg>
-                  </div>
-
-                  <div>
-                    <p className="text-3xl font-black text-gray-900">{campaign?.campaignImpact?.classrooms || 6}</p>
-                    <p className="font-black mt-1">Classrooms</p>
-                    <p className="text-[#847062] text-sm mt-1">Fully equipped learning spaces</p>
-                  </div>
-                </div>
-
-                {/* Card 2 */}
-                <div className="border-2 border-primary/40  bg-white p-6 rounded-lg shadow-sm flex gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 7v14" />
-                      <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
-                    </svg>
-                  </div>
-
-                  <div>
-                    <p className="text-3xl font-black text-gray-900">{campaign?.campaignImpact?.students || "200+"}</p>
-                    <p className="font-black mt-1">Students</p>
-                    <p className="text-[#847062] text-sm mt-1">Children will benefit</p>
-                  </div>
-                </div>
-
-                {/* Card 3 */}
-                <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="w-7 h-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                  </div>
-
-                  <div>
-                    <p className="text-3xl font-black text-gray-900">{campaign?.campaignImpact?.teachers || 8}</p>
-                    <p className="font-black mt-1">Teachers</p>
-                    <p className="text-[#847062] text-sm mt-1">Local employment created</p>
-                  </div>
-                </div>
-
-                {/* Card 4 */}
-                <div className="border-2 border-primary/40  bg-white p-6 rounded-lg shadow-sm flex gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="w-7 h-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
-                      <circle cx="12" cy="8" r="6" />
-                    </svg>
-                  </div>
-
-                  <div>
-                    <p className="text-3xl font-black text-gray-900">{campaign?.campaignImpact?.duration || "25+ years"}</p>
-                    <p className="text-sm font-black">Duration</p>
-                    <p className="text-[#847062] text-sm mt-1">Long-term impact</p>
-                  </div>
-                </div>
-
+                {loading ? (
+                  <div className="col-span-full text-sm text-[#847062]">Loading impact statistics...</div>
+                ) : campaign?.impact?.impactStatistics && campaign.impact.impactStatistics.length > 0 ? (
+                  campaign.impact.impactStatistics.map((stat, index) => (
+                    <div key={stat._id || index} className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          className="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <circle cx={12} cy={12} r={10} />
+                          <circle cx={12} cy={12} r={6} />
+                          <circle cx={12} cy={12} r={2} />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black text-gray-900">{stat.value}</p>
+                        <p className="font-black mt-1">{stat.label}</p>
+                        <p className="text-[#847062] text-sm mt-1">{stat.description}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  // Fallback static data
+                  <>
+                    <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
+                          <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+                          <path d="M18 5v16" />
+                          <path d="m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6" />
+                          <circle cx="12" cy="9" r="2" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black text-gray-900">6</p>
+                        <p className="font-black mt-1">Classrooms</p>
+                        <p className="text-[#847062] text-sm mt-1">Fully equipped learning spaces</p>
+                      </div>
+                    </div>
+                    <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
+                          <path d="M12 7v14" />
+                          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black text-gray-900">200+</p>
+                        <p className="font-black mt-1">Students</p>
+                        <p className="text-[#847062] text-sm mt-1">Children will benefit</p>
+                      </div>
+                    </div>
+                    <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black text-gray-900">8</p>
+                        <p className="font-black mt-1">Teachers</p>
+                        <p className="text-[#847062] text-sm mt-1">Local employment created</p>
+                      </div>
+                    </div>
+                    <div className="border-2 border-primary/40 bg-white p-6 rounded-lg shadow-sm flex gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
+                          <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+                          <circle cx="12" cy="8" r="6" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-3xl font-black text-gray-900">25+ years</p>
+                        <p className="text-sm font-black">Duration</p>
+                        <p className="text-[#847062] text-sm mt-1">Long-term impact</p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             {/* ===== FUND UTILIZATION BREAKDOWN ===== */}
@@ -825,14 +858,14 @@ function BuildSchoolContent() {
 
               {/* CONTAINER BOX */}
               <div className="mt-8 border-2 border-primary/40  bg-white rounded-lg p-8 shadow-sm">
-                {campaign?.fundUtilization && campaign.fundUtilization.length > 0 ? (
-                  campaign.fundUtilization.map((item, index) => (
+                {campaign?.funds?.fundUtilization && campaign.funds.fundUtilization.length > 0 ? (
+                  campaign.funds.fundUtilization.map((item, index) => (
                     <div key={index}>
                       {/* Fund Utilization Row */}
                       <div className="flex justify-between">
                         <div>
                           <p className="font-bold text-gray-900 text-lg">
-                            {item.name}{" "}
+                            {item.label}{" "}
                             <span className="text-sm bg-gray-100 px-3 py-1 rounded-full ml-2">
                               {item.percentage}%
                             </span>
@@ -841,7 +874,7 @@ function BuildSchoolContent() {
                             {item.description}
                           </p>
                         </div>
-                        <p className="font-semibold text-gray-900">{formatCurrency(item.amount)}</p>
+                        <p className="font-semibold text-gray-900">{formatCurrency(Number(item.amount))}</p>
                       </div>
 
                       {/* Progress bar */}
@@ -853,7 +886,7 @@ function BuildSchoolContent() {
                       </div>
 
                       {/* Divider (don't show after last item) */}
-                      {index < (campaign.fundUtilization?.length || 0) - 1 && (
+                      {index < (campaign.funds.fundUtilization?.length || 0) - 1 && (
                         <div className="border-b border-gray-200 my-6"></div>
                       )}
                     </div>
@@ -949,43 +982,44 @@ function BuildSchoolContent() {
                 ))}
               </div>
             </div>
-            {/* Community Voices */}
+
+            {/* Community Voices - Testimonials */}
             <div className="mt-16">
               <h2 className="text-4xl font-black text-[#2D1B0F]">Community Voices</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8 " >
-                {testimonialsLoading ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+                {loading ? (
                   <div className="col-span-full text-sm text-[#847062]">
                     Loading testimonials...
                   </div>
-                ) : testimonials.length === 0 ? (
-                  <div className="col-span-full text-sm text-[#847062]">
-                    No testimonials available right now.
-                  </div>
-                ) : (
-                  testimonials.map((testimonial) => (
+                ) : campaign?.testimonials && campaign.testimonials.length > 0 ? (
+                  campaign.testimonials.map((testimonial, index) => (
                     <div
-                      key={testimonial._id || `${testimonial.fullName}-${testimonial.date ?? ""}`}
+                      key={testimonial._id || index}
                       className="bg-[#fcf8f5] p-6 rounded-lg shadow-md border-2 border-primary/40 flex flex-col"
                     >
                       <div className="flex items-center mb-4">
-                        {/* Avatar (API has no image field) */}
+                        {/* Avatar */}
                         <div className="w-16 h-16 rounded-full mr-4 border-2 border-[#f5e0d3] bg-primary text-white flex items-center justify-center font-black text-xl">
-                          {getInitials(testimonial.fullName)}
+                          {getInitials(testimonial.name)}
                         </div>
                         <div>
                           <p className="text-lg font-bold text-[#443026]">
-                            {testimonial.fullName}
+                            {testimonial.name}
                           </p>
                           <p className="text-sm text-[#847062]">
-                            {testimonial.location}
+                            {testimonial.designation}
                           </p>
                         </div>
                       </div>
                       <blockquote className="text-sm italic text-[#847062] leading-relaxed mt-2">
-                        &quot;{testimonial.testimonialText}&quot;
+                        &quot;{testimonial.quote}&quot;
                       </blockquote>
                     </div>
                   ))
+                ) : (
+                  <div className="col-span-full text-sm text-[#847062]">
+                    No testimonials available right now.
+                  </div>
                 )}
               </div>
             </div>

@@ -733,12 +733,9 @@ const Donationkit = () => {
 
                   try {
                     setGuidanceLoading(true);
-                    // Prefer explicit env override; otherwise use localhost in dev and production API in prod.
+                    // Prefer explicit env override; otherwise use production API
                     const API_BASE_URL =
-                      process.env.NEXT_PUBLIC_API_BASE_URL ||
-                      (process.env.NODE_ENV === "development"
-                        ? "http://localhost:5000"
-                        : "https://api.harekrishnavidya.org");
+                      process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.harekrishnavidya.org";
 
                     const res = await fetch(`${API_BASE_URL}/api/guidance`, {
                       method: "POST",

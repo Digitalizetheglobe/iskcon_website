@@ -1148,7 +1148,7 @@ function DonatePageContent() {
                 </h3>
                 <div className="space-y-4">
                   {/* Address */}
-                  <div>
+                  {/* <div>
                     <label className="block text-sm font-bold text-black mb-1">
                       Address<span className="text-red-600">*</span>
                     </label>
@@ -1163,7 +1163,7 @@ function DonatePageContent() {
                     {errors.address && (
                       <p className="text-red-600 text-sm mt-1">{errors.address}</p>
                     )}
-                  </div>
+                  </div> */}
 
                   {/* House/Apartment and Village in one row */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

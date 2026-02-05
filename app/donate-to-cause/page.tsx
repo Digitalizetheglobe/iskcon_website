@@ -42,12 +42,28 @@ const Campaigns = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await fetch(
-          getBackendApiUrl("/api/campaigns"),
+          getBackendApiUrl("/api/campaign-management"),
           { cache: "no-store" }
         );
 
-        const data = await res.json();
-        setCampaigns(data);
+        const response = await res.json();
+
+        // Map backend data structure to frontend Campaign interface
+        if (response.success && response.data) {
+          const mappedCampaigns: Campaign[] = response.data.map((campaign: any) => ({
+            id: campaign._id,
+            title: campaign.basicInfo?.title || '',
+            description: campaign.basicInfo?.shortDescription || campaign.basicInfo?.subtitle || '',
+            image: campaign.basicInfo?.coverImage || 'https://via.placeholder.com/400x300?text=No+Image',
+            goalAmount: campaign.funds?.targetAmount || 0,
+            raisedAmount: campaign.funds?.raisedAmount || 0,
+            category: campaign.basicInfo?.category || 'General',
+            deadline: campaign.basicInfo?.deadline || new Date().toISOString(),
+            supporters: campaign.donorWall?.recentDonors?.length || 0,
+            featured: campaign.basicInfo?.isFeatured || false,
+          }));
+          setCampaigns(mappedCampaigns);
+        }
       } catch (err) {
         console.error("Failed to fetch campaigns", err);
       } finally {
@@ -195,8 +211,8 @@ const Campaigns = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-xl p-4 border-2 border-primary/40">
                       <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-primary mb-1" />
-                      <span className="text-sm text-[#847062]">Supporters:</span>
+                        <Users className="w-4 h-4 text-primary mb-1" />
+                        <span className="text-sm text-[#847062]">Supporters:</span>
                       </div>
                       <div className="text-2xl font-bold">
                         {campaign.supporters}
@@ -204,8 +220,8 @@ const Campaigns = () => {
                     </div>
                     <div className="rounded-xl p-4 border-2 border-primary/40">
                       <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-primary mb-1" />
-                      <span className="text-sm text-[#847062]">Days Left:</span>
+                        <Calendar className="w-4 h-4 text-primary mb-1" />
+                        <span className="text-sm text-[#847062]">Days Left:</span>
                       </div>
                       <div className="text-2xl font-bold">
                         {calculateDaysLeft(campaign.deadline)}
