@@ -127,9 +127,9 @@ export default function CareerPage() {
 
         const res = await fetch(
           process.env.NEXT_PUBLIC_CAREER_API_URL ||
-            "https://api.harekrishnavidya.org/api/career/apply",
+          "https://api.harekrishnavidya.org/api/career/apply",
           {
-          method: "POST",
+            method: "POST",
             body: formData,
           }
         );
@@ -215,13 +215,13 @@ export default function CareerPage() {
         {/* Benefits section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="rounded-xl bg-gradient-to-br from-white to-[#FFF4E6] shadow-sm border border-orange-100 p-4">
-              <h2 className="text-sm font-semibold text-[#002A42] mb-2">
-                Spiritual Environment
-              </h2>
-              <p className="text-xs md:text-sm text-gray-600">
-                Serve in a devotional atmosphere and grow personally and
-                spiritually.
-              </p>
+            <h2 className="text-sm font-semibold text-[#002A42] mb-2">
+              Spiritual Environment
+            </h2>
+            <p className="text-xs md:text-sm text-gray-600">
+              Serve in a devotional atmosphere and grow personally and
+              spiritually.
+            </p>
           </div>
           <div className="rounded-xl bg-gradient-to-br from-white to-[#E9F2FF] shadow-sm border border-blue-100 p-4">
             <h2 className="text-sm font-semibold text-[#002A42] mb-2">
@@ -297,325 +297,315 @@ export default function CareerPage() {
           </div>
 
           <div className="px-4 py-5 md:px-7 md:py-7 lg:px-9 lg:py-8 max-w-6xl mx-auto ">
-          {submitted && (
-            <div className="mb-6 rounded-md border border-green-400  px-4 py-3 text-sm text-green-800">
-              Thank you for your interest. Your application has been submitted
-              successfully.
-            </div>
-          )}
-
-          {serverError && (
-            <div className="mb-6 rounded-md border border-red-400 bg-red-50 px-4 py-3 text-sm text-red-800">
-              {serverError}
-            </div>
-          )}
-
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-            className="space-y-6 p-6 md:p-7 rounded-xl border border-[#1C398E]/10"
-          >
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Full Name<span className="text-red-500">*</span>
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              value={form.name}
-              onChange={handleChange}
-              className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                errors.name ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Enter your full name"
-            />
-            {errors.name && (
-              <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+            {submitted && (
+              <div className="mb-6 rounded-md border border-green-400  px-4 py-3 text-sm text-green-800">
+                Thank you for your interest. Your application has been submitted
+                successfully.
+              </div>
             )}
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Email Address<span className="text-red-500">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="you@example.com"
-              />
-              {errors.email && (
-                <p className="mt-1 text-xs text-red-500">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Phone Number<span className="text-red-500">*</span>
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={form.phone}
-                onChange={handleChange}
-                inputMode="numeric"
-                maxLength={10}
-                className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.phone ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="+91 00000 00000"
-              />
-              {errors.phone && (
-                <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="gender"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Gender<span className="text-red-500">*</span>
-              </label>
-              <select
-                id="gender"
-                name="gender"
-                value={form.gender}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.gender ? "border-red-500" : "border-gray-300"
-                }`}
-              >
-                <option value="">Select gender</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Prefer not to say">Prefer not to say</option>
-              </select>
-              {errors.gender && (
-                <p className="mt-1 text-xs text-red-500">{errors.gender}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="qualification"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Highest Qualification<span className="text-red-500">*</span>
-              </label>
-              <select
-                id="qualification"
-                name="qualification"
-                value={form.qualification}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.qualification ? "border-red-500" : "border-gray-300"
-                }`}
-              >
-                <option value="">Select qualification</option>
-                <option value="10th">10th</option>
-                <option value="12th">12th</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Graduate">Graduate</option>
-                <option value="Post Graduate">Post Graduate</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.qualification && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.qualification}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* CV Upload */}
-       
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="position"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Position / Area of Service
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="position"
-                name="position"
-                type="text"
-                value={form.position}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.position ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="e.g. Teacher, Volunteer Coordinator, Content Writer"
-              />
-              {errors.position && (
-                <p className="mt-1 text-xs text-red-500">{errors.position}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="experience"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Total Experience (in years)
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="experience"
-                name="experience"
-                type="text"
-                value={form.experience}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.experience ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="e.g. 0, 1, 3.5"
-              />
-              {errors.experience && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.experience}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="city"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Current City<span className="text-red-500">*</span>
-              </label>
-              <input
-                id="city"
-                name="city"
-                type="text"
-                value={form.city}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.city ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Enter your city"
-              />
-              {errors.city && (
-                <p className="mt-1 text-xs text-red-500">{errors.city}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="heardFrom"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                How did you hear about us?
-                <span className="text-red-500">*</span>
-              </label>
-              <select
-                id="heardFrom"
-                name="heardFrom"
-                value={form.heardFrom}
-                onChange={handleChange}
-                className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                  errors.heardFrom ? "border-red-500" : "border-gray-300"
-                }`}
-              >
-                <option value="">Select an option</option>
-                <option value="Temple Announcement">Temple Announcement</option>
-                <option value="Friend or Family">Friend or Family</option>
-                <option value="Social Media">Social Media</option>
-                <option value="Website">Website</option>
-                <option value="Event">Event / Program</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.heardFrom && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.heardFrom}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Tell us about yourself & your motivation
-              <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              value={form.message}
-              onChange={handleChange}
-              className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${
-                errors.message ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Share your background, experience, and why you would like to serve with Hare Krishna Vidya."
-            />
-            {errors.message && (
-              <p className="mt-1 text-xs text-red-500">{errors.message}</p>
+            {serverError && (
+              <div className="mb-6 rounded-md border border-red-400 bg-red-50 px-4 py-3 text-sm text-red-800">
+                {serverError}
+              </div>
             )}
-          </div>
-          <div>
-            <label
-              htmlFor="cv"
-              className="block text-sm font-medium text-gray-700 mb-1"
+
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="space-y-6 p-6 md:p-7 rounded-xl border border-[#1C398E]/10"
             >
-              Upload CV (PDF)<span className="text-red-500">*</span>
-            </label>
-            <input
-              id="cv"
-              name="cv"
-              type="file"
-              accept="application/pdf"
-              onChange={handleChange}
-              className="block w-full text-sm text-gray-700 file:mr-4 file:rounded-md file:border-0 file:bg-[#1C398E] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#142a68] cursor-pointer"
-            />
-            <p className="mt-1 text-[11px] text-gray-500">
-              Please upload your latest CV in PDF format.
-            </p>
-            {errors.cv && (
-              <p className="mt-1 text-xs text-red-500">{errors.cv}</p>
-            )}
-          </div>
-            <div className="pt-1 flex flex-col sm:flex-row sm:items-center gap-3 justify-center">
-              <button
-                type="submit"
-                disabled={submitting}
-                className="inline-flex items-center cursor-pointer justify-center rounded-sm bg-[#1C398E] px-7 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#142a68] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1C398E] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-              >
-                {submitting ? "Submitting..." : "Submit Application"}
-              </button>
-              {/* <p className="text-[11px] md:text-xs text-gray-500">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Full Name<span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={form.name}
+                  onChange={handleChange}
+                  className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.name ? "border-red-500" : "border-gray-300"
+                    }`}
+                  placeholder="Enter your full name"
+                />
+                {errors.name && (
+                  <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Email Address<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.email ? "border-red-500" : "border-gray-300"
+                      }`}
+                    placeholder="you@example.com"
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Phone Number<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={handleChange}
+                    inputMode="numeric"
+                    maxLength={10}
+                    className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.phone ? "border-red-500" : "border-gray-300"
+                      }`}
+                    placeholder="+91 00000 00000"
+                  />
+                  {errors.phone && (
+                    <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="gender"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Gender<span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="gender"
+                    name="gender"
+                    value={form.gender}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.gender ? "border-red-500" : "border-gray-300"
+                      }`}
+                  >
+                    <option value="">Select gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                  {errors.gender && (
+                    <p className="mt-1 text-xs text-red-500">{errors.gender}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="qualification"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Highest Qualification<span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="qualification"
+                    name="qualification"
+                    value={form.qualification}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.qualification ? "border-red-500" : "border-gray-300"
+                      }`}
+                  >
+                    <option value="">Select qualification</option>
+                    <option value="10th">10th</option>
+                    <option value="12th">12th</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.qualification && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.qualification}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* CV Upload */}
+
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="position"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Position / Area of Service
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="position"
+                    name="position"
+                    type="text"
+                    value={form.position}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.position ? "border-red-500" : "border-gray-300"
+                      }`}
+                    placeholder="e.g. Teacher, Volunteer Coordinator, Content Writer"
+                  />
+                  {errors.position && (
+                    <p className="mt-1 text-xs text-red-500">{errors.position}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="experience"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Total Experience (in years)
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="experience"
+                    name="experience"
+                    type="text"
+                    value={form.experience}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.experience ? "border-red-500" : "border-gray-300"
+                      }`}
+                    placeholder="e.g. 0, 1, 3.5"
+                  />
+                  {errors.experience && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.experience}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Current City<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    value={form.city}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.city ? "border-red-500" : "border-gray-300"
+                      }`}
+                    placeholder="Enter your city"
+                  />
+                  {errors.city && (
+                    <p className="mt-1 text-xs text-red-500">{errors.city}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="heardFrom"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    How did you hear about us?
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="heardFrom"
+                    name="heardFrom"
+                    value={form.heardFrom}
+                    onChange={handleChange}
+                    className={`w-full rounded-md border px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.heardFrom ? "border-red-500" : "border-gray-300"
+                      }`}
+                  >
+                    <option value="">Select an option</option>
+                    <option value="Temple Announcement">Temple Announcement</option>
+                    <option value="Friend or Family">Friend or Family</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Website">Website</option>
+                    <option value="Event">Event / Program</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.heardFrom && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.heardFrom}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Tell us about yourself & your motivation
+                  <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  value={form.message}
+                  onChange={handleChange}
+                  className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1C398E] ${errors.message ? "border-red-500" : "border-gray-300"
+                    }`}
+                  placeholder="Share your background, experience, and why you would like to serve with Hare Krishna Vidya."
+                />
+                {errors.message && (
+                  <p className="mt-1 text-xs text-red-500">{errors.message}</p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="cv"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Upload CV (PDF)<span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="cv"
+                  name="cv"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleChange}
+                  className="block w-full text-sm text-gray-700 file:mr-4 file:rounded-md file:border-0 file:bg-[#1C398E] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#142a68] cursor-pointer"
+                />
+                <p className="mt-1 text-[11px] text-gray-500">
+                  Please upload your latest CV in PDF format.
+                </p>
+                {errors.cv && (
+                  <p className="mt-1 text-xs text-red-500">{errors.cv}</p>
+                )}
+              </div>
+              <div className="pt-1 flex flex-col sm:flex-row sm:items-center gap-3 justify-center">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex items-center cursor-pointer justify-center rounded-sm bg-[#1C398E] px-7 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#142a68] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1C398E] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                >
+                  {submitting ? "Submitting..." : "Submit Application"}
+                </button>
+                {/* <p className="text-[11px] md:text-xs text-gray-500">
                 We will reach out to you on the contact details you have shared.
               </p> */}
-            </div>
-            
-          </form>
+              </div>
+
+            </form>
           </div>
         </div>
       </section>

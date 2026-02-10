@@ -133,7 +133,7 @@ export default function Page() {
               {/* Left Arrow - Mobile */}
 
               {/* Donate Button */}
-              <Link href={appendUTMToUrl("/donation")}>
+              <Link href={appendUTMToUrl("/donation#donate")}>
                 <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer font-semibold px-4 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105">
                   <Image
                     src={Heart}
@@ -295,7 +295,7 @@ export default function Page() {
 
                 {/* Button */}
 
-                <Link href={appendUTMToUrl("/donation")}>
+                <Link href={appendUTMToUrl("/donation#donate")}>
                   <button className="flex items-center gap-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 mt-2 rounded-lg shadow-md z-10 transition-transform transform hover:scale-105">
                     <Image
                       src={Heart}

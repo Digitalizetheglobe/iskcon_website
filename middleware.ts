@@ -36,6 +36,12 @@ const EXCLUDED_ROUTES = [
   "/grocery-checkout",
   "/support-compaign",
   // Neew Pages
+
+  // media pages
+  "/video-gallery",
+  "/donor-wall",
+  "/photo-gallery",
+
   '/api',
   '/dashboard',
   '/_next', // Next.js internal routes

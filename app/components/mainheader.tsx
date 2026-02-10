@@ -210,6 +210,7 @@ export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showDonation, setShowDonation] = useState(false);
+  const [showMedia, setShowMedia] = useState(false);
 
   const { appendUTMToUrl } = useUTM();
 
@@ -255,6 +256,51 @@ export default function Header() {
           <Link href="/gallery" className={linkClass("/gallery")}>
             Gallery
           </Link>
+
+          {/* Media Desktop Dropdown */}
+          <div className="relative group">
+            <div
+              className={`flex items-center gap-1 cursor-pointer ${linkClass(
+                "/media"
+              )}`}
+            >
+              <span>Media</span>
+              <IoChevronDown className="text-black text-lg transition-transform duration-300 group-hover:rotate-180" />
+            </div>
+
+            <ul
+              className="absolute left-0 mt-2 bg-orange-600/90 backdrop-blur-md 
+                rounded-lg shadow-lg p-3 w-52 opacity-0 invisible group-hover:opacity-100 
+                group-hover:visible transition-all duration-300 space-y-2 z-50"
+            >
+              <li>
+                <Link
+                  href="/video-gallery"
+                  className="text-white hover:text-yellow-200"
+                >
+                  Video Gallery
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/donor-wall"
+                  className="text-white hover:text-yellow-200"
+                >
+                  Donor Wall
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/photo-gallery"
+                  className="text-white hover:text-yellow-200"
+                >
+                  Photo Gallery
+                </Link>
+              </li>
+            </ul>
+          </div>
 
           <Link href="/contact" className={linkClass("/contact")}>
             Contact Us
@@ -313,10 +359,10 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
-          </div> 
+          </div>
 
           {/* Donate Now Button */}
-          <Link href={appendUTMToUrl("/donation")}>
+          <Link href={appendUTMToUrl("/donation#donate")}>
             <button className="px-4 py-2 bg-[#0B3954] text-white rounded-lg hover:bg-orange-400 transition">
               Donate Now
             </button>
@@ -367,6 +413,54 @@ export default function Header() {
           >
             Gallery
           </Link>
+
+          {/* Mobile Media Dropdown */}
+          <div className="flex flex-col">
+            <button
+              className="flex items-center justify-between w-full text-left text-lg text-black"
+              onClick={() => setShowMedia(!showMedia)}
+            >
+              Media
+              <IoChevronDown
+                className={`transition-transform duration-300 ${showMedia ? "rotate-180" : ""
+                  }`}
+              />
+            </button>
+
+            {showMedia && (
+              <div className="ml-4 mt-2 flex flex-col gap-2 text-base">
+                <Link
+                  href="/video-gallery"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setShowMedia(false);
+                  }}
+                >
+                  Video Gallery
+                </Link>
+
+                <Link
+                  href="/donor-wall"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setShowMedia(false);
+                  }}
+                >
+                  Donor Wall
+                </Link>
+
+                <Link
+                  href="/photo-gallery"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setShowMedia(false);
+                  }}
+                >
+                  Photo Gallery
+                </Link>
+              </div>
+            )}
+          </div>
 
           <Link
             href="/contact"
@@ -435,7 +529,7 @@ export default function Header() {
           </div>
 
           <Link
-            href={appendUTMToUrl("/donation")}
+            href={appendUTMToUrl("/donation#donate")}
             onClick={() => setIsOpen(false)}
           >
             <button className="w-full px-4 py-2 bg-[#0B3954] text-white rounded-lg hover:bg-orange-500 transition">

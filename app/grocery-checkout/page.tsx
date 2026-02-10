@@ -136,7 +136,7 @@ function GroceryCheckoutContent() {
     e.preventDefault();
     setSubmitting(true);
     setSubmitError(null);
-    
+
     if (phone.length !== 10) {
       setPhoneError("Phone number must be exactly 10 digits");
       setSubmitting(false);
@@ -158,9 +158,9 @@ function GroceryCheckoutContent() {
         description:
           message ||
           `Grocery donation - ${totalQuantity} item(s): ` +
-            selectedItems
-              .map((item) => `${item.name} x ${item.quantity}`)
-              .join(", "),
+          selectedItems
+            .map((item) => `${item.name} x ${item.quantity}`)
+            .join(", "),
         campaign: "grocery-donation",
       };
 
@@ -177,7 +177,7 @@ function GroceryCheckoutContent() {
       if (!submitRes.ok || !submitData.success) {
         throw new Error(
           submitData.message ||
-            "Failed to start payment. Please try again."
+          "Failed to start payment. Please try again."
         );
       }
 
@@ -229,7 +229,7 @@ function GroceryCheckoutContent() {
               console.error("Payment verification failed:", verifyData);
               setSubmitError(
                 verifyData.message ||
-                  "Payment verification failed. Please contact support if the amount was deducted."
+                "Payment verification failed. Please contact support if the amount was deducted."
               );
               setSubmitting(false);
               return;

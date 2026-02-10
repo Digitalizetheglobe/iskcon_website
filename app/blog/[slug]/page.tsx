@@ -104,10 +104,10 @@ export default async function BlogDetail({ params }: BlogPageProps) {
   const date = post.publishedAt || post.createdAt || "";
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
     : "Date not available";
 
   return (

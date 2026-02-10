@@ -30,6 +30,8 @@ import fest2 from "@/public/galleryection/foodDonation.jpg";
 import cul1 from "@/public/galleryection/cul1.jpg";
 import edu3 from "@/public/galleryection/education3.jpg";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 const galleryImages = [
   { src: fest1, alt: "Gallery 1" },
@@ -295,7 +297,7 @@ export default function DonationPage() {
   );
   const [, setIsLoading] = useState(true);
   const [, setError] = useState<string | null>(null);
-  
+
   // State for banner
   const [bannerUrl, setBannerUrl] = useState<string | null>(null);
 
@@ -567,14 +569,14 @@ export default function DonationPage() {
   useEffect(() => {
     const fetchBanner = async () => {
       try {
-        const response = await fetch(  "https://api.harekrishnavidya.org/api/banner/get", {
+        const response = await fetch("https://api.harekrishnavidya.org/api/banner/get", {
           cache: "no-store",
         });
         const data = await response.json();
         if (data.url) {
           // Prepend backend URL if the banner URL is relative
-          const fullUrl = data.url.startsWith("http") 
-            ? data.url 
+          const fullUrl = data.url.startsWith("http")
+            ? data.url
             : `https://api.harekrishnavidya.org${data.url}`;
           setBannerUrl(fullUrl);
         }
@@ -625,7 +627,14 @@ export default function DonationPage() {
           className="object-cover lg:px-3"
           priority
         />
-        <div className="absolute inset-0 z-10"></div>
+        {/* <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg text-lg h-14 px-8" asChild>
+            <Link href="#donate">
+              <Heart className="w-5 h-5 mr-2" />
+              Support Our Mission
+            </Link>
+          </Button>
+        </div> */}
       </div>
 
       <div className="text-center py-10  text-2xl  md:text-3xl font-bold   md:max-w-6xl mx-auto">
@@ -663,7 +672,7 @@ export default function DonationPage() {
         </p>
       </div>
 
-      <div className="bg-white text-center py-8 px-4">
+      <div id="donate" className="bg-white text-center py-8 px-4">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4 text-[36px]">
           ✧ Annadan Seva
         </button>

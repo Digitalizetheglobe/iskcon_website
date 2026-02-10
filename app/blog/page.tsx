@@ -45,40 +45,40 @@ const BlogPostCard = ({
   className?: string;
 }) => {
   if (isFeatured) {
-  return (
-    <article
-      onClick={() => onClick(post)}
-      className={`flex flex-col lg:flex-row h-full bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
-    >
-      {/* Image */}
-      <div className="relative w-full lg:w-1/2 h-64 lg:h-full">
-        {post.uploadImage && (
-          <Image
-            src={post.uploadImage}
-            alt={post.title}
-            fill
-            style={{ objectFit: 'cover' }}
-            className="group-hover:scale-105 transition-transform duration-500"
-          />
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="p-6 flex flex-col justify-center w-full lg:w-1/2">
-        <h3 className="font-bold text-2xl lg:text-3xl text-blue-900 mb-4 group-hover:text-orange-500 transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-gray-600 text-base mb-4 line-clamp-4">
-          {post.excerpt}
-        </p>
-        <div className="flex items-center text-sm text-gray-500">
-          <Calendar size={16} className="mr-1" />
-          <span>{post.createdAt?.split("T")[0]}</span>
+    return (
+      <article
+        onClick={() => onClick(post)}
+        className={`flex flex-col lg:flex-row h-full bg-white rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group ${className}`}
+      >
+        {/* Image */}
+        <div className="relative w-full lg:w-1/2 h-64 lg:h-full">
+          {post.uploadImage && (
+            <Image
+              src={post.uploadImage}
+              alt={post.title}
+              fill
+              style={{ objectFit: 'cover' }}
+              className="group-hover:scale-105 transition-transform duration-500"
+            />
+          )}
         </div>
-      </div>
-    </article>
-  );
-}
+
+        {/* Content */}
+        <div className="p-6 flex flex-col justify-center w-full lg:w-1/2">
+          <h3 className="font-bold text-2xl lg:text-3xl text-blue-900 mb-4 group-hover:text-orange-500 transition-colors">
+            {post.title}
+          </h3>
+          <p className="text-gray-600 text-base mb-4 line-clamp-4">
+            {post.excerpt}
+          </p>
+          <div className="flex items-center text-sm text-gray-500">
+            <Calendar size={16} className="mr-1" />
+            <span>{post.createdAt?.split("T")[0]}</span>
+          </div>
+        </div>
+      </article>
+    );
+  }
 
 
   // Regular card layout

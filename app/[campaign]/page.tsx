@@ -73,6 +73,9 @@ export default async function CampaignRedirectPage({
     "grocery-donation",
     "donation-kit",
     "build-school",
+    "video-gallery",
+    "donor-wall",
+    "photo-gallery",
 
   ];
 

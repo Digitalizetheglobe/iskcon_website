@@ -23,16 +23,16 @@ const UTM_STORAGE_KEY = 'iskcon_utm_params';
 // Helper function to get UTM parameters from URL
 const getUTMFromURL = (searchParams: URLSearchParams): UTMParams => {
   const utm: UTMParams = {};
-  
+
   const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-  
+
   utmKeys.forEach(key => {
     const value = searchParams.get(key);
     if (value) {
       utm[key as keyof UTMParams] = value;
     }
   });
-  
+
   return utm;
 };
 
@@ -81,7 +81,7 @@ const appendUTMToURL = (url: string, utm: UTMParams): string => {
   try {
     // Handle both relative and absolute URLs
     let urlObj: URL;
-    
+
     // If url is already a full URL, parse it and extract only the pathname and search
     if (url.startsWith('http://') || url.startsWith('https://')) {
       urlObj = new URL(url);
@@ -93,16 +93,16 @@ const appendUTMToURL = (url: string, utm: UTMParams): string => {
       // For relative URLs, use the current origin
       urlObj = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'https://harekrishnavidya.org');
     }
-    
+
     // Add UTM parameters to the URL
     Object.entries(utm).forEach(([key, value]) => {
       if (value) {
         urlObj.searchParams.set(key, value);
       }
     });
-    
-    // Return only the pathname and search params (relative URL)
-    return urlObj.pathname + urlObj.search;
+
+    // Return pathname, search params, and hash (fragment)
+    return urlObj.pathname + urlObj.search + urlObj.hash;
   } catch (error) {
     console.warn('Failed to append UTM parameters to URL:', error);
     return url;
@@ -157,12 +157,12 @@ export const useUTM = (): UseUTMReturn => {
 
     // Get UTM parameters from URL
     const urlUTM = getUTMFromURL(searchParams);
-    
+
     // Get UTM parameters from localStorage
     const storedUTM = getUTMFromStorage();
-    
+
     let finalUTM: UTMParams;
-    
+
     // If URL has UTM parameters, use them and save to localStorage
     if (Object.keys(urlUTM).length > 0) {
       finalUTM = urlUTM;
@@ -171,7 +171,7 @@ export const useUTM = (): UseUTMReturn => {
       // If URL doesn't have UTM parameters, use stored ones
       finalUTM = storedUTM;
     }
-    
+
     setUtm(finalUTM);
   }, [searchParams]);
 
