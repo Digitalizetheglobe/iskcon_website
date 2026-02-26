@@ -338,7 +338,7 @@ const PhotoGallery = () => {
                       } ${index === 4 ? 'col-span-2' : ''}`}
                   >
                     <img
-                      src={`https://api.harekrishnavidya.org/api${photo.imageUrl}`}
+                      src={photo.imageUrl}
                       alt={photo.imageTitle}
                       className="w-full h-full object-cover"
                     />
@@ -458,7 +458,7 @@ const PhotoGallery = () => {
                     onClick={() => setSelectedPhoto(index)}
                   >
                     <img
-                      src={`https://api.harekrishnavidya.org/api${photo.imageUrl}`}
+                      src={photo.imageUrl}
                       alt={photo.imageTitle}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
@@ -559,7 +559,7 @@ const PhotoGallery = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                src={`https://api.harekrishnavidya.org/api${filteredPhotos[selectedPhoto].imageUrl}`}
+                src={filteredPhotos[selectedPhoto].imageUrl}
                 alt={filteredPhotos[selectedPhoto].imageTitle}
                 className="w-full h-auto max-h-[70vh] object-contain rounded-lg"
               />

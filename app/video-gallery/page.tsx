@@ -102,6 +102,29 @@ const VideoGallery = () => {
         return "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600";
     };
 
+    const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, "");
+
+    // Helper to get embed/playable URL (YouTube, Vimeo → embed, or full URL for direct files)
+    const getVideoEmbedUrl = (videoUrl: string): string => {
+        const trimmed = (videoUrl || "").trim();
+        if (!trimmed) return "";
+        // YouTube: watch, shorts, embed, youtu.be
+        const ytMatch = trimmed.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([^&?#]+)/);
+        if (ytMatch) {
+            return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
+        }
+        // Vimeo: vimeo.com/ID or player.vimeo.com/video/ID
+        const vimeoMatch = trimmed.match(/(?:vimeo\.com\/|player\.vimeo\.com\/video\/)(\d+)/);
+        if (vimeoMatch) {
+            return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
+        }
+        // Direct video URL
+        if (trimmed.startsWith("http")) return trimmed;
+        return `${API_ORIGIN}${trimmed.startsWith("/") ? "" : "/"}${trimmed}`;
+    };
+
+    const isEmbeddableUrl = (url: string) => /youtube\.com|youtu\.be|vimeo\.com/i.test(url || "");
+
     const filteredVideos = videos
         .filter((video) => {
             const matchesSearch = video.videoTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -742,6 +765,71 @@ const VideoGallery = () => {
                     </div>
                 </motion.div>
             </motion.section>
+
+            {/* Video Player Modal */}
+            <AnimatePresence>
+                {selectedVideo && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+                        onClick={() => setSelectedVideo(null)}
+                    >
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1 }}
+                            onClick={() => setSelectedVideo(null)}
+                            className="absolute top-4 right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+                        >
+                            <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                        </motion.button>
+
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            className="max-w-4xl w-full"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="aspect-video w-full bg-black rounded-lg overflow-hidden">
+                                {isEmbeddableUrl(selectedVideo.videoUrl) ? (
+                                    <iframe
+                                        src={getVideoEmbedUrl(selectedVideo.videoUrl)}
+                                        title={selectedVideo.videoTitle}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full h-full"
+                                    />
+                                ) : (
+                                    <video
+                                        src={getVideoEmbedUrl(selectedVideo.videoUrl)}
+                                        controls
+                                        autoPlay
+                                        playsInline
+                                        className="w-full h-full"
+                                    />
+                                )}
+                            </div>
+                            <div className="mt-4 text-center">
+                                <h3 className="text-white text-lg font-bold">{selectedVideo.videoTitle}</h3>
+                                <p className="text-white/70 text-sm mt-1 line-clamp-2">{selectedVideo.description}</p>
+                                <a
+                                    href={selectedVideo.videoUrl.startsWith("http") ? selectedVideo.videoUrl : getVideoEmbedUrl(selectedVideo.videoUrl)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 mt-3 text-primary hover:text-primary/90 text-sm font-medium"
+                                >
+                                    Open in new tab
+                                </a>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
         </div>
     );
