@@ -88,17 +88,22 @@ const VideoGallery = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Helper function to get video thumbnail
+    // Helper function to get video thumbnail (prioritize YouTube/Vimeo over stored thumbnailUrl)
     const getVideoThumbnail = (video: VideoItem): string => {
-        if (video.thumbnailUrl) return video.thumbnailUrl;
-
-        // Extract YouTube video ID and generate thumbnail
-        const youtubeMatch = video.videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/);
-        if (youtubeMatch) {
-            return `https://img.youtube.com/vi/${youtubeMatch[1]}/mqdefault.jpg`;
+        const url = (video.videoUrl || "").trim();
+        // YouTube: always use YouTube thumbnail (watch, shorts, embed, youtu.be)
+        const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([^&?#]+)/);
+        if (ytMatch) {
+            return `https://img.youtube.com/vi/${ytMatch[1]}/mqdefault.jpg`;
         }
-
-        // Fallback placeholder
+        // Vimeo: use stored thumbnail or placeholder (no simple thumbnail URL like YouTube)
+        if (/vimeo\.com/i.test(url)) {
+            return video.thumbnailUrl || "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600";
+        }
+        // Direct video / other: use stored thumbnailUrl if valid
+        if (video.thumbnailUrl && video.thumbnailUrl.startsWith("http")) {
+            return video.thumbnailUrl;
+        }
         return "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600";
     };
 
