@@ -447,9 +447,6 @@ function DonatePageContent() {
 
     // Validate address fields if Maha Prasadam OR 80G is selected
     if (formData.wantsMahaPrasadam || formData.wants80G) {
-      if (!formData.address.trim()) {
-        newErrors.address = "Address is required";
-      }
       if (!formData.houseApartment.trim()) {
         newErrors.houseApartment = "House/Apartment number is required";
       }
