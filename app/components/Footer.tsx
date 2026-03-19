@@ -32,8 +32,8 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <p className="text-sm   text-white leading-[1.8]">
-                  &quot;Hare Krishna Vidya&quot;, by HARE KRISHNA MOVEMENT INDIA
-                  India, serves underprivileged students of  classes 1–10, especially in <br />
+                  &quot;Hare Krishna Vidya&quot;, by HARE KRISHNA MOVEMENT INDIA,
+                  serves underprivileged students of  classes 1–10, especially in <br />
                   rural areas.
                 </p>
                 <div className="mt-1">
@@ -189,7 +189,7 @@ export default function Footer() {
               </ul>
 
               {/* New Donation Links */}
-            
+
             </div>
 
             {/* Contact Section */}

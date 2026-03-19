@@ -139,19 +139,19 @@ export default function Page() {
             /> */}
 
             <div>
-             <div className="flex justify-center items-center">
-             <Image
-                src={pImg}
-                alt="Srila Prabhupada"
-                width={500}
-                height={470}
-                className="object-contain "
-                priority
-              />
-             </div>
+              <div className="flex justify-center items-center">
+                <Image
+                  src={pImg}
+                  alt="Srila Prabhupada"
+                  width={500}
+                  height={470}
+                  className="object-contain "
+                  priority
+                />
+              </div>
               <div className="text-center mt-1">
                 <h1 className="text-xl font-bold text-orange-500 leading-tight">
-                  AC Bhaktivedanta Swami Prabhupada
+                  {/* AC Bhaktivedanta Swami Prabhupada */}
                 </h1>
                 <p className="text-sm text-gray-700 font-medium leading-relaxed">
                   Founder-Acharya of the worldwide
@@ -241,12 +241,13 @@ export default function Page() {
 
             <div className="mt-1">
               <h1 className="text-3xl font-bold text-[#FF9C5A] leading-tight">
-                AC Bhaktivedanta Swami Prabhupada
+                Our Inspiration
+                {/* AC Bhaktivedanta Swami Prabhupada */}
               </h1>
               <p className="text-lg text-gray-700 font-medium leading-relaxed">
-                Founder-Acharya of the worldwide
+                His Divine Grace Abhay  Charanaravinda Bhaktivedanta Swami
                 <br />
-                HARE KRISHNA MOVEMENT INDIA
+                Vishwa Guru Srila Prabhupada
               </p>
             </div>
           </div>
@@ -357,11 +358,10 @@ export default function Page() {
           >
             <button
               onClick={() => setActiveTab("mission")}
-              className={`relative z-20 flex-1 py-2 px-6 text-2xl font-medium italic transition-all rounded-tl-[12px] ${
-                activeTab === "mission"
+              className={`relative z-20 flex-1 py-2 px-6 text-2xl font-medium italic transition-all rounded-tl-[12px] ${activeTab === "mission"
                   ? "bg-[#1d0974] text-white"
                   : "bg-[#F4A261] text-white/80 hover:text-white"
-              }`}
+                }`}
               style={{
                 borderTopRightRadius: "150px",
               }}
@@ -371,11 +371,10 @@ export default function Page() {
 
             <button
               onClick={() => setActiveTab("vision")}
-              className={`relative z-10 flex-1 py-2 px-6 text-2xl font-medium italic transition-all rounded-tr-[40px] ${
-                activeTab === "vision"
+              className={`relative z-10 flex-1 py-2 px-6 text-2xl font-medium italic transition-all rounded-tr-[40px] ${activeTab === "vision"
                   ? "bg-[#1d0974] text-white"
                   : "bg-[#F4A261] text-white/80 hover:text-white"
-              }`}
+                }`}
               style={{
                 borderTopRightRadius: "150px",
               }}
@@ -500,11 +499,11 @@ export default function Page() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
-            The cause for which we are  <span className="text-orange-500">here?</span>
+              The cause for which we are <span className="text-orange-500">here?</span>
             </h1>
 
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Because every child deserves a chance to learn, grow, and thrive —
+              Because every child deserves a chance to learn, grow, and thrive
               no matter where they come from.
             </p>
           </div>

@@ -298,25 +298,25 @@ const PhotoGallery = () => {
                   </div>
                 ))}
               </motion.div>
-              
-                                          {/* CTA Button */}
-                                          <motion.div
-                                              initial={{ opacity: 0, y: 20 }}
-                                              animate={{ opacity: 1, y: 0 }}
-                                              transition={{ duration: 0.6, delay: 0.5 }}
-                                              className="mt-10"
-                                          >
-                                              <Button
-                                                  size="sm"
-                                                  className="bg-white text-[#FF7F2A] hover:bg-white/90 shadow-2xl shadow-orange-950/20 text-lg h-14 px-6 rounded-2xl font-bold group"
-                                                  asChild
-                                              >
-                                                  <Link href={"/donation#donate"}>
-                                                      <Heart className="w-3 h-3 mr-2 fill-[#FF7F2A] group-hover:scale-110 transition-transform" />
-                                                      Donate
-                                                  </Link>
-                                              </Button>
-                                          </motion.div>
+
+              {/* CTA Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-10"
+              >
+                <Button
+                  size="sm"
+                  className="bg-white text-[#FF7F2A] hover:bg-white/90 shadow-2xl shadow-orange-950/20 text-lg h-14 px-6 rounded-2xl font-bold group"
+                  asChild
+                >
+                  <Link href={"/donation#donate"}>
+                    <Heart className="w-3 h-3 mr-2 fill-[#FF7F2A] group-hover:scale-110 transition-transform" />
+                    Donate
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
 
             {/* Right Side - Photo Mosaic Preview */}
@@ -326,7 +326,7 @@ const PhotoGallery = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative hidden lg:block"
             >
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3 auto-rows-[100px] xl:auto-rows-[120px]">
                 {photos.slice(0, 6).map((photo, index) => (
                   <motion.div
                     key={photo._id}
@@ -334,8 +334,8 @@ const PhotoGallery = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + index * 0.1 }}
                     whileHover={{ scale: 1.05, zIndex: 10 }}
-                    className={`relative rounded-2xl overflow-hidden shadow-2xl ${index === 1 ? 'row-span-2 h-64' : 'h-28'
-                      } ${index === 4 ? 'col-span-2' : ''}`}
+                    className={`relative rounded-2xl overflow-hidden shadow-2xl h-full w-full ${index === 1 ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'
+                      }`}
                   >
                     <img
                       src={photo.imageUrl}
@@ -444,7 +444,7 @@ const PhotoGallery = () => {
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0 }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[220px] gap-3 sm:gap-4"
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[220px] gap-3 sm:gap-4 grid-flow-dense"
             >
               {filteredPhotos.map((photo, index) => {
                 const mappedCategory = categoryMap[photo.category] || photo.category.toLowerCase() as "education" | "event" | "celebration" | "volunteer" | "campaign";

@@ -134,11 +134,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <Header/>
-        <ScrollButtons/>
-        <WhatsAppButton/>
+        <Header />
+        <ScrollButtons />
+        <WhatsAppButton />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

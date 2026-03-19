@@ -253,9 +253,9 @@ export default function Header() {
             Our Initiative
           </Link>
 
-          <Link href="/gallery" className={linkClass("/gallery")}>
+          {/* <Link href="/gallery" className={linkClass("/gallery")}>
             Gallery
-          </Link>
+          </Link> */}
 
           {/* Media Desktop Dropdown */}
           <div className="relative group">
@@ -305,6 +305,9 @@ export default function Header() {
           <Link href="/contact" className={linkClass("/contact")}>
             Contact Us
           </Link>
+          {/* <Link href="/sponsorships" className={linkClass("/sponsorships")}>
+            Sponsorships
+          </Link> */}
 
           {/* New Donation Desktop Dropdown */}
           <div className="relative group">
@@ -469,6 +472,13 @@ export default function Header() {
           >
             Contact Us
           </Link>
+          {/* <Link
+            href="/sponsorships"
+            className={linkClass("/sponsorships")}
+            onClick={() => setIsOpen(false)}
+          >
+            Sponsorships
+          </Link> */}
 
           {/* Mobile New Donation Dropdown */}
           <div className="flex flex-col">

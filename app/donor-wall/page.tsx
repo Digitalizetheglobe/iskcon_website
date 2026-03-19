@@ -605,7 +605,7 @@ const DonorWall = () => {
                                         placeholder="Search donors or campaigns..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full h-12 bg-white/80 border border-primary/20 focus:border-primary rounded-xl px-4 text-base outline-none"
+                                        className="w-full h-12 bg-white/80 border-2 border-primary/20 focus:border-primary rounded-xl px-4 text-base outline-none"
                                     />
                                 </div>
 
@@ -615,7 +615,7 @@ const DonorWall = () => {
                                     <select
                                         value={tierFilter}
                                         onChange={(e) => setTierFilter(e.target.value)}
-                                        className="w-[150px] h-12 bg-white/80 border border-primary/20 rounded-xl px-3 cursor-pointer"
+                                        className="w-[150px] h-12 bg-white/80 border-2 border-primary/20 rounded-xl px-3 cursor-pointer"
                                     >
                                         <option value="all">All Tiers</option>
                                         <option value="platinum">Platinum</option>
@@ -629,7 +629,7 @@ const DonorWall = () => {
                                     <select
                                         value={sortBy}
                                         onChange={(e) => setSortBy(e.target.value)}
-                                        className="w-[150px] h-12 bg-white/80 border border-primary/20 rounded-xl px-3 cursor-pointer"
+                                        className="w-[150px] h-12 bg-white/80 border-2 border-primary/20 rounded-xl px-3 cursor-pointer"
                                     >
                                         <option value="amount">Highest Amount</option>
                                         <option value="date">Most Recent</option>
@@ -817,9 +817,9 @@ const DonorWall = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                           <Link
-  href={appendUTMToUrl("/donation#donate")}
-  className="
+                            <Link
+                                href={appendUTMToUrl("/donation#donate")}
+                                className="
     h-11 sm:h-12
     px-4 sm:px-5
     inline-flex items-center justify-center
@@ -836,10 +836,10 @@ const DonorWall = () => {
     whitespace-nowrap
     w-fit
   "
->
-  <Heart className="w-5 h-5 mr-2" />
-  Make a Donation
-</Link>
+                            >
+                                <Heart className="w-5 h-5 mr-2" />
+                                Make a Donation
+                            </Link>
 
                         </motion.div>
                     </div>

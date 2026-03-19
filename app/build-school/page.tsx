@@ -828,99 +828,7 @@ function BuildSchoolContent() {
               </div>
             </div>
             {/* ===== FUND UTILIZATION BREAKDOWN ===== */}
-            <div className="mt-16">
-              {/* Heading */}
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center  border-2 border-primary/40  ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx={12} cy={12} r={10} />
-                    <circle cx={12} cy={12} r={6} />
-                    <circle cx={12} cy={12} r={2} />
-                  </svg>
-                </div>
 
-                <div>
-                  <h2 className="text-3xl text-[#2D1B0F] font-black">Fund Utilization Breakdown</h2>
-                  <p className="text-sm text-[#847062] -mt-1">
-                    100% transparent allocation of every rupee donated
-                  </p>
-                </div>
-              </div>
-
-              {/* CONTAINER BOX */}
-              <div className="mt-8 border-2 border-primary/40  bg-white rounded-lg p-8 shadow-sm">
-                {campaign?.funds?.fundUtilization && campaign.funds.fundUtilization.length > 0 ? (
-                  campaign.funds.fundUtilization.map((item, index) => (
-                    <div key={index}>
-                      {/* Fund Utilization Row */}
-                      <div className="flex justify-between">
-                        <div>
-                          <p className="font-bold text-gray-900 text-lg">
-                            {item.label}{" "}
-                            <span className="text-sm bg-gray-100 px-3 py-1 rounded-full ml-2">
-                              {item.percentage}%
-                            </span>
-                          </p>
-                          <p className="text-gray-600 text-sm mt-1">
-                            {item.description}
-                          </p>
-                        </div>
-                        <p className="font-semibold text-gray-900">{formatCurrency(Number(item.amount))}</p>
-                      </div>
-
-                      {/* Progress bar */}
-                      <div className="w-full h-4 bg-gray-200 rounded-full mt-3">
-                        <div
-                          className="h-4 bg-orange-500 rounded-full"
-                          style={{ width: `${item.percentage}%` }}
-                        ></div>
-                      </div>
-
-                      {/* Divider (don't show after last item) */}
-                      {index < (campaign.funds.fundUtilization?.length || 0) - 1 && (
-                        <div className="border-b border-gray-200 my-6"></div>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  // Fallback to default values if no data
-                  <>
-                    <div className="flex justify-between">
-                      <div>
-                        <p className="font-bold text-gray-900 text-lg">
-                          Construction Labor{" "}
-                          <span className="text-sm bg-gray-100 px-3 py-1 rounded-full ml-2">
-                            50%
-                          </span>
-                        </p>
-                        <p className="text-gray-600 text-sm mt-1">
-                          Building classrooms, repairing infrastructure, labor costs
-                        </p>
-                      </div>
-                      <p className="font-semibold text-gray-900">₹25.00L</p>
-                    </div>
-                    <div className="w-full h-4 bg-gray-200 rounded-full mt-3">
-                      <div className="h-4 bg-orange-500 rounded-full w-[50%]"></div>
-                    </div>
-                  </>
-                )}
-
-                {/* Bottom Section */}
-                <div className="flex gap-10 justify-center text-gray-600 text-sm mt-8">
-                  <span className="flex items-center gap-2">📄 Audited Financials</span>
-                  <span className="flex items-center gap-2">✔ Monthly Reports</span>
-                </div>
-              </div>
-            </div>
             {/* Real Stories From the Ground */}
             <div className="mt-16">
               <h2 className="text-4xl text-[#2D1B0F] font-black">Real Stories From the Ground</h2>
@@ -986,7 +894,7 @@ function BuildSchoolContent() {
             {/* Community Voices - Testimonials */}
             <div className="mt-16">
               <h2 className="text-4xl font-black text-[#2D1B0F]">Community Voices</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8 ">
                 {loading ? (
                   <div className="col-span-full text-sm text-[#847062]">
                     Loading testimonials...
@@ -995,10 +903,9 @@ function BuildSchoolContent() {
                   campaign.testimonials.map((testimonial, index) => (
                     <div
                       key={testimonial._id || index}
-                      className="bg-[#fcf8f5] p-6 rounded-lg shadow-md border-2 border-primary/40 flex flex-col"
+                      className="bg-[#fcf8f5] p-6 rounded-lg shadow-md border-2 border-primary flex flex-col"
                     >
                       <div className="flex items-center mb-4">
-                        {/* Avatar */}
                         <div className="w-16 h-16 rounded-full mr-4 border-2 border-[#f5e0d3] bg-primary text-white flex items-center justify-center font-black text-xl">
                           {getInitials(testimonial.name)}
                         </div>

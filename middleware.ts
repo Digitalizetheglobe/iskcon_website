@@ -5,6 +5,7 @@ const EXCLUDED_ROUTES = [
   '/home',
   '/about-us',
   '/contact',
+  '/sponsorships',
   '/donate',
   '/donation',
   '/career',

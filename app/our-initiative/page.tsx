@@ -182,7 +182,7 @@ export default function Page() {
 
             {/* Bottom Section - Initiative */}
             <div className="md:col-span-2 text-center mt-2">
-              <h3 className="text-2xl md:text-5xl font-semibold">
+              <h3 className="text-2xl md:text-4xl font-semibold">
                 <span className="text-orange-500">An Initiative of </span>
                 <span className="text-blue-900">HARE KRISHNA MOVEMENT INDIA</span>
               </h3>
@@ -197,22 +197,26 @@ export default function Page() {
 
           {/* ---------------------------------image----------------- */}
           <section className="bg-white py-14 px-6 md:px-12 lg:px-20">
+
+
+            <div className="md:col-span-2 text-center mt-2">
+              <h2 className="text-3xl md:text-4xl font-semibold leading-tight text-blue-900">
+                Curriculum
+              </h2>
+            </div>
+            <div className="md:col-span-2 text-center mt-4">
+              <p className="text-gray-500 mt-4 lg:mt-0 max-w-3xl mx-auto text-center mb-12 ">
+                The curriculum of <strong>Hare Krishna Vidya</strong> is a synthesis
+                of academic and value-based learning. The post-school
+                education centres of <strong>Hare Krishna Vidya</strong> cater to
+                underprivileged students of Grades 1 to 10. The sessions are systematically
+                organized every evening.
+              </p>
+            </div>
             <div className="max-w-7xl mx-auto">
               {/* Heading and description */}
-              <div className="flex flex-col lg:flex-row lg:items-start   lg:gap-38  mb-12">
-                <div className="max-w-2xl">
-                  <h2 className="text-3xl md:text-5xl font-semibold leading-tight text-blue-900">
-                    Curriculum <br />
-                  </h2>
-                </div>
-                <p className="text-gray-500 mt-4 lg:mt-0 max-w-3xl">
-                  The curriculum of <strong>Hare Krishna Vidya</strong> is a synthesis
-                  of academic and value-based learning. The post-school
-                  education centres of <strong>Hare Krishna Vidya</strong> cater to
-                  underprivileged students of Grades 1 to 10. The sessions are systematically
-                  organized every evening.
-                </p>
-              </div>
+
+
 
               {/* Features Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -273,8 +277,12 @@ export default function Page() {
           <CcardsOurInitiative />
 
           {/* ---------------------------maha------------ */}
-          <section
+          {/* <section
             className="hidden   lg:block relative bg-cover text-white w-full h-[693px]    rounded-xl overflow-hidden bg-black  "
+            style={{ backgroundImage: `url(${mahadanam.src})` }}
+          ></section> */}
+          <section
+            className="hidden lg:block relative bg-cover bg-center bg-no-repeat text-white w-full h-[693px] rounded-xl overflow-hidden bg-black"
             style={{ backgroundImage: `url(${mahadanam.src})` }}
           ></section>
           <div className="flex justify-center items-center  bg-gray-50 py-10 mb-16">

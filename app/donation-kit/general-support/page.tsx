@@ -721,8 +721,8 @@ export default function Page() {
                                 type="submit"
                                 disabled={isSubmitting}
                                 className={`w-full py-4 rounded-xl font-semibold shadow-md transition text-sm sm:text-base ${isSubmitting
-                                        ? "bg-orange-400 cursor-not-allowed"
-                                        : "bg-orange-500 hover:bg-orange-600"
+                                    ? "bg-orange-400 cursor-not-allowed"
+                                    : "bg-orange-500 hover:bg-orange-600"
                                     } text-white`}
                             >
                                 {isSubmitting ? (

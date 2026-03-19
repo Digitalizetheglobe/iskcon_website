@@ -40,7 +40,7 @@ export default function ContactPage() {
   const submitForm = async (formData: ContactFormData) => {
     try {
       const response = await fetch(
-        "https://api.harekrishnavidya.org/api/forms/forms/68a5c118f8e31150018c88a2/submit",
+        `${process.env.NEXT_PUBLIC_API_URL || "https://api.harekrishnavidya.org"}/api/contact`,
         {
           method: "POST",
           headers: {
@@ -51,8 +51,14 @@ export default function ContactPage() {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Form submission failed");
+        let errorMessage = "Form submission failed";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          errorMessage = `Submission failed (${response.status})`;
+        }
+        throw new Error(errorMessage);
       }
 
       const result = await response.json();
@@ -118,7 +124,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-xl md:text-2xl text-orange-400 max-w-3xl mx-auto leading-relaxed">
               We&apos;d love to hear from you. Send us a message and we&apos;ll
-              respond as soon as possible.
+              respond <br /> as soon as possible.
             </p>
           </div>
         </div>
@@ -131,7 +137,7 @@ export default function ContactPage() {
             <div className="bg-white rounded-2xl shadow-xs p-8 border border-gray-100">
               <div className="text-center mb-8">
                 <div className="flex justify-center items-center">
-                  <Image src={logo} alt="logo" className="w-30 h-20 text-center" />
+                  <Image src={logo} alt="logo" className="w-20 h-20 text-center" />
 
                 </div>
 
@@ -165,6 +171,7 @@ export default function ContactPage() {
                       href="mailto:connect2aikyavidya@gmail.com"
                       className="text-blue-600 hover:text-blue-800 transition-colors"
                     >
+                      {/* aikyavidya@hkmhyderabad.org */}
                       aikyavidya@hkmhyderabad.org
                     </a>
                   </div>
@@ -178,18 +185,22 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-1">
                     <p className="font-medium text-gray-800">Phone</p>
-                    <div className="space-y-1 flex flex-col lg:flex-row gap-1 lg:gap-10">
+                    <div className="flex flex-col lg:flex-row gap-1 lg:gap-6">
                       <a
-                        href="tel:+918121795663"
+                        href="https://wa.me/918121795663"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="block text-green-600 hover:text-green-800 transition-colors"
                       >
-                        +91 81217 95663
+                        81217 95663
                       </a>
                       <a
-                        href="tel:+918328389862"
+                        href="https://wa.me/918328389862"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="block text-green-600 hover:text-green-800 transition-colors"
                       >
-                        +91 83283 89862
+                        83283 89862
                       </a>
                     </div>
                   </div>
@@ -379,7 +390,7 @@ export default function ContactPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="tel:+918121795663"
-                className="inline-flex items-center px-6 py-3 border hover:bg-orange-500 text-black hover:text-white font-medium rounded-lg"
+                className="inline-flex items-center px-6 py-3 border-2 border-black hover:border-orange-500 hover:bg-orange-500 text-black hover:text-white font-medium rounded-lg"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now

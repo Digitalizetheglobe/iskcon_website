@@ -146,6 +146,13 @@ export default function TestimonialSection({
                 {card?.text}
               </p>
               <div className="flex items-center gap-3">
+                {card?.avatar && (
+                  <img
+                    src={card.avatar}
+                    alt={card.name}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-orange-100 shadow-sm"
+                  />
+                )}
                 <div>
                   <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
                     {card?.name}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import { fetchStats } from "../../utils/api";
 
 interface CountUpProps {
   end: number;
@@ -38,21 +39,33 @@ const CountUp: React.FC<CountUpProps> = ({ end, duration = 2, suffix = "", trigg
 };
 
 interface Stat {
-  id: number;
+  _id: string;
   number: string;
   label: string;
 }
 
-const stats: Stat[] = [
-  { id: 1, number: "10+", label: "Years Of Foundation" },
-  { id: 2, number: "5000+", label: "Monthly Donors" },
-  { id: 3, number: "1.5K+", label: "Incredible Volunteers" },
-  { id: 4, number: "785", label: "Successful Campaigns" },
-];
-
 export default function StatsSection() {
   const [inView, setInView] = useState(false);
+  const [stats, setStats] = useState<Stat[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      const data = await fetchStats();
+      if (data && data.length > 0) {
+        setStats(data);
+      } else {
+        // Fallback data if API fails or returns empty
+        setStats([
+          { _id: "1", number: "10+", label: "Years Of Foundation" },
+          { _id: "2", number: "5000+", label: "Monthly Donors" },
+          { _id: "3", number: "1.5K+", label: "Incredible Volunteers" },
+          { _id: "4", number: "785", label: "Successful Campaigns" },
+        ]);
+      }
+    };
+    loadStats();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,6 +86,8 @@ export default function StatsSection() {
     return () => observer.disconnect();
   }, []);
 
+  if (stats.length === 0) return null;
+
   return (
     <section ref={sectionRef} className="relative py-10 md:w-[1180px] mx-auto">
       {/* Dotted pattern overlay */}
@@ -87,36 +102,35 @@ export default function StatsSection() {
 
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="bg-white rounded-xl shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-  {stats.map((stat, idx) => {
-    const numberValue = parseFloat(stat.number.replace(/[^\d.]/g, ""));
-    const suffixValue = stat.number.replace(/[\d.,]/g, "");
+          {stats.map((stat, idx) => {
+            const numberValue = parseFloat(stat.number.replace(/[^\d.]/g, ""));
+            const suffixValue = stat.number.replace(/[\d.,]/g, "");
 
-    return (
-      <div
-        key={stat.id}
-        className="flex flex-col items-center justify-center py-8 px-4 relative"
-      >
-        {/* Vertical line on the right, only if not last card */}
-        {idx < stats.length - 1 && (
-          <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-10 w-px bg-orange-400" />
-        )}
+            return (
+              <div
+                key={stat._id}
+                className="flex flex-col items-center justify-center py-8 px-4 relative"
+              >
+                {/* Vertical line on the right, only if not last card */}
+                {idx < stats.length - 1 && (
+                  <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-10 w-px bg-orange-400" />
+                )}
 
-        <span className="text-2xl md:text-3xl font-bold text-gray-900">
-          <CountUp
-            end={numberValue}
-            duration={2.5}
-            suffix={suffixValue}
-            trigger={inView}
-          />
-        </span>
-        <span className="text-gray-500 text-sm md:text-base mt-1 text-center">
-          {stat.label}
-        </span>
-      </div>
-    );
-  })}
-</div>
-
+                <span className="text-2xl md:text-3xl font-bold text-gray-900">
+                  <CountUp
+                    end={numberValue}
+                    duration={2.5}
+                    suffix={suffixValue}
+                    trigger={inView}
+                  />
+                </span>
+                <span className="text-gray-500 text-sm md:text-base mt-1 text-center">
+                  {stat.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

@@ -6,11 +6,11 @@ import homeImg from "../../public/images/img1.png";
 import homeImg2 from "../../public/images/home_banner.png";
 import tab_banner from "../../public/images/tab_home_banner.png";
 import img9 from "../../public/images/img9.png";
-import k3 from "../../public/images/k3.png";
-import k1 from "../../public/images/k1.png";
-import k4 from "../../public/images/k4.png";
-import k5 from "../../public/images/k5.png";
-import k2 from "../../public/images/k2.png";
+import k3 from "../../public/images/Group_1.png";
+import k1 from "../../public/images/Group_2.png";
+import k4 from "../../public/images/Group_3.png";
+import k5 from "../../public/images/Group_4.png";
+import k2 from "../../public/images/Group_5.png";
 import Heart from "../../public/images/Heart.png";
 import info from "../../public/images/info.png";
 
@@ -18,13 +18,26 @@ import { useState, useEffect } from "react";
 import useUTM from "../utils/useUTM";
 
 export default function HeroSection() {
-  // Removed unused 'current' state
+  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const { appendUTMToUrl } = useUTM();
 
-  // Removed unused interval effect for 'current'
-
   useEffect(() => {
+    const fetchBanner = async () => {
+      try {
+        const response = await fetch("https://api.harekrishnavidya.org/api/home-banner/get");
+        const data = await response.json();
+        if (data.url) {
+          const fullUrl = data.url.startsWith("http")
+            ? data.url
+            : `https://api.harekrishnavidya.org${data.url}`;
+          setBannerUrl(fullUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching banner:", error);
+      }
+    };
+    fetchBanner();
     // Function to check screen width
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768); // adjust breakpoint if needed
@@ -45,13 +58,13 @@ export default function HeroSection() {
           {/* ✅ Mobile banner */}
           <div
             className="bg-cover bg-center text-white w-full rounded-xl overflow-hidden h-[65vh] block sm:hidden"
-            style={{ backgroundImage: `url(${homeImg2.src})` }}
+            style={{ backgroundImage: `url(${bannerUrl || homeImg2.src})` }}
           ></div>
 
           {/* ✅ Tablet banner */}
           <div
             className="bg-cover bg-center text-white w-full rounded-xl overflow-hidden h-[65vh] hidden sm:block md:hidden"
-            style={{ backgroundImage: `url(${tab_banner.src})` }}
+            style={{ backgroundImage: `url(${bannerUrl || tab_banner.src})` }}
           ></div>
 
           {/* Container for cards */}
@@ -152,8 +165,8 @@ export default function HeroSection() {
         </div>
       ) : (
         <section
-          className="relative bg-cover bg-top text-white  max-w-7xl mx-auto rounded-xl overflow-hidden  h-[140vh] "
-          style={{ backgroundImage: `url(${homeImg.src})` }}
+          className="relative bg-cover bg-top text-white  max-w-7xl mx-auto rounded-xl overflow-hidden h-[140vh] "
+          style={{ backgroundImage: `url(${bannerUrl || homeImg.src})` }}
         >
           {/* Container for cards */}
           <div className="absolute bottom-4 md:bottom-8 lg:mb-10 left-1 right-1 flex flex-col md:flex-col lg:flex-row md:items-center lg:items-start md:gap-6 lg:gap-40 px-4 md:px-8 lg:px-4">
@@ -259,7 +272,7 @@ export default function HeroSection() {
             <span className="text-[#232323] font-extrabold">
               Decide the path
             </span>{" "}
-            of your kindness — each one leads to hope and transformation
+            of your kindness — Your help leads to hope and transformation
           </p>
         </div>
       </section>

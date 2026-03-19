@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import HeroSection from "@/app/components/HeroSection";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 //import isk2 from "../public/images/isk2c.png";
 //import image150 from "../public/images/image-150.png";
 //import image160 from "../public/images/image-160.png";
@@ -14,7 +14,7 @@ import edu1 from "../../public/galleryection/edu1.jpg";
 import fest1 from "../../public/galleryection/fest1.jpg";
 import value from "../../public/galleryection/val1.jpg";
 import yoga1 from "../../public/galleryection/yoga.jpg";
-import edu2 from "../../public/galleryection/edu2.jpg"; 
+import edu2 from "../../public/galleryection/edu2.jpg";
 import fest2 from "../../public/galleryection/fest2.jpg";
 import cul1 from "../../public/galleryection/cul1.jpg";
 import edu3 from "../../public/galleryection/edu3.jpg";
@@ -25,58 +25,52 @@ import CardCarousel from "../components/CardCarousel";
 import CausesSection from "../components/CauseSection";
 import useUTM from "../utils/useUTM";
 
-const cardData = [
-  {
-    id: 1,
-    name: "Suresh Reddy,",
+const TESTIMONIALS_API = "https://api.harekrishnavidya.org/api/testimonials/";
 
-    location: "Hyderabad",
+type ApiTestimonial = {
+  _id: string;
+  fullName: string;
+  location?: string;
+  testimonialText: string;
+  photo?: string;
+};
 
-    text: "I am very happy to support this programme. It gives food, education, and good values to poor children. I feel proud that my small help is making a big change in their lives.",
-  },
-  {
-    id: 2,
-    name: "Anita Sharma",
-
-    location: " Mumbai",
-
-    text: "This is a very good cause. The children are learning not only school subjects but also how to be good human beings. I thank the team for giving me a chance to be part of this service.",
-  },
-  {
-    id: 3,
-    name: "Rajesh Iyer",
-
-    location: "Bangalore",
-    text: "I have seen the work of this programme closely. The kids are well fed, study daily, and learn about moral values. It gives me peace and joy to donate for such a beautiful mission.",
-  },
-  {
-    id: 4,
-    name: "Lakshmi Narayanan",
-
-    location: " Coimbatore",
-    text: "I donated to this programme because it takes care of children’s food, studies, and values. I feel very happy to see them growing in the right path. This is real service to society.",
-  },
-  {
-    id: 4,
-    name: "Lakshmi Narayanan",
-
-    location: " Coimbatore",
-    text: "I donated to this programme because it takes care of children’s food, studies, and values. I feel very happy to see them growing in the right path. This is real service to society.",
-  },
-  {
-    id: 4,
-    name: "Lakshmi Narayanan",
-
-    location: " Coimbatore",
-    text: "I donated to this programme because it takes care of children’s food, studies, and values. I feel very happy to see them growing in the right path. This is real service to society.",
-  },
-];
-
-// Image gallery data removed as it's not being used in the component
+type CardData = {
+  id: string | number;
+  name: string;
+  location: string;
+  text: string;
+  avatar?: string;
+};
 
 const HomePage = () => {
-  // const [zoomed, setZoomed] = useState<number | null>(null); // This state is used for the image zoom functionality
   const { appendUTMToUrl } = useUTM();
+  const [cardData, setCardData] = useState<CardData[]>([]);
+  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const res = await fetch(TESTIMONIALS_API);
+        const data: ApiTestimonial[] = await res.json();
+        const mapped: CardData[] = (Array.isArray(data) ? data : []).map(
+          (t) => ({
+            id: t._id,
+            name: t.fullName || "",
+            location: t.location || "",
+            text: t.testimonialText || "",
+            avatar: t.photo ? `https://api.harekrishnavidya.org/uploads/testimonials/${t.photo}` : undefined,
+          })
+        );
+        setCardData(mapped);
+      } catch {
+        setCardData([]);
+      } finally {
+        setTestimonialsLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
 
   const galleryImages = [
     { src: fest1, alt: "Gallery 1" },
@@ -172,7 +166,15 @@ const HomePage = () => {
         </div> */}
 
         {/* {desktop testimonials} */}
-        <CardCarousel cardData={cardData} />
+        {testimonialsLoading ? (
+          <section className="relative bg-[#f0f2f8] py-10 lg:py-16 px-6 overflow-hidden max-w-6xl mx-auto">
+            <div className="flex justify-center items-center min-h-[200px]">
+              <div className="w-12 h-12 border-t-2 border-b-2 border-[#1C398E] rounded-full animate-spin" />
+            </div>
+          </section>
+        ) : (
+          <CardCarousel cardData={cardData} />
+        )}
 
         {/* -------------------gallery------------------------ */}
         <section className="mt-5 px-4 md:px-10 lg:px-20">

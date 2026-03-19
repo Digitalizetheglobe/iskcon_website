@@ -76,6 +76,7 @@ export default async function CampaignRedirectPage({
     "video-gallery",
     "donor-wall",
     "photo-gallery",
+    "sponsorships"
 
   ];
 

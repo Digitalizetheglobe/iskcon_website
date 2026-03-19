@@ -671,6 +671,7 @@ export default function DonationPage() {
           who wanted to see a hunger free world.
         </p>
       </div>
+      {/* Quick Access Navigation */}
 
       <div id="donate" className="bg-white text-center py-8 px-4">
         <button className="bg-gray-200 text-black font-semibold px-4 py-2 rounded-full mb-4 text-[36px]">
@@ -683,7 +684,7 @@ export default function DonationPage() {
 
         <p className="text-gray-600 mt-2 mb-10 max-w-xl mx-auto">
           &quot;Join our sacred mission to feed hungry souls. Every meal you
-          fund is prasadam — blessed, nourishing, and life-changing.&quot;
+          fund is prasadam blessed, nourishing, and life-changing.&quot;
         </p>
 
         {/* All donation cards visible on all screen sizes */}
@@ -1102,3 +1103,5 @@ export default function DonationPage() {
     </>
   );
 }
+
+
