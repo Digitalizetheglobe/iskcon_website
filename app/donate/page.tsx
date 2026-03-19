@@ -1338,19 +1338,35 @@ function DonatePageContent() {
               {/* Razorpay Option */}
               <button
                 onClick={() => {
-                  console.log('Razorpay selected');
-                  handlePaymentGatewaySelection('razorpay');
+                  if (pendingDonationData?.result?.order) {
+                    console.log('Razorpay selected');
+                    handlePaymentGatewaySelection('razorpay');
+                  }
                 }}
-                className="w-full p-4 border-2 border-blue-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left cursor-pointer"
+                disabled={!pendingDonationData?.result?.order}
+                className={`w-full p-4 border-2 rounded-lg transition-all text-left ${
+                  !pendingDonationData?.result?.order 
+                    ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed" 
+                    : "border-blue-300 hover:border-blue-500 hover:bg-blue-50 cursor-pointer"
+                }`}
               >
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 border-2 border-blue-500 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                      !pendingDonationData?.result?.order ? "border-gray-400" : "border-blue-500"
+                    }`}>
+                      {pendingDonationData?.result?.order && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900">Razorpay</div>
+                      <div className="text-sm text-gray-600">Cards, UPI, Net Banking</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Razorpay</div>
-                    <div className="text-sm text-gray-600">Cards, UPI, Net Banking</div>
-                  </div>
+                  {!pendingDonationData?.result?.order && (
+                    <span className="text-[10px] bg-red-100 text-red-600 px-2 py-1 rounded font-bold uppercase">
+                      Unavailable
+                    </span>
+                  )}
                 </div>
               </button>
               
