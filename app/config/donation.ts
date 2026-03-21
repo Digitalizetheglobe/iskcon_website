@@ -6,7 +6,7 @@ export const DONATION_CONFIG = {
   // Razorpay Configuration
   RAZORPAY: {
     // Live keys from environment variables
-    KEY_ID: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_R7u0ddNSZ7PFCB',
+    KEY_ID: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_SRm4r1QeQbuoSE',
     // Secret key should only be used on the server side
     SECRET_KEY: process.env.RAZORPAY_SECRET_KEY || 'pRsEm4Gp7Qk7J7Sj4AC8A8Es',
     // Webhook secret for payment verification

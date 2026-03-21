@@ -13,7 +13,7 @@ Create a `.env.local` file in your project root with the following variables:
 NEXT_PUBLIC_DONATION_API_URL=https://harekrishnavidya.org/api/donations
 
 # Razorpay Configuration
-NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_R7u0ddNSZ7PFCB
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_SRm4r1QeQbuoSE
 RAZORPAY_SECRET_KEY=pRsEm4Gp7Qk7J7Sj4AC8A8Es
 RAZORPAY_WEBHOOK_SECRET=https://harekrishnavidya.org/monthly-donation/verify-webhook.php
 
