@@ -25,7 +25,9 @@ export default function HeroSection() {
   useEffect(() => {
     const fetchBanner = async () => {
       try {
-        const response = await fetch("https://api.harekrishnavidya.org/api/home-banner/get");
+        const response = await fetch("https://api.harekrishnavidya.org/api/home-banner/get", {
+          cache: "no-store",
+        });
         const data = await response.json();
         if (data.url) {
           const fullUrl = data.url.startsWith("http")
@@ -262,7 +264,7 @@ export default function HeroSection() {
       )}
 
       {/* Section Below Hero */}
-      <section className="flex flex-col justify-center  items-center md:items-center w-full lg:mx-4 p-4">
+      <section className="flex flex-col justify-center  items-center md:items-center w-full lg:mx-4 p-4 py-12">
         <div>
           <h2 className="mb-1  text-[42px] lg:text-[40px] italic font-extrabold leading-[120%] font-['Urbanist'] text-[#2C2C2C] drop-shadow-md ">
             Give Nourishment,{" "}

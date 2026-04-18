@@ -177,7 +177,7 @@ const HomePage = () => {
         )}
 
         {/* -------------------gallery------------------------ */}
-        <section className="mt-5 px-4 md:px-10 lg:px-20">
+        <section className="mt-5 px-4 md:px-10 lg:px-20 py-12">
           <div className=" flex items-center justify-center bg-white mt-2">
             <div className="flex flex-col items-center gap-4 w-[523px] text-center text-[--text-dark-charcoal] font-['Urbanist']">
               <h1 className=" text-2xl lg:text-[40px] font-extrabold leading-[120%]">

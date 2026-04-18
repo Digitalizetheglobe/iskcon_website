@@ -7,7 +7,9 @@ const EXCLUDED_ROUTES = [
   '/contact',
   '/sponsorships',
   '/donate',
+  '/test-route',
   '/donation',
+  '/donation-form',
   '/career',
   '/urban', // Add this line to exclude /urban from redirect
   '/r/donations', // Special donation campaign route
@@ -17,6 +19,7 @@ const EXCLUDED_ROUTES = [
   '/campaign-page',
   '/grocery-donation',
   '/donation-kit',
+  '/donation-form',
 
   '/blog',
   '/events',
@@ -32,8 +35,8 @@ const EXCLUDED_ROUTES = [
   // donation
   '/build-school',
   '/grocery',
-  ' general-support',
-  "education-support-kit",
+  '/general-support',
+  '/education-support-kit',
   "/grocery-checkout",
   "/support-compaign",
   // Neew Pages
@@ -115,15 +118,16 @@ export function middleware(request: NextRequest) {
 
   // Skip middleware for excluded routes
   if (EXCLUDED_ROUTES.some(route => {
-    // Handle exact matches
-    if (pathname === route) return true;
-
+    const trimmedRoute = route.trim();
+    // Handle exact matches or exact matches with trailing slash
+    if (pathname === trimmedRoute || pathname === trimmedRoute + '/') return true;
+    
     // Handle routes that start with the excluded path
-    if (route.endsWith('*') && pathname.startsWith(route.slice(0, -1))) return true;
-
-    // Handle routes that should match the beginning of the path
-    if (pathname.startsWith(route + '/')) return true;
-
+    if (trimmedRoute.endsWith('*') && pathname.startsWith(trimmedRoute.slice(0, -1))) return true;
+    
+    // Handle sub-pages
+    if (pathname.startsWith(trimmedRoute + '/')) return true;
+    
     return false;
   })) {
     return NextResponse.next();
@@ -139,6 +143,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  /*
   // Extract the campaign name from the path (remove leading slash)
   const campaign = pathname.slice(1);
 
@@ -150,6 +155,8 @@ export function middleware(request: NextRequest) {
 
   // Perform the redirect
   return NextResponse.redirect(redirectUrl);
+  */
+  return NextResponse.next();
 }
 
 export const config = {

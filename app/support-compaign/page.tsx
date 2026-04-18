@@ -86,6 +86,9 @@ function SupportCampaignContent() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [donationError, setDonationError] = useState<string | null>(null);
     const [donationSuccess, setDonationSuccess] = useState(false);
+    const [donorName, setDonorName] = useState<string>("");
+    const [donorEmail, setDonorEmail] = useState<string>("");
+    const [donorPhone, setDonorPhone] = useState<string>("");
 
     const searchParams = useSearchParams();
     const id = searchParams.get("id");
@@ -300,6 +303,17 @@ function SupportCampaignContent() {
             return;
         }
 
+        if (!donorName.trim() || !donorEmail.trim() || !donorPhone.trim()) {
+            setDonationError("Please provide your name, email, and phone number.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(donorEmail)) {
+            setDonationError("Please provide a valid email address.");
+            return;
+        }
+
         if (!isRazorpayLoaded) {
             setDonationError("Payment gateway is loading. Please wait a moment and try again.");
             return;
@@ -314,9 +328,9 @@ function SupportCampaignContent() {
             // Donor info will be collected by Razorpay payment gateway
             const formData = {
                 sevaAmount: amount, // Backend expects sevaAmount
-                donorName: "", // Will be collected by Razorpay
-                donorEmail: "", // Will be collected by Razorpay
-                donorPhone: "", // Will be collected by Razorpay
+                donorName: donorName, 
+                donorEmail: donorEmail, 
+                donorPhone: donorPhone, 
                 description: `Support Campaign: ${campaignData.title}`,
                 sevaName: campaignData.title,
                 sevaType: "VIDHYA DANA",
@@ -395,7 +409,9 @@ function SupportCampaignContent() {
                     }
                 },
                 prefill: {
-                    // Razorpay will collect donor information
+                    name: donorName,
+                    email: donorEmail,
+                    contact: donorPhone,
                 },
                 theme: {
                     color: DONATION_CONFIG.ORGANIZATION.THEME_COLOR,
@@ -936,22 +952,41 @@ function SupportCampaignContent() {
                                 </div>
                             </div>
 
-                            {/* Monthly Donation Toggle */}
-                            {/* <div className="flex items-center mt-4 border-2 border-orange-50 rounded-xl p-4 bg-orange-50">
-                                <label
-                                    htmlFor="monthly-donation-toggle"
-                                    className="text-sm font-semibold text-gray-700 mr-2 flex-1"
-                                >
-                                    Monthly Donation (eNACH)
-                                </label>
-                                <input
-                                    id="monthly-donation-toggle"
-                                    type="checkbox"
-                                    checked={isMonthlyDonation}
-                                    onChange={() => setIsMonthlyDonation(!isMonthlyDonation)}
-                                    className="w-5 h-5 rounded cursor-pointer"
-                                />
-                            </div> */}
+                            {/* Donor Info */}
+                            <div className="mt-6 space-y-4">
+                                <div>
+                                    <label className="text-xs font-bold text-[#847062] uppercase tracking-wide">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Enter your name"
+                                        value={donorName}
+                                        onChange={(e) => setDonorName(e.target.value)}
+                                        className="w-full mt-1 p-3 bg-gray-50 border-2 border-gray-200 rounded-xl outline-none focus:border-orange-400 transition"
+                                    />
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-xs font-bold text-[#847062] uppercase tracking-wide">Email</label>
+                                        <input 
+                                            type="email" 
+                                            placeholder="john@example.com"
+                                            value={donorEmail}
+                                            onChange={(e) => setDonorEmail(e.target.value)}
+                                            className="w-full mt-1 p-3 bg-gray-50 border-2 border-gray-200 rounded-xl outline-none focus:border-orange-400 transition"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-bold text-[#847062] uppercase tracking-wide">Phone</label>
+                                        <input 
+                                            type="tel" 
+                                            placeholder="+91 9876543210"
+                                            value={donorPhone}
+                                            onChange={(e) => setDonorPhone(e.target.value)}
+                                            className="w-full mt-1 p-3 bg-gray-50 border-2 border-gray-200 rounded-xl outline-none focus:border-orange-400 transition"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                             {/* Error Message */}
                             {donationError && (
